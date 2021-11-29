@@ -1,0 +1,6 @@
+framework module Pods_ARtique {
+  umbrella header "Pods-ARtique-umbrella.h"
+
+  export *
+  module * { export * }
+}
