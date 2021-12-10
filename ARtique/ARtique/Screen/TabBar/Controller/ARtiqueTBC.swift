@@ -39,6 +39,7 @@ class ARtiqueTBC: UITabBarController {
         tabBar.layer.borderWidth = 0.3
         tabBar.layer.borderColor = UIColor.lightGray.cgColor
         tabBar.clipsToBounds = true
+        tabBar.backgroundColor = .white
         
         // 탭 구성
         let tabs =  [homeTab, addTab, mypageTab]

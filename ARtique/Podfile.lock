@@ -1,24 +1,32 @@
 PODS:
   - Alamofire (5.4.4)
+  - Pageboy (3.6.2)
   - SnapKit (5.0.1)
+  - Tabman (2.11.1):
+    - Pageboy (~> 3.6.0)
   - Then (2.7.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.4.4)
   - SnapKit (~> 5.0.1)
+  - Tabman (~> 2.9)
   - Then (~> 2.7.0)
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Pageboy
     - SnapKit
+    - Tabman
     - Then
 
 SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: ec05c568b56dcd37ae5ef28d846c98bf05dedbf8
+PODFILE CHECKSUM: a9167b8629b263b417d79bc772942e7ab01182f6
 
 COCOAPODS: 1.11.2

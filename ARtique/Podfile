@@ -9,4 +9,6 @@ target 'ARtique' do
   pod 'Alamofire' , '~> 5.4.4'
   pod 'SnapKit', '~> 5.0.1'
   pod 'Then', '~> 2.7.0'
+  pod 'Tabman', '~> 2.9'
+
 end
