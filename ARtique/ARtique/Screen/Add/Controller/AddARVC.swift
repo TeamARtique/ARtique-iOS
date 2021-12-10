@@ -10,8 +10,9 @@ import SceneKit
 import ARKit
 
 class AddARVC: UIViewController, ARSCNViewDelegate {
-
+    
     @IBOutlet var sceneView: ARSCNView!
+    var planeNode: SCNNode!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,10 +23,35 @@ class AddARVC: UIViewController, ARSCNViewDelegate {
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         
+        
         // Create a new scene
         let scene = SCNScene(named: "art.scnassets/ship.scn")!
         
-        // Set the scene to the view
+        let plane = SCNPlane(width: 1, height: 1)
+        
+        let material = SCNMaterial()
+        material.diffuse.contents = UIImage(named : "coco_phoster")
+        
+        let node = SCNNode()
+        node.geometry = plane
+        node.geometry?.materials = [material]
+        node.position = SCNVector3(0, 0, -1.125)
+        //
+        let myLight = SCNNode()
+        myLight.light = SCNLight()
+        myLight.scale = SCNVector3(1,1,1)
+        myLight.light?.intensity = 1000
+        myLight.eulerAngles = SCNVector3(-92.873, 0, 0)
+        myLight.position = SCNVector3(0, 1.416, -1)
+        myLight.light?.type = SCNLight.LightType.directional
+        myLight.light?.color = UIColor.white
+        
+        // add the light to the scene
+        
+        scene.rootNode.addChildNode(node)
+        scene.rootNode.addChildNode(myLight)
+        
+//        sceneView.autoenablesDefaultLighting = true
         sceneView.scene = scene
     }
     
@@ -34,7 +60,7 @@ class AddARVC: UIViewController, ARSCNViewDelegate {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
-
+        
         // Run the view's session
         sceneView.session.run(configuration)
     }
@@ -45,17 +71,17 @@ class AddARVC: UIViewController, ARSCNViewDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
-
+    
     // MARK: - ARSCNViewDelegate
     
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
+    /*
+     // Override to create and configure nodes for anchors added to the view's session.
+     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
+     let node = SCNNode()
      
-        return node
-    }
-*/
+     return node
+     }
+     */
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
