@@ -15,6 +15,7 @@ struct Identifiers {
     
     //MARK: - Controller
     static let artiqueTBC = "ARtiqueTBC"
+    static let homeNC = "HomeNC"
     static let homeVC = "HomeVC"
     static let addARVC = "AddARVC"
     static let mypageVC = "MypageVC"
