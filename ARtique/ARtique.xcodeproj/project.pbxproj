@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		231EF84F2763DCDC008218CC /* Plane.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 231EF84E2763DCDC008218CC /* Plane.storyboard */; };
+		231EF8512763DCF4008218CC /* PlaneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231EF8502763DCF4008218CC /* PlaneVC.swift */; };
+		235583FF2767A6D80046C3EE /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235583FE2767A6D80046C3EE /* FocusSquare.swift */; };
+		235584012767A7100046C3EE /* FocusSquareSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235584002767A7100046C3EE /* FocusSquareSegment.swift */; };
+		235584042767A75F0046C3EE /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235584032767A75F0046C3EE /* Utilities.swift */; };
 		237B4369275CDDD600B7FA3F /* ExhibitionListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B4368275CDDD600B7FA3F /* ExhibitionListTVC.swift */; };
 		237B436B275CE83600B7FA3F /* AllTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B436A275CE83600B7FA3F /* AllTVC.swift */; };
 		237B436E275CEE1E00B7FA3F /* ExhibitionListCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B436D275CEE1E00B7FA3F /* ExhibitionListCVC.swift */; };
@@ -58,6 +63,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		231EF84E2763DCDC008218CC /* Plane.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Plane.storyboard; sourceTree = "<group>"; };
+		231EF8502763DCF4008218CC /* PlaneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneVC.swift; sourceTree = "<group>"; };
+		235583FE2767A6D80046C3EE /* FocusSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
+		235584002767A7100046C3EE /* FocusSquareSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquareSegment.swift; sourceTree = "<group>"; };
+		235584032767A75F0046C3EE /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		237B4368275CDDD600B7FA3F /* ExhibitionListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionListTVC.swift; sourceTree = "<group>"; };
 		237B436A275CE83600B7FA3F /* AllTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTVC.swift; sourceTree = "<group>"; };
 		237B436D275CEE1E00B7FA3F /* ExhibitionListCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionListCVC.swift; sourceTree = "<group>"; };
@@ -124,6 +134,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		231EF84B2763DC23008218CC /* Plane */ = {
+			isa = PBXGroup;
+			children = (
+				231EF84D2763DC70008218CC /* Storyboard */,
+				231EF84C2763DC69008218CC /* Controller */,
+			);
+			path = Plane;
+			sourceTree = "<group>";
+		};
+		231EF84C2763DC69008218CC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				231EF8502763DCF4008218CC /* PlaneVC.swift */,
+				235583FD2767A6C70046C3EE /* FocusSquare */,
+				235584022767A74D0046C3EE /* Utilities */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		231EF84D2763DC70008218CC /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				231EF84E2763DCDC008218CC /* Plane.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		235583FD2767A6C70046C3EE /* FocusSquare */ = {
+			isa = PBXGroup;
+			children = (
+				235583FE2767A6D80046C3EE /* FocusSquare.swift */,
+				235584002767A7100046C3EE /* FocusSquareSegment.swift */,
+			);
+			path = FocusSquare;
+			sourceTree = "<group>";
+		};
+		235584022767A74D0046C3EE /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				235584032767A75F0046C3EE /* Utilities.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		3305F7242754DABA00E6E08E = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +210,7 @@
 		3305F7432754DB4000E6E08E /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				231EF84B2763DC23008218CC /* Plane */,
 				3305F76C2754E13400E6E08E /* TabBar */,
 				3305F76D2754E13800E6E08E /* Home */,
 				3305F76F2754E14500E6E08E /* Add */,
@@ -548,6 +603,7 @@
 				3305F7AB2754E66500E6E08E /* AppleSDGothicNeoB.ttf in Resources */,
 				3305F78A2754E2FE00E6E08E /* TabBar.storyboard in Resources */,
 				3305F7382754DABA00E6E08E /* Add.storyboard in Resources */,
+				231EF84F2763DCDC008218CC /* Plane.storyboard in Resources */,
 				3305F7AD2754E66900E6E08E /* AppleSDGothicNeoSB.ttf in Resources */,
 				3305F7AA2754E66200E6E08E /* AppleSDGothicNeoM.ttf in Resources */,
 				2395FBA227563A9700D3DB77 /* Detail.storyboard in Resources */,
@@ -604,6 +660,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3305F7672754E0D900E6E08E /* GenericResponse.swift in Sources */,
+				235584012767A7100046C3EE /* FocusSquareSegment.swift in Sources */,
 				3305F7872754E28B00E6E08E /* ViewControllerFactory.swift in Sources */,
 				3305F7552754DF5B00E6E08E /* UILabel+.swift in Sources */,
 				3305F7692754E0EA00E6E08E /* APIConstants.swift in Sources */,
@@ -619,6 +676,7 @@
 				237B4369275CDDD600B7FA3F /* ExhibitionListTVC.swift in Sources */,
 				3305F7A02754E3BA00E6E08E /* d.swift in Sources */,
 				3305F7832754E26400E6E08E /* StoryboardRepresentation.swift in Sources */,
+				231EF8512763DCF4008218CC /* PlaneVC.swift in Sources */,
 				3305F75F2754E02A00E6E08E /* View.swift in Sources */,
 				3305F78C2754E31000E6E08E /* ARtiqueTBC.swift in Sources */,
 				2395FBA427563AA500D3DB77 /* DetailVC.swift in Sources */,
@@ -628,7 +686,9 @@
 				3305F7852754E27300E6E08E /* TypeOfViewController.swift in Sources */,
 				3305F7A42754E3C800E6E08E /* f.swift in Sources */,
 				237B436B275CE83600B7FA3F /* AllTVC.swift in Sources */,
+				235583FF2767A6D80046C3EE /* FocusSquare.swift in Sources */,
 				3305F7632754E07B00E6E08E /* BaseCell.swift in Sources */,
+				235584042767A75F0046C3EE /* Utilities.swift in Sources */,
 				238C65762756606100EADA93 /* HomeNC.swift in Sources */,
 				3305F7A82754E45800E6E08E /* HomeVC.swift in Sources */,
 				3305F7612754E03600E6E08E /* Identifiers.swift in Sources */,

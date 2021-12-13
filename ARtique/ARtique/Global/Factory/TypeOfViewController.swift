@@ -20,8 +20,10 @@ extension TypeOfViewController {
             return StoryboardRepresentation(bundle: nil, storyboardName: Identifiers.tabBarSB, storyboardId: Identifiers.artiqueTBC)
         case .home:
             return StoryboardRepresentation(bundle: nil, storyboardName: Identifiers.homeSB, storyboardId: Identifiers.homeNC)
+//        case .add:
+//            return StoryboardRepresentation(bundle: nil, storyboardName: Identifiers.addSB, storyboardId: Identifiers.addARVC)
         case .add:
-            return StoryboardRepresentation(bundle: nil, storyboardName: Identifiers.addSB, storyboardId: Identifiers.addARVC)
+            return StoryboardRepresentation(bundle: nil, storyboardName: "Plane", storyboardId: "PlaneVC")
         case .mypage:
             return StoryboardRepresentation(bundle: nil, storyboardName: Identifiers.mypageSB, storyboardId: Identifiers.mypageVC)
         }
