@@ -20,26 +20,33 @@ class ARtiqueTBC: UITabBarController {
         
         let tab = ViewControllerFactory.viewController(for: vcType)
         tab.tabBarItem = UITabBarItem(title: tabBarTitle, image: UIImage(named: tabBarImage), selectedImage: UIImage(named: tabBarSelectedImage))
-        tab.tabBarItem.imageInsets = UIEdgeInsets(top: -0.5, left: -0.5, bottom: -0.5, right: -0.5)
         return tab
     }
     
     /// setTabBar - 탭바 Setting
     func setTabBar() {
         
-        let homeTab = makeTabVC(vcType: .home, tabBarTitle: "", tabBarImage: "Home_Selected", tabBarSelectedImage: "Home_UnSelected")
-        let addTab = makeTabVC(vcType: .add, tabBarTitle: "", tabBarImage: "Add_Selected", tabBarSelectedImage: "Add_UnSelected")
-        let mypageTab = makeTabVC(vcType: .mypage, tabBarTitle: "", tabBarImage: "My_Selected", tabBarSelectedImage: "My_UnSelected")
+        let homeTab = makeTabVC(vcType: .home, tabBarTitle: "", tabBarImage: "Home_UnSelected", tabBarSelectedImage: "Home_Selected")
+        let addTab = makeTabVC(vcType: .add, tabBarTitle: "", tabBarImage: "Add_Default_", tabBarSelectedImage: "Add_Default_")
+        let mypageTab = makeTabVC(vcType: .mypage, tabBarTitle: "", tabBarImage: "My_UnSelected", tabBarSelectedImage: "My_Selected")
+        
+        homeTab.tabBarItem.imageInsets = UIEdgeInsets(top: -0.5, left: -0.5, bottom: -0.5, right: -35)
+        addTab.tabBarItem.imageInsets = UIEdgeInsets(top: -40, left: -0.5, bottom: -0.5, right: -0.5)
+//        addTab.tabBarItem.imageInsets = UIEdgeInsets(top: -40, left: -50, bottom: -10, right: -50)
+        mypageTab.tabBarItem.imageInsets = UIEdgeInsets(top: -0.5, left: -35, bottom: -0.5, right: -0.5)
         
         // 탭바 스타일 설정
-        tabBar.frame.size.height = 65
+        tabBar.frame.size.height = 78
         tabBar.tintColor = .black
-        tabBar.layer.shadowOpacity = 0
+        tabBar.unselectedItemTintColor = .black
+        
         tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
-        tabBar.layer.borderWidth = 0.3
-        tabBar.layer.borderColor = UIColor.lightGray.cgColor
-        tabBar.clipsToBounds = true
+        tabBar.layer.shadowRadius = 2
+        tabBar.layer.shadowColor = UIColor.black.cgColor
+        tabBar.layer.shadowOpacity = 0.3
+
         tabBar.backgroundColor = .white
+        tabBar.isTranslucent = false
         
         // 탭 구성
         let tabs =  [homeTab, addTab, mypageTab]
