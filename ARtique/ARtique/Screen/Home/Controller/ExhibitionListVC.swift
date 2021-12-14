@@ -10,15 +10,14 @@ import Tabman
 
 class ExhibitionListVC: UIViewController {
     @IBOutlet weak var pageTV: UITableView!
+    @IBOutlet weak var pageTVTopConstraint: NSLayoutConstraint!
     
     var currentIndex:CGFloat = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        pageTV.dataSource = self
-        pageTV.delegate = self
-        
+        setUpDelegate()
         setUpTV()
     }
 }
@@ -30,11 +29,16 @@ extension ExhibitionListVC{
         pageTV.bounces = false
         pageTV.showsVerticalScrollIndicator = false
         pageTV.separatorColor = .clear
-        
-        view.backgroundColor = .black
+        pageTV.allowsSelection = false
+        pageTV.backgroundColor = .black
         
         // Paging
         pageTV.decelerationRate = UIScrollView.DecelerationRate.fast
+    }
+    
+    func setUpDelegate() {
+        pageTV.dataSource = self
+        pageTV.delegate = self
     }
 }
 
@@ -59,26 +63,32 @@ extension ExhibitionListVC: UITableViewDataSource {
             return cell
         } else {
             let cell = pageTV.dequeueReusableCell(withIdentifier: "allTVC", for: indexPath) as! AllTVC
-            cell.subTitle.text = tabmanBarItems![0].title
+            cell.subTitle.text = "\(tabmanBarItems![0].title!) 전시"
             cell.delegate = self
             cell.cellIdentifier = 2
             return cell
         }
     }
-    
-    // hide on scrolling
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
-            navigationController?.setNavigationBarHidden(true, animated: true)
-        } else {
-            navigationController?.setNavigationBarHidden(false, animated: true)
-        }
-    }
 }
 //MARK: UITableViewDelegate
 extension ExhibitionListVC: UITableViewDelegate {
+    
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let cellHeight:CGFloat = 536
+        // NavigationBar hide on scrolling
+        if(velocity.y>0) {
+            UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+                NotificationCenter.default.post(name: .whenExhibitionListTVScrolledUp, object: nil)
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                NotificationCenter.default.post(name: .whenExhibitionListTVScrolledDown, object: nil)
+            }, completion: nil)
+        }
+        
+        // tableview paging
+        let cellHeight:CGFloat = 550
         var offset = targetContentOffset.pointee
         let index = (offset.y + scrollView.contentInset.top) / cellHeight
         var roundedIndex = round(index)

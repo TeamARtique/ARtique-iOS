@@ -44,6 +44,7 @@ class ExhibitionListTVC: UITableViewCell {
         super.awakeFromNib()
         exhibitionListCV.delegate = self
         exhibitionListCV.dataSource = self
+//        scrollToMiddle(atIndex: startIndex)
         
         setUpCV()
     }
@@ -101,24 +102,26 @@ extension ExhibitionListTVC: UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cellIndex = indexPath.row % forARTI_DATA.count
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "exhibitionListCVC", for: indexPath) as! ExhibitionListCVC
         
         if cellIdentifier == 0 {
-            cell.phoster.image = forARTI_DATA[indexPath.row].phoster
-            cell.title.text = forARTI_DATA[indexPath.row].title
-            cell.author.text = forARTI_DATA[indexPath.row].author
-            cell.likeCnt.text = "\(forARTI_DATA[indexPath.row].like)"
-            cell.bookMarkCnt.text = "\(forARTI_DATA[indexPath.row].bookMark)"
+            cell.phoster.image = forARTI_DATA[cellIndex].phoster
+            cell.title.text = forARTI_DATA[cellIndex].title
+            cell.author.text = forARTI_DATA[cellIndex].author
+            cell.likeCnt.text = "\(forARTI_DATA[cellIndex].like)"
+            cell.bookMarkCnt.text = "\(forARTI_DATA[cellIndex].bookMark)"
         } else {
-            cell.phoster.image = popular_DATA[indexPath.row].phoster
-            cell.title.text = popular_DATA[indexPath.row].title
-            cell.author.text = popular_DATA[indexPath.row].author
-            cell.likeCnt.text = "\(popular_DATA[indexPath.row].like)"
-            cell.bookMarkCnt.text = "\(popular_DATA[indexPath.row].bookMark)"
+            cell.phoster.image = popular_DATA[cellIndex].phoster
+            cell.title.text = popular_DATA[cellIndex].title
+            cell.author.text = popular_DATA[cellIndex].author
+            cell.likeCnt.text = "\(popular_DATA[cellIndex].like)"
+            cell.bookMarkCnt.text = "\(popular_DATA[cellIndex].bookMark)"
         }
         
         /// 처음 로드될 때 현재 셀 아니면 사이즈 줄이기  -> scrollViewDidScroll이랑 중복, 수정 요망
-        if indexPath.row != 0{
+        if indexPath.row != 0 {
             animateZoomforCellremove(zoomCell: cell)
         }
         return cell

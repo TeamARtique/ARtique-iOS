@@ -12,7 +12,13 @@ import Pageboy
 class HomeVC: TabmanViewController {
     
     private var viewControllers: Array<UIViewController> = []
+    @IBOutlet weak var customNavigationBar: UIView!
+    @IBOutlet weak var navigationLogo: UIImageView!
+    @IBOutlet weak var searchNaviBtn: UIButton!
+    @IBOutlet weak var ticketNaviBtn: UIButton!
     @IBOutlet weak var categoryTB: UIView!
+    
+    public static var isNaviBarHidden: Bool = false
     
     // statusbar color
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -33,6 +39,7 @@ class HomeVC: TabmanViewController {
 
         setNaviBar()
         setCategoryTB()
+        setNotification()
     }
 }
 
@@ -40,34 +47,9 @@ class HomeVC: TabmanViewController {
 extension HomeVC {
     /// setNaviBar - 네비게이션 바 Setting
     func setNaviBar(){
-        // title logo
-        let logo = UIImage(named: "Logo")
-        let imageView = UIImageView(image: logo)
-        
-        // 좌측 간격
-        let naviSpacer = UIBarButtonItem()
-        naviSpacer.width = 17
-
-        navigationItem.leftBarButtonItems = [naviSpacer, UIBarButtonItem(customView: imageView)]
-   
-//        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-        
-        // background color
-//        let naviAppearance = UINavigationBarAppearance()
-//        naviAppearance.configureWithOpaqueBackground()
-//        naviAppearance.backgroundColor = .black
-//
-//        navigationController?.navigationBar.standardAppearance = naviAppearance
-//        navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
-
-        
-        // Navigation Buttons Setting
-        let searchImg = UIImage(named: "Search")
-        let ticketImg = UIImage(named: "Ticket")
-        let searchBtn = UIBarButtonItem(image: searchImg, style: .plain, target: nil, action: nil)
-        let ticketBtn = UIBarButtonItem(image: ticketImg, style: .plain, target: nil, action: nil)
-        navigationItem.rightBarButtonItems = [ticketBtn, searchBtn]
-        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.backgroundColor = .clear
     }
     
     /// setCategoryTB - 상단 탭바 Setting
@@ -78,6 +60,8 @@ extension HomeVC {
         let petVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
         let fanVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
             
+        categoryTB.frame = CGRect(x: 0, y: 120, width: 375, height: 46)
+        
         viewControllers.append(artVC)
         viewControllers.append(illustVC)
         viewControllers.append(dailyVC)
@@ -89,28 +73,56 @@ extension HomeVC {
         // Create bar
         let bar = TMBar.ButtonBar()
         bar.backgroundView.style = .flat(color: .black)
-        bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 32.0, bottom: 0.0, right: 32.0)
+        bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 34.0, bottom: 0.0, right: 34.0)
         bar.buttons.customize { (button) in
             button.tintColor = .white
             button.selectedTintColor = .white
-//            button.selectedFont = UIFont(name: "System font", size: 5)
-//            button.widthAnchor.constraint(equalToConstant: 90).isActive = true
+            
+            button.font = UIFont.AppleSDGothicR(size: 16)
+            button.selectedFont = UIFont.AppleSDGothicB(size: 16)
+            button.widthAnchor.constraint(equalToConstant: 60).isActive = true
+            print(button.centerXAnchor)
         }
         
         // 인디케이터 조정
-//        bar.indicator.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        bar.indicator.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        
         bar.indicator.weight = .heavy
         bar.indicator.tintColor = .white
         bar.indicator.overscrollBehavior = .compress
         
         bar.layout.alignment = .centerDistributed
         bar.layout.contentMode = .intrinsic
-//        bar.layout.interButtonSpacing = 6
-        bar.layout.interButtonSpacing = 40
+        bar.layout.interButtonSpacing = 35
         bar.layout.transitionStyle = .snap
         
         // Add to view
         addBar(bar, dataSource: self, at: .custom(view: categoryTB, layout: nil))
+    }
+    
+    func setNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(upCategoryTabBar), name: .whenExhibitionListTVScrolledUp, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(downCategoryTabBar), name: .whenExhibitionListTVScrolledDown, object: nil)
+    }
+    
+    @objc func upCategoryTabBar() {
+        HomeVC.isNaviBarHidden = true
+        categoryTB.frame = CGRect(x: 0, y: 75, width: 375, height: 46)
+        UIView.animate(withDuration: 1, delay: 0, options: UIView.AnimationOptions(), animations: {
+            self.navigationLogo.layer.opacity = 0
+            self.searchNaviBtn.layer.opacity = 0
+            self.ticketNaviBtn.layer.opacity = 0
+        }, completion: nil)
+    }
+    
+    @objc func downCategoryTabBar() {
+        HomeVC.isNaviBarHidden = false
+        categoryTB.frame = CGRect(x: 0, y: 120, width: 375, height: 46)
+        UIView.animate(withDuration: 1, delay: 0, options: UIView.AnimationOptions(), animations: {
+            self.navigationLogo.layer.opacity = 1
+            self.searchNaviBtn.layer.opacity = 1
+            self.ticketNaviBtn.layer.opacity = 1
+        }, completion: nil)
     }
 }
 

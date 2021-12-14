@@ -25,6 +25,7 @@ class AllTVC: UITableViewCell{
     ]
 
     @IBOutlet weak var subTitle: UILabel!
+    @IBOutlet weak var showAllListBtn: UIButton!
     @IBOutlet weak var lastCV: UICollectionView!
     
     // TVC cell 구분용
@@ -35,12 +36,28 @@ class AllTVC: UITableViewCell{
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        lastCV.delegate = self
-        lastCV.dataSource = self
-        
-        lastCV.contentInset = UIEdgeInsets(top: 7.0, left: 28.0, bottom: 23.0, right: 28.0)
+        setUpDelegate()
+        setUpAllTVCView()
     }
 }
+extension AllTVC {
+    func setUpDelegate() {
+        lastCV.delegate = self
+        lastCV.dataSource = self
+    }
+    
+    func setUpAllTVCView() {
+        lastCV.contentInset = UIEdgeInsets(top: 7.0, left: 28.0, bottom: 23.0, right: 28.0)
+        
+        showAllListBtn.backgroundColor = .black
+        showAllListBtn.layer.cornerRadius = showAllListBtn.frame.height / 2
+        
+        showAllListBtn.setTitle("전체보기", for: .normal)
+        showAllListBtn.titleLabel?.font = UIFont.AppleSDGothicB(size: 11)
+        showAllListBtn.tintColor = .white
+    }
+}
+
 // MARK: DataSource
 extension AllTVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
