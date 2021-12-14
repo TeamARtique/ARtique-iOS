@@ -70,6 +70,7 @@ extension DetailVC {
         gotoARBtn.backgroundColor = .black
         gotoARBtn.tintColor = .white
         gotoARBtn.setTitle("AR 전시 보러가기  →", for: .normal)
+        gotoARBtn.titleLabel?.font = UIFont.AppleSDGothicB(size: 16)
         gotoARBtn.layer.cornerRadius = gotoARBtn.frame.height/2
     }
 }

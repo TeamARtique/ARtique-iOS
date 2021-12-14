@@ -16,48 +16,90 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fbr-ak-npC">
-                                <rect key="frame" x="0.0" y="88" width="375" height="56"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eeU-Qh-iQO">
+                                <rect key="frame" x="0.0" y="41" width="375" height="79"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="oOm-c7-a0w">
+                                        <rect key="frame" x="30" y="29.666666666666671" width="79" height="20"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Vm-pj-f4Q">
+                                        <rect key="frame" x="332" y="29" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="Ticket"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzn-Xe-lLB">
+                                        <rect key="frame" x="291" y="29" width="19" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="Search"/>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="oOm-c7-a0w" firstAttribute="centerY" secondItem="eeU-Qh-iQO" secondAttribute="centerY" id="Be7-60-Awq"/>
+                                    <constraint firstAttribute="height" constant="79" id="Wv1-Jk-ahs"/>
+                                    <constraint firstItem="oOm-c7-a0w" firstAttribute="leading" secondItem="eeU-Qh-iQO" secondAttribute="leading" constant="30" id="yCN-Je-Mwt"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fbr-ak-npC">
+                                <rect key="frame" x="0.0" y="120" width="375" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qtV-ef-iGd" userLabel="TrashView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="labelColor"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Zzu-bR-Y6x"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Fbr-ak-npC" firstAttribute="leading" secondItem="Zzu-bR-Y6x" secondAttribute="leading" id="2Sy-62-yVu"/>
-                            <constraint firstItem="Fbr-ak-npC" firstAttribute="top" secondItem="Zzu-bR-Y6x" secondAttribute="top" id="BJq-RL-zHg"/>
-                            <constraint firstItem="Fbr-ak-npC" firstAttribute="trailing" secondItem="Zzu-bR-Y6x" secondAttribute="trailing" id="kb7-5l-WO0"/>
+                            <constraint firstItem="eeU-Qh-iQO" firstAttribute="leading" secondItem="Zzu-bR-Y6x" secondAttribute="leading" id="N5s-Jz-DFp"/>
+                            <constraint firstItem="Zzu-bR-Y6x" firstAttribute="trailing" secondItem="eeU-Qh-iQO" secondAttribute="trailing" id="ThQ-S2-2fS"/>
+                            <constraint firstItem="eeU-Qh-iQO" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" constant="41" id="mlz-pB-Yqi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="x3h-dv-dS8"/>
                     <connections>
                         <outlet property="categoryTB" destination="Fbr-ak-npC" id="5RE-Qi-t8G"/>
+                        <outlet property="customNavigationBar" destination="eeU-Qh-iQO" id="mUu-oF-wFm"/>
+                        <outlet property="navigationLogo" destination="oOm-c7-a0w" id="CRr-Sz-Uqv"/>
+                        <outlet property="searchNaviBtn" destination="jzn-Xe-lLB" id="SdO-a5-cGA"/>
+                        <outlet property="ticketNaviBtn" destination="5Vm-pj-f4Q" id="uEa-kY-EHT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2042.4000000000001" y="15.517241379310345"/>
+            <point key="canvasLocation" x="2984.8000000000002" y="15.517241379310345"/>
         </scene>
         <!--HomeNC-->
-        <scene sceneID="5jb-dG-qQa">
+        <scene sceneID="Ygz-fk-Dkm">
             <objects>
-                <navigationController storyboardIdentifier="HomeNC" automaticallyAdjustsScrollViewInsets="NO" id="H3w-Al-Lwy" customClass="HomeNC" customModule="ARtique" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HomeNC" automaticallyAdjustsScrollViewInsets="NO" id="5n6-mE-dAS" customClass="HomeNC" customModule="ARtique" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tMp-tg-LSG">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Vos-TP-Dr9">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="Hf9-pS-r3o"/>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="doy-8r-RJl"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3Rv-3d-uFg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Tf-UB-tWu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1258" y="17"/>
+            <point key="canvasLocation" x="2042.4000000000001" y="15.517241379310345"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Logo" width="79" height="20"/>
+        <image name="Search" width="18.666666030883789" height="18.666666030883789"/>
+        <image name="Ticket" width="22" height="22"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

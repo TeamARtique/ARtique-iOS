@@ -8,5 +8,7 @@
 import Foundation
 extension Notification.Name {
     //Notification을 사용할 때 Name을 Extension으로 입력해주세요.
-//    static let pushedChatDown = Notification.Name("pushedChatDown")
+    static let whenExhibitionListTVScrolledUp = Notification.Name("whenExhibitionListTVScrolledUp")
+    
+    static let whenExhibitionListTVScrolledDown = Notification.Name("whenExhibitionListTVScrolledDown")
 }
