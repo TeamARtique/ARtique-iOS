@@ -8,12 +8,21 @@
 import UIKit
 import ARKit
 import SceneKit
+import AVFoundation
 
 class ARGalleryVC: UIViewController {
-
+    
     // MARK: Properties
     @IBOutlet var gallerySceneView: ARSCNView!
+    @IBOutlet var backgroundRemoveSwitch: UISwitch!
+    @IBOutlet var captureBtn: UIButton! {
+        didSet {
+            captureBtn.isHidden = true
+        }
+    }
+    var galleryScene: SCNScene!
     var defaultGalleryNode: SCNNode!
+    var planeRecognizedPosition: SCNVector3?
     
     // MARK: Life Cycles
     override func viewDidLoad() {
@@ -38,12 +47,35 @@ class ARGalleryVC: UIViewController {
         if !sender.isOn {
             
             gallerySceneView.scene.rootNode.childNodes.filter({ $0.name == Identifiers.defaultGalleryModel }).forEach({ $0.isHidden = true })
+            captureBtn.isHidden = false
         }
         else {
             gallerySceneView.scene.rootNode.childNodes.filter({ $0.name == Identifiers.defaultGalleryModel }).forEach({ $0.isHidden = false })
+            captureBtn.isHidden = true
         }
     }
+    
+    @IBAction func captureBtnDidTap(_ sender: UIButton) {
+        /// view screenshot func
+        guard let screenshot = self.view.makeScreenShot() else { return }
+        
+        UIImageWriteToSavedPhotosAlbum(screenshot, self, #selector(imageWasSaved), nil)
+    }
 }
+
+//MARK: - Custom Methods
+extension ARGalleryVC {
+    /// 이미지가 저장되었을 때 호출되는 func
+    @objc func imageWasSaved(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        print("Image was saved in the photo gallery")
+        UIApplication.shared.open(URL(string:"photos-redirect://")!)
+    }
+}
+
 //MARK: - AR Functions
 extension ARGalleryVC: ARSCNViewDelegate {
     
@@ -56,12 +88,12 @@ extension ARGalleryVC: ARSCNViewDelegate {
         arView.session.run(configuration)
     }
     
+    /// 갤러리 scene 생성
     func setupGallerySceneView() {
         gallerySceneView.delegate = self
-        
-        // Create a new scene
-        let galleryScene = SCNScene(named: Identifiers.defaultGalleryScenePath)!
+        galleryScene = SCNScene(named: Identifiers.defaultGalleryScenePath)!
         gallerySceneView.scene = galleryScene
+        gallerySceneView.scene.rootNode.position = planeRecognizedPosition!
     }
     
     //MARK: AR session

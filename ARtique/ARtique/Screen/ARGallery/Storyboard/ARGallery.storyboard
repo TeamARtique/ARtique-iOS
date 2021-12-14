@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="w28-RH-cEq">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZQI-Jt-GQE">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </arscnView>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="912-0h-gwp">
                                 <rect key="frame" x="346" y="58" width="51" height="31"/>
@@ -25,19 +25,35 @@
                                     <action selector="switchOnOffDidTap:" destination="Y6W-OH-hqX" eventType="valueChanged" id="Ku6-6v-Rck"/>
                                 </connections>
                             </switch>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJV-9q-8Vb">
+                                <rect key="frame" x="179.5" y="773" width="55" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="Ovv-qY-wP3"/>
+                                    <constraint firstAttribute="width" secondItem="hJV-9q-8Vb" secondAttribute="height" multiplier="1:1" id="YPj-xh-MEy"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="captureBtn"/>
+                                <connections>
+                                    <action selector="captureBtnDidTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="qIb-tJ-ELA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ZQI-Jt-GQE" secondAttribute="trailing" id="4U4-za-9bx"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="ZQI-Jt-GQE" secondAttribute="bottom" id="GYe-wa-7uM"/>
-                            <constraint firstItem="ZQI-Jt-GQE" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Q4r-lu-R8q"/>
+                            <constraint firstItem="hJV-9q-8Vb" firstAttribute="centerX" secondItem="ZQI-Jt-GQE" secondAttribute="centerX" id="62Y-yV-swI"/>
+                            <constraint firstAttribute="bottom" secondItem="ZQI-Jt-GQE" secondAttribute="bottom" id="GYe-wa-7uM"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="hJV-9q-8Vb" secondAttribute="bottom" constant="34" id="M3e-Uz-JH1"/>
+                            <constraint firstItem="ZQI-Jt-GQE" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="Q4r-lu-R8q"/>
                             <constraint firstItem="912-0h-gwp" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="14" id="UI2-hJ-Pjf"/>
                             <constraint firstItem="ZQI-Jt-GQE" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="bgG-8J-G33"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="912-0h-gwp" secondAttribute="trailing" constant="19" id="kbU-pb-Eqz"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backgroundRemoveSwitch" destination="912-0h-gwp" id="K10-iT-7Tc"/>
+                        <outlet property="captureBtn" destination="hJV-9q-8Vb" id="wf1-pD-0XU"/>
                         <outlet property="gallerySceneView" destination="ZQI-Jt-GQE" id="3vH-Yb-kaa"/>
                     </connections>
                 </viewController>
@@ -45,8 +61,50 @@
             </objects>
             <point key="canvasLocation" x="139" y="113"/>
         </scene>
+        <!--PlaneVC-->
+        <scene sceneID="byh-7f-cut">
+            <objects>
+                <viewController storyboardIdentifier="PlaneVC" id="w28-RH-cEq" customClass="PlaneVC" customModule="ARtique" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cwg-Tz-Dyo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qcy-T7-kPR" customClass="VirtualObjectARView" customModule="ARtique" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </arscnView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRB-gv-nlF">
+                                <rect key="frame" x="116.5" y="750" width="181" height="62"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="goToExhibitionBtn"/>
+                                <connections>
+                                    <action selector="createExhibition:" destination="w28-RH-cEq" eventType="touchUpInside" id="E5j-vY-if7"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="lZT-uD-fu0"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="lZT-uD-fu0" firstAttribute="trailing" secondItem="qcy-T7-kPR" secondAttribute="trailing" id="8iQ-v8-GNs"/>
+                            <constraint firstItem="qcy-T7-kPR" firstAttribute="top" secondItem="cwg-Tz-Dyo" secondAttribute="top" id="UpO-8Z-gJA"/>
+                            <constraint firstItem="lZT-uD-fu0" firstAttribute="bottom" secondItem="PRB-gv-nlF" secondAttribute="bottom" constant="50" id="XdC-NY-cBG"/>
+                            <constraint firstAttribute="bottom" secondItem="qcy-T7-kPR" secondAttribute="bottom" id="up8-Hm-cRg"/>
+                            <constraint firstItem="PRB-gv-nlF" firstAttribute="centerX" secondItem="qcy-T7-kPR" secondAttribute="centerX" id="xJd-GY-4lg"/>
+                            <constraint firstItem="qcy-T7-kPR" firstAttribute="leading" secondItem="lZT-uD-fu0" secondAttribute="leading" id="zNr-7j-CPp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="createExhibitionBtn" destination="PRB-gv-nlF" id="KVu-aM-PzL"/>
+                        <outlet property="sceneView" destination="qcy-T7-kPR" id="qLe-qB-ZuV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KaB-S5-0ct" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-597" y="113"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="captureBtn" width="55" height="55"/>
+        <image name="goToExhibitionBtn" width="157" height="48"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
