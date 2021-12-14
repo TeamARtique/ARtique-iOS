@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--GalleryVC-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="ARGalleryVC" id="Y6W-OH-hqX" customClass="ARGalleryVC" customModule="ARtique" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZQI-Jt-GQE">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </arscnView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="912-0h-gwp">
+                                <rect key="frame" x="346" y="58" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switchOnOffDidTap:" destination="Y6W-OH-hqX" eventType="valueChanged" id="Ku6-6v-Rck"/>
+                                </connections>
+                            </switch>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ZQI-Jt-GQE" secondAttribute="trailing" id="4U4-za-9bx"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="ZQI-Jt-GQE" secondAttribute="bottom" id="GYe-wa-7uM"/>
+                            <constraint firstItem="ZQI-Jt-GQE" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Q4r-lu-R8q"/>
+                            <constraint firstItem="912-0h-gwp" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="14" id="UI2-hJ-Pjf"/>
+                            <constraint firstItem="ZQI-Jt-GQE" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="bgG-8J-G33"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="912-0h-gwp" secondAttribute="trailing" constant="19" id="kbU-pb-Eqz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="gallerySceneView" destination="ZQI-Jt-GQE" id="3vH-Yb-kaa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139" y="113"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
