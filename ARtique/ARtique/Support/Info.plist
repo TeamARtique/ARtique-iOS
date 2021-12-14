@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>ARtique가 사용자의 갤러리에 접근하는 것을 허용합니다.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AppleSDGothicNeoB.ttf</string>
@@ -9,7 +11,7 @@
 		<string>AppleSDGothicNeoM.ttf</string>
 		<string>AppleSDGothicNeoSB.ttf</string>
 	</array>
-    <key>UIUserInterfaceStyle</key>
-    <string>Light</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>
