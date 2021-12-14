@@ -37,13 +37,27 @@
                                     <action selector="captureBtnDidTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="qIb-tJ-ELA"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MJJ-NF-Z6b">
+                                <rect key="frame" x="19" y="62.5" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="MJJ-NF-Z6b" secondAttribute="height" multiplier="1:1" id="WbF-Cj-Vtw"/>
+                                    <constraint firstAttribute="height" constant="22" id="ysi-CO-5AL"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="dismissBtn"/>
+                                <connections>
+                                    <action selector="dismissBtnDidTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="JzX-eo-qVd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="MJJ-NF-Z6b" firstAttribute="centerY" secondItem="912-0h-gwp" secondAttribute="centerY" id="2Lf-zv-nMg"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ZQI-Jt-GQE" secondAttribute="trailing" id="4U4-za-9bx"/>
                             <constraint firstItem="hJV-9q-8Vb" firstAttribute="centerX" secondItem="ZQI-Jt-GQE" secondAttribute="centerX" id="62Y-yV-swI"/>
                             <constraint firstAttribute="bottom" secondItem="ZQI-Jt-GQE" secondAttribute="bottom" id="GYe-wa-7uM"/>
+                            <constraint firstItem="MJJ-NF-Z6b" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="19" id="Im7-Xb-fiG"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="hJV-9q-8Vb" secondAttribute="bottom" constant="34" id="M3e-Uz-JH1"/>
                             <constraint firstItem="ZQI-Jt-GQE" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="Q4r-lu-R8q"/>
                             <constraint firstItem="912-0h-gwp" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="14" id="UI2-hJ-Pjf"/>
@@ -104,6 +118,7 @@
     </scenes>
     <resources>
         <image name="captureBtn" width="55" height="55"/>
+        <image name="dismissBtn" width="16" height="16"/>
         <image name="goToExhibitionBtn" width="157" height="48"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
