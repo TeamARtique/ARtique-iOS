@@ -21,6 +21,7 @@ struct Identifiers {
     static let addARVC = "AddARVC"
     static let mypageVC = "MypageVC"
     static let arGalleryVC = "ARGalleryVC"
+    static let planeRecognitionVC = "PlaneVC"
     
     //MARK: - Cell
     
