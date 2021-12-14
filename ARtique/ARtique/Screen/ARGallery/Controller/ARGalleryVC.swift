@@ -61,6 +61,10 @@ class ARGalleryVC: UIViewController {
         
         UIImageWriteToSavedPhotosAlbum(screenshot, self, #selector(imageWasSaved), nil)
     }
+    
+    @IBAction func dismissBtnDidTap(_ sender: UIButton) {
+        self.presentingViewController?.presentingViewController!.dismiss(animated: true, completion: nil)
+    }
 }
 
 //MARK: - Custom Methods

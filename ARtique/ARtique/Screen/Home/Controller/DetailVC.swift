@@ -50,6 +50,11 @@ class DetailVC: UIViewController {
             bookMarkCnt.text = "\(Int(bookMarkCnt.text!)! + 1)"
         }
     }
+    @IBAction func goToARGalleryBtnDidTap(_ sender: UIButton) {
+        let galleryVC = ViewControllerFactory.viewController(for: .arGallery)
+        galleryVC.modalPresentationStyle = .fullScreen
+        present(galleryVC, animated: true, completion: nil)
+    }
 }
 //MARK: - Custom Method
 extension DetailVC {
