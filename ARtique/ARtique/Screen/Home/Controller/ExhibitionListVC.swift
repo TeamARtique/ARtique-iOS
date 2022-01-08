@@ -10,7 +10,7 @@ import Tabman
 
 class ExhibitionListVC: UIViewController {
     @IBOutlet weak var pageTV: UITableView!
-    @IBOutlet weak var pageTVTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pageTVTopAnchor: NSLayoutConstraint!
     
     var currentIndex:CGFloat = 0
 
@@ -19,6 +19,8 @@ class ExhibitionListVC: UIViewController {
         
         setUpDelegate()
         setUpTV()
+        
+        view.backgroundColor = .clear
     }
 }
 
@@ -77,13 +79,15 @@ extension ExhibitionListVC: UITableViewDelegate {
         // NavigationBar hide on scrolling
         if(velocity.y>0) {
             UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
-                self.navigationController?.setNavigationBarHidden(true, animated: true)
                 NotificationCenter.default.post(name: .whenExhibitionListTVScrolledUp, object: nil)
+                self.pageTVTopAnchor.constant = 56
+                self.view.layoutIfNeeded()
             }, completion: nil)
         } else {
             UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
-                self.navigationController?.setNavigationBarHidden(false, animated: true)
                 NotificationCenter.default.post(name: .whenExhibitionListTVScrolledDown, object: nil)
+                self.pageTVTopAnchor.constant = 124
+                self.view.layoutIfNeeded()
             }, completion: nil)
         }
         

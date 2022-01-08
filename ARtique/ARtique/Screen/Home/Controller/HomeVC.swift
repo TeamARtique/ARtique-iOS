@@ -13,12 +13,8 @@ class HomeVC: TabmanViewController {
     
     private var viewControllers: Array<UIViewController> = []
     @IBOutlet weak var customNavigationBar: UIView!
-    @IBOutlet weak var navigationLogo: UIImageView!
-    @IBOutlet weak var searchNaviBtn: UIButton!
-    @IBOutlet weak var ticketNaviBtn: UIButton!
     @IBOutlet weak var categoryTB: UIView!
-    
-    public static var isNaviBarHidden: Bool = false
+    @IBOutlet weak var categoryTBTopAnchor: NSLayoutConstraint!
     
     // statusbar color
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -37,21 +33,14 @@ class HomeVC: TabmanViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setNaviBar()
         setCategoryTB()
         setNotification()
+        view.backgroundColor = .black
     }
 }
 
 //MARK: - Custom Method
-extension HomeVC {
-    /// setNaviBar - 네비게이션 바 Setting
-    func setNaviBar(){
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.backgroundColor = .clear
-    }
-    
+extension HomeVC {    
     /// setCategoryTB - 상단 탭바 Setting
     func setCategoryTB(){
         let artVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
@@ -59,8 +48,6 @@ extension HomeVC {
         let dailyVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
         let petVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
         let fanVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
-            
-        categoryTB.frame = CGRect(x: 0, y: 120, width: 375, height: 46)
         
         viewControllers.append(artVC)
         viewControllers.append(illustVC)
@@ -106,23 +93,15 @@ extension HomeVC {
     }
     
     @objc func upCategoryTabBar() {
-        HomeVC.isNaviBarHidden = true
-        categoryTB.frame = CGRect(x: 0, y: 75, width: 375, height: 46)
-        UIView.animate(withDuration: 1, delay: 0, options: UIView.AnimationOptions(), animations: {
-            self.navigationLogo.layer.opacity = 0
-            self.searchNaviBtn.layer.opacity = 0
-            self.ticketNaviBtn.layer.opacity = 0
-        }, completion: nil)
+        self.customNavigationBar.layer.opacity = 0
+        self.categoryTBTopAnchor.constant = 0
+        self.view.layoutIfNeeded()
     }
     
     @objc func downCategoryTabBar() {
-        HomeVC.isNaviBarHidden = false
-        categoryTB.frame = CGRect(x: 0, y: 120, width: 375, height: 46)
-        UIView.animate(withDuration: 1, delay: 0, options: UIView.AnimationOptions(), animations: {
-            self.navigationLogo.layer.opacity = 1
-            self.searchNaviBtn.layer.opacity = 1
-            self.ticketNaviBtn.layer.opacity = 1
-        }, completion: nil)
+        self.customNavigationBar.layer.opacity = 1
+        self.categoryTBTopAnchor.constant = 68
+        self.view.layoutIfNeeded()
     }
 }
 
@@ -147,7 +126,7 @@ extension HomeVC: TMBarDataSource {
     }
 }
 //MARK: PageboyViewControllerDataSource
-extension HomeVC: PageboyViewControllerDataSource{
+extension HomeVC: PageboyViewControllerDataSource {
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
         return viewControllers.count
     }

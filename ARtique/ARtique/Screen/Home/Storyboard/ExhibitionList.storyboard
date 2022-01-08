@@ -25,13 +25,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nHd-eu-Pmu" userLabel="TrashView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="labelColor"/>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="lnm-1N-SQt">
-                                <rect key="frame" x="0.0" y="109" width="375" height="1438"/>
+                                <rect key="frame" x="0.0" y="168" width="375" height="1298"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="exhibitionListTVC" rowHeight="536" id="j7x-YX-Qdu" customClass="ExhibitionListTVC" customModule="ARtique" customModuleProvider="target">
@@ -280,8 +275,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="kAS-YZ-xj3" firstAttribute="trailing" secondItem="lnm-1N-SQt" secondAttribute="trailing" id="P0i-J8-P4A"/>
-                            <constraint firstItem="lnm-1N-SQt" firstAttribute="bottom" secondItem="kAS-YZ-xj3" secondAttribute="bottom" constant="81" id="PQX-sI-R7H"/>
-                            <constraint firstItem="lnm-1N-SQt" firstAttribute="top" secondItem="kAS-YZ-xj3" secondAttribute="top" constant="65" id="TTg-c4-NQB"/>
+                            <constraint firstItem="lnm-1N-SQt" firstAttribute="bottom" secondItem="kAS-YZ-xj3" secondAttribute="bottom" id="PQX-sI-R7H"/>
+                            <constraint firstItem="lnm-1N-SQt" firstAttribute="top" secondItem="kAS-YZ-xj3" secondAttribute="top" constant="124" id="TTg-c4-NQB"/>
                             <constraint firstItem="lnm-1N-SQt" firstAttribute="leading" secondItem="kAS-YZ-xj3" secondAttribute="leading" id="vOY-Hg-Vgm"/>
                         </constraints>
                     </view>
@@ -289,7 +284,7 @@
                     <size key="freeformSize" width="375" height="1500"/>
                     <connections>
                         <outlet property="pageTV" destination="lnm-1N-SQt" id="Knr-nh-ZhF"/>
-                        <outlet property="pageTVTopConstraint" destination="TTg-c4-NQB" id="ihe-vF-q26"/>
+                        <outlet property="pageTVTopAnchor" destination="TTg-c4-NQB" id="ef7-t1-fbl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eyS-E2-C7l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -300,9 +295,6 @@
     <resources>
         <image name="BookMark_UnSelected" width="13.333333015441895" height="16.666666030883789"/>
         <image name="Like_UnSelected" width="21" height="22"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
