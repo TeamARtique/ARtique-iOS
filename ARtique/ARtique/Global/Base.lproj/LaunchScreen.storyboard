@@ -16,13 +16,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SplashView" translatesAutoresizingMaskIntoConstraints="NO" id="eoW-p6-dgS">
-                                <rect key="frame" x="94" y="325" width="186" height="162"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashView" translatesAutoresizingMaskIntoConstraints="NO" id="eoW-p6-dgS">
+                                <rect key="frame" x="110" y="338.66666666666669" width="155" height="135"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="eoW-p6-dgS" secondAttribute="height" multiplier="31:27" id="3cz-om-8XC"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eoW-p6-dgS" secondAttribute="trailing" constant="110" id="Fny-BR-e9U"/>
+                            <constraint firstItem="eoW-p6-dgS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="110" id="aNe-mI-iBO"/>
+                            <constraint firstItem="eoW-p6-dgS" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="oVu-E1-xOT"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
