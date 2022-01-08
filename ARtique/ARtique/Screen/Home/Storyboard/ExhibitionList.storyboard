@@ -20,7 +20,7 @@
         <!--Exhibition ListVC-->
         <scene sceneID="RCr-EJ-QHU">
             <objects>
-                <viewController storyboardIdentifier="exhibitionListVC" id="gKY-6L-zOd" customClass="ExhibitionListVC" customModule="ARtique" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ExhibitionListVC" id="gKY-6L-zOd" customClass="ExhibitionListVC" customModule="ARtique" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HGf-Be-03W">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

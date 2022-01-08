@@ -36,6 +36,7 @@ class HomeVC: TabmanViewController {
         super.viewDidLoad()
 
         setCategoryTB()
+        setCategoryIndicator()
         setNotification()
         view.backgroundColor = .black
     }
@@ -45,11 +46,11 @@ class HomeVC: TabmanViewController {
 extension HomeVC {    
     /// setCategoryTB - 상단 탭바 Setting
     func setCategoryTB(){
-        let artVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
-        let illustVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
-        let dailyVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
-        let petVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
-        let fanVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
+        let artVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC
+        let illustVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC
+        let dailyVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC
+        let petVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC
+        let fanVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC
         
         viewControllers.append(artVC)
         viewControllers.append(illustVC)
@@ -58,8 +59,10 @@ extension HomeVC {
         viewControllers.append(fanVC)
         
         self.dataSource = self
-
-        // Create bar
+    }
+    
+    // Category Bar Indicator Setting
+    func setCategoryIndicator() {
         let bar = TMBar.ButtonBar()
         bar.backgroundView.style = .flat(color: .black)
         bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 34.0, bottom: 0.0, right: 34.0)

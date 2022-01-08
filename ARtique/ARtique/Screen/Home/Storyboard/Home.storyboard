@@ -31,7 +31,7 @@
                                         <state key="normal" image="Ticket"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzn-Xe-lLB">
-                                        <rect key="frame" x="288" y="29" width="24" height="24"/>
+                                        <rect key="frame" x="287" y="29" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="jzn-Xe-lLB" secondAttribute="height" multiplier="1:1" id="9IP-wM-GM2"/>
                                         </constraints>
@@ -44,7 +44,7 @@
                                     <constraint firstAttribute="bottom" secondItem="5Vm-pj-f4Q" secondAttribute="bottom" constant="15" id="0qa-tT-zOZ"/>
                                     <constraint firstAttribute="bottom" secondItem="oOm-c7-a0w" secondAttribute="bottom" constant="18.329999999999998" id="4T9-Mh-Xi0"/>
                                     <constraint firstAttribute="trailing" secondItem="5Vm-pj-f4Q" secondAttribute="trailing" constant="22" id="8EL-Ns-yvB"/>
-                                    <constraint firstItem="5Vm-pj-f4Q" firstAttribute="leading" secondItem="jzn-Xe-lLB" secondAttribute="trailing" constant="17" id="AFg-B8-FUM"/>
+                                    <constraint firstItem="5Vm-pj-f4Q" firstAttribute="leading" secondItem="jzn-Xe-lLB" secondAttribute="trailing" constant="18" id="AFg-B8-FUM"/>
                                     <constraint firstAttribute="bottom" secondItem="jzn-Xe-lLB" secondAttribute="bottom" constant="15" id="LAC-MJ-22x"/>
                                     <constraint firstItem="5Vm-pj-f4Q" firstAttribute="top" secondItem="eeU-Qh-iQO" secondAttribute="top" constant="29" id="Ypn-dZ-DTG"/>
                                     <constraint firstItem="jzn-Xe-lLB" firstAttribute="top" secondItem="eeU-Qh-iQO" secondAttribute="top" constant="29" id="hsE-pt-Sc6"/>

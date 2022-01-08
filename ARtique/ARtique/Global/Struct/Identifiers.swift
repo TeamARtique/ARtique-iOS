@@ -10,6 +10,7 @@ struct Identifiers {
     //MARK: - Storyboard
     static let tabBarSB = "TabBar"
     static let homeSB = "Home"
+    static let exhibitionListSB = "ExhibitionList"
     static let addSB = "Add"
     static let mypageSB = "Mypage"
     static let arGallerySB = "ARGallery"
@@ -18,6 +19,7 @@ struct Identifiers {
     static let artiqueTBC = "ARtiqueTBC"
     static let homeNC = "HomeNC"
     static let homeVC = "HomeVC"
+    static let exhibitionListVC = "ExhibitionListVC"
     static let addARVC = "AddARVC"
     static let mypageVC = "MypageVC"
     static let arGalleryVC = "ARGalleryVC"
