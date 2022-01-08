@@ -16,6 +16,8 @@ class HomeVC: TabmanViewController {
     @IBOutlet weak var categoryTB: UIView!
     @IBOutlet weak var categoryTBTopAnchor: NSLayoutConstraint!
     
+    public static var isNaviBarHidden: Bool = false
+    
     // statusbar color
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -93,12 +95,16 @@ extension HomeVC {
     }
     
     @objc func upCategoryTabBar() {
+        HomeVC.isNaviBarHidden = true
+        
         self.customNavigationBar.layer.opacity = 0
         self.categoryTBTopAnchor.constant = 0
         self.view.layoutIfNeeded()
     }
     
     @objc func downCategoryTabBar() {
+        HomeVC.isNaviBarHidden = false
+        
         self.customNavigationBar.layer.opacity = 1
         self.categoryTBTopAnchor.constant = 68
         self.view.layoutIfNeeded()

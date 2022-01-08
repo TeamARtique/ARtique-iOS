@@ -34,6 +34,13 @@ extension ExhibitionListVC{
         pageTV.allowsSelection = false
         pageTV.backgroundColor = .black
         
+        // 카테고리 바꿨을때 네비바 상태 공유
+        if HomeVC.isNaviBarHidden {
+            pageTVTopAnchor.constant = 56
+        } else {
+            pageTVTopAnchor.constant = 124
+        }
+        
         // Paging
         pageTV.decelerationRate = UIScrollView.DecelerationRate.fast
     }
