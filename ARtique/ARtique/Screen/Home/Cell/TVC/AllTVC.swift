@@ -58,21 +58,21 @@ extension AllTVC {
     }
 }
 
-// MARK: DataSource
+// MARK: UICollectionViewDataSource
 extension AllTVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 6
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "allCVC", for: indexPath) as! AllCVC
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.allCVC, for: indexPath) as! AllCVC
         cell.phoster.image = allData[11 - indexPath.row * 2].phoster
         cell.title.text = allData[11 - indexPath.row * 2].title
         return cell
     }
 }
 
-// MARK: Delegate
+// MARK: UICollectionViewDelegate
 extension AllTVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // 화면 전환

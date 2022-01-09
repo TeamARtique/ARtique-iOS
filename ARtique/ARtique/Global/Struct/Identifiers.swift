@@ -11,6 +11,7 @@ struct Identifiers {
     static let tabBarSB = "TabBar"
     static let homeSB = "Home"
     static let exhibitionListSB = "ExhibitionList"
+    static let detailSB = "Detail"
     static let addSB = "Add"
     static let mypageSB = "Mypage"
     static let arGallerySB = "ARGallery"
@@ -20,12 +21,17 @@ struct Identifiers {
     static let homeNC = "HomeNC"
     static let homeVC = "HomeVC"
     static let exhibitionListVC = "ExhibitionListVC"
+    static let detailVC = "DetailVC"
     static let addARVC = "AddARVC"
     static let mypageVC = "MypageVC"
     static let arGalleryVC = "ARGalleryVC"
     static let planeRecognitionVC = "PlaneVC"
     
     //MARK: - Cell
+    static let exhibitionListTVC = "ExhibitionListTVC"
+    static let allTVC = "AllTVC"
+    static let exhibitionListCVC = "ExhibitionListCVC"
+    static let allCVC = "AllCVC"
     
     //MARK: - View
     

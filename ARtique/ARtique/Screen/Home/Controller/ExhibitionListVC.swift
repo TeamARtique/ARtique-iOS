@@ -19,8 +19,6 @@ class ExhibitionListVC: UIViewController {
         
         setUpDelegate()
         setUpTV()
-        
-        view.backgroundColor = .clear
     }
 }
 
@@ -59,19 +57,19 @@ extension ExhibitionListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-            let cell = pageTV.dequeueReusableCell(withIdentifier: "exhibitionListTVC", for: indexPath) as! ExhibitionListTVC
+            let cell = pageTV.dequeueReusableCell(withIdentifier: Identifiers.exhibitionListTVC, for: indexPath) as! ExhibitionListTVC
             cell.subTitle.text = "YELYN ARTI를 위한 전시"
             cell.delegate = self
             cell.cellIdentifier = 0
             return cell
         } else if indexPath.row == 1 {
-            let cell = pageTV.dequeueReusableCell(withIdentifier: "exhibitionListTVC", for: indexPath) as! ExhibitionListTVC
+            let cell = pageTV.dequeueReusableCell(withIdentifier: Identifiers.exhibitionListTVC, for: indexPath) as! ExhibitionListTVC
             cell.subTitle.text = "ARTI들의 인기 전시"
             cell.delegate = self
             cell.cellIdentifier = 1
             return cell
         } else {
-            let cell = pageTV.dequeueReusableCell(withIdentifier: "allTVC", for: indexPath) as! AllTVC
+            let cell = pageTV.dequeueReusableCell(withIdentifier: Identifiers.allTVC, for: indexPath) as! AllTVC
             cell.subTitle.text = "\(tabmanBarItems![0].title!) 전시"
             cell.delegate = self
             cell.cellIdentifier = 2
@@ -130,7 +128,7 @@ extension ExhibitionListVC: UITableViewDelegate {
 //MARK: CVCellDelegate 화면 전환용
 extension ExhibitionListVC: CVCellDelegate {
     func selectedCVC(_ index: IndexPath, _ cellIdentifier: Int, _ collectionView: UICollectionView) {
-        guard let detailVC = UIStoryboard(name: "Detail", bundle: nil).instantiateViewController(withIdentifier:  "Detail") as? DetailVC else {return}
+        guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
         
         if cellIdentifier == 2{
             let cell = collectionView.cellForItem(at: index) as! AllCVC

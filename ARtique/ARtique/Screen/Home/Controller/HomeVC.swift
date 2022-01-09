@@ -38,7 +38,6 @@ class HomeVC: TabmanViewController {
         setCategoryTB()
         setCategoryIndicator()
         setNotification()
-        view.backgroundColor = .black
     }
 }
 
