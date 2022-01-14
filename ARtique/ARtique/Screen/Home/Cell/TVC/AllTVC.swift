@@ -98,7 +98,6 @@ extension AllTVC: UICollectionViewDelegateFlowLayout {
 
         let cellWidth = (width - widthPadding) / itemsPerRow
         let cellHeight = 4 * cellWidth / 3 + 30
-        print(cellWidth,cellHeight)
 
         return CGSize(width: cellWidth, height: cellHeight)
     }

@@ -72,7 +72,6 @@ extension HomeVC {
             button.font = UIFont.AppleSDGothicR(size: 16)
             button.selectedFont = UIFont.AppleSDGothicB(size: 16)
             button.widthAnchor.constraint(equalToConstant: 60).isActive = true
-            print(button.centerXAnchor)
         }
         
         // 인디케이터 조정
