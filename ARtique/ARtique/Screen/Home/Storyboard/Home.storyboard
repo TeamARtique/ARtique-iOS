@@ -72,7 +72,7 @@
                     <navigationItem key="navigationItem" id="x3h-dv-dS8"/>
                     <connections>
                         <outlet property="categoryTB" destination="Fbr-ak-npC" id="5RE-Qi-t8G"/>
-                        <outlet property="categoryTBTopAnchor" destination="eU3-GN-Tiy" id="UfG-Xv-zhg"/>
+                        <outlet property="categoryTBTopAnchor" destination="eU3-GN-Tiy" id="vmb-Se-Utq"/>
                         <outlet property="customNavigationBar" destination="eeU-Qh-iQO" id="mUu-oF-wFm"/>
                     </connections>
                 </viewController>

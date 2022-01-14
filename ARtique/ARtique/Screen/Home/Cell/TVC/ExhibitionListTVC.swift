@@ -44,7 +44,6 @@ class ExhibitionListTVC: UITableViewCell {
         super.awakeFromNib()
         exhibitionListCV.delegate = self
         exhibitionListCV.dataSource = self
-//        scrollToMiddle(atIndex: startIndex)
         
         setUpCV()
     }

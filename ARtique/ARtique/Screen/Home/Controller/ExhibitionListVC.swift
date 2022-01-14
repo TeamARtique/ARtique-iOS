@@ -13,6 +13,7 @@ class ExhibitionListVC: UIViewController {
     @IBOutlet weak var pageTVTopAnchor: NSLayoutConstraint!
     
     var currentIndex:CGFloat = 0
+    let exhibitionListTVCHeight = 536
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +80,16 @@ extension ExhibitionListVC: UITableViewDataSource {
 }
 //MARK: UITableViewDelegate
 extension ExhibitionListVC: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 2 {
+            let viewWidth = view.frame.width
+            let cellHeight = viewWidth * 2 + 90
+            return CGFloat(cellHeight)
+        } else {
+            // 가로 스크롤 전시 cell은 높이 고정
+            return CGFloat(exhibitionListTVCHeight)
+        }
+    }
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         // NavigationBar hide on scrolling
         if(velocity.y>0) {
@@ -97,7 +107,7 @@ extension ExhibitionListVC: UITableViewDelegate {
         }
         
         // tableview paging
-        let cellHeight:CGFloat = 550
+        let cellHeight:CGFloat = CGFloat(exhibitionListTVCHeight)
         var offset = targetContentOffset.pointee
         let index = (offset.y + scrollView.contentInset.top) / cellHeight
         var roundedIndex = round(index)
@@ -130,7 +140,7 @@ extension ExhibitionListVC: CVCellDelegate {
     func selectedCVC(_ index: IndexPath, _ cellIdentifier: Int, _ collectionView: UICollectionView) {
         guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
         
-        if cellIdentifier == 2{
+        if cellIdentifier == 2 {
             let cell = collectionView.cellForItem(at: index) as! AllCVC
             
             detailVC.titleTmp = cell.title.text

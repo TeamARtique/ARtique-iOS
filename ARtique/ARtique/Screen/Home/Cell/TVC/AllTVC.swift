@@ -27,6 +27,7 @@ class AllTVC: UITableViewCell{
     @IBOutlet weak var subTitle: UILabel!
     @IBOutlet weak var showAllListBtn: UIButton!
     @IBOutlet weak var lastCV: UICollectionView!
+    @IBOutlet weak var lastCVHeight: NSLayoutConstraint!
     
     // TVC cell 구분용
     var cellIdentifier = 0
@@ -34,12 +35,17 @@ class AllTVC: UITableViewCell{
     // 화면 전환용
     var delegate: CVCellDelegate?
     
+    let sectionInsets = UIEdgeInsets(top: 13.0, left: 31.5, bottom: 0.0, right: 31.5)
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpDelegate()
         setUpAllTVCView()
+        setlastCV()
     }
 }
+
+//MARK: - Custom Method
 extension AllTVC {
     func setUpDelegate() {
         lastCV.delegate = self
@@ -47,14 +53,16 @@ extension AllTVC {
     }
     
     func setUpAllTVCView() {
-        lastCV.contentInset = UIEdgeInsets(top: 7.0, left: 28.0, bottom: 23.0, right: 28.0)
-        
         showAllListBtn.backgroundColor = .black
         showAllListBtn.layer.cornerRadius = showAllListBtn.frame.height / 2
         
         showAllListBtn.setTitle("전체보기", for: .normal)
         showAllListBtn.titleLabel?.font = UIFont.AppleSDGothicB(size: 11)
         showAllListBtn.tintColor = .white
+    }
+    
+    func setlastCV() {
+        lastCV.isScrollEnabled = false
     }
 }
 
@@ -79,5 +87,27 @@ extension AllTVC: UICollectionViewDelegate {
         if let delegate = delegate {
             delegate.selectedCVC(indexPath, cellIdentifier, collectionView)
         }
+    }
+}
+// MARK: UICollectionViewDelegateFlowLayout
+extension AllTVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.frame.width
+        let itemsPerRow: CGFloat = 2
+        let widthPadding = sectionInsets.left * itemsPerRow + 10
+
+        let cellWidth = (width - widthPadding) / itemsPerRow
+        let cellHeight = 4 * cellWidth / 3 + 30
+        print(cellWidth,cellHeight)
+
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.top
     }
 }
