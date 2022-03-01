@@ -12,7 +12,6 @@ class ExhibitionListVC: UIViewController {
     @IBOutlet weak var pageTV: UITableView!
     @IBOutlet weak var pageTVTopAnchor: NSLayoutConstraint!
     
-    var currentIndex:CGFloat = 0
     let exhibitionListTVCHeight = 536
 
     override func viewDidLoad() {
@@ -90,9 +89,10 @@ extension ExhibitionListVC: UITableViewDelegate {
             return CGFloat(exhibitionListTVCHeight)
         }
     }
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // NavigationBar hide on scrolling
-        if(velocity.y>0) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
             UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
                 NotificationCenter.default.post(name: .whenExhibitionListTVScrolledUp, object: nil)
                 self.pageTVTopAnchor.constant = 56
@@ -105,32 +105,23 @@ extension ExhibitionListVC: UITableViewDelegate {
                 self.view.layoutIfNeeded()
             }, completion: nil)
         }
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
         // tableview paging
-        let cellHeight:CGFloat = CGFloat(exhibitionListTVCHeight)
-        var offset = targetContentOffset.pointee
+        let cellHeight = CGFloat(exhibitionListTVCHeight)
+        let offset = targetContentOffset.pointee
         let index = (offset.y + scrollView.contentInset.top) / cellHeight
-        var roundedIndex = round(index)
-        
-        if scrollView.contentOffset.y > targetContentOffset.pointee.y {
-            roundedIndex = floor(index)
-        } else if scrollView.contentOffset.y < targetContentOffset.pointee.y {
-            roundedIndex = ceil(index)
+        var roundedIndex:CGFloat = 0
+        if index > 2 {
+            roundedIndex = ceil((offset.y + scrollView.contentInset.top) / cellHeight)
         } else {
-            roundedIndex = round(index)
+            roundedIndex = round((offset.y + scrollView.contentInset.top) / cellHeight)
         }
         
-        if currentIndex > roundedIndex {
-            currentIndex -= 1
-            roundedIndex = currentIndex
-        } else if currentIndex < roundedIndex {
-            currentIndex += 1
-            roundedIndex = currentIndex
-        }
-        
-        if currentIndex < 3 {
-            offset = CGPoint(x: scrollView.contentInset.left, y:roundedIndex * cellHeight -  scrollView.contentInset.top)
-            targetContentOffset.pointee = offset
+        if roundedIndex < 3 {
+            pageTV.scrollToRow(at: [0, Int(roundedIndex)], at: .top, animated: true)
         }
     }
 }
