@@ -13,10 +13,8 @@ class HomeVC: TabmanViewController {
     
     private var viewControllers: Array<UIViewController> = []
     @IBOutlet weak var customNavigationBar: UIView!
-    @IBOutlet weak var navigationLogo: UIImageView!
-    @IBOutlet weak var searchNaviBtn: UIButton!
-    @IBOutlet weak var ticketNaviBtn: UIButton!
     @IBOutlet weak var categoryTB: UIView!
+    @IBOutlet weak var categoryTBTopAnchor: NSLayoutConstraint!
     
     public static var isNaviBarHidden: Bool = false
     
@@ -31,36 +29,27 @@ class HomeVC: TabmanViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.tintColor = .white
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setNaviBar()
         setCategoryTB()
+        setCategoryIndicator()
         setNotification()
     }
 }
 
 //MARK: - Custom Method
-extension HomeVC {
-    /// setNaviBar - 네비게이션 바 Setting
-    func setNaviBar(){
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.backgroundColor = .clear
-    }
-    
+extension HomeVC {    
     /// setCategoryTB - 상단 탭바 Setting
     func setCategoryTB(){
-        let artVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
-        let illustVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
-        let dailyVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
-        let petVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
-        let fanVC = UIStoryboard.init(name: "ExhibitionList", bundle: nil).instantiateViewController(withIdentifier: "exhibitionListVC") as! ExhibitionListVC
-            
-        categoryTB.frame = CGRect(x: 0, y: 120, width: 375, height: 46)
+        let artVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC
+        let illustVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC
+        let dailyVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC
+        let petVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC
+        let fanVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC
         
         viewControllers.append(artVC)
         viewControllers.append(illustVC)
@@ -69,8 +58,10 @@ extension HomeVC {
         viewControllers.append(fanVC)
         
         self.dataSource = self
-
-        // Create bar
+    }
+    
+    // Category Bar Indicator Setting
+    func setCategoryIndicator() {
         let bar = TMBar.ButtonBar()
         bar.backgroundView.style = .flat(color: .black)
         bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 34.0, bottom: 0.0, right: 34.0)
@@ -81,7 +72,6 @@ extension HomeVC {
             button.font = UIFont.AppleSDGothicR(size: 16)
             button.selectedFont = UIFont.AppleSDGothicB(size: 16)
             button.widthAnchor.constraint(equalToConstant: 60).isActive = true
-            print(button.centerXAnchor)
         }
         
         // 인디케이터 조정
@@ -107,22 +97,18 @@ extension HomeVC {
     
     @objc func upCategoryTabBar() {
         HomeVC.isNaviBarHidden = true
-        categoryTB.frame = CGRect(x: 0, y: 75, width: 375, height: 46)
-        UIView.animate(withDuration: 1, delay: 0, options: UIView.AnimationOptions(), animations: {
-            self.navigationLogo.layer.opacity = 0
-            self.searchNaviBtn.layer.opacity = 0
-            self.ticketNaviBtn.layer.opacity = 0
-        }, completion: nil)
+        
+        self.customNavigationBar.layer.opacity = 0
+        self.categoryTBTopAnchor.constant = 0
+        self.view.layoutIfNeeded()
     }
     
     @objc func downCategoryTabBar() {
         HomeVC.isNaviBarHidden = false
-        categoryTB.frame = CGRect(x: 0, y: 120, width: 375, height: 46)
-        UIView.animate(withDuration: 1, delay: 0, options: UIView.AnimationOptions(), animations: {
-            self.navigationLogo.layer.opacity = 1
-            self.searchNaviBtn.layer.opacity = 1
-            self.ticketNaviBtn.layer.opacity = 1
-        }, completion: nil)
+        
+        self.customNavigationBar.layer.opacity = 1
+        self.categoryTBTopAnchor.constant = 68
+        self.view.layoutIfNeeded()
     }
 }
 
@@ -147,7 +133,7 @@ extension HomeVC: TMBarDataSource {
     }
 }
 //MARK: PageboyViewControllerDataSource
-extension HomeVC: PageboyViewControllerDataSource{
+extension HomeVC: PageboyViewControllerDataSource {
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
         return viewControllers.count
     }

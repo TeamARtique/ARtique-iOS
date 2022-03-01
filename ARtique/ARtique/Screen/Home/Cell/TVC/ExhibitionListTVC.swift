@@ -44,7 +44,6 @@ class ExhibitionListTVC: UITableViewCell {
         super.awakeFromNib()
         exhibitionListCV.delegate = self
         exhibitionListCV.dataSource = self
-//        scrollToMiddle(atIndex: startIndex)
         
         setUpCV()
     }
@@ -104,7 +103,7 @@ extension ExhibitionListTVC: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellIndex = indexPath.row % forARTI_DATA.count
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "exhibitionListCVC", for: indexPath) as! ExhibitionListCVC
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.exhibitionListCVC, for: indexPath) as! ExhibitionListCVC
         
         if cellIdentifier == 0 {
             cell.phoster.image = forARTI_DATA[cellIndex].phoster

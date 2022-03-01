@@ -10,9 +10,9 @@ import Tabman
 
 class ExhibitionListVC: UIViewController {
     @IBOutlet weak var pageTV: UITableView!
-    @IBOutlet weak var pageTVTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pageTVTopAnchor: NSLayoutConstraint!
     
-    var currentIndex:CGFloat = 0
+    let exhibitionListTVCHeight = 536
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +32,13 @@ extension ExhibitionListVC{
         pageTV.allowsSelection = false
         pageTV.backgroundColor = .black
         
+        // 카테고리 바꿨을때 네비바 상태 공유
+        if HomeVC.isNaviBarHidden {
+            pageTVTopAnchor.constant = 56
+        } else {
+            pageTVTopAnchor.constant = 124
+        }
+        
         // Paging
         pageTV.decelerationRate = UIScrollView.DecelerationRate.fast
     }
@@ -50,19 +57,19 @@ extension ExhibitionListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-            let cell = pageTV.dequeueReusableCell(withIdentifier: "exhibitionListTVC", for: indexPath) as! ExhibitionListTVC
+            let cell = pageTV.dequeueReusableCell(withIdentifier: Identifiers.exhibitionListTVC, for: indexPath) as! ExhibitionListTVC
             cell.subTitle.text = "YELYN ARTI를 위한 전시"
             cell.delegate = self
             cell.cellIdentifier = 0
             return cell
         } else if indexPath.row == 1 {
-            let cell = pageTV.dequeueReusableCell(withIdentifier: "exhibitionListTVC", for: indexPath) as! ExhibitionListTVC
+            let cell = pageTV.dequeueReusableCell(withIdentifier: Identifiers.exhibitionListTVC, for: indexPath) as! ExhibitionListTVC
             cell.subTitle.text = "ARTI들의 인기 전시"
             cell.delegate = self
             cell.cellIdentifier = 1
             return cell
         } else {
-            let cell = pageTV.dequeueReusableCell(withIdentifier: "allTVC", for: indexPath) as! AllTVC
+            let cell = pageTV.dequeueReusableCell(withIdentifier: Identifiers.allTVC, for: indexPath) as! AllTVC
             cell.subTitle.text = "\(tabmanBarItems![0].title!) 전시"
             cell.delegate = self
             cell.cellIdentifier = 2
@@ -72,46 +79,49 @@ extension ExhibitionListVC: UITableViewDataSource {
 }
 //MARK: UITableViewDelegate
 extension ExhibitionListVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 2 {
+            let viewWidth = view.frame.width
+            let cellHeight = viewWidth * 2 + 90
+            return CGFloat(cellHeight)
+        } else {
+            // 가로 스크롤 전시 cell은 높이 고정
+            return CGFloat(exhibitionListTVCHeight)
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // NavigationBar hide on scrolling
+        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
+            UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
+                NotificationCenter.default.post(name: .whenExhibitionListTVScrolledUp, object: nil)
+                self.pageTVTopAnchor.constant = 56
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
+                NotificationCenter.default.post(name: .whenExhibitionListTVScrolledDown, object: nil)
+                self.pageTVTopAnchor.constant = 124
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
+    }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        // NavigationBar hide on scrolling
-        if(velocity.y>0) {
-            UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
-                self.navigationController?.setNavigationBarHidden(true, animated: true)
-                NotificationCenter.default.post(name: .whenExhibitionListTVScrolledUp, object: nil)
-            }, completion: nil)
-        } else {
-            UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
-                self.navigationController?.setNavigationBarHidden(false, animated: true)
-                NotificationCenter.default.post(name: .whenExhibitionListTVScrolledDown, object: nil)
-            }, completion: nil)
-        }
         
         // tableview paging
-        let cellHeight:CGFloat = 550
-        var offset = targetContentOffset.pointee
+        let cellHeight = CGFloat(exhibitionListTVCHeight)
+        let offset = targetContentOffset.pointee
         let index = (offset.y + scrollView.contentInset.top) / cellHeight
-        var roundedIndex = round(index)
-        
-        if scrollView.contentOffset.y > targetContentOffset.pointee.y {
-            roundedIndex = floor(index)
-        } else if scrollView.contentOffset.y < targetContentOffset.pointee.y {
-            roundedIndex = ceil(index)
+        var roundedIndex:CGFloat = 0
+        if index > 2 {
+            roundedIndex = ceil((offset.y + scrollView.contentInset.top) / cellHeight)
         } else {
-            roundedIndex = round(index)
+            roundedIndex = round((offset.y + scrollView.contentInset.top) / cellHeight)
         }
         
-        if currentIndex > roundedIndex {
-            currentIndex -= 1
-            roundedIndex = currentIndex
-        } else if currentIndex < roundedIndex {
-            currentIndex += 1
-            roundedIndex = currentIndex
-        }
-        
-        if currentIndex < 3 {
-            offset = CGPoint(x: scrollView.contentInset.left, y:roundedIndex * cellHeight -  scrollView.contentInset.top)
-            targetContentOffset.pointee = offset
+        if roundedIndex < 3 {
+            pageTV.scrollToRow(at: [0, Int(roundedIndex)], at: .top, animated: true)
         }
     }
 }
@@ -119,9 +129,9 @@ extension ExhibitionListVC: UITableViewDelegate {
 //MARK: CVCellDelegate 화면 전환용
 extension ExhibitionListVC: CVCellDelegate {
     func selectedCVC(_ index: IndexPath, _ cellIdentifier: Int, _ collectionView: UICollectionView) {
-        guard let detailVC = UIStoryboard(name: "Detail", bundle: nil).instantiateViewController(withIdentifier:  "Detail") as? DetailVC else {return}
+        guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
         
-        if cellIdentifier == 2{
+        if cellIdentifier == 2 {
             let cell = collectionView.cellForItem(at: index) as! AllCVC
             
             detailVC.titleTmp = cell.title.text

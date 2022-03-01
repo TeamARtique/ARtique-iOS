@@ -10,4 +10,8 @@ import UIKit
 class AllCVC: UICollectionViewCell {
     @IBOutlet weak var phoster: UIImageView!
     @IBOutlet weak var title: UILabel!
+    
+    override func awakeFromNib() {
+        phoster.contentMode = .scaleAspectFill
+    }
 }
