@@ -20,24 +20,24 @@ class ExhibitionListVC: UIViewController {
         setUpDelegate()
         setUpTV()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureTopLayout()
+    }
 }
 
 //MARK: - Custom Method
 extension ExhibitionListVC{
     /// setUpTV - 테이블뷰 Setting
     func setUpTV(){
-        pageTV.bounces = false
         pageTV.showsVerticalScrollIndicator = false
         pageTV.separatorColor = .clear
         pageTV.allowsSelection = false
-        pageTV.backgroundColor = .black
+        pageTV.backgroundColor = .white
         
-        // 카테고리 바꿨을때 네비바 상태 공유
-        if HomeVC.isNaviBarHidden {
-            pageTVTopAnchor.constant = 56
-        } else {
-            pageTVTopAnchor.constant = 124
-        }
+        configureTopLayout()
         
         // Paging
         pageTV.decelerationRate = UIScrollView.DecelerationRate.fast
@@ -46,6 +46,15 @@ extension ExhibitionListVC{
     func setUpDelegate() {
         pageTV.dataSource = self
         pageTV.delegate = self
+    }
+    
+    func configureTopLayout() {
+        // 카테고리 바꿨을때 네비바 상태 공유
+        if HomeVC.isNaviBarHidden {
+            pageTVTopAnchor.constant = 56
+        } else {
+            pageTVTopAnchor.constant = 124
+        }
     }
 }
 
