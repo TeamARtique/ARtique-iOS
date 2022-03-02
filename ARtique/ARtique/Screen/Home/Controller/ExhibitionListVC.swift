@@ -105,14 +105,12 @@ extension ExhibitionListVC: UITableViewDelegate {
             UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
                 NotificationCenter.default.post(name: .whenExhibitionListTVScrolledUp, object: nil)
                 self.pageTVTopAnchor.constant = 56
-                self.pageTV.bounces = false
                 self.view.layoutIfNeeded()
             }, completion: nil)
         } else {
             UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
                 NotificationCenter.default.post(name: .whenExhibitionListTVScrolledDown, object: nil)
                 self.pageTVTopAnchor.constant = 124
-                self.pageTV.bounces = true
                 self.view.layoutIfNeeded()
             }, completion: nil)
         }
@@ -135,6 +133,9 @@ extension ExhibitionListVC: UITableViewDelegate {
         if index <= 2 {
             offset = CGPoint(x: scrollView.contentInset.left, y: roundedIndex * cellHeight -  scrollView.contentInset.top)
             targetContentOffset.pointee = offset
+            pageTV.bounces = true
+        } else {
+            pageTV.bounces = false
         }
     }
 }
