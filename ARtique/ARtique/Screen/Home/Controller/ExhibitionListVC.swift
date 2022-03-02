@@ -96,12 +96,14 @@ extension ExhibitionListVC: UITableViewDelegate {
             UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
                 NotificationCenter.default.post(name: .whenExhibitionListTVScrolledUp, object: nil)
                 self.pageTVTopAnchor.constant = 56
+                self.pageTV.bounces = false
                 self.view.layoutIfNeeded()
             }, completion: nil)
         } else {
             UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
                 NotificationCenter.default.post(name: .whenExhibitionListTVScrolledDown, object: nil)
                 self.pageTVTopAnchor.constant = 124
+                self.pageTV.bounces = true
                 self.view.layoutIfNeeded()
             }, completion: nil)
         }
@@ -111,17 +113,19 @@ extension ExhibitionListVC: UITableViewDelegate {
         
         // tableview paging
         let cellHeight = CGFloat(exhibitionListTVCHeight)
-        let offset = targetContentOffset.pointee
+        var offset = targetContentOffset.pointee
         let index = (offset.y + scrollView.contentInset.top) / cellHeight
-        var roundedIndex:CGFloat = 0
-        if index > 2 {
-            roundedIndex = ceil((offset.y + scrollView.contentInset.top) / cellHeight)
-        } else {
-            roundedIndex = round((offset.y + scrollView.contentInset.top) / cellHeight)
+        var roundedIndex = round(index)
+        
+        if scrollView.contentOffset.y > targetContentOffset.pointee.y {
+            roundedIndex = floor(index)
+        } else if scrollView.contentOffset.y < targetContentOffset.pointee.y {
+            roundedIndex = ceil(index)
         }
         
-        if roundedIndex < 3 {
-            pageTV.scrollToRow(at: [0, Int(roundedIndex)], at: .top, animated: true)
+        if index <= 2 {
+            offset = CGPoint(x: scrollView.contentInset.left, y: roundedIndex * cellHeight -  scrollView.contentInset.top)
+            targetContentOffset.pointee = offset
         }
     }
 }
