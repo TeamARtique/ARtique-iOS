@@ -9,15 +9,18 @@ import UIKit
 
 class AddExhibitionVC: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
-    let scrollView = UIScrollView()
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var progress:Float = 0.2
+    var page: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureNavigationBar()
         configureRegisterProgressView()
+        configureScrollView()
+        configureStackView()
     }
 }
 
@@ -61,6 +64,36 @@ extension AddExhibitionVC {
         progressView.tintColor = .black
         progressView.progress = progress
     }
+    
+    // MARK: - Configure Content Page
+    func configureScrollView() {
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.contentSize = CGSize(width: view.frame.width * 5,
+                                        height: 0)
+        scrollView.isUserInteractionEnabled = false
+    }
+    
+    func setScrollViewPaging(page: Int) {
+        let page = page
+        let width = scrollView.frame.width
+        let targetX = CGFloat(page) * width
+        
+        var offset = scrollView.contentOffset
+        offset.x = targetX
+        
+        scrollView.setContentOffset(offset, animated: true)
+    }
+    
+    func configureStackView() {
+        let views = [UIView()]
+        
+        let stackView = UIStackView(arrangedSubviews: views)
+        
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(stackView)
+    }
 }
 
 // MARK: - Bind Button Action
@@ -68,16 +101,22 @@ extension AddExhibitionVC {
     @objc func bindRightBarButton() {
         if progressView.progress != 1 {
             progress += 0.2
+            page += 1
             progressView.setProgress(progress, animated: true)
             configureNaviBarButton()
+            setScrollViewPaging(page: page)
+        } else {
+            // TODO: - 게시글 등록 완료
         }
     }
     
     @objc func bindLeftBarButton() {
         if progressView.progress > 0.3 {
             progress -= 0.2
+            page -= 1
             progressView.setProgress(progress, animated: true)
             configureNaviBarButton()
+            setScrollViewPaging(page: page)
         } else {
             dismiss(animated: true)
         }
