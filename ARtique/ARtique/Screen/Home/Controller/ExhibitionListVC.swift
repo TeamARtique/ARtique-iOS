@@ -28,16 +28,13 @@ class ExhibitionListVC: UIViewController {
     }
 }
 
-//MARK: - Custom Method
+// MARK: - Custom Method
 extension ExhibitionListVC{
-    /// setUpTV - 테이블뷰 Setting
     func setUpTV(){
         pageTV.showsVerticalScrollIndicator = false
         pageTV.separatorColor = .clear
         pageTV.allowsSelection = false
         pageTV.backgroundColor = .white
-        
-        configureTopLayout()
         
         // Paging
         pageTV.decelerationRate = UIScrollView.DecelerationRate.fast
@@ -48,17 +45,21 @@ extension ExhibitionListVC{
         pageTV.delegate = self
     }
     
+    /// 카테고리 바꿨을때 네비바 상태 공유
     func configureTopLayout() {
-        // 카테고리 바꿨을때 네비바 상태 공유
-        if HomeVC.isNaviBarHidden {
-            pageTVTopAnchor.constant = 56
-        } else {
-            pageTVTopAnchor.constant = 124
-        }
+        pageTVTopAnchor.constant = HomeVC.isNaviBarHidden ? 56 : 124
+    }
+    
+    private func animateUIView(topAnchorConstant: CGFloat, NotificationName: Notification.Name) {
+        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
+            NotificationCenter.default.post(name: NotificationName, object: nil)
+            self.pageTVTopAnchor.constant = topAnchorConstant
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
 }
 
-//MARK: UITableViewDataSource
+// MARK: UITableViewDataSource
 extension ExhibitionListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
@@ -86,7 +87,8 @@ extension ExhibitionListVC: UITableViewDataSource {
         }
     }
 }
-//MARK: UITableViewDelegate
+
+// MARK: UITableViewDelegate
 extension ExhibitionListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 2 {
@@ -94,25 +96,15 @@ extension ExhibitionListVC: UITableViewDelegate {
             let cellHeight = viewWidth * 2 + 90
             return CGFloat(cellHeight)
         } else {
-            // 가로 스크롤 전시 cell은 높이 고정
             return CGFloat(exhibitionListTVCHeight)
         }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // NavigationBar hide on scrolling
         if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
-            UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
-                NotificationCenter.default.post(name: .whenExhibitionListTVScrolledUp, object: nil)
-                self.pageTVTopAnchor.constant = 56
-                self.view.layoutIfNeeded()
-            }, completion: nil)
+            animateUIView(topAnchorConstant: 56, NotificationName: .whenExhibitionListTVScrolledUp)
         } else {
-            UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
-                NotificationCenter.default.post(name: .whenExhibitionListTVScrolledDown, object: nil)
-                self.pageTVTopAnchor.constant = 124
-                self.view.layoutIfNeeded()
-            }, completion: nil)
+            animateUIView(topAnchorConstant: 124, NotificationName: .whenExhibitionListTVScrolledDown)
         }
     }
     
@@ -140,11 +132,12 @@ extension ExhibitionListVC: UITableViewDelegate {
     }
 }
 
-//MARK: CVCellDelegate 화면 전환용
+// MARK: CVCellDelegate 화면 전환용
 extension ExhibitionListVC: CVCellDelegate {
     func selectedCVC(_ index: IndexPath, _ cellIdentifier: Int, _ collectionView: UICollectionView) {
         guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
         
+        // TODO: - data model 생성 후 함수화 예정
         if cellIdentifier == 2 {
             let cell = collectionView.cellForItem(at: index) as! AllCVC
             

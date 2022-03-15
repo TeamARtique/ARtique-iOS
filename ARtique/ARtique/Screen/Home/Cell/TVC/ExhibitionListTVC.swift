@@ -51,6 +51,7 @@ class ExhibitionListTVC: UITableViewCell {
 
 //MARK: - Custom Method
 extension ExhibitionListTVC {
+    
     /// setUpCV - 추천(ㅇㅇARTI를 위한 전시, ARTI들의 인기 전시) collectionview Setting
     func setUpCV(){
         exhibitionListCV.showsHorizontalScrollIndicator = false

@@ -41,6 +41,7 @@ class DetailVC: UIViewController {
             likeCnt.text = "\(Int(likeCnt.text!)! + 1)"
         }
     }
+    
     @IBAction func pushBookMark(_ sender: Any) {
         if bookMarkBtn.currentImage == UIImage(named: "BookMark_Selected"){
             bookMarkBtn.setImage(UIImage(named: "BookMark_UnSelected"), for: .normal)
@@ -50,6 +51,7 @@ class DetailVC: UIViewController {
             bookMarkCnt.text = "\(Int(bookMarkCnt.text!)! + 1)"
         }
     }
+    
     @IBAction func goToARGalleryBtnDidTap(_ sender: UIButton) {
         let galleryVC = ViewControllerFactory.viewController(for: .arGallery)
         galleryVC.modalPresentationStyle = .fullScreen
