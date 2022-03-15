@@ -34,7 +34,7 @@ class HomeVC: TabmanViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setCategoryTB()
         setCategoryIndicator()
         setNotification()
@@ -42,7 +42,7 @@ class HomeVC: TabmanViewController {
 }
 
 //MARK: - Custom Method
-extension HomeVC {    
+extension HomeVC {
     /// setCategoryTB - 상단 탭바 Setting
     func setCategoryTB(){
         let artVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC

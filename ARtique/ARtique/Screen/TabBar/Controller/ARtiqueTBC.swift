@@ -11,6 +11,8 @@ class ARtiqueTBC: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        delegate = self
         setTabBar()
     }
     
@@ -32,7 +34,6 @@ class ARtiqueTBC: UITabBarController {
         
         homeTab.tabBarItem.imageInsets = UIEdgeInsets(top: -0.5, left: -0.5, bottom: -0.5, right: -35)
         addTab.tabBarItem.imageInsets = UIEdgeInsets(top: -40, left: -0.5, bottom: -0.5, right: -0.5)
-//        addTab.tabBarItem.imageInsets = UIEdgeInsets(top: -40, left: -50, bottom: -10, right: -50)
         mypageTab.tabBarItem.imageInsets = UIEdgeInsets(top: -0.5, left: -35, bottom: -0.5, right: -0.5)
         
         // 탭바 스타일 설정
@@ -53,5 +54,20 @@ class ARtiqueTBC: UITabBarController {
         
         // VC에 루트로 설정
         self.setViewControllers(tabs, animated: false)
+    }
+}
+
+extension ARtiqueTBC: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        let addVC = viewControllers![1]
+        
+        if viewController == addVC {
+            let addExhibitionVC = ViewControllerFactory.viewController(for: .add)
+            addExhibitionVC.modalPresentationStyle = .fullScreen
+            present(addExhibitionVC, animated: true, completion: nil)
+            return false
+        } else {
+            return true
+        }
     }
 }

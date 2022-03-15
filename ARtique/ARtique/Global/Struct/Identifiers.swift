@@ -12,7 +12,7 @@ struct Identifiers {
     static let homeSB = "Home"
     static let exhibitionListSB = "ExhibitionList"
     static let detailSB = "Detail"
-    static let addSB = "Add"
+    static let addSB = "AddExhibition"
     static let mypageSB = "Mypage"
     static let arGallerySB = "ARGallery"
     
@@ -22,7 +22,8 @@ struct Identifiers {
     static let homeVC = "HomeVC"
     static let exhibitionListVC = "ExhibitionListVC"
     static let detailVC = "DetailVC"
-    static let addARVC = "AddARVC"
+    static let addExhibitionNC = "AddExhibitionNC"
+    static let addExhibitionVC = "AddExhibitionVC"
     static let mypageVC = "MypageVC"
     static let arGalleryVC = "ARGalleryVC"
     static let planeRecognitionVC = "PlaneVC"
