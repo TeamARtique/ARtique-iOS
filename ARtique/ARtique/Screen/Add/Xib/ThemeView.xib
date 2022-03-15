@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="AppleSDGothicNeoB.ttf">
+            <string>AppleSDGothicNeoB00</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThemeView" customModule="ARtique" customModuleProvider="target">
+            <connections>
+                <outlet property="cntCV" destination="7gS-Rr-SeN" id="2Qb-y1-6Vb"/>
+                <outlet property="themeCV" destination="P4s-3g-GiJ" id="jxX-Lf-DqB"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="660"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="9V9-0U-HLx">
+                    <rect key="frame" x="20" y="34" width="335" height="74.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="사진 개수" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJq-bJ-yXs">
+                            <rect key="frame" x="0.0" y="0.0" width="63.5" height="22.5"/>
+                            <fontDescription key="fontDescription" name="AppleSDGothicNeoB00" family="AppleSDGothicNeoB00" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="7gS-Rr-SeN">
+                            <rect key="frame" x="0.0" y="38.5" width="335" height="36"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="feW-3X-CfF"/>
+                            </constraints>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Gmt-G9-Bnl">
+                                <size key="itemSize" width="128" height="128"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="7gS-Rr-SeN" secondAttribute="bottom" id="1Nn-6A-MKM"/>
+                        <constraint firstItem="7gS-Rr-SeN" firstAttribute="top" secondItem="aJq-bJ-yXs" secondAttribute="bottom" constant="16" id="YzJ-bn-qrW"/>
+                        <constraint firstAttribute="trailing" secondItem="7gS-Rr-SeN" secondAttribute="trailing" id="m80-Nw-rze"/>
+                        <constraint firstItem="7gS-Rr-SeN" firstAttribute="leading" secondItem="9V9-0U-HLx" secondAttribute="leading" id="wq6-sa-bh1"/>
+                    </constraints>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="n1m-Km-XVV">
+                    <rect key="frame" x="20" y="165.5" width="335" height="422.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="갤러리 테마" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drj-fu-NE4">
+                            <rect key="frame" x="0.0" y="0.0" width="78" height="22.5"/>
+                            <fontDescription key="fontDescription" name="AppleSDGothicNeoB00" family="AppleSDGothicNeoB00" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="P4s-3g-GiJ">
+                            <rect key="frame" x="0.0" y="35.5" width="335" height="387"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="glJ-Te-vvW">
+                                <size key="itemSize" width="128" height="128"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="P4s-3g-GiJ" secondAttribute="bottom" id="2La-UL-Wf3"/>
+                        <constraint firstItem="P4s-3g-GiJ" firstAttribute="leading" secondItem="n1m-Km-XVV" secondAttribute="leading" id="EJA-FS-hFr"/>
+                        <constraint firstAttribute="trailing" secondItem="P4s-3g-GiJ" secondAttribute="trailing" id="czM-tH-T4w"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="n1m-Km-XVV" secondAttribute="bottom" constant="72" id="3uz-gt-3P8"/>
+                <constraint firstItem="n1m-Km-XVV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="HgI-Iw-EcG"/>
+                <constraint firstItem="9V9-0U-HLx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="NHQ-Ya-stN"/>
+                <constraint firstItem="n1m-Km-XVV" firstAttribute="top" secondItem="9V9-0U-HLx" secondAttribute="bottom" constant="57" id="rfB-Qo-PTV"/>
+                <constraint firstAttribute="trailing" secondItem="9V9-0U-HLx" secondAttribute="trailing" constant="20" id="xVk-UT-Deu"/>
+                <constraint firstItem="9V9-0U-HLx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="yJ6-7h-Aqw"/>
+                <constraint firstAttribute="trailing" secondItem="n1m-Km-XVV" secondAttribute="trailing" constant="20" id="zUh-Ww-WkI"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="138.40579710144928" y="109.82142857142857"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import SnapKit
 
 class AddExhibitionVC: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var scrollView: UIScrollView!
+    let themeView = ThemeView()
     
     var progress:Float = 0.2
     var page: Int = 0
@@ -27,6 +29,7 @@ class AddExhibitionVC: UIViewController {
 // MARK: - Configure
 extension AddExhibitionVC {
     func configureNavigationBar() {
+        configureNavigationTitle(0)
         navigationController?.additionalSafeAreaInsets.top = 8
         navigationController?.setRoundRightBarBtn(navigationItem: self.navigationItem,
                                                     title: "다음",
@@ -37,6 +40,10 @@ extension AddExhibitionVC {
                                                            target: self,
                                                            action: #selector(bindLeftBarButton))
         navigationController?.navigationBar.tintColor = .black
+    }
+    
+    func configureNavigationTitle(_ index: Int) {
+        navigationItem.title = AddProcess.allCases[index].naviTitle
     }
     
     func configureNaviBarButton() {
@@ -70,7 +77,7 @@ extension AddExhibitionVC {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.contentSize = CGSize(width: view.frame.width * 5,
                                         height: 0)
-        scrollView.isUserInteractionEnabled = false
+        scrollView.isScrollEnabled = false
     }
     
     func setScrollViewPaging(page: Int) {
@@ -85,14 +92,22 @@ extension AddExhibitionVC {
     }
     
     func configureStackView() {
-        let views = [UIView()]
-        
+        let views = [themeView]
         let stackView = UIStackView(arrangedSubviews: views)
         
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(stackView)
+        
+        configureLayout(themeView)
+    }
+    
+    func configureLayout(_ view: UIView) {
+        view.snp.makeConstraints {
+            $0.width.equalTo(scrollView.snp.width)
+            $0.height.equalTo(scrollView.snp.height)
+        }
     }
 }
 
@@ -103,6 +118,7 @@ extension AddExhibitionVC {
             progress += 0.2
             page += 1
             progressView.setProgress(progress, animated: true)
+            configureNavigationTitle(page)
             configureNaviBarButton()
             setScrollViewPaging(page: page)
         } else {
@@ -115,6 +131,7 @@ extension AddExhibitionVC {
             progress -= 0.2
             page -= 1
             progressView.setProgress(progress, animated: true)
+            configureNavigationTitle(page)
             configureNaviBarButton()
             setScrollViewPaging(page: page)
         } else {

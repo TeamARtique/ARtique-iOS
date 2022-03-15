@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import SnapKit
+
 extension UIView {
     //UIView에 다수의 Subviews 한번에 추가
     func addSubviews(_ views: [UIView]) {
@@ -36,5 +38,10 @@ extension UIView {
             return screenshot
         }
         return nil
+    }
+    
+    /// xib 파일을 불러오는 함수
+    func loadXibView(with xibName: String) -> UIView? {
+        return Bundle.main.loadNibNamed(xibName, owner: self, options: nil)?.first as? UIView
     }
 }

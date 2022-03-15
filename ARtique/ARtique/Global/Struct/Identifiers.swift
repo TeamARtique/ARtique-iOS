@@ -28,13 +28,18 @@ struct Identifiers {
     static let arGalleryVC = "ARGalleryVC"
     static let planeRecognitionVC = "PlaneVC"
     
-    //MARK: - Cell
+    //MARK: - TVC
     static let exhibitionListTVC = "ExhibitionListTVC"
     static let allTVC = "AllTVC"
+    
+    //MARK: - CVC
     static let exhibitionListCVC = "ExhibitionListCVC"
     static let allCVC = "AllCVC"
+    static let roundCVC = "RoundCVC"
+    static let themeCVC = "ThemeCVC"
     
     //MARK: - View
+    static let themeView = "ThemeView"
     
     //MARK: - Node
     static let defaultGalleryScenePath = "art.scnassets/DefaultModel/defaultGallery.scn"
