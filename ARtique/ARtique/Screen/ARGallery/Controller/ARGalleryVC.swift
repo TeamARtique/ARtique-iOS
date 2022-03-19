@@ -23,11 +23,12 @@ class ARGalleryVC: UIViewController {
     var galleryScene: SCNScene!
     var defaultGalleryNode: SCNNode!
     var planeRecognizedPosition: SCNVector3?
+    var galleryType: GalleyType = .maximum
     
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupGallerySceneView()
+        setupGallerySceneView(type: galleryType)
         self.tabBarController?.tabBar.isHidden = true
     }
     
@@ -44,19 +45,29 @@ class ARGalleryVC: UIViewController {
     
     //MARK: IBAction
     @IBAction func switchOnOffDidTap(_ sender: UISwitch) {
+        var galleryModel: String = ""
+        
+        switch galleryType {
+        case .minimum:
+            galleryModel = Identifiers.minimumGalleryModel
+        case .medium:
+            galleryModel = Identifiers.mediumGalleryModel
+        case .maximum:
+            galleryModel = Identifiers.maximumGalleryModel
+        }
+        
         if !sender.isOn {
-            
-            gallerySceneView.scene.rootNode.childNodes.filter({ $0.name == Identifiers.defaultGalleryModel }).forEach({ $0.isHidden = true })
+            gallerySceneView.scene.rootNode.childNodes.filter({ $0.name == galleryModel }).forEach({ $0.isHidden = true })
             captureBtn.isHidden = false
         }
         else {
-            gallerySceneView.scene.rootNode.childNodes.filter({ $0.name == Identifiers.defaultGalleryModel }).forEach({ $0.isHidden = false })
+            gallerySceneView.scene.rootNode.childNodes.filter({ $0.name == galleryModel }).forEach({ $0.isHidden = false })
             captureBtn.isHidden = true
         }
     }
     
+    /// view screenshot func
     @IBAction func captureBtnDidTap(_ sender: UIButton) {
-        /// view screenshot func
         guard let screenshot = self.view.makeScreenShot() else { return }
         
         UIImageWriteToSavedPhotosAlbum(screenshot, self, #selector(imageWasSaved), nil)
@@ -69,6 +80,7 @@ class ARGalleryVC: UIViewController {
 
 //MARK: - Custom Methods
 extension ARGalleryVC {
+    
     /// 이미지가 저장되었을 때 호출되는 func
     @objc func imageWasSaved(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer) {
         if let error = error {
@@ -83,19 +95,27 @@ extension ARGalleryVC {
 //MARK: - AR Functions
 extension ARGalleryVC: ARSCNViewDelegate {
     
-    //MARK: Custom Method
+    /// AR Session Create
     func createSessonConfiguration(_ arView: ARSCNView) {
-        // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
-        
-        // Run the view's session
         arView.session.run(configuration)
     }
     
     /// 갤러리 scene 생성
-    func setupGallerySceneView() {
+    func setupGallerySceneView(type: GalleyType) {
+        var galleryScenePath: String = ""
+        
+        switch type {
+        case .minimum:
+            galleryScenePath = Identifiers.minimumGalleryScenePath
+        case .medium:
+            galleryScenePath = Identifiers.mediumGalleryScenePath
+        case .maximum:
+            galleryScenePath = Identifiers.maximumGalleryScenePath
+        }
+        
         gallerySceneView.delegate = self
-        galleryScene = SCNScene(named: Identifiers.defaultGalleryScenePath)!
+        galleryScene = SCNScene(named: galleryScenePath)!
         gallerySceneView.scene = galleryScene
         gallerySceneView.scene.rootNode.position = planeRecognizedPosition!
     }
