@@ -36,8 +36,13 @@ struct Identifiers {
     //MARK: - View
     
     //MARK: - Node
-    static let defaultGalleryScenePath = "art.scnassets/DefaultModel/defaultGallery.scn"
-    static let defaultGalleryModel = "defaultGalleryModel"
+    static let minimumGalleryScenePath = "art.scnassets/GalleryModel/minimumGallery.scn"
+    static let mediumGalleryScenePath = "art.scnassets/GalleryModel/mediumGallery.scn"
+    static let maximumGalleryScenePath = "art.scnassets/GalleryModel/maximumGallery.scn"
+    
+    static let minimumGalleryModel = "defaultGalleryModel"
+    static let mediumGalleryModel = "mediumGalleryModel"
+    static let maximumGalleryModel = "maximumGalleryModel"
     
     //default 액자 5개
     static let defaultFrame1 = "defaultFrame1"
