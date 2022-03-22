@@ -12,6 +12,7 @@ class AddExhibitionVC: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var scrollView: UIScrollView!
     let themeView = ThemeView()
+    let orderView = OrderView()
     
     var progress:Float = 0.2
     var page: Int = 0
@@ -92,7 +93,8 @@ extension AddExhibitionVC {
     }
     
     func configureStackView() {
-        let views = [themeView]
+        let dummyView = UIView()
+        let views = [themeView, dummyView, orderView]
         let stackView = UIStackView(arrangedSubviews: views)
         
         stackView.axis = .horizontal
@@ -100,7 +102,9 @@ extension AddExhibitionVC {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(stackView)
         
-        configureLayout(themeView)
+        views.forEach {
+            configureLayout($0)
+        }
     }
     
     func configureLayout(_ view: UIView) {

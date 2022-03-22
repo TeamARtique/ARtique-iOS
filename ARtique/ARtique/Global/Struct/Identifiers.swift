@@ -37,9 +37,12 @@ struct Identifiers {
     static let allCVC = "AllCVC"
     static let roundCVC = "RoundCVC"
     static let themeCVC = "ThemeCVC"
+    static let selectedImageCVC = "SelectedImageCVC"
     
     //MARK: - View
     static let themeView = "ThemeView"
+    static let orderView = "OrderView"
+    static let selectedImageView = "SelectedImageView"
     
     //MARK: - Node
     static let defaultGalleryScenePath = "art.scnassets/DefaultModel/defaultGallery.scn"
