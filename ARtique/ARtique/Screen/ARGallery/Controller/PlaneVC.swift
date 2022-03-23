@@ -57,8 +57,8 @@ class PlaneVC: UIViewController {
     @IBAction func createExhibition(_ sender: Any) {
         guard let galleryVC = self.storyboard?.instantiateViewController(withIdentifier: Identifiers.arGalleryVC) as? ARGalleryVC else { return }
         
-        let query = sceneView.getRaycastQuery()
-        if let result = sceneView.castRay(for: query!).first {
+        let query = sceneView.getRaycastQuery() ?? ARRaycastQuery(origin: SIMD3(0, 0, 0), direction: SIMD3(0, 0, 0), allowing: .estimatedPlane, alignment: .horizontal)
+        if let result = sceneView.castRay(for: query).first {
             galleryVC.planeRecognizedPosition = SCNVector3(
                 x: result.worldTransform.columns.3.x,
                 y: result.worldTransform.columns.3.y,
