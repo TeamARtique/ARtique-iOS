@@ -39,6 +39,10 @@
 		23E734F727E9A016000315E6 /* SelectedImageCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23E734F527E9A016000315E6 /* SelectedImageCVC.xib */; };
 		23E734FA27E9A1A7000315E6 /* SelectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E734F827E9A1A7000315E6 /* SelectedImageView.swift */; };
 		23E734FB27E9A1A7000315E6 /* SelectedImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23E734F927E9A1A7000315E6 /* SelectedImageView.xib */; };
+		23E734FE27EA1528000315E6 /* PostExplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E734FC27EA1528000315E6 /* PostExplainView.swift */; };
+		23E734FF27EA1528000315E6 /* PostExplainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23E734FD27EA1528000315E6 /* PostExplainView.xib */; };
+		23E7350527EA24A1000315E6 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7350427EA24A1000315E6 /* UITextView+.swift */; };
+		23E7350727EA4D1B000315E6 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7350627EA4D1B000315E6 /* UIScrollView+.swift */; };
 		3305F7312754DABA00E6E08E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3305F7302754DABA00E6E08E /* AppDelegate.swift */; };
 		3305F7332754DABA00E6E08E /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3305F7322754DABA00E6E08E /* art.scnassets */; };
 		3305F73A2754DABD00E6E08E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3305F7392754DABD00E6E08E /* Assets.xcassets */; };
@@ -111,6 +115,10 @@
 		23E734F527E9A016000315E6 /* SelectedImageCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectedImageCVC.xib; sourceTree = "<group>"; };
 		23E734F827E9A1A7000315E6 /* SelectedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedImageView.swift; sourceTree = "<group>"; };
 		23E734F927E9A1A7000315E6 /* SelectedImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectedImageView.xib; sourceTree = "<group>"; };
+		23E734FC27EA1528000315E6 /* PostExplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostExplainView.swift; sourceTree = "<group>"; };
+		23E734FD27EA1528000315E6 /* PostExplainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostExplainView.xib; sourceTree = "<group>"; };
+		23E7350427EA24A1000315E6 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
+		23E7350627EA4D1B000315E6 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		3305F72D2754DABA00E6E08E /* ARtique.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARtique.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3305F7302754DABA00E6E08E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3305F7322754DABA00E6E08E /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -197,6 +205,7 @@
 				23B52A8A27E0FED600D6C339 /* ThemeView.xib */,
 				23E734ED27E99CC8000315E6 /* OrderView.xib */,
 				23E734F927E9A1A7000315E6 /* SelectedImageView.xib */,
+				23E734FD27EA1528000315E6 /* PostExplainView.xib */,
 			);
 			path = Xib;
 			sourceTree = "<group>";
@@ -207,6 +216,7 @@
 				23B52A8927E0FED600D6C339 /* ThemeView.swift */,
 				23E734EC27E99CC8000315E6 /* OrderView.swift */,
 				23E734F827E9A1A7000315E6 /* SelectedImageView.swift */,
+				23E734FC27EA1528000315E6 /* PostExplainView.swift */,
 			);
 			path = XibController;
 			sourceTree = "<group>";
@@ -322,9 +332,11 @@
 				3305F7582754DFD700E6E08E /* UIView+.swift */,
 				3305F77C2754E20800E6E08E /* UserDefaults+.swift */,
 				3305F77E2754E22800E6E08E /* UITextField+.swift */,
+				23E7350427EA24A1000315E6 /* UITextView+.swift */,
 				3305F7802754E23F00E6E08E /* UIButton+.swift */,
 				23B52A7E27E0A73800D6C339 /* UIViewController+.swift */,
 				23B52A8027E0A7B900D6C339 /* UINavigationController+.swift */,
+				23E7350627EA4D1B000315E6 /* UIScrollView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -672,6 +684,7 @@
 				23B2E5D42758F7F300FA8CC2 /* ExhibitionList.storyboard in Resources */,
 				3305F73D2754DABD00E6E08E /* LaunchScreen.storyboard in Resources */,
 				3305F7922754E35900E6E08E /* Mypage.storyboard in Resources */,
+				23E734FF27EA1528000315E6 /* PostExplainView.xib in Resources */,
 				23E734EF27E99CC8000315E6 /* OrderView.xib in Resources */,
 				23E734F727E9A016000315E6 /* SelectedImageCVC.xib in Resources */,
 				23E734FB27E9A1A7000315E6 /* SelectedImageView.xib in Resources */,
@@ -742,6 +755,7 @@
 				235584012767A7100046C3EE /* FocusSquareSegment.swift in Sources */,
 				3305F7872754E28B00E6E08E /* ViewControllerFactory.swift in Sources */,
 				23B52A7B27E0A56900D6C339 /* AddExhibitionVC.swift in Sources */,
+				23E7350527EA24A1000315E6 /* UITextView+.swift in Sources */,
 				23E734FA27E9A1A7000315E6 /* SelectedImageView.swift in Sources */,
 				3305F7552754DF5B00E6E08E /* UILabel+.swift in Sources */,
 				23B52A7D27E0A5A500D6C339 /* AddExhibitionNC.swift in Sources */,
@@ -763,10 +777,12 @@
 				3305F75F2754E02A00E6E08E /* View.swift in Sources */,
 				3305F78C2754E31000E6E08E /* ARtiqueTBC.swift in Sources */,
 				2395FBA427563AA500D3DB77 /* DetailVC.swift in Sources */,
+				23E7350727EA4D1B000315E6 /* UIScrollView+.swift in Sources */,
 				23E734F627E9A016000315E6 /* SelectedImageCVC.swift in Sources */,
 				23B2E5D62758F9D700FA8CC2 /* ExhibitionListVC.swift in Sources */,
 				3305F7572754DF6500E6E08E /* Notification+Name.swift in Sources */,
 				237B4370275CFA3E00B7FA3F /* AllCVC.swift in Sources */,
+				23E734FE27EA1528000315E6 /* PostExplainView.swift in Sources */,
 				3305F7852754E27300E6E08E /* TypeOfViewController.swift in Sources */,
 				3305F7A42754E3C800E6E08E /* f.swift in Sources */,
 				237B436B275CE83600B7FA3F /* AllTVC.swift in Sources */,

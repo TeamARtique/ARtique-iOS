@@ -43,6 +43,7 @@ struct Identifiers {
     static let themeView = "ThemeView"
     static let orderView = "OrderView"
     static let selectedImageView = "SelectedImageView"
+    static let postExplainView = "PostExplainView"
     
     //MARK: - Node
     static let defaultGalleryScenePath = "art.scnassets/DefaultModel/defaultGallery.scn"
