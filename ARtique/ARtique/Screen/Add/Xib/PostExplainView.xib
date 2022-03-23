@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="AppleSDGothicNeoR.ttf">
+            <string>AppleSDGothicNeoR00</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostExplainView" customModule="ARtique" customModuleProvider="target">
+            <connections>
+                <outlet property="message" destination="rOI-aZ-YkD" id="g7F-xF-6JV"/>
+                <outlet property="scrollView" destination="qKE-Se-doZ" id="ezM-Ye-c3G"/>
+                <outlet property="stackView" destination="LxN-my-lsO" id="Z87-6x-BuQ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="660"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="해당 과정은 선택입니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOI-aZ-YkD">
+                    <rect key="frame" x="20" y="48" width="111" height="15"/>
+                    <fontDescription key="fontDescription" name="AppleSDGothicNeoR00" family="AppleSDGothicNeoR00" pointSize="12"/>
+                    <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qKE-Se-doZ">
+                    <rect key="frame" x="0.0" y="79" width="375" height="548"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LxN-my-lsO">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="548"/>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="LxN-my-lsO" firstAttribute="leading" secondItem="Qfb-Cp-sEL" secondAttribute="leading" id="I8o-MU-GHt"/>
+                        <constraint firstItem="LxN-my-lsO" firstAttribute="height" secondItem="hDX-5l-dJI" secondAttribute="height" id="eaF-G4-fZI"/>
+                        <constraint firstItem="LxN-my-lsO" firstAttribute="trailing" secondItem="Qfb-Cp-sEL" secondAttribute="trailing" id="oOA-59-ony"/>
+                        <constraint firstItem="LxN-my-lsO" firstAttribute="top" secondItem="Qfb-Cp-sEL" secondAttribute="top" id="yo9-iC-W1m"/>
+                        <constraint firstItem="LxN-my-lsO" firstAttribute="bottom" secondItem="Qfb-Cp-sEL" secondAttribute="bottom" id="zYc-Km-oSn"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="Qfb-Cp-sEL"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="hDX-5l-dJI"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="qKE-Se-doZ" firstAttribute="top" secondItem="rOI-aZ-YkD" secondAttribute="bottom" constant="16" id="4Zb-ht-acB"/>
+                <constraint firstItem="rOI-aZ-YkD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="AXy-JC-lxn"/>
+                <constraint firstItem="qKE-Se-doZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Fnv-R5-3Yt"/>
+                <constraint firstAttribute="trailing" secondItem="qKE-Se-doZ" secondAttribute="trailing" id="Jig-tQ-ObW"/>
+                <constraint firstAttribute="bottom" secondItem="qKE-Se-doZ" secondAttribute="bottom" constant="33" id="WXV-km-7Sn"/>
+                <constraint firstItem="rOI-aZ-YkD" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="48" id="gee-72-KRU"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="138.40579710144928" y="103.79464285714285"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

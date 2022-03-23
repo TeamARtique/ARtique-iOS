@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Add ExhibitionVC-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="AddExhibitionVC" id="Y6W-OH-hqX" customClass="AddExhibitionVC" customModule="ARtique" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Eu3-kD-Fpk">
+                                <rect key="frame" x="0.0" y="98" width="414" height="6"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="6" id="SVn-wl-17A"/>
+                                </constraints>
+                            </progressView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="96u-2T-yq2">
+                                <rect key="frame" x="0.0" y="104" width="414" height="758"/>
+                                <viewLayoutGuide key="contentLayoutGuide" id="YAn-2S-sW7"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="cfO-zd-50y"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Eu3-kD-Fpk" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9mI-UI-Moe"/>
+                            <constraint firstItem="96u-2T-yq2" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="Hbw-GY-wsB"/>
+                            <constraint firstItem="96u-2T-yq2" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Qb4-s8-Cyx"/>
+                            <constraint firstItem="96u-2T-yq2" firstAttribute="top" secondItem="Eu3-kD-Fpk" secondAttribute="bottom" id="hS7-c7-eKC"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Eu3-kD-Fpk" secondAttribute="trailing" id="ll5-39-bs1"/>
+                            <constraint firstItem="Eu3-kD-Fpk" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="ypW-Qo-ZNT"/>
+                            <constraint firstItem="96u-2T-yq2" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="zbH-ob-4C0"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="S3u-Z7-4nP"/>
+                    <connections>
+                        <outlet property="progressView" destination="Eu3-kD-Fpk" id="4ra-VS-TsJ"/>
+                        <outlet property="scrollView" destination="96u-2T-yq2" id="gnO-oP-Bs3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="884.05797101449286" y="107.8125"/>
+        </scene>
+        <!--Add ExhibitionNC-->
+        <scene sceneID="cRZ-tB-XO0">
+            <objects>
+                <navigationController storyboardIdentifier="AddExhibitionNC" automaticallyAdjustsScrollViewInsets="NO" id="xPf-J1-Gqe" customClass="AddExhibitionNC" customModule="ARtique" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dpx-Tp-A3B">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="JSw-KM-SRP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yto-b2-DWC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-26.086956521739133" y="107.8125"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

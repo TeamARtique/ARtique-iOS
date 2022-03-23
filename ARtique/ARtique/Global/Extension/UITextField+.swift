@@ -13,4 +13,12 @@ extension UITextField {
         self.leftView = paddingView
         self.leftViewMode = ViewMode.always
     }
+    
+    /// setRoundTextField - ARTique 테두리 있는 textField 기본 디자인
+    func setRoundTextField() {
+        layer.borderColor = UIColor.black.cgColor
+        layer.borderWidth = 1
+        layer.cornerRadius = 8
+        font = .AppleSDGothicR(size: 13)
+    }
 }

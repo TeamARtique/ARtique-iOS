@@ -12,7 +12,7 @@ struct Identifiers {
     static let homeSB = "Home"
     static let exhibitionListSB = "ExhibitionList"
     static let detailSB = "Detail"
-    static let addSB = "Add"
+    static let addSB = "AddExhibition"
     static let mypageSB = "Mypage"
     static let arGallerySB = "ARGallery"
     
@@ -22,18 +22,28 @@ struct Identifiers {
     static let homeVC = "HomeVC"
     static let exhibitionListVC = "ExhibitionListVC"
     static let detailVC = "DetailVC"
-    static let addARVC = "AddARVC"
+    static let addExhibitionNC = "AddExhibitionNC"
+    static let addExhibitionVC = "AddExhibitionVC"
     static let mypageVC = "MypageVC"
     static let arGalleryVC = "ARGalleryVC"
     static let planeRecognitionVC = "PlaneVC"
     
-    //MARK: - Cell
+    //MARK: - TVC
     static let exhibitionListTVC = "ExhibitionListTVC"
     static let allTVC = "AllTVC"
+    
+    //MARK: - CVC
     static let exhibitionListCVC = "ExhibitionListCVC"
     static let allCVC = "AllCVC"
+    static let roundCVC = "RoundCVC"
+    static let themeCVC = "ThemeCVC"
+    static let selectedImageCVC = "SelectedImageCVC"
     
     //MARK: - View
+    static let themeView = "ThemeView"
+    static let orderView = "OrderView"
+    static let selectedImageView = "SelectedImageView"
+    static let postExplainView = "PostExplainView"
     
     //MARK: - Node
     static let minimumGalleryScenePath = "art.scnassets/GalleryModel/minimumGallery.scn"
