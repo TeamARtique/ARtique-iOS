@@ -65,7 +65,7 @@ class SelectedImageView: UIView {
         switch gesture.state {
         case .began:
             collectionView.beginInteractiveMovementForItem(at: targetIndexPath)
-            collectionView.cellForItem(at: targetIndexPath)?.layer.borderColor = UIColor.red.cgColor
+            collectionView.cellForItem(at: targetIndexPath)?.layer.borderColor = UIColor.black.cgColor
         case .changed:
             collectionView.updateInteractiveMovementTargetPosition(gesture.location(in: collectionView))
         case .ended:
@@ -87,7 +87,7 @@ extension SelectedImageView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.selectedImageCVC, for: indexPath) as? SelectedImageCVC else { return  UICollectionViewCell() }
         cell.image.image = dummyImages[indexPath.row]
         cell.layer.borderColor = UIColor.clear.cgColor
-        cell.layer.borderWidth = 5
+        cell.layer.borderWidth = 7
         return cell
     }
 }
