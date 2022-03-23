@@ -16,6 +16,7 @@ class SelectedImageView: UIView {
                        UIImage(named: "Theme4"),
                        UIImage(named: "Theme1")]
     var currentIndex:CGFloat = 0
+    let cellWidth: CGFloat = 300
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,6 +46,7 @@ class SelectedImageView: UIView {
         selectedImageCV.dataSource = self
         selectedImageCV.delegate = self
         
+        selectedImageCV.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         selectedImageCV.showsHorizontalScrollIndicator = false
         selectedImageCV.decelerationRate = UIScrollView.DecelerationRate.fast
         
@@ -60,8 +62,7 @@ class SelectedImageView: UIView {
     
     @objc func handleLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
         guard let collectionView = selectedImageCV else { return }
-        guard let targetIndexPath = collectionView.indexPathForItem(at: gesture .location(in: collectionView)) else { return }
-
+        guard let targetIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else { return }
         switch gesture.state {
         case .began:
             collectionView.beginInteractiveMovementForItem(at: targetIndexPath)
@@ -71,7 +72,7 @@ class SelectedImageView: UIView {
         case .ended:
             collectionView.endInteractiveMovement()
             collectionView.cellForItem(at: targetIndexPath)?.layer.borderColor = UIColor.clear.cgColor
-            collectionView.scrollToItem(at: targetIndexPath, at: .centeredHorizontally, animated: true)
+            collectionView.scrollToItem(at: targetIndexPath, at: .left, animated: true)
         default:
             collectionView.cancelInteractiveMovement()
         }
@@ -98,13 +99,8 @@ extension SelectedImageView: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 52,
-                      height: collectionView.frame.width - 52)
+        return CGSize(width: cellWidth, height: cellWidth)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-           return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        }
 }
 
 extension SelectedImageView: UICollectionViewDelegate {
@@ -122,7 +118,7 @@ extension SelectedImageView: UICollectionViewDelegate {
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let cellWidthIncludeSpacing = selectedImageCV.frame.width - 55 + spacing
+        let cellWidthIncludeSpacing = cellWidth + spacing
         var offset = targetContentOffset.pointee
         let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludeSpacing
         var roundedIndex = round(index)
