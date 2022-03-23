@@ -15,12 +15,11 @@ class AddExhibitionVC: UIViewController {
     let orderView = OrderView()
     let postExplainView = PostExplainView()
     
-    var progress:Float = 0.2
+    var progress: Float = 0.2
     var page: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureNavigationBar()
         configureRegisterProgressView()
         configureScrollView()
@@ -36,9 +35,9 @@ extension AddExhibitionVC {
         configureNavigationTitle(0)
         navigationController?.additionalSafeAreaInsets.top = 8
         navigationController?.setRoundRightBarBtn(navigationItem: self.navigationItem,
-                                                    title: "다음",
-                                                    target: self,
-                                                    action: #selector(bindRightBarButton))
+                                                  title: "다음",
+                                                  target: self,
+                                                  action: #selector(bindRightBarButton))
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"),
                                                            style: .plain,
                                                            target: self,

@@ -71,24 +71,21 @@ extension ThemeView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let roundCell = cntCV.dequeueReusableCell(withReuseIdentifier: Identifiers.roundCVC, for: indexPath) as? RoundCVC,
+              let themeCell = themeCV.dequeueReusableCell(withReuseIdentifier: Identifiers.themeCVC, for: indexPath) as? ThemeCVC else {
+                  return UICollectionViewCell()
+              }
+        
         switch collectionView {
         case cntCV:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: Identifiers.roundCVC,
-                for: indexPath) as? RoundCVC
-            else { return UICollectionViewCell() }
-            cell.configureCell(with: setGalleryCount(indexPath.row))
-            
-            return cell
+            roundCell.configureCell(with: setGalleryCount(indexPath.row))
+            return roundCell
+        case themeCV:
+            themeCell.configureCell(image: UIImage(named: "Theme\(indexPath.row + 1)")!,
+                                    title: "테마 \(indexPath.row + 1)")
+            return themeCell
         default:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: Identifiers.themeCVC,
-                for: indexPath) as? ThemeCVC
-            else { return UICollectionViewCell() }
-            cell.configureCell(image: UIImage(named: "Theme\(indexPath.row + 1)")!,
-                               title: "테마 \(indexPath.row + 1)")
-            
-            return cell
+            return UICollectionViewCell()
         }
     }
 }
@@ -103,7 +100,7 @@ extension ThemeView: UICollectionViewDelegateFlowLayout {
             return 16
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {
         case cntCV:

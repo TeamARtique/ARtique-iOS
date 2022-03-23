@@ -43,6 +43,7 @@
 		23E734FF27EA1528000315E6 /* PostExplainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23E734FD27EA1528000315E6 /* PostExplainView.xib */; };
 		23E7350527EA24A1000315E6 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7350427EA24A1000315E6 /* UITextView+.swift */; };
 		23E7350727EA4D1B000315E6 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7350627EA4D1B000315E6 /* UIScrollView+.swift */; };
+		23FE54D727EB086400FF0DF9 /* GalleryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FE54D627EB086400FF0DF9 /* GalleryType.swift */; };
 		3305F7312754DABA00E6E08E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3305F7302754DABA00E6E08E /* AppDelegate.swift */; };
 		3305F7332754DABA00E6E08E /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3305F7322754DABA00E6E08E /* art.scnassets */; };
 		3305F73A2754DABD00E6E08E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3305F7392754DABD00E6E08E /* Assets.xcassets */; };
@@ -77,7 +78,6 @@
 		3305F7AB2754E66500E6E08E /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3305F75D2754E00500E6E08E /* AppleSDGothicNeoB.ttf */; };
 		3305F7AC2754E66700E6E08E /* AppleSDGothicNeoR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3305F75A2754E00500E6E08E /* AppleSDGothicNeoR.ttf */; };
 		3305F7AD2754E66900E6E08E /* AppleSDGothicNeoSB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3305F75B2754E00500E6E08E /* AppleSDGothicNeoSB.ttf */; };
-		3350596E27E5CC8C0088B708 /* GalleryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3350596D27E5CC8C0088B708 /* GalleryType.swift */; };
 		33AC27882763D21D00E0765A /* ARGallery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33AC27872763D21D00E0765A /* ARGallery.storyboard */; };
 		33AC278A2763D27200E0765A /* ARGalleryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AC27892763D27200E0765A /* ARGalleryVC.swift */; };
 		91832D0B8CCD458B4D6477F3 /* Pods_ARtique.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDA3E5AB13FCA77BEB6A01BC /* Pods_ARtique.framework */; };
@@ -120,6 +120,7 @@
 		23E734FD27EA1528000315E6 /* PostExplainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostExplainView.xib; sourceTree = "<group>"; };
 		23E7350427EA24A1000315E6 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		23E7350627EA4D1B000315E6 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
+		23FE54D627EB086400FF0DF9 /* GalleryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryType.swift; sourceTree = "<group>"; };
 		3305F72D2754DABA00E6E08E /* ARtique.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARtique.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3305F7302754DABA00E6E08E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3305F7322754DABA00E6E08E /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -196,6 +197,7 @@
 		23B52A8527E0E87000D6C339 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
+				23FE54D627EB086400FF0DF9 /* GalleryType.swift */,
 				23B52A8627E0E89200D6C339 /* AddProcess.swift */,
 			);
 			path = Enum;
@@ -223,6 +225,14 @@
 			path = XibController;
 			sourceTree = "<group>";
 		};
+		23FE54D527EB085000FF0DF9 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				3350596D27E5CC8C0088B708 /* GalleryType.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		3305F7242754DABA00E6E08E = {
 			isa = PBXGroup;
 			children = (
@@ -230,6 +240,7 @@
 				3305F72E2754DABA00E6E08E /* Products */,
 				7A35089A12BAD0DF8F7E9474 /* Pods */,
 				459E7367F01CEEF2834D37EA /* Frameworks */,
+				23FE54D527EB085000FF0DF9 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -574,14 +585,6 @@
 			path = CVC;
 			sourceTree = "<group>";
 		};
-		3350596C27E5CC7B0088B708 /* Enum */ = {
-			isa = PBXGroup;
-			children = (
-				3350596D27E5CC8C0088B708 /* GalleryType.swift */,
-			);
-			path = Enum;
-			sourceTree = "<group>";
-		};
 		33AC27842763D1CD00E0765A /* ARGallery */ = {
 			isa = PBXGroup;
 			children = (
@@ -760,6 +763,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23FE54D727EB086400FF0DF9 /* GalleryType.swift in Sources */,
 				23B52A8F27E1013E00D6C339 /* RoundCVC.swift in Sources */,
 				3305F7672754E0D900E6E08E /* GenericResponse.swift in Sources */,
 				235584012767A7100046C3EE /* FocusSquareSegment.swift in Sources */,
@@ -809,7 +813,6 @@
 				23B2E5D827591A9100FA8CC2 /* ExhibitionData.swift in Sources */,
 				3305F76B2754E10300E6E08E /* NetworkResult.swift in Sources */,
 				23B52A7F27E0A73800D6C339 /* UIViewController+.swift in Sources */,
-				3350596E27E5CC8C0088B708 /* GalleryType.swift in Sources */,
 				3305F77F2754E22800E6E08E /* UITextField+.swift in Sources */,
 				23B52A9327E1131C00D6C339 /* ThemeCVC.swift in Sources */,
 			);
