@@ -77,6 +77,7 @@
 		3305F7AB2754E66500E6E08E /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3305F75D2754E00500E6E08E /* AppleSDGothicNeoB.ttf */; };
 		3305F7AC2754E66700E6E08E /* AppleSDGothicNeoR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3305F75A2754E00500E6E08E /* AppleSDGothicNeoR.ttf */; };
 		3305F7AD2754E66900E6E08E /* AppleSDGothicNeoSB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3305F75B2754E00500E6E08E /* AppleSDGothicNeoSB.ttf */; };
+		3350596E27E5CC8C0088B708 /* GalleryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3350596D27E5CC8C0088B708 /* GalleryType.swift */; };
 		33AC27882763D21D00E0765A /* ARGallery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33AC27872763D21D00E0765A /* ARGallery.storyboard */; };
 		33AC278A2763D27200E0765A /* ARGalleryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AC27892763D27200E0765A /* ARGalleryVC.swift */; };
 		91832D0B8CCD458B4D6477F3 /* Pods_ARtique.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDA3E5AB13FCA77BEB6A01BC /* Pods_ARtique.framework */; };
@@ -155,6 +156,7 @@
 		3305F7A52754E44B00E6E08E /* MypageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageVC.swift; sourceTree = "<group>"; };
 		3305F7A72754E45800E6E08E /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		3305F7A92754E61F00E6E08E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3350596D27E5CC8C0088B708 /* GalleryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryType.swift; sourceTree = "<group>"; };
 		33AC27872763D21D00E0765A /* ARGallery.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ARGallery.storyboard; sourceTree = "<group>"; };
 		33AC27892763D27200E0765A /* ARGalleryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARGalleryVC.swift; sourceTree = "<group>"; };
 		37CFDCAEA722930B36D25BC6 /* Pods-ARtique.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARtique.release.xcconfig"; path = "Target Support Files/Pods-ARtique/Pods-ARtique.release.xcconfig"; sourceTree = "<group>"; };
@@ -572,6 +574,14 @@
 			path = CVC;
 			sourceTree = "<group>";
 		};
+		3350596C27E5CC7B0088B708 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				3350596D27E5CC8C0088B708 /* GalleryType.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 		33AC27842763D1CD00E0765A /* ARGallery */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,6 +809,7 @@
 				23B2E5D827591A9100FA8CC2 /* ExhibitionData.swift in Sources */,
 				3305F76B2754E10300E6E08E /* NetworkResult.swift in Sources */,
 				23B52A7F27E0A73800D6C339 /* UIViewController+.swift in Sources */,
+				3350596E27E5CC8C0088B708 /* GalleryType.swift in Sources */,
 				3305F77F2754E22800E6E08E /* UITextField+.swift in Sources */,
 				23B52A9327E1131C00D6C339 /* ThemeCVC.swift in Sources */,
 			);
@@ -942,7 +953,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U2Z5Z44P4R;
+				DEVELOPMENT_TEAM = 2ZS26WP93H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARtique/Support/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
@@ -974,7 +985,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U2Z5Z44P4R;
+				DEVELOPMENT_TEAM = 2ZS26WP93H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARtique/Support/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
