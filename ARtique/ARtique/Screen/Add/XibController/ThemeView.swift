@@ -104,7 +104,7 @@ extension ThemeView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {
         case cntCV:
-            return CGSize(width: (collectionView.frame.width - 26) / 3,
+            return CGSize(width: (UIScreen.main.bounds.width - 40 - 26) / 3,
                           height: collectionView.frame.height)
         default:
             let cellWidth = (collectionView.frame.width - 16) / 2
