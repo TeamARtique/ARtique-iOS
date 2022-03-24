@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		23071DB427ECB47600949BA1 /* ArtworkExplainCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23071DB227ECB47600949BA1 /* ArtworkExplainCVC.swift */; };
 		23071DB527ECB47600949BA1 /* ArtworkExplainCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23071DB327ECB47600949BA1 /* ArtworkExplainCVC.xib */; };
+		23071DB727ECF5A100949BA1 /* CategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23071DB627ECF5A100949BA1 /* CategoryType.swift */; };
 		231EF8512763DCF4008218CC /* PlaneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231EF8502763DCF4008218CC /* PlaneVC.swift */; };
 		235583FF2767A6D80046C3EE /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235583FE2767A6D80046C3EE /* FocusSquare.swift */; };
 		235584012767A7100046C3EE /* FocusSquareSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235584002767A7100046C3EE /* FocusSquareSegment.swift */; };
@@ -88,6 +89,7 @@
 /* Begin PBXFileReference section */
 		23071DB227ECB47600949BA1 /* ArtworkExplainCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkExplainCVC.swift; sourceTree = "<group>"; };
 		23071DB327ECB47600949BA1 /* ArtworkExplainCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtworkExplainCVC.xib; sourceTree = "<group>"; };
+		23071DB627ECF5A100949BA1 /* CategoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryType.swift; sourceTree = "<group>"; };
 		231EF8502763DCF4008218CC /* PlaneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneVC.swift; sourceTree = "<group>"; };
 		235583FE2767A6D80046C3EE /* FocusSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
 		235584002767A7100046C3EE /* FocusSquareSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquareSegment.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			children = (
 				23FE54D627EB086400FF0DF9 /* GalleryType.swift */,
 				23B52A8627E0E89200D6C339 /* AddProcess.swift */,
+				23071DB627ECF5A100949BA1 /* CategoryType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -805,6 +808,7 @@
 				3305F7572754DF6500E6E08E /* Notification+Name.swift in Sources */,
 				237B4370275CFA3E00B7FA3F /* AllCVC.swift in Sources */,
 				23E734FE27EA1528000315E6 /* PostExplainView.swift in Sources */,
+				23071DB727ECF5A100949BA1 /* CategoryType.swift in Sources */,
 				3305F7852754E27300E6E08E /* TypeOfViewController.swift in Sources */,
 				3305F7A42754E3C800E6E08E /* f.swift in Sources */,
 				237B436B275CE83600B7FA3F /* AllTVC.swift in Sources */,
