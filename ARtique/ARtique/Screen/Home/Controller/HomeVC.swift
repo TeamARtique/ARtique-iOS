@@ -10,11 +10,20 @@ import Tabman
 import Pageboy
 
 class HomeVC: TabmanViewController {
-    
-    private var viewControllers: Array<UIViewController> = []
     @IBOutlet weak var customNavigationBar: UIView!
     @IBOutlet weak var categoryTB: UIView!
     @IBOutlet weak var categoryTBTopAnchor: NSLayoutConstraint!
+    
+    private let viewControllers: [ExhibitionListVC] = CategoryType.allCases
+        .compactMap { type in
+            let vc = ViewControllerFactory.viewController(for: type.viewControllerType) as? ExhibitionListVC
+            vc?.categoryType = type
+            return vc
+        }
+    
+    private var categoryTypes: [CategoryType] {
+        viewControllers.compactMap(\.categoryType)
+    }
     
     public static var isNaviBarHidden: Bool = false
     
@@ -34,8 +43,7 @@ class HomeVC: TabmanViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setCategoryTB()
+        setCategoryPageDataSource()
         setCategoryIndicator()
         setNotification()
     }
@@ -43,24 +51,11 @@ class HomeVC: TabmanViewController {
 
 //MARK: - Custom Method
 extension HomeVC {
-    /// setCategoryTB - 상단 탭바 Setting
-    func setCategoryTB(){
-        let artVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC
-        let illustVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC
-        let dailyVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC
-        let petVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC
-        let fanVC = UIStoryboard.init(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as! ExhibitionListVC
-        
-        viewControllers.append(artVC)
-        viewControllers.append(illustVC)
-        viewControllers.append(dailyVC)
-        viewControllers.append(petVC)
-        viewControllers.append(fanVC)
-        
+    func setCategoryPageDataSource() {
         self.dataSource = self
     }
     
-    // Category Bar Indicator Setting
+    /// Category Bar Indicator Setting
     func setCategoryIndicator() {
         let bar = TMBar.ButtonBar()
         bar.backgroundView.style = .flat(color: .black)
@@ -115,23 +110,10 @@ extension HomeVC {
 //MARK: Tabman
 extension HomeVC: TMBarDataSource {
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
-        switch index {
-        case 0:
-            return TMBarItem(title: "현대미술")
-        case 1:
-            return TMBarItem(title: "일러스트")
-        case 2:
-            return TMBarItem(title: "일상")
-        case 3:
-            return TMBarItem(title: "반려동물")
-        case 4:
-            return TMBarItem(title: "팬문화")
-        default:
-            let title = "Page \(index)"
-            return TMBarItem(title: title)
-        }
+        TMBarItem(title: categoryTypes[index].categoryTitle)
     }
 }
+
 //MARK: PageboyViewControllerDataSource
 extension HomeVC: PageboyViewControllerDataSource {
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {

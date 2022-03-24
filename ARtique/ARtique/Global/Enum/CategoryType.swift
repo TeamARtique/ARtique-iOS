@@ -30,4 +30,8 @@ extension CategoryType {
             return "팬 문화"
         }
     }
+    
+    var viewControllerType: TypeOfViewController {
+        .category
+    }
 }
