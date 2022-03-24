@@ -12,7 +12,11 @@ class SelectedImageCVC: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
+    func configureCell(with artwork: UIImage) {
+        image.image = artwork
+        layer.borderColor = UIColor.clear.cgColor
+        layer.borderWidth = 7
+    }
 }

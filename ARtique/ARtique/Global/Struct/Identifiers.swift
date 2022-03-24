@@ -38,6 +38,7 @@ struct Identifiers {
     static let roundCVC = "RoundCVC"
     static let themeCVC = "ThemeCVC"
     static let selectedImageCVC = "SelectedImageCVC"
+    static let artworkExplainCVC = "ArtworkExplainCVC"
     
     //MARK: - View
     static let themeView = "ThemeView"

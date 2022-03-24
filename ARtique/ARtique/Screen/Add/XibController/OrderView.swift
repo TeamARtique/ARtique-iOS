@@ -15,14 +15,14 @@ class OrderView: UIView {
         super.init(frame: frame)
         setContentView()
         configureMessage()
-        bindViewGesture()
+        configureArtworkView()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setContentView()
         configureMessage()
-        bindViewGesture()
+        configureArtworkView()
     }
     
     private func setContentView() {
@@ -40,7 +40,8 @@ class OrderView: UIView {
         message.font = .AppleSDGothicR(size: 12)
     }
     
-    private func bindViewGesture() {
+    private func configureArtworkView() {
+        artworkListView.isOrderView = true
         artworkListView.bindCVReorderGesture()
     }
 }

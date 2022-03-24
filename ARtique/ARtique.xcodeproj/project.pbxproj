@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23071DB427ECB47600949BA1 /* ArtworkExplainCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23071DB227ECB47600949BA1 /* ArtworkExplainCVC.swift */; };
+		23071DB527ECB47600949BA1 /* ArtworkExplainCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23071DB327ECB47600949BA1 /* ArtworkExplainCVC.xib */; };
 		231EF8512763DCF4008218CC /* PlaneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231EF8502763DCF4008218CC /* PlaneVC.swift */; };
 		235583FF2767A6D80046C3EE /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235583FE2767A6D80046C3EE /* FocusSquare.swift */; };
 		235584012767A7100046C3EE /* FocusSquareSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235584002767A7100046C3EE /* FocusSquareSegment.swift */; };
@@ -84,6 +86,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		23071DB227ECB47600949BA1 /* ArtworkExplainCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkExplainCVC.swift; sourceTree = "<group>"; };
+		23071DB327ECB47600949BA1 /* ArtworkExplainCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtworkExplainCVC.xib; sourceTree = "<group>"; };
 		231EF8502763DCF4008218CC /* PlaneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneVC.swift; sourceTree = "<group>"; };
 		235583FE2767A6D80046C3EE /* FocusSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
 		235584002767A7100046C3EE /* FocusSquareSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquareSegment.swift; sourceTree = "<group>"; };
@@ -565,6 +569,8 @@
 				23B52A9227E1131C00D6C339 /* ThemeCVC.xib */,
 				23E734F427E9A016000315E6 /* SelectedImageCVC.swift */,
 				23E734F527E9A016000315E6 /* SelectedImageCVC.xib */,
+				23071DB227ECB47600949BA1 /* ArtworkExplainCVC.swift */,
+				23071DB327ECB47600949BA1 /* ArtworkExplainCVC.xib */,
 			);
 			path = CVC;
 			sourceTree = "<group>";
@@ -697,6 +703,7 @@
 				23B2E5D42758F7F300FA8CC2 /* ExhibitionList.storyboard in Resources */,
 				3305F73D2754DABD00E6E08E /* LaunchScreen.storyboard in Resources */,
 				3305F7922754E35900E6E08E /* Mypage.storyboard in Resources */,
+				23071DB527ECB47600949BA1 /* ArtworkExplainCVC.xib in Resources */,
 				23E734FF27EA1528000315E6 /* PostExplainView.xib in Resources */,
 				23E734EF27E99CC8000315E6 /* OrderView.xib in Resources */,
 				23E734F727E9A016000315E6 /* SelectedImageCVC.xib in Resources */,
@@ -772,6 +779,7 @@
 				23E7350527EA24A1000315E6 /* UITextView+.swift in Sources */,
 				23E734FA27E9A1A7000315E6 /* ArtworkListView.swift in Sources */,
 				3305F7552754DF5B00E6E08E /* UILabel+.swift in Sources */,
+				23071DB427ECB47600949BA1 /* ArtworkExplainCVC.swift in Sources */,
 				23B52A7D27E0A5A500D6C339 /* AddExhibitionNC.swift in Sources */,
 				3305F7692754E0EA00E6E08E /* APIConstants.swift in Sources */,
 				3305F7A22754E3C100E6E08E /* e.swift in Sources */,
@@ -956,7 +964,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2ZS26WP93H;
+				DEVELOPMENT_TEAM = U2Z5Z44P4R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARtique/Support/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
@@ -988,7 +996,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2ZS26WP93H;
+				DEVELOPMENT_TEAM = U2Z5Z44P4R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARtique/Support/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";

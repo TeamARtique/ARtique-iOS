@@ -9,14 +9,15 @@ import UIKit
 
 class ArtworkListView: UIView {
     @IBOutlet weak var artworkCV: UICollectionView!
-    let spacing: CGFloat = 12
     var dummyImages = [UIImage(named: "Theme1"),
                        UIImage(named: "Theme2"),
                        UIImage(named: "Theme3"),
                        UIImage(named: "Theme4"),
                        UIImage(named: "Theme1")]
+    let spacing: CGFloat = 12
     var currentIndex:CGFloat = 0
     let cellWidth: CGFloat = 300
+    var isOrderView = true
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,6 +43,7 @@ class ArtworkListView: UIView {
     
     private func configureCV() {
         artworkCV.register(UINib(nibName: Identifiers.selectedImageCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.selectedImageCVC)
+        artworkCV.register(UINib(nibName: Identifiers.artworkExplainCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.artworkExplainCVC)
         
         artworkCV.dataSource = self
         artworkCV.delegate = self
@@ -87,11 +89,17 @@ extension ArtworkListView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.selectedImageCVC, for: indexPath) as? SelectedImageCVC else { return  UICollectionViewCell() }
-        cell.image.image = dummyImages[indexPath.row]
-        cell.layer.borderColor = UIColor.clear.cgColor
-        cell.layer.borderWidth = 7
-        return cell
+        guard let orderViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.selectedImageCVC, for: indexPath) as? SelectedImageCVC,
+              let explainViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.artworkExplainCVC, for: indexPath) as? ArtworkExplainCVC
+        else { return  UICollectionViewCell() }
+        
+        if isOrderView {
+            orderViewCell.configureCell(with: dummyImages[indexPath.row] ?? UIImage())
+            return orderViewCell
+        } else {
+            explainViewCell.configureCell(with: dummyImages[indexPath.row] ?? UIImage())
+            return explainViewCell
+        }
     }
 }
 
@@ -101,17 +109,18 @@ extension ArtworkListView: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: cellWidth, height: cellWidth)
+        return CGSize(width: cellWidth,
+                      height: isOrderView ? cellWidth : collectionView.frame.height)
     }
 }
 
 extension ArtworkListView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
-        true
+        isOrderView ? true : false
     }
     
     func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-        true
+        isOrderView ? true : false
     }
     
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {

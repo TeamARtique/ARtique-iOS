@@ -25,7 +25,6 @@ class AddExhibitionVC: UIViewController {
         configureScrollView()
         configureStackView()
         hideKeyboard()
-        setNotification()
     }
 }
 
@@ -117,33 +116,6 @@ extension AddExhibitionVC {
             $0.width.equalTo(scrollView.snp.width)
             $0.height.equalTo(scrollView.snp.height)
         }
-    }
-    
-    func setNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        let animateDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
-        let keyboardFrame = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-        let heiget = keyboardFrame.size.height - self.view.safeAreaInsets.bottom
-        
-        UIView.animate(withDuration: animateDuration) {
-            self.scrollView.snp.updateConstraints() {
-                $0.top.equalTo(self.progressView.snp.bottom).offset(-78)
-                $0.bottom.equalToSuperview().offset(-heiget)
-            }
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        self.scrollView.snp.updateConstraints() {
-            $0.top.equalTo(self.progressView.snp.bottom)
-            $0.bottom.equalToSuperview()
-        }
-        self.view.layoutIfNeeded()
     }
 }
 
