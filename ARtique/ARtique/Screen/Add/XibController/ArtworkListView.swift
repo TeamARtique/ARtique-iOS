@@ -7,8 +7,8 @@
 
 import UIKit
 
-class SelectedImageView: UIView {
-    @IBOutlet weak var selectedImageCV: UICollectionView!
+class ArtworkListView: UIView {
+    @IBOutlet weak var artworkCV: UICollectionView!
     let spacing: CGFloat = 12
     var dummyImages = [UIImage(named: "Theme1"),
                        UIImage(named: "Theme2"),
@@ -31,7 +31,7 @@ class SelectedImageView: UIView {
     }
     
     private func setContentView() {
-        guard let view = loadXibView(with: Identifiers.selectedImageView) else { return }
+        guard let view = loadXibView(with: Identifiers.artworkListView) else { return }
         view.backgroundColor = .clear
         self.addSubview(view)
         
@@ -41,27 +41,29 @@ class SelectedImageView: UIView {
     }
     
     private func configureCV() {
-        selectedImageCV.register(UINib(nibName: Identifiers.selectedImageCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.selectedImageCVC)
+        artworkCV.register(UINib(nibName: Identifiers.selectedImageCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.selectedImageCVC)
         
-        selectedImageCV.dataSource = self
-        selectedImageCV.delegate = self
+        artworkCV.dataSource = self
+        artworkCV.delegate = self
         
-        selectedImageCV.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        selectedImageCV.showsHorizontalScrollIndicator = false
-        selectedImageCV.decelerationRate = UIScrollView.DecelerationRate.fast
+        artworkCV.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        artworkCV.showsHorizontalScrollIndicator = false
+        artworkCV.decelerationRate = UIScrollView.DecelerationRate.fast
         
-        if let layout = selectedImageCV.collectionViewLayout as? UICollectionViewFlowLayout {
+        if let layout = artworkCV.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
-        
+    }
+    
+    func bindCVReorderGesture() {
         let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(_:)))
         
         gesture.minimumPressDuration = 0.5
-        selectedImageCV.addGestureRecognizer(gesture)
+        artworkCV.addGestureRecognizer(gesture)
     }
     
     @objc func handleLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
-        guard let collectionView = selectedImageCV else { return }
+        guard let collectionView = artworkCV else { return }
         guard let targetIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else { return }
         switch gesture.state {
         case .began:
@@ -79,7 +81,7 @@ class SelectedImageView: UIView {
     }
 }
 
-extension SelectedImageView: UICollectionViewDataSource {
+extension ArtworkListView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         dummyImages.count
     }
@@ -93,7 +95,7 @@ extension SelectedImageView: UICollectionViewDataSource {
     }
 }
 
-extension SelectedImageView: UICollectionViewDelegateFlowLayout {
+extension ArtworkListView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         spacing
     }
@@ -103,7 +105,7 @@ extension SelectedImageView: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension SelectedImageView: UICollectionViewDelegate {
+extension ArtworkListView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
         true
     }

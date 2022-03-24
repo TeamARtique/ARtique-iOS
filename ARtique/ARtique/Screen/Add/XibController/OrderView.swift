@@ -9,17 +9,20 @@ import UIKit
 
 class OrderView: UIView {
     @IBOutlet weak var message: UILabel!
+    @IBOutlet weak var artworkListView: ArtworkListView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setContentView()
         configureMessage()
+        bindViewGesture()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setContentView()
         configureMessage()
+        bindViewGesture()
     }
     
     private func setContentView() {
@@ -35,5 +38,9 @@ class OrderView: UIView {
     private func configureMessage() {
         message.textColor = .lightGray
         message.font = .AppleSDGothicR(size: 12)
+    }
+    
+    private func bindViewGesture() {
+        artworkListView.bindCVReorderGesture()
     }
 }

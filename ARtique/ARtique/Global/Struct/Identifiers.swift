@@ -42,7 +42,7 @@ struct Identifiers {
     //MARK: - View
     static let themeView = "ThemeView"
     static let orderView = "OrderView"
-    static let selectedImageView = "SelectedImageView"
+    static let artworkListView = "ArtworkListView"
     static let postExplainView = "PostExplainView"
     
     //MARK: - Node

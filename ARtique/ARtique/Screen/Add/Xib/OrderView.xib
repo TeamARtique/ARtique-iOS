@@ -14,6 +14,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrderView" customModule="ARtique" customModuleProvider="target">
             <connections>
+                <outlet property="artworkListView" destination="7ub-2n-jsv" id="o4D-P9-yeh"/>
                 <outlet property="message" destination="EO2-y2-DU9" id="czj-Oa-dDj"/>
             </connections>
         </placeholder>
@@ -28,7 +29,7 @@
                     <color key="textColor" red="0.54117647058823526" green="0.54117647058823526" blue="0.54117647058823526" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ub-2n-jsv" customClass="SelectedImageView" customModule="ARtique" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ub-2n-jsv" customClass="ArtworkListView" customModule="ARtique" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="79" width="375" height="300"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>

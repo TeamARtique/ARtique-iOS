@@ -131,7 +131,7 @@ extension AddExhibitionVC {
         
         UIView.animate(withDuration: animateDuration) {
             self.scrollView.snp.updateConstraints() {
-                $0.top.equalTo(self.progressView.snp.bottom).offset(-62)
+                $0.top.equalTo(self.progressView.snp.bottom).offset(-78)
                 $0.bottom.equalToSuperview().offset(-heiget)
             }
             self.view.layoutIfNeeded()
