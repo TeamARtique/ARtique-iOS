@@ -10,6 +10,8 @@
 		23071DB427ECB47600949BA1 /* ArtworkExplainCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23071DB227ECB47600949BA1 /* ArtworkExplainCVC.swift */; };
 		23071DB527ECB47600949BA1 /* ArtworkExplainCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23071DB327ECB47600949BA1 /* ArtworkExplainCVC.xib */; };
 		23071DB727ECF5A100949BA1 /* CategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23071DB627ECF5A100949BA1 /* CategoryType.swift */; };
+		23071DBA27ECFBAB00949BA1 /* ExhibitionExplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23071DB827ECFBAB00949BA1 /* ExhibitionExplainView.swift */; };
+		23071DBB27ECFBAB00949BA1 /* ExhibitionExplainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23071DB927ECFBAB00949BA1 /* ExhibitionExplainView.xib */; };
 		231EF8512763DCF4008218CC /* PlaneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231EF8502763DCF4008218CC /* PlaneVC.swift */; };
 		235583FF2767A6D80046C3EE /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235583FE2767A6D80046C3EE /* FocusSquare.swift */; };
 		235584012767A7100046C3EE /* FocusSquareSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235584002767A7100046C3EE /* FocusSquareSegment.swift */; };
@@ -90,6 +92,8 @@
 		23071DB227ECB47600949BA1 /* ArtworkExplainCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkExplainCVC.swift; sourceTree = "<group>"; };
 		23071DB327ECB47600949BA1 /* ArtworkExplainCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtworkExplainCVC.xib; sourceTree = "<group>"; };
 		23071DB627ECF5A100949BA1 /* CategoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryType.swift; sourceTree = "<group>"; };
+		23071DB827ECFBAB00949BA1 /* ExhibitionExplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionExplainView.swift; sourceTree = "<group>"; };
+		23071DB927ECFBAB00949BA1 /* ExhibitionExplainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExhibitionExplainView.xib; sourceTree = "<group>"; };
 		231EF8502763DCF4008218CC /* PlaneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneVC.swift; sourceTree = "<group>"; };
 		235583FE2767A6D80046C3EE /* FocusSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
 		235584002767A7100046C3EE /* FocusSquareSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquareSegment.swift; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 				23E734ED27E99CC8000315E6 /* OrderView.xib */,
 				23E734F927E9A1A7000315E6 /* ArtworkListView.xib */,
 				23E734FD27EA1528000315E6 /* PostExplainView.xib */,
+				23071DB927ECFBAB00949BA1 /* ExhibitionExplainView.xib */,
 			);
 			path = Xib;
 			sourceTree = "<group>";
@@ -228,6 +233,7 @@
 				23E734EC27E99CC8000315E6 /* OrderView.swift */,
 				23E734F827E9A1A7000315E6 /* ArtworkListView.swift */,
 				23E734FC27EA1528000315E6 /* PostExplainView.swift */,
+				23071DB827ECFBAB00949BA1 /* ExhibitionExplainView.swift */,
 			);
 			path = XibController;
 			sourceTree = "<group>";
@@ -707,6 +713,7 @@
 				3305F73D2754DABD00E6E08E /* LaunchScreen.storyboard in Resources */,
 				3305F7922754E35900E6E08E /* Mypage.storyboard in Resources */,
 				23071DB527ECB47600949BA1 /* ArtworkExplainCVC.xib in Resources */,
+				23071DBB27ECFBAB00949BA1 /* ExhibitionExplainView.xib in Resources */,
 				23E734FF27EA1528000315E6 /* PostExplainView.xib in Resources */,
 				23E734EF27E99CC8000315E6 /* OrderView.xib in Resources */,
 				23E734F727E9A016000315E6 /* SelectedImageCVC.xib in Resources */,
@@ -823,6 +830,7 @@
 				23B52A8127E0A7B900D6C339 /* UINavigationController+.swift in Sources */,
 				33AC278A2763D27200E0765A /* ARGalleryVC.swift in Sources */,
 				23B2E5D827591A9100FA8CC2 /* ExhibitionData.swift in Sources */,
+				23071DBA27ECFBAB00949BA1 /* ExhibitionExplainView.swift in Sources */,
 				3305F76B2754E10300E6E08E /* NetworkResult.swift in Sources */,
 				23B52A7F27E0A73800D6C339 /* UIViewController+.swift in Sources */,
 				3305F77F2754E22800E6E08E /* UITextField+.swift in Sources */,

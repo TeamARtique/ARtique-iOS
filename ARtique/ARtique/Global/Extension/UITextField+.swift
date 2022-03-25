@@ -15,10 +15,13 @@ extension UITextField {
     }
     
     /// setRoundTextField - ARTique 테두리 있는 textField 기본 디자인
-    func setRoundTextField() {
+    func setRoundTextField(with placeholder: String) {
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1
         layer.cornerRadius = 8
         font = .AppleSDGothicR(size: 13)
+        
+        addLeftPadding()
+        self.placeholder = placeholder
     }
 }

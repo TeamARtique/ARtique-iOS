@@ -11,9 +11,11 @@ import SnapKit
 class AddExhibitionVC: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var scrollView: UIScrollView!
-    let themeView = ThemeView()
-    let orderView = OrderView()
-    let postExplainView = PostExplainView()
+    let registerProcessViews = [ThemeView(),
+                                UIView(),
+                                OrderView(),
+                                PostExplainView(),
+                                ExhibitionExplainView()]
     
     var progress: Float = 0.2
     var page: Int = 0
@@ -94,19 +96,14 @@ extension AddExhibitionVC {
     }
     
     func configureStackView() {
-        let dummyView = UIView()
-        let views = [themeView,
-                     dummyView,
-                     orderView,
-                     postExplainView]
-        let stackView = UIStackView(arrangedSubviews: views)
+        let stackView = UIStackView(arrangedSubviews: registerProcessViews)
         
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(stackView)
         
-        views.forEach {
+        registerProcessViews.forEach {
             configureLayout($0)
         }
     }
@@ -125,12 +122,10 @@ extension AddExhibitionVC {
         if progressView.progress != 1 {
             progress += 0.2
             page += 1
-            progressView.setProgress(progress, animated: true)
-            configureNavigationTitle(page)
-            configureNaviBarButton()
-            setScrollViewPaging(page: page)
+            configurePageView(progress, page)
         } else {
             // TODO: - 게시글 등록 완료
+            dismiss(animated: true)
         }
     }
     
@@ -138,12 +133,16 @@ extension AddExhibitionVC {
         if progressView.progress > 0.3 {
             progress -= 0.2
             page -= 1
-            progressView.setProgress(progress, animated: true)
-            configureNavigationTitle(page)
-            configureNaviBarButton()
-            setScrollViewPaging(page: page)
+            configurePageView(progress, page)
         } else {
             dismiss(animated: true)
         }
+    }
+    
+    private func configurePageView(_ progress: Float,_ page: Int) {
+        progressView.setProgress(progress, animated: true)
+        configureNavigationTitle(page)
+        configureNaviBarButton()
+        setScrollViewPaging(page: page)
     }
 }

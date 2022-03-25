@@ -30,11 +30,15 @@ extension UITextView {
         }
     }
     
-    /// setRoundTextView - ARTique 테두리 있는 textView 기본 디자인
-    func setRoundTextView() {
+    /// setRoundTextView - ARTique 테두리 있는 textView 기본 디자인, delegate 추가해서 사용
+    func setRoundTextView(with placeholder: String) {
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1
         layer.cornerRadius = 8
         font = .AppleSDGothicR(size: 13)
+        
+        setPadding()
+        setTextViewPlaceholder(placeholder)
+        isScrollEnabled = false
     }
 }

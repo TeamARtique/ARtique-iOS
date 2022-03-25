@@ -78,7 +78,7 @@ extension ThemeView: UICollectionViewDataSource {
         
         switch collectionView {
         case cntCV:
-            roundCell.configureCell(with: setGalleryCount(indexPath.row))
+            roundCell.configureCell(with: "\(setGalleryCount(indexPath.row))개", cntCV.frame.height)
             return roundCell
         case themeCV:
             themeCell.configureCell(image: UIImage(named: "Theme\(indexPath.row + 1)")!,

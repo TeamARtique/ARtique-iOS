@@ -23,14 +23,9 @@ class ArtworkExplainCVC: UICollectionViewCell {
     private func configureView() {
         scrollView.showsVerticalScrollIndicator = false
         
-        titleTextField.setRoundTextField()
-        titleTextField.addLeftPadding()
-        titleTextField.placeholder = "제목을 입력하세요"
+        titleTextField.setRoundTextField(with: "제목을 입력하세요")
         
-        contentTextView.setRoundTextView()
-        contentTextView.setPadding()
-        contentTextView.setTextViewPlaceholder(postContentPlaceholder)
-        contentTextView.isScrollEnabled = false
+        contentTextView.setRoundTextView(with: postContentPlaceholder)
         contentTextView.delegate = self
     }
     
