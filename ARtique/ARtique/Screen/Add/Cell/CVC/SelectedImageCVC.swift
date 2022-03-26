@@ -13,6 +13,17 @@ class SelectedImageCVC: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    override var isSelected: Bool {
+        didSet{
+            if isSelected {
+                layer.borderColor = UIColor.black.cgColor
+            }
+            else {
+                layer.borderColor = UIColor.clear.cgColor
+            }
+        }
+    }
 
     func configureCell(with artwork: UIImage) {
         image.image = artwork

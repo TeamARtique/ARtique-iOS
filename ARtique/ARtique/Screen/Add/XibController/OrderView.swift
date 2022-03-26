@@ -43,5 +43,6 @@ class OrderView: UIView {
     private func configureArtworkView() {
         artworkListView.isOrderView = true
         artworkListView.bindCVReorderGesture()
+        artworkListView.artworkCV.allowsSelection = false
     }
 }

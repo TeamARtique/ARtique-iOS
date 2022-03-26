@@ -16,6 +16,7 @@ class ExhibitionExplainView: UIView {
     @IBOutlet weak var exhibitionExplainTextView: UITextView!
     
     let exhibitionExplainPlaceholder = "전시회에 대한 전체 설명을 입력하세요"
+    let tagMaxSelectionCnt = 3
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,6 +52,7 @@ class ExhibitionExplainView: UIView {
         exhibitionExplainTextView.delegate = self
         
         tagCV.register(UINib(nibName: Identifiers.roundCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.roundCVC)
+        tagCV.allowsMultipleSelection = true
         tagCV.dataSource = self
         tagCV.delegate = self
     }
@@ -68,6 +70,7 @@ class ExhibitionExplainView: UIView {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension ExhibitionExplainView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
@@ -100,6 +103,7 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ExhibitionExplainView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {
@@ -126,6 +130,18 @@ extension ExhibitionExplainView: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         7
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension ExhibitionExplainView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if collectionView == tagCV
+            && tagCV.indexPathsForSelectedItems!.count >= tagMaxSelectionCnt {
+            return false
+        } else {
+            return true
+        }
     }
 }
 
