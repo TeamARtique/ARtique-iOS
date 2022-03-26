@@ -14,6 +14,10 @@ class SelectedImageCVC: UICollectionViewCell {
         super.awakeFromNib()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
     override var isSelected: Bool {
         didSet{
             if isSelected {

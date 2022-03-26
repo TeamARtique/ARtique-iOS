@@ -49,6 +49,7 @@ class ExhibitionExplainView: UIView {
         configureCV(phosterCV, Identifiers.selectedImageCVC)
         
         exhibitionExplainTextView.setRoundTextView(with: exhibitionExplainPlaceholder)
+        exhibitionExplainTextView.setTextViewPlaceholder(exhibitionExplainPlaceholder)
         exhibitionExplainTextView.delegate = self
         
         tagCV.register(UINib(nibName: Identifiers.roundCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.roundCVC)
@@ -85,20 +86,21 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let roundCell = categoryCV.dequeueReusableCell(withReuseIdentifier: Identifiers.roundCVC, for: indexPath) as? RoundCVC,
-              let selectedImageCell = phosterCV.dequeueReusableCell(withReuseIdentifier: Identifiers.selectedImageCVC, for: indexPath) as? SelectedImageCVC
+              let selectedImageCell = phosterCV.dequeueReusableCell(withReuseIdentifier: Identifiers.selectedImageCVC, for: indexPath) as? SelectedImageCVC,
+              let tagCell = tagCV.dequeueReusableCell(withReuseIdentifier: Identifiers.roundCVC, for: indexPath) as? RoundCVC
         else { return UICollectionViewCell() }
                 
         switch collectionView {
         case categoryCV:
-            roundCell.configureCell(with: "\(CategoryType.allCases[indexPath.row].categoryTitle)", categoryCV.frame.height)
+            roundCell.configureCell(with: "\(CategoryType.allCases[indexPath.row].categoryTitle)")
             return roundCell
         case phosterCV:
             selectedImageCell.configureCell(with: UIImage(named: "Theme1")!)
             selectedImageCell.image.contentMode = .scaleAspectFill
             return selectedImageCell
         default:
-            roundCell.configureCell(with: "TAG", 30)
-            return roundCell
+            tagCell.configureCell(with: "TAG")
+            return tagCell
         }
     }
 }

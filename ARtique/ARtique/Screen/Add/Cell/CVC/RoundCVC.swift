@@ -14,6 +14,10 @@ class RoundCVC: UICollectionViewCell {
         super.awakeFromNib()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
     override var isSelected: Bool {
         didSet{
             if isSelected {
@@ -27,10 +31,10 @@ class RoundCVC: UICollectionViewCell {
         }
     }
     
-    func configureCell(with label: String, _ height: CGFloat) {
+    func configureCell(with label: String) {
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1
-        layer.cornerRadius = height / 2
+        layer.cornerRadius = frame.height / 2
         
         contentLabel.font = .AppleSDGothicM(size: 13)
         contentLabel.text = "\(label)"
