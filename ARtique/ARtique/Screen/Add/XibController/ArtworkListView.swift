@@ -9,11 +9,12 @@ import UIKit
 
 class ArtworkListView: UIView {
     @IBOutlet weak var artworkCV: UICollectionView!
-    var dummyImages = [UIImage(named: "Theme1"),
-                       UIImage(named: "Theme2"),
-                       UIImage(named: "Theme3"),
-                       UIImage(named: "Theme4"),
-                       UIImage(named: "Theme1")]
+    var dummyImages = [UIImage(named: "Theme1")!,
+                       UIImage(named: "Theme2")!,
+                       UIImage(named: "Theme3")!,
+                       UIImage(named: "Theme4")!,
+                       UIImage(named: "Theme1")!]
+    let exhibitionModel = NewExhibition.shared
     let spacing: CGFloat = 12
     var currentIndex:CGFloat = 0
     let cellWidth: CGFloat = 300
@@ -39,6 +40,9 @@ class ArtworkListView: UIView {
         view.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        // TODO: - 사진 선택 구현 후 수정
+        exhibitionModel.selectedArtwork = dummyImages
     }
     
     private func configureCV() {
@@ -85,7 +89,7 @@ class ArtworkListView: UIView {
 
 extension ArtworkListView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        dummyImages.count
+        exhibitionModel.selectedArtwork?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -94,10 +98,10 @@ extension ArtworkListView: UICollectionViewDataSource {
         else { return  UICollectionViewCell() }
         
         if isOrderView {
-            orderViewCell.configureCell(with: dummyImages[indexPath.row] ?? UIImage())
+            orderViewCell.configureCell(with: exhibitionModel.selectedArtwork?[indexPath.row] ?? UIImage())
             return orderViewCell
         } else {
-            explainViewCell.configureCell(with: dummyImages[indexPath.row] ?? UIImage())
+            explainViewCell.configureCell(with: exhibitionModel, index: indexPath.row)
             return explainViewCell
         }
     }
@@ -124,8 +128,14 @@ extension ArtworkListView: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let item = dummyImages.remove(at: sourceIndexPath.row)
-        dummyImages.insert(item, at: destinationIndexPath.row)
+        let item = exhibitionModel.selectedArtwork!.remove(at: sourceIndexPath.row)
+        exhibitionModel.selectedArtwork?.insert(item, at: destinationIndexPath.row)
+        
+        guard let title = exhibitionModel.artworkTitle?.remove(at: sourceIndexPath.row) else { return }
+        exhibitionModel.artworkTitle?.insert(title, at: destinationIndexPath.row)
+        
+        guard let explain = exhibitionModel.artworkExplain?.remove(at: sourceIndexPath.row) else { return }
+        exhibitionModel.artworkExplain?.insert(explain, at: destinationIndexPath.row)
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

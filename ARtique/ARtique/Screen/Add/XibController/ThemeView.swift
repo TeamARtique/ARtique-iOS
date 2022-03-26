@@ -11,6 +11,7 @@ import SnapKit
 class ThemeView: UIView {
     @IBOutlet weak var cntCV: UICollectionView!
     @IBOutlet weak var themeCV: UICollectionView!
+    let exhibitionModel = NewExhibition.shared
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -110,6 +111,19 @@ extension ThemeView: UICollectionViewDelegateFlowLayout {
             let cellWidth = (collectionView.frame.width - 16) / 2
             return CGSize(width: cellWidth,
                           height: cellWidth + 23)
+        }
+    }
+}
+
+extension ThemeView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch collectionView {
+        case cntCV:
+            exhibitionModel.artworkCnt = setGalleryCount(indexPath.row)
+            exhibitionModel.artworkTitle = [String](repeating: "", count: exhibitionModel.artworkCnt!)
+            exhibitionModel.artworkExplain = [String](repeating: "", count: exhibitionModel.artworkCnt!)
+        default:
+            exhibitionModel.themeId = indexPath.row
         }
     }
 }

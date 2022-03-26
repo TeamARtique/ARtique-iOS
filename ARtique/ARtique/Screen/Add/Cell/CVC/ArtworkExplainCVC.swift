@@ -26,11 +26,14 @@ class ArtworkExplainCVC: UICollectionViewCell {
         titleTextField.setRoundTextField(with: "제목을 입력하세요")
         
         contentTextView.setRoundTextView(with: postContentPlaceholder)
+        contentTextView.setTextViewPlaceholder(postContentPlaceholder)
         contentTextView.delegate = self
     }
     
-    func configureCell(with artwork: UIImage) {
-        image.image = artwork
+    func configureCell(with artwork: NewExhibition, index: Int) {
+        image.image = artwork.selectedArtwork?[index] ?? UIImage()
+        titleTextField.text = artwork.artworkTitle?[index] ?? ""
+        contentTextView.text = artwork.artworkExplain?[index] ?? ""
     }
 }
 

@@ -11,11 +11,11 @@ import SnapKit
 class AddExhibitionVC: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var scrollView: UIScrollView!
-    let registerProcessViews = [ThemeView(),
-                                UIView(),
-                                OrderView(),
-                                PostExplainView(),
-                                ExhibitionExplainView()]
+    let exhibitionModel = NewExhibition.shared
+    let themeView = ThemeView()
+    let orderView = OrderView()
+    let postExplainView = PostExplainView()
+    let exhibitionExplainView = ExhibitionExplainView()
     
     var progress: Float = 0.2
     var page: Int = 0
@@ -96,6 +96,12 @@ extension AddExhibitionVC {
     }
     
     func configureStackView() {
+        let registerProcessViews = [themeView,
+                                    UIView(),
+                                    orderView,
+                                    postExplainView,
+                                    exhibitionExplainView]
+        
         let stackView = UIStackView(arrangedSubviews: registerProcessViews)
         
         stackView.axis = .horizontal
@@ -113,6 +119,11 @@ extension AddExhibitionVC {
             $0.width.equalTo(scrollView.snp.width)
             $0.height.equalTo(scrollView.snp.height)
         }
+    }
+    
+    func reloadPage() {
+        orderView.artworkListView.artworkCV.reloadData()
+        postExplainView.artworkListView.artworkCV.reloadData()
     }
 }
 
@@ -144,5 +155,8 @@ extension AddExhibitionVC {
         configureNavigationTitle(page)
         configureNaviBarButton()
         setScrollViewPaging(page: page)
+        
+        reloadPage()
+        dump(exhibitionModel.self)
     }
 }
