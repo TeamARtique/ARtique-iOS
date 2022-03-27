@@ -123,7 +123,10 @@ extension AddExhibitionVC {
     
     func reloadPage() {
         orderView.artworkListView.artworkCV.reloadData()
+        orderView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: true)
         postExplainView.artworkListView.artworkCV.reloadData()
+        postExplainView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: true)
+        exhibitionExplainView.scrollView.scrollToTop()
     }
 }
 
@@ -155,8 +158,6 @@ extension AddExhibitionVC {
         configureNavigationTitle(page)
         configureNaviBarButton()
         setScrollViewPaging(page: page)
-        
         reloadPage()
-        dump(exhibitionModel.self)
     }
 }

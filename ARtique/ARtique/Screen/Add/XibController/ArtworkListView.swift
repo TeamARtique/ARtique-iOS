@@ -101,7 +101,7 @@ extension ArtworkListView: UICollectionViewDataSource {
             orderViewCell.configureCell(with: exhibitionModel.selectedArtwork?[indexPath.row] ?? UIImage())
             return orderViewCell
         } else {
-            explainViewCell.configureCell(with: exhibitionModel, index: indexPath.row)
+            explainViewCell.configureCell(index: indexPath.row)
             return explainViewCell
         }
     }

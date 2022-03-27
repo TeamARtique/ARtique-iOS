@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ArtworkExplainCVC: UICollectionViewCell {
     @IBOutlet weak var scrollView: UIScrollView!
@@ -13,6 +15,9 @@ class ArtworkExplainCVC: UICollectionViewCell {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
     
+    let bag = DisposeBag()
+    var cellIndex: Int?
+    let exhibitionModel = NewExhibition.shared
     let postContentPlaceholder = "상세 설명을 입력하세요"
     
     override func awakeFromNib() {
@@ -20,20 +25,44 @@ class ArtworkExplainCVC: UICollectionViewCell {
         configureView()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+}
+
+// MARK: - Configure
+extension ArtworkExplainCVC {
     private func configureView() {
         scrollView.showsVerticalScrollIndicator = false
         
         titleTextField.setRoundTextField(with: "제목을 입력하세요")
         
-        contentTextView.setRoundTextView(with: postContentPlaceholder)
-        contentTextView.setTextViewPlaceholder(postContentPlaceholder)
+        contentTextView.setRoundTextView(with: "상세 설명을 입력하세요")
         contentTextView.delegate = self
     }
     
-    func configureCell(with artwork: NewExhibition, index: Int) {
-        image.image = artwork.selectedArtwork?[index] ?? UIImage()
-        titleTextField.text = artwork.artworkTitle?[index] ?? ""
-        contentTextView.text = artwork.artworkExplain?[index] ?? ""
+    func configureCell(index: Int) {
+        cellIndex = index
+        image.image = exhibitionModel.selectedArtwork?[index] ?? UIImage()
+        titleTextField.text = exhibitionModel.artworkTitle?[index] ?? ""
+        contentTextView.text = exhibitionModel.artworkExplain?[index] ?? ""
+        bindText()
+    }
+    
+    private func bindText() {
+        titleTextField.rx.text.orEmpty
+            .withUnretained(self)
+            .subscribe(onNext: { owner, title in
+                owner.exhibitionModel.artworkTitle?[owner.cellIndex ?? 0] = title
+            })
+            .disposed(by: bag)
+        
+        contentTextView.rx.text.orEmpty
+            .withUnretained(self)
+            .subscribe(onNext: { owner, content in
+                owner.exhibitionModel.artworkExplain?[owner.cellIndex ?? 0] = content
+            })
+            .disposed(by: bag)
     }
 }
 

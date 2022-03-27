@@ -59,7 +59,6 @@ extension ExhibitionExplainView {
         configureCV(phosterCV, Identifiers.selectedImageCVC)
         
         exhibitionExplainTextView.setRoundTextView(with: exhibitionExplainPlaceholder)
-        exhibitionExplainTextView.setTextViewPlaceholder(exhibitionExplainPlaceholder)
         exhibitionExplainTextView.delegate = self
         
         tagCV.register(UINib(nibName: Identifiers.roundCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.roundCVC)
