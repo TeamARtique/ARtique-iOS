@@ -58,7 +58,8 @@ extension ExhibitionExplainView {
         configureCV(categoryCV, Identifiers.roundCVC)
         configureCV(phosterCV, Identifiers.selectedImageCVC)
         
-        exhibitionExplainTextView.setRoundTextView(with: exhibitionExplainPlaceholder)
+        exhibitionExplainTextView.setRoundTextView()
+        exhibitionExplainTextView.setTextViewPlaceholder(exhibitionExplainPlaceholder)
         exhibitionExplainTextView.delegate = self
         
         tagCV.register(UINib(nibName: Identifiers.roundCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.roundCVC)
@@ -223,7 +224,9 @@ extension ExhibitionExplainView: UICollectionViewDelegate {
 // MARK: - UITextViewDelegate
 extension ExhibitionExplainView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.setTextViewPlaceholder(exhibitionExplainPlaceholder)
+        guard textView.textColor == .textViewPlaceholder else { return }
+        textView.textColor = .label
+        textView.text = ""
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {

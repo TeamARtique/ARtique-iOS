@@ -102,7 +102,7 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="전시회에 대한 전체 설명을 입력하세요" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LDX-bA-qQd">
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LDX-bA-qQd">
                                     <rect key="frame" x="20" y="464" width="335" height="113"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>

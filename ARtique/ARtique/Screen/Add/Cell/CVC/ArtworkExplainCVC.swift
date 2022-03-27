@@ -34,10 +34,8 @@ class ArtworkExplainCVC: UICollectionViewCell {
 extension ArtworkExplainCVC {
     private func configureView() {
         scrollView.showsVerticalScrollIndicator = false
-        
         titleTextField.setRoundTextField(with: "제목을 입력하세요")
-        
-        contentTextView.setRoundTextView(with: "상세 설명을 입력하세요")
+        contentTextView.setRoundTextView()
         contentTextView.delegate = self
     }
     
@@ -46,6 +44,7 @@ extension ArtworkExplainCVC {
         image.image = exhibitionModel.selectedArtwork?[index] ?? UIImage()
         titleTextField.text = exhibitionModel.artworkTitle?[index] ?? ""
         contentTextView.text = exhibitionModel.artworkExplain?[index] ?? ""
+        contentTextView.setTextViewPlaceholder(postContentPlaceholder)
         bindText()
     }
     
@@ -69,7 +68,9 @@ extension ArtworkExplainCVC {
 // MARK: - UITextViewDelegate
 extension ArtworkExplainCVC: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.setTextViewPlaceholder(postContentPlaceholder)
+        guard textView.textColor == .textViewPlaceholder else { return }
+        textView.textColor = .label
+        textView.text = ""
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
