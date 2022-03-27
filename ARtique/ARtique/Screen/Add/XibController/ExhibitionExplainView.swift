@@ -166,14 +166,14 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
                 
         switch collectionView {
         case categoryCV:
-            roundCell.configureCell(with: "\(CategoryType.allCases[indexPath.row].categoryTitle)")
+            roundCell.configureCell(with: CategoryType.allCases[indexPath.row].categoryTitle)
             return roundCell
         case phosterCV:
             selectedImageCell.configureCell(with: UIImage(named: "Theme1")!)
             selectedImageCell.image.contentMode = .scaleAspectFill
             return selectedImageCell
         default:
-            tagCell.configureCell(with: "TAG")
+            tagCell.configureCell(with: TagType.allCases[indexPath.row].tagTitle)
             return tagCell
         }
     }

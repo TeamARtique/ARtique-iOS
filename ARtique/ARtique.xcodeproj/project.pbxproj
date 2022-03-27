@@ -38,6 +38,7 @@
 		23B52A9027E1013E00D6C339 /* RoundCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23B52A8E27E1013E00D6C339 /* RoundCVC.xib */; };
 		23B52A9327E1131C00D6C339 /* ThemeCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B52A9127E1131C00D6C339 /* ThemeCVC.swift */; };
 		23B52A9427E1131C00D6C339 /* ThemeCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23B52A9227E1131C00D6C339 /* ThemeCVC.xib */; };
+		23BB927027F0EB9100D91354 /* TagType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BB926F27F0EB9100D91354 /* TagType.swift */; };
 		23E1A35127EF124D009C337F /* NewExhibition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1A35027EF124D009C337F /* NewExhibition.swift */; };
 		23E734EE27E99CC8000315E6 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E734EC27E99CC8000315E6 /* OrderView.swift */; };
 		23E734EF27E99CC8000315E6 /* OrderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23E734ED27E99CC8000315E6 /* OrderView.xib */; };
@@ -121,6 +122,7 @@
 		23B52A8E27E1013E00D6C339 /* RoundCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundCVC.xib; sourceTree = "<group>"; };
 		23B52A9127E1131C00D6C339 /* ThemeCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCVC.swift; sourceTree = "<group>"; };
 		23B52A9227E1131C00D6C339 /* ThemeCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemeCVC.xib; sourceTree = "<group>"; };
+		23BB926F27F0EB9100D91354 /* TagType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagType.swift; sourceTree = "<group>"; };
 		23E1A35027EF124D009C337F /* NewExhibition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExhibition.swift; sourceTree = "<group>"; };
 		23E734EC27E99CC8000315E6 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		23E734ED27E99CC8000315E6 /* OrderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderView.xib; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				23FE54D627EB086400FF0DF9 /* GalleryType.swift */,
 				23B52A8627E0E89200D6C339 /* AddProcess.swift */,
 				23071DB627ECF5A100949BA1 /* CategoryType.swift */,
+				23BB926F27F0EB9100D91354 /* TagType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -828,6 +831,7 @@
 				235584042767A75F0046C3EE /* Utilities.swift in Sources */,
 				238C65762756606100EADA93 /* HomeNC.swift in Sources */,
 				3305F7A82754E45800E6E08E /* HomeVC.swift in Sources */,
+				23BB927027F0EB9100D91354 /* TagType.swift in Sources */,
 				3305F7612754E03600E6E08E /* Identifiers.swift in Sources */,
 				3305F7312754DABA00E6E08E /* AppDelegate.swift in Sources */,
 				23B52A8727E0E89200D6C339 /* AddProcess.swift in Sources */,
