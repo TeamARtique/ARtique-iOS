@@ -19,6 +19,7 @@
             <connections>
                 <outlet property="categoryCV" destination="43V-Jt-XNM" id="gOA-NR-f5l"/>
                 <outlet property="exhibitionExplainTextView" destination="LDX-bA-qQd" id="hjZ-Sg-TUd"/>
+                <outlet property="isPublic" destination="i3T-JN-Bh2" id="2YQ-zf-zu3"/>
                 <outlet property="phosterCV" destination="Gsr-Yu-Pb1" id="gCg-bI-urV"/>
                 <outlet property="scrollView" destination="3Ct-FP-hk2" id="gL4-Ww-MyH"/>
                 <outlet property="tagCV" destination="kmU-Zb-3hD" id="cbY-16-LpO"/>

@@ -6,15 +6,20 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ExhibitionExplainView: UIView {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var categoryCV: UICollectionView!
     @IBOutlet weak var phosterCV: UICollectionView!
-    @IBOutlet weak var tagCV: UICollectionView!
     @IBOutlet weak var exhibitionExplainTextView: UITextView!
+    @IBOutlet weak var tagCV: UICollectionView!
+    @IBOutlet weak var isPublic: UISwitch!
     
+    let bag = DisposeBag()
+    let exhibitionModel = NewExhibition.shared
     let exhibitionExplainPlaceholder = "전시회에 대한 전체 설명을 입력하세요"
     let tagMaxSelectionCnt = 3
     
@@ -22,14 +27,19 @@ class ExhibitionExplainView: UIView {
         super.init(frame: frame)
         setContentView()
         configureView()
+        bindUI()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setContentView()
         configureView()
+        bindUI()
     }
-    
+}
+
+// MARK: - Configure
+extension ExhibitionExplainView {
     private func setContentView() {
         guard let view = loadXibView(with: Identifiers.exhibitionExplainView) else { return }
         view.backgroundColor = .clear
@@ -58,6 +68,44 @@ class ExhibitionExplainView: UIView {
         tagCV.delegate = self
     }
     
+    private func bindUI() {
+        titleTextField.rx.text.orEmpty
+            .withUnretained(self)
+            .subscribe(onNext: { owner, title in
+                owner.exhibitionModel.title = title
+            })
+            .disposed(by: bag)
+        
+        exhibitionExplainTextView.rx.text.orEmpty
+            .withUnretained(self)
+            .subscribe(onNext: { owner, explain in
+                owner.exhibitionModel.exhibitionExplain = explain
+            })
+            .disposed(by: bag)
+        
+        tagCV.rx.itemDeselected
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.exhibitionModel.tagId = owner.selectedTags()
+            })
+            .disposed(by: bag)
+        
+        isPublic.rx.isOn
+            .withUnretained(self)
+            .subscribe(onNext: { owner, status in
+                owner.exhibitionModel.isPublic = status
+            })
+            .disposed(by: bag)
+        
+        didSelectItem(at: categoryCV)
+        didSelectItem(at: phosterCV)
+        didSelectItem(at: tagCV)
+        
+    }
+}
+
+// MARK: - Custom Method
+extension ExhibitionExplainView {
     private func configureCV(_ collectionView: UICollectionView, _ identifiers: String) {
         collectionView.register(UINib(nibName: identifiers, bundle: nil),
                                   forCellWithReuseIdentifier: identifiers)
@@ -68,6 +116,32 @@ class ExhibitionExplainView: UIView {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
+    }
+    
+    private func didSelectItem(at collectionView: UICollectionView) {
+        collectionView.rx.itemSelected
+            .withUnretained(self)
+            .subscribe(onNext: { owner, index in
+                switch collectionView {
+                case owner.categoryCV:
+                    owner.exhibitionModel.categoryId = index.row
+                case owner.phosterCV:
+                    owner.exhibitionModel.phosterId = index.row
+                case owner.tagCV:
+                    owner.exhibitionModel.tagId = owner.selectedTags()
+                default:
+                    break
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+    private func selectedTags() -> [Int] {
+        var selectedIndexRow = [Int]()
+        tagCV.indexPathsForSelectedItems?.forEach {
+            selectedIndexRow.append($0.row)
+        }
+        return selectedIndexRow
     }
 }
 

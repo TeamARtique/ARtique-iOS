@@ -18,7 +18,9 @@ class NewExhibition {
     var title: String?
     var categoryId: Int?
     var phosterId: Int?
-    var exhibitionExplain: [String]?
+    var exhibitionExplain: String?
+    var tagId: [Int]?
+    var isPublic: Bool?
     
     private init() { }
 }
