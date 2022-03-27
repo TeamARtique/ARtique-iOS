@@ -18,6 +18,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ExhibitionExplainView" customModule="ARtique" customModuleProvider="target">
             <connections>
                 <outlet property="categoryCV" destination="43V-Jt-XNM" id="gOA-NR-f5l"/>
+                <outlet property="exhibitionExplainTextCnt" destination="FsO-En-gpE" id="Jf2-T7-uYt"/>
                 <outlet property="exhibitionExplainTextView" destination="LDX-bA-qQd" id="hjZ-Sg-TUd"/>
                 <outlet property="isPublic" destination="i3T-JN-Bh2" id="2YQ-zf-zu3"/>
                 <outlet property="phosterCV" destination="Gsr-Yu-Pb1" id="gCg-bI-urV"/>

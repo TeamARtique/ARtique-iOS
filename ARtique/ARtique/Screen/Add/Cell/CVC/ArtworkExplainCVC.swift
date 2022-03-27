@@ -19,6 +19,7 @@ class ArtworkExplainCVC: UICollectionViewCell {
     var cellIndex: Int?
     let exhibitionModel = NewExhibition.shared
     let postContentPlaceholder = "상세 설명을 입력하세요"
+    let textViewMaxCnt = 100
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -77,5 +78,15 @@ extension ArtworkExplainCVC: UITextViewDelegate {
         if textView.text == "" {
             textView.setTextViewPlaceholder(postContentPlaceholder)
         }
+        
+        if textView.text.count > textViewMaxCnt {
+            textView.text.removeLast()
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let str = textView.text else { return true }
+        let newLength = str.count + text.count - range.length
+        return newLength <= textViewMaxCnt + 1
     }
 }

@@ -14,6 +14,7 @@ class ExhibitionExplainView: UIView {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var categoryCV: UICollectionView!
     @IBOutlet weak var phosterCV: UICollectionView!
+    @IBOutlet weak var exhibitionExplainTextCnt: UILabel!
     @IBOutlet weak var exhibitionExplainTextView: UITextView!
     @IBOutlet weak var tagCV: UICollectionView!
     @IBOutlet weak var isPublic: UISwitch!
@@ -22,6 +23,7 @@ class ExhibitionExplainView: UIView {
     let exhibitionModel = NewExhibition.shared
     let exhibitionExplainPlaceholder = "전시회에 대한 전체 설명을 입력하세요"
     let tagMaxSelectionCnt = 3
+    let textViewMaxCnt = 100
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -80,6 +82,7 @@ extension ExhibitionExplainView {
             .withUnretained(self)
             .subscribe(onNext: { owner, explain in
                 owner.exhibitionModel.exhibitionExplain = explain
+                owner.setTextViewMaxCnt(explain.count)
             })
             .disposed(by: bag)
         
@@ -142,6 +145,12 @@ extension ExhibitionExplainView {
             selectedIndexRow.append($0.row)
         }
         return selectedIndexRow
+    }
+    
+    private func setTextViewMaxCnt(_ cnt: Int) {
+        if exhibitionExplainTextView.textColor != .textViewPlaceholder {
+            exhibitionExplainTextCnt.text = "(\(cnt)/\(textViewMaxCnt))"
+        }
     }
 }
 
@@ -233,5 +242,16 @@ extension ExhibitionExplainView: UITextViewDelegate {
         if textView.text == "" {
             textView.setTextViewPlaceholder(exhibitionExplainPlaceholder)
         }
+        
+        if textView.text.count > textViewMaxCnt {
+            textView.text.removeLast()
+            exhibitionExplainTextCnt.text = "\(textViewMaxCnt)"
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let str = textView.text else { return true }
+        let newLength = str.count + text.count - range.length
+        return newLength <= textViewMaxCnt + 1
     }
 }
