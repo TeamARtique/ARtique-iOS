@@ -28,6 +28,7 @@ class AddExhibitionVC: UIViewController {
         configureScrollView()
         configureStackView()
         hideKeyboard()
+        setNotification()
     }
 }
 
@@ -122,13 +123,30 @@ extension AddExhibitionVC {
         }
     }
     
-    func reloadPage() {
-        artworkSelectView.maxArtworkCnt = exhibitionModel.artworkCnt ?? 0
-        orderView.artworkListView.artworkCV.reloadData()
-        orderView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: true)
-        postExplainView.artworkListView.artworkCV.reloadData()
-        postExplainView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: true)
-        exhibitionExplainView.scrollView.scrollToTop()
+    func reloadPage(_ page: Int) {
+        switch page {
+        case 1:
+            artworkSelectView.maxArtworkCnt = exhibitionModel.artworkCnt ?? 0
+            artworkSelectView.selectedImages = exhibitionModel.selectedArtwork ?? [UIImage]()
+        case 2:
+            orderView.artworkListView.artworkCV.reloadData()
+            orderView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: true)
+        case 3:
+            postExplainView.artworkListView.artworkCV.reloadData()
+            postExplainView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: true)
+        case 4:
+            exhibitionExplainView.scrollView.scrollToTop()
+        default:
+            break
+        }
+    }
+    
+    func setNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(setSelectedViewNaviTitle), name: .whenArtworkSelected, object: nil)
+    }
+    
+    @objc func setSelectedViewNaviTitle(_ notification: Notification) {
+        configureNavigationTitle(1)
     }
 }
 
@@ -160,6 +178,6 @@ extension AddExhibitionVC {
         configureNavigationTitle(page)
         configureNaviBarButton()
         setScrollViewPaging(page: page)
-        reloadPage()
+        reloadPage(page)
     }
 }

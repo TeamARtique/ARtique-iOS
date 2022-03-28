@@ -9,11 +9,6 @@ import UIKit
 
 class ArtworkListView: UIView {
     @IBOutlet weak var artworkCV: UICollectionView!
-    var dummyImages = [UIImage(named: "Theme1")!,
-                       UIImage(named: "Theme2")!,
-                       UIImage(named: "Theme3")!,
-                       UIImage(named: "Theme4")!,
-                       UIImage(named: "Theme1")!]
     let exhibitionModel = NewExhibition.shared
     let spacing: CGFloat = 12
     var currentIndex:CGFloat = 0
@@ -40,9 +35,6 @@ class ArtworkListView: UIView {
         view.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        
-        // TODO: - 사진 선택 구현 후 수정
-        exhibitionModel.selectedArtwork = dummyImages
     }
     
     private func configureCV() {
@@ -128,7 +120,7 @@ extension ArtworkListView: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let item = exhibitionModel.selectedArtwork!.remove(at: sourceIndexPath.row)
+        let item = exhibitionModel.selectedArtwork?.remove(at: sourceIndexPath.row) ?? UIImage()
         exhibitionModel.selectedArtwork?.insert(item, at: destinationIndexPath.row)
         
         guard let title = exhibitionModel.artworkTitle?.remove(at: sourceIndexPath.row) else { return }

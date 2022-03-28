@@ -18,6 +18,7 @@ class ArtworkSelectView: UIView {
     
     let exhibitionModel = NewExhibition.shared
     var maxArtworkCnt: Int = 0
+    var selectedImages = [UIImage]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -124,6 +125,17 @@ extension ArtworkSelectView: UICollectionViewDataSource {
 extension ArtworkSelectView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         setPreviewImage(indexPath)
+        guard let cell = collectionView.cellForItem(at: indexPath) as? SelectedImageCVC else { return }
+        selectedImages.append(cell.image.image ?? UIImage())
+        exhibitionModel.selectedArtwork = selectedImages
+        NotificationCenter.default.post(name: .whenArtworkSelected, object: exhibitionModel.selectedArtwork?.count)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? SelectedImageCVC else { return }
+        selectedImages.remove(at: selectedImages.firstIndex(of: cell.image.image ?? UIImage())!)
+        exhibitionModel.selectedArtwork = selectedImages
+        NotificationCenter.default.post(name: .whenArtworkSelected, object: exhibitionModel.selectedArtwork?.count)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
