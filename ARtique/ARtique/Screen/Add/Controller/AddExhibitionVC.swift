@@ -13,6 +13,7 @@ class AddExhibitionVC: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     let exhibitionModel = NewExhibition.shared
     let themeView = ThemeView()
+    let artworkSelectView = ArtworkSelectView()
     let orderView = OrderView()
     let postExplainView = PostExplainView()
     let exhibitionExplainView = ExhibitionExplainView()
@@ -97,7 +98,7 @@ extension AddExhibitionVC {
     
     func configureStackView() {
         let registerProcessViews = [themeView,
-                                    UIView(),
+                                    artworkSelectView,
                                     orderView,
                                     postExplainView,
                                     exhibitionExplainView]

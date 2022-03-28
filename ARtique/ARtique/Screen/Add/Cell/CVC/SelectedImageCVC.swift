@@ -9,6 +9,7 @@ import UIKit
 
 class SelectedImageCVC: UICollectionViewCell {
     @IBOutlet weak var image: UIImageView!
+    var id: String = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
