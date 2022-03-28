@@ -16,6 +16,9 @@ class ArtworkSelectView: UIView {
     var devicePhotos: PHFetchResult<PHAsset>!
     let imageManager = PHCachingImageManager()
     
+    let exhibitionModel = NewExhibition.shared
+    var maxArtworkCnt: Int = 0
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setContentView()
@@ -64,7 +67,7 @@ extension ArtworkSelectView {
         albumListButton.titleLabel?.font = .AppleSDGothicB(size: 13)
     }
     
-    private func configureCV() {
+    func configureCV() {
         galleryCV.register(UINib(nibName: Identifiers.selectedImageCVC, bundle: nil),
                            forCellWithReuseIdentifier: Identifiers.selectedImageCVC)
         galleryCV.dataSource = self
@@ -121,6 +124,14 @@ extension ArtworkSelectView: UICollectionViewDataSource {
 extension ArtworkSelectView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         setPreviewImage(indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if collectionView.indexPathsForSelectedItems!.count >= maxArtworkCnt {
+            return false
+        } else {
+            return true
+        }
     }
 }
 

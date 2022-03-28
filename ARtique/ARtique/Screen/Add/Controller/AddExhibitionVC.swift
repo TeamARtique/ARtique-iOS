@@ -123,6 +123,7 @@ extension AddExhibitionVC {
     }
     
     func reloadPage() {
+        artworkSelectView.maxArtworkCnt = exhibitionModel.artworkCnt ?? 0
         orderView.artworkListView.artworkCV.reloadData()
         orderView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: true)
         postExplainView.artworkListView.artworkCV.reloadData()
