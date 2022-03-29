@@ -23,18 +23,18 @@ extension UITextView {
     func setTextViewPlaceholder(_ placeholder: String) {
         if text == "" {
             text = placeholder
-            textColor = .lightGray
-        } else if text == placeholder {
-            text = ""
-            textColor = .black
+            textColor = .textViewPlaceholder
         }
     }
     
-    /// setRoundTextView - ARTique 테두리 있는 textView 기본 디자인
+    /// setRoundTextView - ARTique 테두리 있는 textView 기본 디자인, delegate 추가해서 사용
     func setRoundTextView() {
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1
         layer.cornerRadius = 8
         font = .AppleSDGothicR(size: 13)
+        
+        setPadding()
+        isScrollEnabled = false
     }
 }

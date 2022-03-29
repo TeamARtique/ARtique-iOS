@@ -21,7 +21,7 @@ extension AddProcess {
         case .theme:
             return "전시 등록"
         case .gallery:
-            return "사진 선택"
+            return "사진 선택 (\(NewExhibition.shared.selectedArtwork?.count ?? 0)/\(NewExhibition.shared.artworkCnt ?? 0))"
         case .order:
             return "순서 조정"
         case .photoExplaination:

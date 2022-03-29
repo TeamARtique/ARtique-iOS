@@ -11,4 +11,8 @@ target 'ARtique' do
   pod 'Then', '~> 2.7.0'
   pod 'Tabman', '~> 2.9'
 
+  # Rx
+  pod 'RxSwift', '< 6.2.0'
+  pod 'RxCocoa', '< 6.2.0'
+
 end

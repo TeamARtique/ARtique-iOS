@@ -11,9 +11,12 @@ import SnapKit
 class AddExhibitionVC: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var scrollView: UIScrollView!
+    let exhibitionModel = NewExhibition.shared
     let themeView = ThemeView()
+    let artworkSelectView = ArtworkSelectView()
     let orderView = OrderView()
     let postExplainView = PostExplainView()
+    let exhibitionExplainView = ExhibitionExplainView()
     
     var progress: Float = 0.2
     var page: Int = 0
@@ -31,7 +34,7 @@ class AddExhibitionVC: UIViewController {
 
 // MARK: - Configure
 extension AddExhibitionVC {
-    func configureNavigationBar() {
+    private func configureNavigationBar() {
         configureNavigationTitle(0)
         navigationController?.additionalSafeAreaInsets.top = 8
         navigationController?.setRoundRightBarBtn(navigationItem: self.navigationItem,
@@ -45,16 +48,16 @@ extension AddExhibitionVC {
         navigationController?.navigationBar.tintColor = .black
     }
     
-    func configureNavigationTitle(_ index: Int) {
+    private func configureNavigationTitle(_ index: Int) {
         navigationItem.title = AddProcess.allCases[index].naviTitle
     }
     
-    func configureNaviBarButton() {
+    private func configureNaviBarButton() {
         configurePrevButton()
         configureNextButton()
     }
     
-    func configureNextButton() {
+    private func configureNextButton() {
         let rightBarButton = self.navigationItem.rightBarButtonItem!
         let button = rightBarButton.customView as! UIButton
         
@@ -63,27 +66,27 @@ extension AddExhibitionVC {
         : button.setTitle("다음", for: .normal)
     }
     
-    func configurePrevButton() {
+    private func configurePrevButton() {
         navigationItem.leftBarButtonItem?.image
         = (progressView.progress < 0.3)
         ? UIImage(systemName: "xmark")
         : UIImage(systemName: "chevron.backward")
     }
     
-    func configureRegisterProgressView() {
+    private func configureRegisterProgressView() {
         progressView.tintColor = .black
         progressView.progress = progress
     }
     
     // MARK: - Configure Content Page
-    func configureScrollView() {
+    private func configureScrollView() {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.contentSize = CGSize(width: view.frame.width * 5,
                                         height: 0)
         scrollView.isScrollEnabled = false
     }
     
-    func setScrollViewPaging(page: Int) {
+    private func setScrollViewPaging(page: Int) {
         let page = page
         let width = scrollView.frame.width
         let targetX = CGFloat(page) * width
@@ -94,56 +97,56 @@ extension AddExhibitionVC {
         scrollView.setContentOffset(offset, animated: true)
     }
     
-    func configureStackView() {
-        let dummyView = UIView()
-        let views = [themeView,
-                     dummyView,
-                     orderView,
-                     postExplainView]
-        let stackView = UIStackView(arrangedSubviews: views)
+    private func configureStackView() {
+        let registerProcessViews = [themeView,
+                                    artworkSelectView,
+                                    orderView,
+                                    postExplainView,
+                                    exhibitionExplainView]
+        
+        let stackView = UIStackView(arrangedSubviews: registerProcessViews)
         
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(stackView)
         
-        views.forEach {
+        registerProcessViews.forEach {
             configureLayout($0)
         }
     }
     
-    func configureLayout(_ view: UIView) {
+    private func configureLayout(_ view: UIView) {
         view.snp.makeConstraints {
             $0.width.equalTo(scrollView.snp.width)
             $0.height.equalTo(scrollView.snp.height)
         }
     }
     
-    func setNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        let animateDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
-        let keyboardFrame = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-        let heiget = keyboardFrame.size.height - self.view.safeAreaInsets.bottom
-        
-        UIView.animate(withDuration: animateDuration) {
-            self.scrollView.snp.updateConstraints() {
-                $0.top.equalTo(self.progressView.snp.bottom).offset(-62)
-                $0.bottom.equalToSuperview().offset(-heiget)
-            }
-            self.view.layoutIfNeeded()
+    private func reloadPage(_ page: Int) {
+        switch page {
+        case 1:
+            artworkSelectView.maxArtworkCnt = exhibitionModel.artworkCnt ?? 0
+            artworkSelectView.selectedImages = exhibitionModel.selectedArtwork ?? [UIImage]()
+        case 2:
+            orderView.artworkListView.artworkCV.reloadData()
+            orderView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: true)
+        case 3:
+            postExplainView.artworkListView.artworkCV.reloadData()
+            postExplainView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: true)
+        case 4:
+            exhibitionExplainView.scrollView.scrollToTop()
+        default:
+            break
         }
     }
     
-    @objc func keyboardWillHide(notification: NSNotification) {
-        self.scrollView.snp.updateConstraints() {
-            $0.top.equalTo(self.progressView.snp.bottom)
-            $0.bottom.equalToSuperview()
-        }
-        self.view.layoutIfNeeded()
+    private func setNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(setSelectedViewNaviTitle), name: .whenArtworkSelected, object: nil)
+    }
+    
+    @objc func setSelectedViewNaviTitle(_ notification: Notification) {
+        configureNavigationTitle(1)
     }
 }
 
@@ -153,12 +156,10 @@ extension AddExhibitionVC {
         if progressView.progress != 1 {
             progress += 0.2
             page += 1
-            progressView.setProgress(progress, animated: true)
-            configureNavigationTitle(page)
-            configureNaviBarButton()
-            setScrollViewPaging(page: page)
+            configurePageView(progress, page)
         } else {
             // TODO: - 게시글 등록 완료
+            dismiss(animated: true)
         }
     }
     
@@ -166,12 +167,17 @@ extension AddExhibitionVC {
         if progressView.progress > 0.3 {
             progress -= 0.2
             page -= 1
-            progressView.setProgress(progress, animated: true)
-            configureNavigationTitle(page)
-            configureNaviBarButton()
-            setScrollViewPaging(page: page)
+            configurePageView(progress, page)
         } else {
             dismiss(animated: true)
         }
+    }
+    
+    private func configurePageView(_ progress: Float,_ page: Int) {
+        progressView.setProgress(progress, animated: true)
+        configureNavigationTitle(page)
+        configureNaviBarButton()
+        setScrollViewPaging(page: page)
+        reloadPage(page)
     }
 }

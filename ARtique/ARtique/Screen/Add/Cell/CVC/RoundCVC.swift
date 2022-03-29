@@ -12,7 +12,10 @@ class RoundCVC: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
     }
     
     override var isSelected: Bool {
@@ -28,12 +31,12 @@ class RoundCVC: UICollectionViewCell {
         }
     }
     
-    func configureCell(with cnt: Int) {
+    func configureCell(with label: String) {
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1
-        layer.cornerRadius = contentView.frame.height / 2
+        layer.cornerRadius = frame.height / 2
         
         contentLabel.font = .AppleSDGothicM(size: 13)
-        contentLabel.text = "\(cnt)개"
+        contentLabel.text = "\(label)"
     }
 }

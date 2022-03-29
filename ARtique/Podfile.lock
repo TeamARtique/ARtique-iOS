@@ -1,6 +1,12 @@
 PODS:
   - Alamofire (5.4.4)
   - Pageboy (3.6.2)
+  - RxCocoa (6.1.0):
+    - RxRelay (= 6.1.0)
+    - RxSwift (= 6.1.0)
+  - RxRelay (6.1.0):
+    - RxSwift (= 6.1.0)
+  - RxSwift (6.1.0)
   - SnapKit (5.0.1)
   - Tabman (2.11.1):
     - Pageboy (~> 3.6.0)
@@ -8,6 +14,8 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.4.4)
+  - RxCocoa (< 6.2.0)
+  - RxSwift (< 6.2.0)
   - SnapKit (~> 5.0.1)
   - Tabman (~> 2.9)
   - Then (~> 2.7.0)
@@ -16,6 +24,9 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - Pageboy
+    - RxCocoa
+    - RxRelay
+    - RxSwift
     - SnapKit
     - Tabman
     - Then
@@ -23,10 +34,13 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
   Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
+  RxCocoa: 5c51f02d562cbd94629f6c26cf0c80fe4ab8d343
+  RxRelay: 483e1a19fad961b41f0b0c0bee506f46c1ae14fe
+  RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: a9167b8629b263b417d79bc772942e7ab01182f6
+PODFILE CHECKSUM: 7c187d9361841b1f72d02803386ad04ab9d5e2d2
 
 COCOAPODS: 1.11.2

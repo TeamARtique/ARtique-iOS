@@ -11,6 +11,7 @@ import Tabman
 class ExhibitionListVC: UIViewController {
     @IBOutlet weak var pageTV: UITableView!
     @IBOutlet weak var pageTVTopAnchor: NSLayoutConstraint!
+    var categoryType: CategoryType?
     
     let exhibitionListTVCHeight = 536
 

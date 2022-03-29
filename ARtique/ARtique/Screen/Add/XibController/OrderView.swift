@@ -9,19 +9,25 @@ import UIKit
 
 class OrderView: UIView {
     @IBOutlet weak var message: UILabel!
+    @IBOutlet weak var artworkListView: ArtworkListView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setContentView()
         configureMessage()
+        configureArtworkView()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setContentView()
         configureMessage()
+        configureArtworkView()
     }
-    
+}
+
+// MARK: - Configure
+extension OrderView {
     private func setContentView() {
         guard let view = loadXibView(with: Identifiers.orderView) else { return }
         view.backgroundColor = .clear
@@ -35,5 +41,11 @@ class OrderView: UIView {
     private func configureMessage() {
         message.textColor = .lightGray
         message.font = .AppleSDGothicR(size: 12)
+    }
+    
+    private func configureArtworkView() {
+        artworkListView.isOrderView = true
+        artworkListView.bindCVReorderGesture()
+        artworkListView.artworkCV.allowsSelection = false
     }
 }

@@ -11,6 +11,7 @@ import SnapKit
 class ThemeView: UIView {
     @IBOutlet weak var cntCV: UICollectionView!
     @IBOutlet weak var themeCV: UICollectionView!
+    let exhibitionModel = NewExhibition.shared
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,7 +24,10 @@ class ThemeView: UIView {
         setContentView()
         configureCV()
     }
-    
+}
+
+// MARK: - Configure
+extension ThemeView {
     private func setContentView() {
         guard let view = loadXibView(with: Identifiers.themeView) else { return }
         view.backgroundColor = .clear
@@ -34,7 +38,7 @@ class ThemeView: UIView {
         }
     }
     
-    func configureCV() {
+    private func configureCV() {
         cntCV.dataSource = self
         cntCV.delegate = self
         cntCV.register(UINib(nibName: Identifiers.roundCVC, bundle: nil),
@@ -44,7 +48,10 @@ class ThemeView: UIView {
         themeCV.delegate = self
         themeCV.register(UINib(nibName: Identifiers.themeCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.themeCVC)
     }
-    
+}
+
+// MARK: - Custom Methods
+extension ThemeView {
     func setGalleryCount(_ index: Int) -> Int {
         switch index {
         case 0:
@@ -78,7 +85,7 @@ extension ThemeView: UICollectionViewDataSource {
         
         switch collectionView {
         case cntCV:
-            roundCell.configureCell(with: setGalleryCount(indexPath.row))
+            roundCell.configureCell(with: "\(setGalleryCount(indexPath.row))개")
             return roundCell
         case themeCV:
             themeCell.configureCell(image: UIImage(named: "Theme\(indexPath.row + 1)")!,
@@ -104,12 +111,25 @@ extension ThemeView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {
         case cntCV:
-            return CGSize(width: (collectionView.frame.width - 26) / 3,
+            return CGSize(width: (UIScreen.main.bounds.width - 40 - 26) / 3,
                           height: collectionView.frame.height)
         default:
             let cellWidth = (collectionView.frame.width - 16) / 2
             return CGSize(width: cellWidth,
                           height: cellWidth + 23)
+        }
+    }
+}
+
+extension ThemeView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch collectionView {
+        case cntCV:
+            exhibitionModel.artworkCnt = setGalleryCount(indexPath.row)
+            exhibitionModel.artworkTitle = [String](repeating: "", count: exhibitionModel.artworkCnt!)
+            exhibitionModel.artworkExplain = [String](repeating: "", count: exhibitionModel.artworkCnt!)
+        default:
+            exhibitionModel.themeId = indexPath.row
         }
     }
 }

@@ -7,15 +7,13 @@
 
 import UIKit
 
-class SelectedImageView: UIView {
-    @IBOutlet weak var selectedImageCV: UICollectionView!
+class ArtworkListView: UIView {
+    @IBOutlet weak var artworkCV: UICollectionView!
+    let exhibitionModel = NewExhibition.shared
     let spacing: CGFloat = 12
-    var dummyImages = [UIImage(named: "Theme1"),
-                       UIImage(named: "Theme2"),
-                       UIImage(named: "Theme3"),
-                       UIImage(named: "Theme4"),
-                       UIImage(named: "Theme1")]
     var currentIndex:CGFloat = 0
+    let cellWidth: CGFloat = 300
+    var isOrderView = true
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,9 +26,12 @@ class SelectedImageView: UIView {
         setContentView()
         configureCV()
     }
-    
+}
+
+// MARK: - Configure
+extension ArtworkListView {
     private func setContentView() {
-        guard let view = loadXibView(with: Identifiers.selectedImageView) else { return }
+        guard let view = loadXibView(with: Identifiers.artworkListView) else { return }
         view.backgroundColor = .clear
         self.addSubview(view)
         
@@ -40,28 +41,34 @@ class SelectedImageView: UIView {
     }
     
     private func configureCV() {
-        selectedImageCV.register(UINib(nibName: Identifiers.selectedImageCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.selectedImageCVC)
+        artworkCV.register(UINib(nibName: Identifiers.selectedImageCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.selectedImageCVC)
+        artworkCV.register(UINib(nibName: Identifiers.artworkExplainCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.artworkExplainCVC)
         
-        selectedImageCV.dataSource = self
-        selectedImageCV.delegate = self
+        artworkCV.dataSource = self
+        artworkCV.delegate = self
         
-        selectedImageCV.showsHorizontalScrollIndicator = false
-        selectedImageCV.decelerationRate = UIScrollView.DecelerationRate.fast
+        artworkCV.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        artworkCV.showsHorizontalScrollIndicator = false
+        artworkCV.decelerationRate = UIScrollView.DecelerationRate.fast
         
-        if let layout = selectedImageCV.collectionViewLayout as? UICollectionViewFlowLayout {
+        if let layout = artworkCV.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
-        
+    }
+}
+
+// MARK: - Custom Methods
+extension ArtworkListView {
+    func bindCVReorderGesture() {
         let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(_:)))
         
         gesture.minimumPressDuration = 0.5
-        selectedImageCV.addGestureRecognizer(gesture)
+        artworkCV.addGestureRecognizer(gesture)
     }
     
     @objc func handleLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
-        guard let collectionView = selectedImageCV else { return }
-        guard let targetIndexPath = collectionView.indexPathForItem(at: gesture .location(in: collectionView)) else { return }
-
+        guard let collectionView = artworkCV else { return }
+        guard let targetIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else { return }
         switch gesture.state {
         case .began:
             collectionView.beginInteractiveMovementForItem(at: targetIndexPath)
@@ -71,58 +78,69 @@ class SelectedImageView: UIView {
         case .ended:
             collectionView.endInteractiveMovement()
             collectionView.cellForItem(at: targetIndexPath)?.layer.borderColor = UIColor.clear.cgColor
-            collectionView.scrollToItem(at: targetIndexPath, at: .centeredHorizontally, animated: true)
+            collectionView.scrollToItem(at: targetIndexPath, at: .left, animated: true)
         default:
             collectionView.cancelInteractiveMovement()
         }
     }
 }
 
-extension SelectedImageView: UICollectionViewDataSource {
+// MARK: - UICollectionViewDataSource
+extension ArtworkListView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        dummyImages.count
+        exhibitionModel.selectedArtwork?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.selectedImageCVC, for: indexPath) as? SelectedImageCVC else { return  UICollectionViewCell() }
-        cell.image.image = dummyImages[indexPath.row]
-        cell.layer.borderColor = UIColor.clear.cgColor
-        cell.layer.borderWidth = 7
-        return cell
+        guard let orderViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.selectedImageCVC, for: indexPath) as? SelectedImageCVC,
+              let explainViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.artworkExplainCVC, for: indexPath) as? ArtworkExplainCVC
+        else { return  UICollectionViewCell() }
+        
+        if isOrderView {
+            orderViewCell.configureCell(with: exhibitionModel.selectedArtwork?[indexPath.row] ?? UIImage())
+            return orderViewCell
+        } else {
+            explainViewCell.configureCell(index: indexPath.row)
+            return explainViewCell
+        }
     }
 }
 
-extension SelectedImageView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+// MARK: - UICollectionViewDelegateFlowLayout
+extension ArtworkListView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         spacing
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 52,
-                      height: collectionView.frame.width - 52)
+        return CGSize(width: cellWidth,
+                      height: isOrderView ? cellWidth : collectionView.frame.height)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-           return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        }
 }
 
-extension SelectedImageView: UICollectionViewDelegate {
+// MARK: - UICollectionViewDelegate
+extension ArtworkListView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
-        true
+        isOrderView ? true : false
     }
     
     func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-        true
+        isOrderView ? true : false
     }
     
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let item = dummyImages.remove(at: sourceIndexPath.row)
-        dummyImages.insert(item, at: destinationIndexPath.row)
+        let item = exhibitionModel.selectedArtwork?.remove(at: sourceIndexPath.row) ?? UIImage()
+        exhibitionModel.selectedArtwork?.insert(item, at: destinationIndexPath.row)
+        
+        guard let title = exhibitionModel.artworkTitle?.remove(at: sourceIndexPath.row) else { return }
+        exhibitionModel.artworkTitle?.insert(title, at: destinationIndexPath.row)
+        
+        guard let explain = exhibitionModel.artworkExplain?.remove(at: sourceIndexPath.row) else { return }
+        exhibitionModel.artworkExplain?.insert(explain, at: destinationIndexPath.row)
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let cellWidthIncludeSpacing = selectedImageCV.frame.width - 55 + spacing
+        let cellWidthIncludeSpacing = cellWidth + spacing
         var offset = targetContentOffset.pointee
         let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludeSpacing
         var roundedIndex = round(index)
