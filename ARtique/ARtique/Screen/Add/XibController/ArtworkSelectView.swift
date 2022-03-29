@@ -69,7 +69,7 @@ extension ArtworkSelectView {
         albumListButton.titleLabel?.font = .AppleSDGothicB(size: 13)
     }
     
-    func configureCV() {
+    private func configureCV() {
         galleryCV.register(UINib(nibName: Identifiers.selectedImageCVC, bundle: nil),
                            forCellWithReuseIdentifier: Identifiers.selectedImageCVC)
         galleryCV.dataSource = self

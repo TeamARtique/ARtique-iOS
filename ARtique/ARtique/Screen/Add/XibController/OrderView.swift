@@ -24,7 +24,10 @@ class OrderView: UIView {
         configureMessage()
         configureArtworkView()
     }
-    
+}
+
+// MARK: - Configure
+extension OrderView {
     private func setContentView() {
         guard let view = loadXibView(with: Identifiers.orderView) else { return }
         view.backgroundColor = .clear

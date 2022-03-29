@@ -32,6 +32,7 @@ class SelectedImageCVC: UICollectionViewCell {
     }
 
     func configureCell(with artwork: UIImage) {
+        image.backgroundColor = .black
         image.image = artwork
         layer.borderColor = UIColor.clear.cgColor
         layer.borderWidth = 3

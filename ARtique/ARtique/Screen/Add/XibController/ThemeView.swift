@@ -24,7 +24,10 @@ class ThemeView: UIView {
         setContentView()
         configureCV()
     }
-    
+}
+
+// MARK: - Configure
+extension ThemeView {
     private func setContentView() {
         guard let view = loadXibView(with: Identifiers.themeView) else { return }
         view.backgroundColor = .clear
@@ -35,7 +38,7 @@ class ThemeView: UIView {
         }
     }
     
-    func configureCV() {
+    private func configureCV() {
         cntCV.dataSource = self
         cntCV.delegate = self
         cntCV.register(UINib(nibName: Identifiers.roundCVC, bundle: nil),
@@ -45,7 +48,10 @@ class ThemeView: UIView {
         themeCV.delegate = self
         themeCV.register(UINib(nibName: Identifiers.themeCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.themeCVC)
     }
-    
+}
+
+// MARK: - Custom Methods
+extension ThemeView {
     func setGalleryCount(_ index: Int) -> Int {
         switch index {
         case 0:

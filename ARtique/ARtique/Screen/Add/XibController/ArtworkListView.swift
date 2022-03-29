@@ -26,7 +26,10 @@ class ArtworkListView: UIView {
         setContentView()
         configureCV()
     }
-    
+}
+
+// MARK: - Configure
+extension ArtworkListView {
     private func setContentView() {
         guard let view = loadXibView(with: Identifiers.artworkListView) else { return }
         view.backgroundColor = .clear
@@ -52,7 +55,10 @@ class ArtworkListView: UIView {
             layout.scrollDirection = .horizontal
         }
     }
-    
+}
+
+// MARK: - Custom Methods
+extension ArtworkListView {
     func bindCVReorderGesture() {
         let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(_:)))
         
@@ -79,6 +85,7 @@ class ArtworkListView: UIView {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension ArtworkListView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         exhibitionModel.selectedArtwork?.count ?? 0
@@ -99,6 +106,7 @@ extension ArtworkListView: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ArtworkListView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         spacing
@@ -110,6 +118,7 @@ extension ArtworkListView: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension ArtworkListView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
         isOrderView ? true : false

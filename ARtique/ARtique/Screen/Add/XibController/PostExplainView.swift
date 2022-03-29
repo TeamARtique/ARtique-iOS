@@ -29,7 +29,10 @@ class PostExplainView: UIView {
         configureArtworkView()
         setNotification()
     }
-    
+}
+
+// MARK: - Configure
+extension PostExplainView {
     private func setContentView() {
         guard let view = loadXibView(with: Identifiers.postExplainView) else { return }
         view.backgroundColor = .clear
@@ -48,7 +51,10 @@ class PostExplainView: UIView {
     private func configureArtworkView() {
         artworkListView.isOrderView = false
     }
-    
+}
+
+// MARK: - Custom Methods
+extension PostExplainView {
     private func setNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)

@@ -35,6 +35,7 @@ class ArtworkExplainCVC: UICollectionViewCell {
 extension ArtworkExplainCVC {
     private func configureView() {
         scrollView.showsVerticalScrollIndicator = false
+        image.backgroundColor = .black
         titleTextField.setRoundTextField(with: "제목을 입력하세요")
         contentTextView.setRoundTextView()
         contentTextView.delegate = self

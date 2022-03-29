@@ -34,7 +34,7 @@ class AddExhibitionVC: UIViewController {
 
 // MARK: - Configure
 extension AddExhibitionVC {
-    func configureNavigationBar() {
+    private func configureNavigationBar() {
         configureNavigationTitle(0)
         navigationController?.additionalSafeAreaInsets.top = 8
         navigationController?.setRoundRightBarBtn(navigationItem: self.navigationItem,
@@ -48,16 +48,16 @@ extension AddExhibitionVC {
         navigationController?.navigationBar.tintColor = .black
     }
     
-    func configureNavigationTitle(_ index: Int) {
+    private func configureNavigationTitle(_ index: Int) {
         navigationItem.title = AddProcess.allCases[index].naviTitle
     }
     
-    func configureNaviBarButton() {
+    private func configureNaviBarButton() {
         configurePrevButton()
         configureNextButton()
     }
     
-    func configureNextButton() {
+    private func configureNextButton() {
         let rightBarButton = self.navigationItem.rightBarButtonItem!
         let button = rightBarButton.customView as! UIButton
         
@@ -66,27 +66,27 @@ extension AddExhibitionVC {
         : button.setTitle("다음", for: .normal)
     }
     
-    func configurePrevButton() {
+    private func configurePrevButton() {
         navigationItem.leftBarButtonItem?.image
         = (progressView.progress < 0.3)
         ? UIImage(systemName: "xmark")
         : UIImage(systemName: "chevron.backward")
     }
     
-    func configureRegisterProgressView() {
+    private func configureRegisterProgressView() {
         progressView.tintColor = .black
         progressView.progress = progress
     }
     
     // MARK: - Configure Content Page
-    func configureScrollView() {
+    private func configureScrollView() {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.contentSize = CGSize(width: view.frame.width * 5,
                                         height: 0)
         scrollView.isScrollEnabled = false
     }
     
-    func setScrollViewPaging(page: Int) {
+    private func setScrollViewPaging(page: Int) {
         let page = page
         let width = scrollView.frame.width
         let targetX = CGFloat(page) * width
@@ -97,7 +97,7 @@ extension AddExhibitionVC {
         scrollView.setContentOffset(offset, animated: true)
     }
     
-    func configureStackView() {
+    private func configureStackView() {
         let registerProcessViews = [themeView,
                                     artworkSelectView,
                                     orderView,
@@ -116,14 +116,14 @@ extension AddExhibitionVC {
         }
     }
     
-    func configureLayout(_ view: UIView) {
+    private func configureLayout(_ view: UIView) {
         view.snp.makeConstraints {
             $0.width.equalTo(scrollView.snp.width)
             $0.height.equalTo(scrollView.snp.height)
         }
     }
     
-    func reloadPage(_ page: Int) {
+    private func reloadPage(_ page: Int) {
         switch page {
         case 1:
             artworkSelectView.maxArtworkCnt = exhibitionModel.artworkCnt ?? 0
@@ -141,7 +141,7 @@ extension AddExhibitionVC {
         }
     }
     
-    func setNotification() {
+    private func setNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(setSelectedViewNaviTitle), name: .whenArtworkSelected, object: nil)
     }
     
