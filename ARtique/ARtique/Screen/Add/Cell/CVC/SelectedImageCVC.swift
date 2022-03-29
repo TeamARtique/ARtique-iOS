@@ -10,6 +10,7 @@ import UIKit
 class SelectedImageCVC: UICollectionViewCell {
     @IBOutlet weak var image: UIImageView!
     var id: String = ""
+    var isSet: Bool?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,5 +35,7 @@ class SelectedImageCVC: UICollectionViewCell {
         image.image = artwork
         layer.borderColor = UIColor.clear.cgColor
         layer.borderWidth = 3
+        
+        isSelected = (isSet ?? false) ? true : false
     }
 }
