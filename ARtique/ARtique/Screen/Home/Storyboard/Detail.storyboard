@@ -61,7 +61,7 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" image="Like_UnSelected"/>
                                                         <connections>
-                                                            <action selector="pushLike:" destination="Kxr-2W-JvI" eventType="touchUpInside" id="nj0-CD-G5c"/>
+                                                            <action selector="didTapLikeBtn:" destination="Kxr-2W-JvI" eventType="touchUpInside" id="ZcP-IU-jTr"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DJn-25-8im">
@@ -74,7 +74,7 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" image="BookMark_UnSelected"/>
                                                         <connections>
-                                                            <action selector="pushBookMark:" destination="Kxr-2W-JvI" eventType="touchUpInside" id="PIT-lx-EUI"/>
+                                                            <action selector="didTapBookMarkBtn:" destination="Kxr-2W-JvI" eventType="touchUpInside" id="YId-GQ-JbQ"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFz-Tu-UnM">
@@ -86,6 +86,9 @@
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" image="Share"/>
+                                                        <connections>
+                                                            <action selector="didTapShareBtn:" destination="Kxr-2W-JvI" eventType="touchUpInside" id="Yzm-Vg-3Oa"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -176,7 +179,7 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="chevron.backward" catalog="system"/>
                                 <connections>
-                                    <action selector="didBackBtnTapped:" destination="Kxr-2W-JvI" eventType="touchUpInside" id="100-zY-bHM"/>
+                                    <action selector="didTapBackBtn:" destination="Kxr-2W-JvI" eventType="touchUpInside" id="zLn-tS-zT1"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -41,18 +41,27 @@ class DetailVC: UIViewController {
     }
     
     // MARK: Btn Action
-    @IBAction func didBackBtnTapped(_ sender: Any) {
+    @IBAction func didTapBackBtn(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func pushLike(_ sender: Any) {
+    @IBAction func didTapLikeBtn(_ sender: Any) {
         likeBtn.isSelected.toggle()
         likeBtn.toggleButtonImage(likeBtn.isSelected, UIImage(named: "Like_UnSelected")!, UIImage(named: "Like_Selected")!)
     }
     
-    @IBAction func pushBookMark(_ sender: Any) {
+    @IBAction func didTapBookMarkBtn(_ sender: Any) {
         bookMarkBtn.isSelected.toggle()
         bookMarkBtn.toggleButtonImage(bookMarkBtn.isSelected, UIImage(named: "BookMark_UnSelected")!, UIImage(named: "BookMark_Selected")!)
+    }
+    
+    @IBAction func didTapShareBtn(_ sender: Any) {
+        // TODO: - Firebase 연동 후 동적 URL 생성
+        let url = "Exhibition URL"
+        let activityVC = UIActivityViewController(activityItems: [url, phoster.image ?? UIImage()], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.view
+        
+        self.present(activityVC, animated: true, completion: nil)
     }
     
     @IBAction func goToARGalleryBtnDidTap(_ sender: UIButton) {
