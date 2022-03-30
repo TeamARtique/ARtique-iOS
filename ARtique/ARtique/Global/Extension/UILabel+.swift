@@ -33,4 +33,11 @@ extension UILabel {
             }
         }
     }
+    
+    /// 여러 줄 보기
+    func setLineBreakMode() {
+        translatesAutoresizingMaskIntoConstraints = false
+        numberOfLines = 0
+        lineBreakMode = .byCharWrapping
+    }
 }

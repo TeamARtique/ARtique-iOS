@@ -8,14 +8,14 @@
 import UIKit
 
 class DetailVC: UIViewController {
-    @IBOutlet weak var phoster: UIImageView!
+    @IBOutlet weak var baseSV: UIScrollView!
     @IBOutlet weak var exhiTitle: UILabel!
     @IBOutlet weak var author: UILabel!
-    @IBOutlet weak var explaination: UITextView!
+    @IBOutlet weak var phoster: UIImageView!
+    @IBOutlet weak var createdAt: UILabel!
+    @IBOutlet weak var explaination: UILabel!
     @IBOutlet weak var likeBtn: UIButton!
-    @IBOutlet weak var likeCnt: UILabel!
     @IBOutlet weak var bookMarkBtn: UIButton!
-    @IBOutlet weak var bookMarkCnt: UILabel!
     @IBOutlet weak var gotoARBtn: UIButton!
     
     var phosterTmp:UIImage?
@@ -26,30 +26,33 @@ class DetailVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setNaviBar()
+        configureView()
         setView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     // MARK: Btn Action
+    @IBAction func didBackBtnTapped(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func pushLike(_ sender: Any) {
-        if likeBtn.currentImage == UIImage(named: "Like_Selected"){
-            likeBtn.setImage(UIImage(named: "Like_UnSelected"), for: .normal)
-            likeCnt.text = "\(Int(likeCnt.text!)! - 1)"
-        } else {
-            likeBtn.setImage(UIImage(named: "Like_Selected"), for: .normal)
-            likeCnt.text = "\(Int(likeCnt.text!)! + 1)"
-        }
+        likeBtn.isSelected.toggle()
+        likeBtn.toggleButtonImage(likeBtn.isSelected, UIImage(named: "Like_UnSelected")!, UIImage(named: "Like_Selected")!)
     }
     
     @IBAction func pushBookMark(_ sender: Any) {
-        if bookMarkBtn.currentImage == UIImage(named: "BookMark_Selected"){
-            bookMarkBtn.setImage(UIImage(named: "BookMark_UnSelected"), for: .normal)
-            bookMarkCnt.text = "\(Int(bookMarkCnt.text!)! - 1)"
-        } else {
-            bookMarkBtn.setImage(UIImage(named: "BookMark_Selected"), for: .normal)
-            bookMarkCnt.text = "\(Int(bookMarkCnt.text!)! + 1)"
-        }
+        bookMarkBtn.isSelected.toggle()
+        bookMarkBtn.toggleButtonImage(bookMarkBtn.isSelected, UIImage(named: "BookMark_UnSelected")!, UIImage(named: "BookMark_Selected")!)
     }
     
     @IBAction func goToARGalleryBtnDidTap(_ sender: UIButton) {
@@ -58,20 +61,29 @@ class DetailVC: UIViewController {
         present(galleryVC, animated: true, completion: nil)
     }
 }
+
+//MARK: - Configure
+extension DetailVC {
+    func configureView() {
+        baseSV.showsVerticalScrollIndicator = false
+        exhiTitle.font = .AppleSDGothicB(size: 17)
+        author.font = .AppleSDGothicR(size: 14)
+        phoster.contentMode = .scaleAspectFill
+        createdAt.font = .AppleSDGothicM(size: 15)
+        explaination.font = .AppleSDGothicR(size: 14)
+        explaination.setLineBreakMode()
+        likeBtn.isSelected = false
+        bookMarkBtn.isSelected = false
+    }
+}
+
 //MARK: - Custom Method
 extension DetailVC {
-    /// setNaviBar - 네비게이션바 Setting
-    func setNaviBar(){
-        navigationController?.navigationBar.topItem?.title=""
-    }
-    
     /// setView - 오브젝트 Setting
     func setView(){
         phoster.image = phosterTmp
         exhiTitle.text = titleTmp
         author.text = authorTmp
-        likeCnt.text = likeCntTmp
-        bookMarkCnt.text = bookMarkCntTmp
         
         // AR전시 보러가기 Btn
         gotoARBtn.backgroundColor = .black
