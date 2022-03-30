@@ -10,6 +10,7 @@ target 'ARtique' do
   pod 'SnapKit', '~> 5.0.1'
   pod 'Then', '~> 2.7.0'
   pod 'Tabman', '~> 2.9'
+  pod 'PhotoCropper'
 
   # Rx
   pod 'RxSwift', '< 6.2.0'
