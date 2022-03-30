@@ -25,4 +25,15 @@ extension UINavigationController {
         rightBarButtonItem.customView?.layer.cornerRadius = CGFloat(buttonHeight / 2)
         navigationItem.rightBarButtonItem = rightBarButtonItem
     }
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+}
+
+extension UINavigationController: UIGestureRecognizerDelegate {
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
+    }
 }
