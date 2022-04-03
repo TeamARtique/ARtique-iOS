@@ -98,8 +98,8 @@ extension ArtworkSelectView {
     }
     
     private func setPreviewImage(_ indexPath: IndexPath) {
-        let width = preview.frame.width
-        let height = preview.frame.height
+        let width = devicePhotos.object(at: indexPath.row).pixelWidth
+        let height = devicePhotos.object(at: indexPath.row).pixelHeight
         
         let options = PHImageRequestOptions()
         options.deliveryMode = .highQualityFormat
@@ -108,7 +108,8 @@ extension ArtworkSelectView {
         PHImageManager.default().requestImage(for: devicePhotos.object(at: indexPath.row),
                                                  targetSize: CGSize(width: width,
                                                                     height: height),
-                                                 contentMode: .aspectFit, options: options) { (image, _) in
+                                                 contentMode: .aspectFit,
+                                                 options: options) { (image, _) in
             if image != nil {
                 self.preview.imageView.image = image
                 self.preview.updateZoomScale()
@@ -146,7 +147,7 @@ extension ArtworkSelectView: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) as? SelectedImageCVC else { return }
         cell.isSet = true
         selectedImageIds.append(cell.id)
-        selectedImages.append(cell.image.image ?? UIImage())
+        selectedImages.append(preview.imageView.image ?? UIImage())
         exhibitionModel.selectedArtwork = selectedImages
         NotificationCenter.default.post(name: .whenArtworkSelected, object: exhibitionModel.selectedArtwork?.count)
     }
