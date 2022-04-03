@@ -130,17 +130,20 @@ extension ArtworkSelectView {
         let height = devicePhotos.object(at: indexPath.row).pixelHeight
         
         let options = PHImageRequestOptions()
-        options.deliveryMode = .highQualityFormat
-        options.resizeMode = .exact
+        options.isNetworkAccessAllowed = true
         
-        PHImageManager.default().requestImage(for: devicePhotos.object(at: indexPath.row),
-                                                 targetSize: CGSize(width: width,
-                                                                    height: height),
-                                                 contentMode: .aspectFit,
-                                                 options: options) { (image, _) in
-            if image != nil {
-                self.preview.imageView.image = image
-                self.preview.updateZoomScale()
+        DispatchQueue.global(qos: .background).async {
+            PHImageManager.default().requestImage(for: self.devicePhotos.object(at: indexPath.row),
+                                                     targetSize: CGSize(width: width,
+                                                                        height: height),
+                                                     contentMode: .aspectFit,
+                                                     options: options) { (image, _) in
+                if image != nil {
+                    DispatchQueue.main.async {
+                        self.preview.imageView.image = image
+                        self.preview.updateZoomScale()
+                    }
+                }
             }
         }
     }
