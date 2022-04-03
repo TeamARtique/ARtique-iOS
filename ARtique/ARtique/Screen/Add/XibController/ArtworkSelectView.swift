@@ -7,11 +7,12 @@
 
 import UIKit
 import Photos
+import PhotoCropper
 
 class ArtworkSelectView: UIView {
-    @IBOutlet weak var preview: UIImageView!
     @IBOutlet weak var galleryCV: UICollectionView!
     @IBOutlet weak var albumListButton: UIButton!
+    private var preview = PhotoCropperView()
     
     var devicePhotos: PHFetchResult<PHAsset>!
     let imageManager = PHCachingImageManager()
@@ -19,7 +20,7 @@ class ArtworkSelectView: UIView {
     let exhibitionModel = NewExhibition.shared
     var maxArtworkCnt: Int = 0
     var selectedImages = [UIImage]()
-    var selectedIds = [String]()
+    var selectedImageIds = [String]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,12 +51,24 @@ extension ArtworkSelectView {
         view.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        view.addSubview(preview)
+        layoutPreview()
+    }
+    
+    private func layoutPreview() {
+        preview.snp.makeConstraints {
+            $0.top.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.height.equalTo(preview.snp.width)
+            $0.bottom.equalTo(albumListButton.snp.top).offset(-12)
+        }
     }
     
     private func configurePreview() {
+        preview.scrollView.alwaysBounceVertical = true
+        preview.scrollView.alwaysBounceHorizontal = true
         preview.layer.borderColor = UIColor.black.cgColor
         preview.layer.borderWidth = 7
-        preview.contentMode = .scaleAspectFill
         setPreviewImage([0,0])
     }
     
@@ -81,7 +94,7 @@ extension ArtworkSelectView {
 // MARK: - Custom Methods
 extension ArtworkSelectView {
     private func fetchAssets() {
-        devicePhotos = PHAsset.fetchAssets(with: .ascendingOptions)
+        devicePhotos = PHAsset.fetchAssets(with: .descendingOptions)
     }
     
     private func setPreviewImage(_ indexPath: IndexPath) {
@@ -92,9 +105,13 @@ extension ArtworkSelectView {
         options.deliveryMode = .highQualityFormat
         options.resizeMode = .exact
         
-        PHImageManager.default().requestImage(for: devicePhotos.object(at: indexPath.row), targetSize: CGSize(width: width, height: height), contentMode: .aspectFit, options: options) { (image, _) in
+        PHImageManager.default().requestImage(for: devicePhotos.object(at: indexPath.row),
+                                                 targetSize: CGSize(width: width,
+                                                                    height: height),
+                                                 contentMode: .aspectFit, options: options) { (image, _) in
             if image != nil {
-                self.preview.image = image
+                self.preview.imageView.image = image
+                self.preview.updateZoomScale()
             }
         }
     }
@@ -128,7 +145,7 @@ extension ArtworkSelectView: UICollectionViewDelegate {
         setPreviewImage(indexPath)
         guard let cell = collectionView.cellForItem(at: indexPath) as? SelectedImageCVC else { return }
         cell.isSet = true
-        selectedIds.append(cell.id)
+        selectedImageIds.append(cell.id)
         selectedImages.append(cell.image.image ?? UIImage())
         exhibitionModel.selectedArtwork = selectedImages
         NotificationCenter.default.post(name: .whenArtworkSelected, object: exhibitionModel.selectedArtwork?.count)
@@ -137,8 +154,8 @@ extension ArtworkSelectView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? SelectedImageCVC else { return }
         cell.isSet = false
-        selectedImages.remove(at: selectedIds.firstIndex(of: cell.id)!)
-        selectedIds.remove(at: selectedIds.firstIndex(of: cell.id)!)
+        selectedImages.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
+        selectedImageIds.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
         exhibitionModel.selectedArtwork = selectedImages
         NotificationCenter.default.post(name: .whenArtworkSelected, object: exhibitionModel.selectedArtwork?.count)
     }
