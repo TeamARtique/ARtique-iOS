@@ -12,4 +12,6 @@ extension Notification.Name {
     static let whenExhibitionListTVScrolledUp = Notification.Name("whenExhibitionListTVScrolledUp")
     static let whenExhibitionListTVScrolledDown = Notification.Name("whenExhibitionListTVScrolledDown")
     static let whenArtworkSelected = Notification.Name("whenArtworkSelected")
+    static let whenAlbumListBtnSelected = Notification.Name("whenAlbumListBtnSelected")
+    static let whenAlbumChanged = Notification.Name("whenAlbumChanged")
 }

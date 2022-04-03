@@ -16,6 +16,10 @@
 		235583FF2767A6D80046C3EE /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235583FE2767A6D80046C3EE /* FocusSquare.swift */; };
 		235584012767A7100046C3EE /* FocusSquareSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235584002767A7100046C3EE /* FocusSquareSegment.swift */; };
 		235584042767A75F0046C3EE /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235584032767A75F0046C3EE /* Utilities.swift */; };
+		235650D527F9FB6F0082E048 /* AlbumListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235650D327F9FB6F0082E048 /* AlbumListTVC.swift */; };
+		235650D927F9FC870082E048 /* AlbumTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235650D727F9FC870082E048 /* AlbumTVC.swift */; };
+		235650DA27F9FC870082E048 /* AlbumTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 235650D827F9FC870082E048 /* AlbumTVC.xib */; };
+		235650DE27FA031F0082E048 /* AlbumListTVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 235650DD27FA031F0082E048 /* AlbumListTVC.storyboard */; };
 		237B4369275CDDD600B7FA3F /* ExhibitionListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B4368275CDDD600B7FA3F /* ExhibitionListTVC.swift */; };
 		237B436B275CE83600B7FA3F /* AllTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B436A275CE83600B7FA3F /* AllTVC.swift */; };
 		237B436E275CEE1E00B7FA3F /* ExhibitionListCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B436D275CEE1E00B7FA3F /* ExhibitionListCVC.swift */; };
@@ -103,6 +107,10 @@
 		235583FE2767A6D80046C3EE /* FocusSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
 		235584002767A7100046C3EE /* FocusSquareSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquareSegment.swift; sourceTree = "<group>"; };
 		235584032767A75F0046C3EE /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		235650D327F9FB6F0082E048 /* AlbumListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListTVC.swift; sourceTree = "<group>"; };
+		235650D727F9FC870082E048 /* AlbumTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTVC.swift; sourceTree = "<group>"; };
+		235650D827F9FC870082E048 /* AlbumTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumTVC.xib; sourceTree = "<group>"; };
+		235650DD27FA031F0082E048 /* AlbumListTVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlbumListTVC.storyboard; sourceTree = "<group>"; };
 		237B4368275CDDD600B7FA3F /* ExhibitionListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionListTVC.swift; sourceTree = "<group>"; };
 		237B436A275CE83600B7FA3F /* AllTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTVC.swift; sourceTree = "<group>"; };
 		237B436D275CEE1E00B7FA3F /* ExhibitionListCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionListCVC.swift; sourceTree = "<group>"; };
@@ -503,6 +511,7 @@
 			children = (
 				23B52A7A27E0A56900D6C339 /* AddExhibitionVC.swift */,
 				23B52A7C27E0A5A500D6C339 /* AddExhibitionNC.swift */,
+				235650D327F9FB6F0082E048 /* AlbumListTVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -511,6 +520,7 @@
 			isa = PBXGroup;
 			children = (
 				23B52A7827E0A54D00D6C339 /* AddExhibition.storyboard */,
+				235650DD27FA031F0082E048 /* AlbumListTVC.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -595,6 +605,8 @@
 				23E734F527E9A016000315E6 /* SelectedImageCVC.xib */,
 				23071DB227ECB47600949BA1 /* ArtworkExplainCVC.swift */,
 				23071DB327ECB47600949BA1 /* ArtworkExplainCVC.xib */,
+				235650D727F9FC870082E048 /* AlbumTVC.swift */,
+				235650D827F9FC870082E048 /* AlbumTVC.xib */,
 			);
 			path = CVC;
 			sourceTree = "<group>";
@@ -731,6 +743,7 @@
 				23071DBB27ECFBAB00949BA1 /* ExhibitionExplainView.xib in Resources */,
 				23E734FF27EA1528000315E6 /* PostExplainView.xib in Resources */,
 				23E734EF27E99CC8000315E6 /* OrderView.xib in Resources */,
+				235650DA27F9FC870082E048 /* AlbumTVC.xib in Resources */,
 				23E734F727E9A016000315E6 /* SelectedImageCVC.xib in Resources */,
 				23E734FB27E9A1A7000315E6 /* ArtworkListView.xib in Resources */,
 				3305F7AC2754E66700E6E08E /* AppleSDGothicNeoR.ttf in Resources */,
@@ -743,6 +756,7 @@
 				3305F7AD2754E66900E6E08E /* AppleSDGothicNeoSB.ttf in Resources */,
 				3305F7AA2754E66200E6E08E /* AppleSDGothicNeoM.ttf in Resources */,
 				2395FBA227563A9700D3DB77 /* Detail.storyboard in Resources */,
+				235650DE27FA031F0082E048 /* AlbumListTVC.storyboard in Resources */,
 				23B52A7927E0A54D00D6C339 /* AddExhibition.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -820,6 +834,7 @@
 				3305F7592754DFD700E6E08E /* UIView+.swift in Sources */,
 				3305F77D2754E20800E6E08E /* UserDefaults+.swift in Sources */,
 				237B436E275CEE1E00B7FA3F /* ExhibitionListCVC.swift in Sources */,
+				235650D927F9FC870082E048 /* AlbumTVC.swift in Sources */,
 				237B4369275CDDD600B7FA3F /* ExhibitionListTVC.swift in Sources */,
 				3305F7A02754E3BA00E6E08E /* d.swift in Sources */,
 				3305F7832754E26400E6E08E /* StoryboardRepresentation.swift in Sources */,
@@ -839,6 +854,7 @@
 				3305F7A42754E3C800E6E08E /* f.swift in Sources */,
 				237B436B275CE83600B7FA3F /* AllTVC.swift in Sources */,
 				235583FF2767A6D80046C3EE /* FocusSquare.swift in Sources */,
+				235650D527F9FB6F0082E048 /* AlbumListTVC.swift in Sources */,
 				3305F7632754E07B00E6E08E /* BaseCell.swift in Sources */,
 				235584042767A75F0046C3EE /* Utilities.swift in Sources */,
 				238C65762756606100EADA93 /* HomeNC.swift in Sources */,
@@ -876,6 +892,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -937,6 +954,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";

@@ -16,6 +16,7 @@ class ArtworkSelectView: UIView {
     
     var devicePhotos: PHFetchResult<PHAsset>!
     let imageManager = PHCachingImageManager()
+    var albumList = [PHAssetCollection]()
     
     let exhibitionModel = NewExhibition.shared
     var maxArtworkCnt: Int = 0
@@ -25,7 +26,8 @@ class ArtworkSelectView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setContentView()
-        fetchAssets()
+        setNotification()
+        getAlbums()
         configurePreview()
         configureAlbumListButton()
         configureCV()
@@ -34,10 +36,15 @@ class ArtworkSelectView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setContentView()
-        fetchAssets()
+        setNotification()
+        getAlbums()
         configurePreview()
         configureAlbumListButton()
         configureCV()
+    }
+    
+    @IBAction func showAlbumList(_ sender: Any) {
+        NotificationCenter.default.post(name: .whenAlbumListBtnSelected, object: albumList)
     }
 }
 
@@ -93,8 +100,29 @@ extension ArtworkSelectView {
 
 // MARK: - Custom Methods
 extension ArtworkSelectView {
-    private func fetchAssets() {
-        devicePhotos = PHAsset.fetchAssets(with: .descendingOptions)
+    private func fetchAssets(with album: PHAssetCollection) {
+        devicePhotos = PHAsset.fetchAssets(in: album, options: .descendingOptions)
+    }
+    
+    private func getAlbums() {
+        let options:PHFetchOptions = PHFetchOptions()
+        let getAlbums : PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: options)
+        let getSmartAlbums: PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: options)
+        
+        for i in 0 ..< getAlbums.count{
+            if PHAsset.fetchAssets(in: getSmartAlbums[i], options: options).count == 0 { continue }
+            albumList.append(getSmartAlbums[i])
+        }
+        
+        for i in 0 ..< getAlbums.count{
+            albumList.append(getAlbums[i])
+        }
+        
+        if albumList.count == 0 {
+            devicePhotos = PHAsset.fetchAssets(with: .descendingOptions)
+        } else {
+            fetchAssets(with: albumList[0])
+        }
     }
     
     private func setPreviewImage(_ indexPath: IndexPath) {
@@ -115,6 +143,19 @@ extension ArtworkSelectView {
                 self.preview.updateZoomScale()
             }
         }
+    }
+    
+    private func setNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(changeAlbum), name: .whenAlbumChanged, object: nil)
+    }
+    
+    @objc func changeAlbum(_ notification: Notification) {
+        let collection = albumList[notification.object as! Int]
+        fetchAssets(with: collection)
+        albumListButton.setTitle(collection.localizedTitle ?? "", for: .normal)
+        galleryCV.reloadData()
+        galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
+        setPreviewImage([0,0])
     }
 }
 
@@ -143,7 +184,6 @@ extension ArtworkSelectView: UICollectionViewDataSource {
 //MARK: UICollectionViewDelegate
 extension ArtworkSelectView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        setPreviewImage(indexPath)
         guard let cell = collectionView.cellForItem(at: indexPath) as? SelectedImageCVC else { return }
         cell.isSet = true
         selectedImageIds.append(cell.id)
@@ -162,8 +202,8 @@ extension ArtworkSelectView: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        setPreviewImage(indexPath)
         if collectionView.indexPathsForSelectedItems!.count >= maxArtworkCnt {
-            setPreviewImage(indexPath)
             return false
         } else {
             return true

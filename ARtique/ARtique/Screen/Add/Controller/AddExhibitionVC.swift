@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Photos
 
 class AddExhibitionVC: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
@@ -143,10 +144,18 @@ extension AddExhibitionVC {
     
     private func setNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(setSelectedViewNaviTitle), name: .whenArtworkSelected, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentAlbumList), name: .whenAlbumListBtnSelected, object: nil)
     }
     
     @objc func setSelectedViewNaviTitle(_ notification: Notification) {
         configureNavigationTitle(1)
+    }
+    
+    @objc func presentAlbumList(_ notification: Notification) {
+        let albumListVC = UIStoryboard(name: Identifiers.albumListTVC, bundle: nil).instantiateViewController(withIdentifier: Identifiers.albumListTVC) as! AlbumListTVC
+        albumListVC.albumList = notification.object as! [PHAssetCollection]
+        
+        self.present(albumListVC, animated: true, completion: nil)
     }
 }
 
