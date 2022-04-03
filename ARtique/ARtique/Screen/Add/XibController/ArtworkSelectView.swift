@@ -162,6 +162,7 @@ extension ArtworkSelectView: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         if collectionView.indexPathsForSelectedItems!.count >= maxArtworkCnt {
+            setPreviewImage(indexPath)
             return false
         } else {
             return true
