@@ -8,11 +8,20 @@
 import UIKit
 import Photos
 import PhotoCropper
+import Then
 
 class ArtworkSelectView: UIView {
     @IBOutlet weak var galleryCV: UICollectionView!
     @IBOutlet weak var albumListButton: UIButton!
     private var preview = PhotoCropperView()
+    private var spiner = UIActivityIndicatorView()
+        .then {
+            $0.backgroundColor = .white
+            $0.layer.opacity = 0.5
+            $0.color = .black
+            $0.style = .large
+            $0.hidesWhenStopped = true
+        }
     
     var devicePhotos: PHFetchResult<PHAsset>!
     let imageManager = PHCachingImageManager()
@@ -60,6 +69,10 @@ extension ArtworkSelectView {
         }
         view.addSubview(preview)
         layoutPreview()
+        preview.addSubview(spiner)
+        spiner.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     private func layoutPreview() {
@@ -131,17 +144,18 @@ extension ArtworkSelectView {
         
         let options = PHImageRequestOptions()
         options.isNetworkAccessAllowed = true
-        
         DispatchQueue.global(qos: .background).async {
             PHImageManager.default().requestImage(for: self.devicePhotos.object(at: indexPath.row),
                                                      targetSize: CGSize(width: width,
                                                                         height: height),
                                                      contentMode: .aspectFit,
-                                                     options: options) { (image, _) in
+                                                     options: options) { (image, info) in
+                let isDegraded = (info?[PHImageResultIsDegradedKey] as? Bool) ?? false
                 if image != nil {
                     DispatchQueue.main.async {
                         self.preview.imageView.image = image
                         self.preview.updateZoomScale()
+                        isDegraded ? self.spiner.startAnimating() : self.spiner.stopAnimating()
                     }
                 }
             }
@@ -205,6 +219,8 @@ extension ArtworkSelectView: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if spiner.isAnimating { return false }
+        
         setPreviewImage(indexPath)
         if collectionView.indexPathsForSelectedItems!.count >= maxArtworkCnt {
             return false
