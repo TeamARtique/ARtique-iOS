@@ -8,20 +8,15 @@
 import UIKit
 import Photos
 import PhotoCropper
-import Then
 
 class ArtworkSelectView: UIView {
+    @IBOutlet weak var previewBaseView: UIView!
+    @IBOutlet weak var galleryBaseView: UIView!
     @IBOutlet weak var galleryCV: UICollectionView!
     @IBOutlet weak var albumListButton: UIButton!
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     private var preview = PhotoCropperView()
     private var spiner = UIActivityIndicatorView()
-        .then {
-            $0.backgroundColor = .white
-            $0.layer.opacity = 0.5
-            $0.color = .black
-            $0.style = .large
-            $0.hidesWhenStopped = true
-        }
     
     var devicePhotos: PHFetchResult<PHAsset>!
     let imageManager = PHCachingImageManager()
@@ -35,21 +30,27 @@ class ArtworkSelectView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setContentView()
+        layoutView()
         setNotification()
         getAlbums()
         configurePreview()
+        configureLoading()
         configureAlbumListButton()
         configureCV()
+        addDragGesture()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setContentView()
+        layoutView()
         setNotification()
         getAlbums()
         configurePreview()
+        configureLoading()
         configureAlbumListButton()
         configureCV()
+        addDragGesture()
     }
     
     @IBAction func showAlbumList(_ sender: Any) {
@@ -67,20 +68,19 @@ extension ArtworkSelectView {
         view.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        view.addSubview(preview)
-        layoutPreview()
+    }
+    
+    private func layoutView() {
+        topConstraint.constant = 20
+
+        previewBaseView.addSubview(preview)
+        preview.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
         preview.addSubview(spiner)
         spiner.snp.makeConstraints {
             $0.edges.equalToSuperview()
-        }
-    }
-    
-    private func layoutPreview() {
-        preview.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
-            $0.height.equalTo(preview.snp.width)
-            $0.bottom.equalTo(albumListButton.snp.top).offset(-12)
         }
     }
     
@@ -90,6 +90,14 @@ extension ArtworkSelectView {
         preview.layer.borderColor = UIColor.black.cgColor
         preview.layer.borderWidth = 7
         setPreviewImage([0,0])
+    }
+    
+    private func configureLoading() {
+        spiner.backgroundColor = .white
+        spiner.layer.opacity = 0.5
+        spiner.color = .black
+        spiner.style = .large
+        spiner.hidesWhenStopped = true
     }
     
     private func configureAlbumListButton() {
@@ -162,6 +170,11 @@ extension ArtworkSelectView {
         }
     }
     
+    private func addDragGesture() {
+        let galleryVerticalScrollGesture = UIPanGestureRecognizer(target: self, action: #selector(galleryVerticalScroll))
+        galleryBaseView.addGestureRecognizer(galleryVerticalScrollGesture)
+    }
+    
     private func setNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(changeAlbum), name: .whenAlbumChanged, object: nil)
     }
@@ -173,6 +186,28 @@ extension ArtworkSelectView {
         galleryCV.reloadData()
         galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
         setPreviewImage([0,0])
+    }
+    
+    @objc func galleryVerticalScroll(sender: UIPanGestureRecognizer) {
+        let dragPosition = sender.translation(in: self)
+        if dragPosition.y < 0 {
+            previewStatus(isHidden: true)
+        } else {
+            previewStatus(isHidden: false)
+        }
+    }
+    
+    private func previewStatus(isHidden: Bool) {
+        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
+            if isHidden {
+                self.previewBaseView.layer.opacity = 0
+                self.topConstraint.constant = -self.previewBaseView.frame.height
+            } else {
+                self.previewBaseView.layer.opacity = 1
+                self.topConstraint.constant = 20
+            }
+            self.layoutIfNeeded()
+        }, completion: nil)
     }
 }
 
@@ -207,6 +242,8 @@ extension ArtworkSelectView: UICollectionViewDelegate {
         selectedImages.append(preview.imageView.image ?? UIImage())
         exhibitionModel.selectedArtwork = selectedImages
         NotificationCenter.default.post(name: .whenArtworkSelected, object: exhibitionModel.selectedArtwork?.count)
+        previewStatus(isHidden: false)
+        galleryCV.scrollToItem(at: indexPath, at: .top, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -235,5 +272,16 @@ extension ArtworkSelectView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width/3.2,
                       height: collectionView.frame.width/3.2)
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension ArtworkSelectView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.velocity(in: scrollView).y < -3000 {
+            previewStatus(isHidden: true)
+        } else if scrollView.panGestureRecognizer.velocity(in: scrollView).y > 3000 {
+            previewStatus(isHidden: false)
+        }
     }
 }
