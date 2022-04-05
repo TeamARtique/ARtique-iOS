@@ -8,6 +8,8 @@
 import UIKit
 import Photos
 import PhotoCropper
+import RxSwift
+import RxCocoa
 
 class ArtworkSelectView: UIView {
     @IBOutlet weak var previewBaseView: UIView!
@@ -22,6 +24,7 @@ class ArtworkSelectView: UIView {
     let imageManager = PHCachingImageManager()
     var albumList = [PHAssetCollection]()
     
+    let bag = DisposeBag()
     let exhibitionModel = NewExhibition.shared
     var maxArtworkCnt: Int = 0
     var selectedImages = [UIImage]()
@@ -38,6 +41,7 @@ class ArtworkSelectView: UIView {
         configureAlbumListButton()
         configureCV()
         addDragGesture()
+        saveCropImage()
     }
     
     required init?(coder: NSCoder) {
@@ -51,6 +55,7 @@ class ArtworkSelectView: UIView {
         configureAlbumListButton()
         configureCV()
         addDragGesture()
+        saveCropImage()
     }
     
     @IBAction func showAlbumList(_ sender: Any) {
@@ -130,12 +135,12 @@ extension ArtworkSelectView {
         let getAlbums : PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: options)
         let getSmartAlbums: PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: options)
         
-        for i in 0 ..< getAlbums.count{
+        for i in 0 ..< getAlbums.count {
             if PHAsset.fetchAssets(in: getSmartAlbums[i], options: options).count == 0 { continue }
             albumList.append(getSmartAlbums[i])
         }
         
-        for i in 0 ..< getAlbums.count{
+        for i in 0 ..< getAlbums.count {
             albumList.append(getAlbums[i])
         }
         
@@ -162,12 +167,31 @@ extension ArtworkSelectView {
                 if image != nil {
                     DispatchQueue.main.async {
                         self.preview.imageView.image = image
+                        self.preview.scrollView.zoomScale = self.preview.scrollView.minimumZoomScale
                         self.preview.updateZoomScale()
                         isDegraded ? self.spiner.startAnimating() : self.spiner.stopAnimating()
                     }
                 }
             }
         }
+    }
+    
+    private func saveCropImage() {
+        galleryCV.rx.itemSelected
+            .map ({_ in})
+            .bind(to: preview.crop)
+            .disposed(by: bag)
+        
+        preview.resultImage
+            .subscribe(onNext: { [weak self] image in
+                guard let self = self else { return }
+                if !self.selectedImages.contains(image ?? UIImage()) {
+                    self.selectedImages.append(image ?? UIImage())
+                    self.exhibitionModel.selectedArtwork = self.selectedImages
+                    NotificationCenter.default.post(name: .whenArtworkSelected, object: self.exhibitionModel.selectedArtwork?.count)
+                }
+            })
+            .disposed(by: bag)
     }
     
     private func addDragGesture() {
@@ -239,9 +263,6 @@ extension ArtworkSelectView: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) as? SelectedImageCVC else { return }
         cell.isSet = true
         selectedImageIds.append(cell.id)
-        selectedImages.append(preview.imageView.image ?? UIImage())
-        exhibitionModel.selectedArtwork = selectedImages
-        NotificationCenter.default.post(name: .whenArtworkSelected, object: exhibitionModel.selectedArtwork?.count)
         previewStatus(isHidden: false)
         galleryCV.scrollToItem(at: indexPath, at: .top, animated: true)
     }
@@ -253,6 +274,7 @@ extension ArtworkSelectView: UICollectionViewDelegate {
         selectedImageIds.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
         exhibitionModel.selectedArtwork = selectedImages
         NotificationCenter.default.post(name: .whenArtworkSelected, object: exhibitionModel.selectedArtwork?.count)
+        spiner.stopAnimating()
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
