@@ -28,10 +28,10 @@
                                 <rect key="frame" x="0.0" y="106" width="375" height="672"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lMF-k2-EnC">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="651.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="644.66666666666663"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GcK-3L-iZP">
-                                                <rect key="frame" x="27.999999999999993" y="475.33333333333337" width="91.333333333333314" height="13"/>
+                                                <rect key="frame" x="27.999999999999993" y="479.33333333333337" width="91.333333333333314" height="13"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="IQo-4r-0HO">
                                                         <rect key="frame" x="0.0" y="0.0" width="12" height="13"/>
@@ -49,7 +49,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="fRm-Hr-F3q">
-                                                <rect key="frame" x="292" y="462.66666666666663" width="59" height="38.666666666666686"/>
+                                                <rect key="frame" x="292" y="466.66666666666663" width="59" height="38.666666666666686"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="WdQ-IK-k4J">
                                                         <rect key="frame" x="0.0" y="0.0" width="24" height="38.666666666666664"/>
@@ -67,7 +67,7 @@
                                                                     <action selector="didTapLikeBtn:" destination="Kxr-2W-JvI" eventType="touchUpInside" id="ZcP-IU-jTr"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vak-ct-4C8">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vak-ct-4C8">
                                                                 <rect key="frame" x="0.0" y="24" width="24" height="14.666666666666664"/>
                                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeoR00" family="AppleSDGothicNeoR00" pointSize="12"/>
                                                                 <nil key="textColor"/>
@@ -91,7 +91,7 @@
                                                                     <action selector="didTapBookMarkBtn:" destination="Kxr-2W-JvI" eventType="touchUpInside" id="YId-GQ-JbQ"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ql5-d0-AqT">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ql5-d0-AqT">
                                                                 <rect key="frame" x="0.0" y="24" width="24" height="14.666666666666664"/>
                                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeoR00" family="AppleSDGothicNeoR00" pointSize="12"/>
                                                                 <nil key="textColor"/>
@@ -102,20 +102,20 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Exb-t2-GJN">
-                                                <rect key="frame" x="20" y="522.33333333333337" width="335" height="1"/>
+                                                <rect key="frame" x="20" y="515.33333333333337" width="335" height="1"/>
                                                 <color key="backgroundColor" red="0.9137254901960784" green="0.90980392156862744" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="xiG-NP-E4D"/>
                                                 </constraints>
                                             </view>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ash-Bh-EbG">
-                                                <rect key="frame" x="20" y="4" width="335" height="446.66666666666669"/>
+                                                <rect key="frame" x="20" y="8" width="335" height="446.66666666666669"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="ash-Bh-EbG" secondAttribute="height" multiplier="3:4" id="ETJ-uA-e2z"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전시 설명이 한 줄일때 레이아웃 전시 설명이 한 줄일때 레이아웃 전시 설명이 한 줄일때 레이아웃 전시 설명이 한 줄일때 레이아웃 전시 설명이 한 줄일때 레이아웃 전시 한줄일때 레이" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cX6-C4-TA0">
-                                                <rect key="frame" x="28" y="535.33333333333337" width="319" height="17.333333333333371"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My lovely cat is a painting by Svetlana Danskaya which was uploaded on October 28th, 2018." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cX6-C4-TA0">
+                                                <rect key="frame" x="28" y="528.33333333333337" width="319" height="17.333333333333371"/>
                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeoR00" family="AppleSDGothicNeoR00" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -124,12 +124,12 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="GcK-3L-iZP" firstAttribute="leading" secondItem="lMF-k2-EnC" secondAttribute="leading" constant="28" id="1OA-tl-azJ"/>
-                                            <constraint firstItem="ash-Bh-EbG" firstAttribute="top" secondItem="lMF-k2-EnC" secondAttribute="top" constant="4" id="9rM-ub-Hhx"/>
+                                            <constraint firstItem="ash-Bh-EbG" firstAttribute="top" secondItem="lMF-k2-EnC" secondAttribute="top" constant="8" id="9rM-ub-Hhx"/>
                                             <constraint firstItem="fRm-Hr-F3q" firstAttribute="centerY" secondItem="GcK-3L-iZP" secondAttribute="centerY" id="DWu-RC-3Yr"/>
                                             <constraint firstItem="cX6-C4-TA0" firstAttribute="top" secondItem="Exb-t2-GJN" secondAttribute="bottom" constant="12" id="FSZ-0Q-3pa"/>
                                             <constraint firstItem="fRm-Hr-F3q" firstAttribute="top" secondItem="ash-Bh-EbG" secondAttribute="bottom" constant="12" id="LOt-NH-2Or"/>
                                             <constraint firstAttribute="bottom" secondItem="cX6-C4-TA0" secondAttribute="bottom" constant="99.000000000000114" id="MDL-4M-6tc"/>
-                                            <constraint firstItem="Exb-t2-GJN" firstAttribute="top" secondItem="fRm-Hr-F3q" secondAttribute="bottom" constant="21" id="Ot9-fY-2YR"/>
+                                            <constraint firstItem="Exb-t2-GJN" firstAttribute="top" secondItem="fRm-Hr-F3q" secondAttribute="bottom" constant="10" id="Ot9-fY-2YR"/>
                                             <constraint firstAttribute="trailing" secondItem="fRm-Hr-F3q" secondAttribute="trailing" constant="24" id="P9i-pb-Y3c"/>
                                             <constraint firstAttribute="right" secondItem="Exb-t2-GJN" secondAttribute="right" constant="20" id="YXp-HU-TYA"/>
                                             <constraint firstItem="cX6-C4-TA0" firstAttribute="leading" secondItem="lMF-k2-EnC" secondAttribute="leading" constant="28" id="c0r-nx-Ucu"/>
@@ -197,12 +197,9 @@
                                     <constraint firstAttribute="height" constant="26" id="DWY-vS-qBx"/>
                                     <constraint firstAttribute="width" constant="26" id="vCo-hg-MII"/>
                                 </constraints>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="Share"/>
-                                <connections>
-                                    <action selector="didTapShareBtn:" destination="Kxr-2W-JvI" eventType="touchUpInside" id="Yzm-Vg-3Oa"/>
-                                </connections>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="Share"/>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="pWg-Rk-0tr"/>
@@ -233,12 +230,13 @@
                         <outlet property="explaination" destination="cX6-C4-TA0" id="397-lY-oWF"/>
                         <outlet property="gotoARBtn" destination="lth-VT-Au3" id="uHY-QH-2NE"/>
                         <outlet property="likeBtn" destination="Uxw-00-wC4" id="Hqb-Ov-pVl"/>
+                        <outlet property="naviRightBtn" destination="jFz-Tu-UnM" id="blp-FY-83K"/>
                         <outlet property="phoster" destination="ash-Bh-EbG" id="R9B-ck-U1h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iux-JS-nD5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3325.5999999999999" y="-386.45320197044339"/>
+            <point key="canvasLocation" x="3369" y="-423"/>
         </scene>
     </scenes>
     <resources>
