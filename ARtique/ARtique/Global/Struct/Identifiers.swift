@@ -24,6 +24,7 @@ struct Identifiers {
     static let detailVC = "DetailVC"
     static let addExhibitionNC = "AddExhibitionNC"
     static let addExhibitionVC = "AddExhibitionVC"
+    static let mypageNC = "MypageNC"
     static let mypageVC = "MypageVC"
     static let arGalleryVC = "ARGalleryVC"
     static let planeRecognitionVC = "PlaneVC"

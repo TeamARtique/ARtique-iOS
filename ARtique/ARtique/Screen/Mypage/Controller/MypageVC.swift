@@ -2,7 +2,7 @@
 //  MypageVC.swift
 //  ARtique
 //
-//  Created by 황지은 on 2021/11/29.
+//  Created by 황윤경 on 2022/04/09.
 //
 
 import UIKit
@@ -11,19 +11,29 @@ class MypageVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        configureNaviBar()
     }
-    
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+// MARK: - Configure
+extension MypageVC {
+    private func configureNaviBar() {
+        navigationController?.additionalSafeAreaInsets.top = 8
+        navigationController?.navigationBar.tintColor = .black
+        
+        navigationItem.title = "마이페이지"
+        
+        let rightBarBtn = UIBarButtonItem(image: UIImage(named: "Alarm"),
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(didTapRightNaviBtn))
+        navigationItem.rightBarButtonItem = rightBarBtn
     }
-    */
+}
 
+extension MypageVC {
+    @objc func didTapRightNaviBtn() {
+        // TODO: - Alarm View 구현
+        print("Alarm View")
+    }
 }

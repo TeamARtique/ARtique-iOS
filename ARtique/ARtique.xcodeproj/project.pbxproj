@@ -42,6 +42,7 @@
 		23B52A9327E1131C00D6C339 /* ThemeCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B52A9127E1131C00D6C339 /* ThemeCVC.swift */; };
 		23B52A9427E1131C00D6C339 /* ThemeCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23B52A9227E1131C00D6C339 /* ThemeCVC.xib */; };
 		23BB927027F0EB9100D91354 /* TagType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BB926F27F0EB9100D91354 /* TagType.swift */; };
+		23C9AD6228019FDA00DFF5A2 /* MypageNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C9AD6128019FDA00DFF5A2 /* MypageNC.swift */; };
 		23E1A35127EF124D009C337F /* NewExhibition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1A35027EF124D009C337F /* NewExhibition.swift */; };
 		23E734EE27E99CC8000315E6 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E734EC27E99CC8000315E6 /* OrderView.swift */; };
 		23E734EF27E99CC8000315E6 /* OrderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23E734ED27E99CC8000315E6 /* OrderView.xib */; };
@@ -129,6 +130,7 @@
 		23B52A9127E1131C00D6C339 /* ThemeCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCVC.swift; sourceTree = "<group>"; };
 		23B52A9227E1131C00D6C339 /* ThemeCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemeCVC.xib; sourceTree = "<group>"; };
 		23BB926F27F0EB9100D91354 /* TagType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagType.swift; sourceTree = "<group>"; };
+		23C9AD6128019FDA00DFF5A2 /* MypageNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNC.swift; sourceTree = "<group>"; };
 		23E1A35027EF124D009C337F /* NewExhibition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExhibition.swift; sourceTree = "<group>"; };
 		23E734EC27E99CC8000315E6 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		23E734ED27E99CC8000315E6 /* OrderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderView.xib; sourceTree = "<group>"; };
@@ -528,6 +530,7 @@
 			isa = PBXGroup;
 			children = (
 				3305F7A52754E44B00E6E08E /* MypageVC.swift */,
+				23C9AD6128019FDA00DFF5A2 /* MypageNC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -849,6 +852,7 @@
 				23B52A8727E0E89200D6C339 /* AddProcess.swift in Sources */,
 				23B52A8127E0A7B900D6C339 /* UINavigationController+.swift in Sources */,
 				33AC278A2763D27200E0765A /* ARGalleryVC.swift in Sources */,
+				23C9AD6228019FDA00DFF5A2 /* MypageNC.swift in Sources */,
 				23B2E5D827591A9100FA8CC2 /* ExhibitionData.swift in Sources */,
 				23071DBA27ECFBAB00949BA1 /* ExhibitionExplainView.swift in Sources */,
 				3305F76B2754E10300E6E08E /* NetworkResult.swift in Sources */,
