@@ -114,24 +114,24 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="OZs-IY-53U">
-                                <rect key="frame" x="20" y="299.66666666666674" width="335" height="478.33333333333326"/>
+                                <rect key="frame" x="0.0" y="299.66666666666674" width="375" height="478.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MypageClassificationTVC" rowHeight="63" id="cb6-B6-yjs" customClass="MypageClassificationTVC" customModule="ARtique" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="335" height="63"/>
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="375" height="63"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cb6-B6-yjs" id="qrN-Iw-CyZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="335" height="63"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="63"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="등록한 전시" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5T-M9-7gg">
-                                                    <rect key="frame" x="0.0" y="18" width="78" height="27"/>
+                                                    <rect key="frame" x="20" y="18" width="78" height="27"/>
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeoB00" family="AppleSDGothicNeoB00" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6HT-zy-QSF">
-                                                    <rect key="frame" x="322" y="20.666666666666668" width="13" height="22.000000000000004"/>
+                                                    <rect key="frame" x="342" y="20.666666666666668" width="13" height="22.000000000000004"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="6sD-0a-6BS"/>
                                                         <constraint firstAttribute="width" constant="13" id="h1W-IM-vQC"/>
@@ -141,7 +141,7 @@
                                                     <state key="normal" image="chevron.right" catalog="system"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiQ-bg-bGY">
-                                                    <rect key="frame" x="86" y="18" width="11" height="27"/>
+                                                    <rect key="frame" x="106" y="18" width="11" height="27"/>
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeoB00" family="AppleSDGothicNeoB00" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -152,9 +152,9 @@
                                                 <constraint firstItem="U5T-M9-7gg" firstAttribute="top" secondItem="qrN-Iw-CyZ" secondAttribute="top" constant="18" id="4bu-0G-uuq"/>
                                                 <constraint firstItem="EiQ-bg-bGY" firstAttribute="top" secondItem="qrN-Iw-CyZ" secondAttribute="top" constant="18" id="GZg-YZ-daO"/>
                                                 <constraint firstAttribute="bottom" secondItem="U5T-M9-7gg" secondAttribute="bottom" constant="18" id="NAL-CT-ZaE"/>
-                                                <constraint firstAttribute="right" secondItem="6HT-zy-QSF" secondAttribute="right" id="RdF-pW-Pbx"/>
+                                                <constraint firstAttribute="right" secondItem="6HT-zy-QSF" secondAttribute="right" constant="20" id="RdF-pW-Pbx"/>
                                                 <constraint firstItem="EiQ-bg-bGY" firstAttribute="leading" secondItem="U5T-M9-7gg" secondAttribute="trailing" constant="8" symbolic="YES" id="SL3-5m-khY"/>
-                                                <constraint firstItem="U5T-M9-7gg" firstAttribute="leading" secondItem="qrN-Iw-CyZ" secondAttribute="leading" id="SgM-ua-Aw4"/>
+                                                <constraint firstItem="U5T-M9-7gg" firstAttribute="leading" secondItem="qrN-Iw-CyZ" secondAttribute="leading" constant="20" id="SgM-ua-Aw4"/>
                                                 <constraint firstAttribute="bottom" secondItem="EiQ-bg-bGY" secondAttribute="bottom" constant="18" id="vVB-Dz-fNK"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -164,14 +164,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyExhibitionTVC" rowHeight="250" id="pis-T5-IUQ" customClass="MyExhibitionTVC" customModule="ARtique" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="107.66666603088379" width="335" height="250"/>
+                                        <rect key="frame" x="0.0" y="107.66666603088379" width="375" height="250"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pis-T5-IUQ" id="2bc-2D-75B">
-                                            <rect key="frame" x="0.0" y="0.0" width="335" height="250"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BJn-3j-c07">
-                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="250"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="250" id="yEB-vW-Gki"/>
@@ -220,9 +220,9 @@
                             <constraint firstItem="L3a-ZV-P9z" firstAttribute="leading" secondItem="l1H-OH-h4p" secondAttribute="trailing" constant="35" id="DJI-3B-WSY"/>
                             <constraint firstItem="Tdm-8x-Jyl" firstAttribute="leading" secondItem="l1H-OH-h4p" secondAttribute="trailing" constant="35" id="EDS-0g-lfl"/>
                             <constraint firstItem="FwR-bW-dQl" firstAttribute="centerY" secondItem="MRx-dV-CmE" secondAttribute="centerY" id="EQr-TJ-FG6"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="OZs-IY-53U" secondAttribute="trailing" constant="20" id="IAS-nH-nGM"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="OZs-IY-53U" secondAttribute="trailing" id="IAS-nH-nGM"/>
                             <constraint firstItem="OZs-IY-53U" firstAttribute="top" secondItem="zvI-7u-RgZ" secondAttribute="bottom" id="K0L-8O-xcu"/>
-                            <constraint firstItem="OZs-IY-53U" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="NsE-Hw-2ce"/>
+                            <constraint firstItem="OZs-IY-53U" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="NsE-Hw-2ce"/>
                             <constraint firstItem="BCl-zb-U3q" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Qdh-zS-Oa8"/>
                             <constraint firstItem="ZG0-xy-5DE" firstAttribute="leading" secondItem="l1H-OH-h4p" secondAttribute="trailing" constant="35" id="R8Q-oY-x7a"/>
                             <constraint firstItem="L3a-ZV-P9z" firstAttribute="top" secondItem="evU-8D-SZh" secondAttribute="bottom" constant="16" id="UOP-yu-XA4"/>

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ExhibitionCVC: UICollectionViewCell {
     @IBOutlet weak var phoster: UIImageView!
@@ -20,9 +21,9 @@ class ExhibitionCVC: UICollectionViewCell {
 
 extension ExhibitionCVC {
     private func configureFont() {
+        phoster.contentMode = .scaleAspectFill
         title.font = .AppleSDGothicM(size: 13)
         date.font = .AppleSDGothicR(size: 11)
-        
     }
     
     func configureCell(_ title: String, _ date: String) {

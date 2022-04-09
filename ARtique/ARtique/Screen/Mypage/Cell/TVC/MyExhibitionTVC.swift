@@ -24,7 +24,9 @@ extension MyExhibitionTVC {
         exhibitionCV.showsHorizontalScrollIndicator = false
         if let layout = exhibitionCV.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
+            layout.estimatedItemSize = .zero
         }
+        exhibitionCV.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
 }
 
@@ -44,11 +46,11 @@ extension MyExhibitionTVC: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 extension MyExhibitionTVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 120,
+        return CGSize(width: 132,
                       height: collectionView.frame.height)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         12
     }
 }
