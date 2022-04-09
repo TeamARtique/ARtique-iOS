@@ -8,10 +8,20 @@
 import UIKit
 
 class MypageVC: UIViewController {
-
+    @IBOutlet weak var profileImg: UIImageView!
+    @IBOutlet weak var editBtn: UIButton!
+    @IBOutlet weak var nickname: UILabel!
+    @IBOutlet weak var explanation: UILabel!
+    @IBOutlet weak var snsUrl: UILabel!
+    @IBOutlet weak var exhibitionTV: UITableView!
+    @IBOutlet weak var registeredExhibitionCnt: UILabel!
+    @IBOutlet weak var bookmarkExhibitionCnt: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNaviBar()
+        configureProfile()
+        configureTV()
     }
 }
 
@@ -29,11 +39,63 @@ extension MypageVC {
                                           action: #selector(didTapRightNaviBtn))
         navigationItem.rightBarButtonItem = rightBarBtn
     }
+    
+    private func configureProfile() {
+        profileImg.layer.cornerRadius = profileImg.frame.height / 2
+        nickname.font = .AppleSDGothicR(size: 17)
+        explanation.font = .AppleSDGothicR(size: 12)
+        snsUrl.font = .AppleSDGothicR(size: 12)
+    }
+    
+    private func configureTV() {
+        exhibitionTV.dataSource = self
+        exhibitionTV.delegate = self
+        exhibitionTV.separatorStyle = .none
+        exhibitionTV.showsVerticalScrollIndicator = false
+        exhibitionTV.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
+    }
 }
 
+// MARK: - Custom Methods
 extension MypageVC {
     @objc func didTapRightNaviBtn() {
         // TODO: - Alarm View 구현
         print("Alarm View")
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension MypageVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        4
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let titleCell = tableView.dequeueReusableCell(withIdentifier: Identifiers.mypageClassificationTVC, for: indexPath) as? MypageClassificationTVC,
+              let exhibitionCell = tableView.dequeueReusableCell(withIdentifier: Identifiers.myExhibitionTVC, for: indexPath) as? MyExhibitionTVC else { return UITableViewCell() }
+        titleCell.selectionStyle = .none
+        switch indexPath.row {
+        case 0:
+            titleCell.configureCell("등록한 전시", 5)
+            return titleCell
+        case 1:
+            // TODO: - 전시 연결
+            return exhibitionCell
+        case 2:
+            titleCell.configureCell("북마크한 전시", 5)
+            return titleCell
+        case 3:
+            // TODO: - 전시 연결
+            return exhibitionCell
+        default:
+            return UITableViewCell()
+        }
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension MypageVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
     }
 }
