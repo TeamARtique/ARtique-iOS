@@ -7,6 +7,14 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="AppleSDGothicNeoB.ttf">
+            <string>AppleSDGothicNeoB00</string>
+        </array>
+        <array key="AppleSDGothicNeoM.ttf">
+            <string>AppleSDGothicNeoM00</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Profile EditVC-->
         <scene sceneID="s0d-6b-0kx">
@@ -15,16 +23,116 @@
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GS2-4Q-sfk">
+                                <rect key="frame" x="20" y="244" width="45" height="23"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeoB00" family="AppleSDGothicNeoB00" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="소개" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nWP-yU-bOo">
+                                <rect key="frame" x="20" y="358" width="30" height="23"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeoB00" family="AppleSDGothicNeoB00" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="웹사이트" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCs-56-QX1">
+                                <rect key="frame" x="20" y="543" width="59" height="23"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeoB00" family="AppleSDGothicNeoB00" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZUs-sl-jWg">
+                                <rect key="frame" x="20" y="693" width="335" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="JwB-cc-bek"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeoB00" family="AppleSDGothicNeoB00" pointSize="16"/>
+                                <color key="tintColor" red="0.89411764705882346" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="로그아웃"/>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lsK-cZ-7f3">
+                                <rect key="frame" x="20" y="278" width="335" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="yee-cL-94S"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y6Z-fh-k1t">
+                                <rect key="frame" x="20" y="577" width="335" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="f7g-ID-13Q"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ibA-BK-QbZ">
+                                <rect key="frame" x="20" y="392" width="335" height="115"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="115" id="tgi-zD-v2w"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YpF-fq-22h">
+                                <rect key="frame" x="127.66666666666669" y="84" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="9TZ-ta-PDz"/>
+                                    <constraint firstAttribute="width" constant="120" id="boH-Zu-w0I"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeoM00" family="AppleSDGothicNeoM00" pointSize="11"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="프로필 이미지 변경" backgroundImage="Theme1">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="YpF-fq-22h" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="14F-n2-vOL"/>
+                            <constraint firstItem="CCs-56-QX1" firstAttribute="top" secondItem="ibA-BK-QbZ" secondAttribute="bottom" constant="36" id="28b-m3-p4H"/>
+                            <constraint firstItem="ibA-BK-QbZ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="32j-Zb-r37"/>
+                            <constraint firstItem="lsK-cZ-7f3" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="60K-Bx-oQ3"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="y6Z-fh-k1t" secondAttribute="trailing" constant="20" id="AbX-YB-R7m"/>
+                            <constraint firstItem="CCs-56-QX1" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="CH5-c0-z8L"/>
+                            <constraint firstItem="GS2-4Q-sfk" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="Da7-rB-nIP"/>
+                            <constraint firstItem="lsK-cZ-7f3" firstAttribute="top" secondItem="GS2-4Q-sfk" secondAttribute="bottom" constant="11" id="KAK-eo-7nF"/>
+                            <constraint firstItem="nWP-yU-bOo" firstAttribute="top" secondItem="lsK-cZ-7f3" secondAttribute="bottom" constant="40" id="QKB-gQ-zHc"/>
+                            <constraint firstItem="YpF-fq-22h" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="40" id="U0Z-ze-ePH"/>
+                            <constraint firstItem="ibA-BK-QbZ" firstAttribute="top" secondItem="nWP-yU-bOo" secondAttribute="bottom" constant="11" id="VUa-eK-gMu"/>
+                            <constraint firstItem="ZUs-sl-jWg" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="Y4g-3X-ObS"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="ZUs-sl-jWg" secondAttribute="bottom" constant="40" id="e3Q-HA-acv"/>
+                            <constraint firstItem="GS2-4Q-sfk" firstAttribute="top" secondItem="YpF-fq-22h" secondAttribute="bottom" constant="40" id="eUQ-Y6-G5U"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ZUs-sl-jWg" secondAttribute="trailing" constant="20" id="koY-yb-ppm"/>
+                            <constraint firstItem="y6Z-fh-k1t" firstAttribute="top" secondItem="CCs-56-QX1" secondAttribute="bottom" constant="11" id="myA-dE-prd"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ibA-BK-QbZ" secondAttribute="trailing" constant="20" id="rYI-16-Kh3"/>
+                            <constraint firstItem="nWP-yU-bOo" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="teR-to-zkt"/>
+                            <constraint firstItem="y6Z-fh-k1t" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="xAJ-Tm-EF8"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="lsK-cZ-7f3" secondAttribute="trailing" constant="20" id="yUg-vR-z7Y"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="explanationTV" destination="ibA-BK-QbZ" id="mjc-Qa-cKK"/>
+                        <outlet property="nicknameTF" destination="lsK-cZ-7f3" id="BtB-Ee-FPM"/>
+                        <outlet property="profileImg" destination="YpF-fq-22h" id="CB2-OE-bgf"/>
+                        <outlet property="snsTF" destination="y6Z-fh-k1t" id="bwT-FH-Zwi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-25" y="94"/>
+            <point key="canvasLocation" x="-26.399999999999999" y="93.842364532019715"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Theme1" width="160" height="160"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
