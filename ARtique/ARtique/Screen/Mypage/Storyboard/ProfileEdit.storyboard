@@ -89,6 +89,9 @@
                                 <state key="normal" title="프로필 이미지 변경" backgroundImage="Theme1">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="setProfileImage:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Cjy-pY-wLn"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
