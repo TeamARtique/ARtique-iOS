@@ -7,8 +7,10 @@
 
 import UIKit
 import Photos
+import SnapKit
 
 class ProfileEditVC: UIViewController {
+    @IBOutlet weak var baseSV: UIScrollView!
     @IBOutlet weak var profileImg: UIButton!
     @IBOutlet weak var nicknameTF: UITextField!
     @IBOutlet weak var explanationTV: UITextView!
@@ -21,7 +23,9 @@ class ProfileEditVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNaviBar()
+        configureSV()
         configureContentView()
+        hideKeyboard()
     }
     
     @IBAction func setProfileImage(_ sender: Any) {
@@ -58,6 +62,14 @@ extension ProfileEditVC {
                                                   target: self,
                                                   action: #selector(bindRightBarButton))
     }
+
+    private func configureSV() {
+        baseSV.showsVerticalScrollIndicator = false
+        baseSV.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.keyboardLayoutGuide.snp.top)
+        }
+    }
     
     private func configureContentView() {
         profileImg.layer.cornerRadius = profileImg.frame.height / 2
@@ -68,6 +80,7 @@ extension ProfileEditVC {
         explanationTV.delegate = self
         snsTF.setRoundTextField(with: "www.instagram.com")
     }
+    
 }
 
 // MARK: - Custom Methods
