@@ -12,6 +12,8 @@
 		23071DB727ECF5A100949BA1 /* CategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23071DB627ECF5A100949BA1 /* CategoryType.swift */; };
 		23071DBA27ECFBAB00949BA1 /* ExhibitionExplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23071DB827ECFBAB00949BA1 /* ExhibitionExplainView.swift */; };
 		23071DBB27ECFBAB00949BA1 /* ExhibitionExplainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23071DB927ECFBAB00949BA1 /* ExhibitionExplainView.xib */; };
+		230883812804162200620BC1 /* ProfileEdit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230883802804162200620BC1 /* ProfileEdit.storyboard */; };
+		230883832804163100620BC1 /* ProfileEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230883822804163100620BC1 /* ProfileEditVC.swift */; };
 		231EF8512763DCF4008218CC /* PlaneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231EF8502763DCF4008218CC /* PlaneVC.swift */; };
 		235583FF2767A6D80046C3EE /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235583FE2767A6D80046C3EE /* FocusSquare.swift */; };
 		235584012767A7100046C3EE /* FocusSquareSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235584002767A7100046C3EE /* FocusSquareSegment.swift */; };
@@ -102,6 +104,8 @@
 		23071DB627ECF5A100949BA1 /* CategoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryType.swift; sourceTree = "<group>"; };
 		23071DB827ECFBAB00949BA1 /* ExhibitionExplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionExplainView.swift; sourceTree = "<group>"; };
 		23071DB927ECFBAB00949BA1 /* ExhibitionExplainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExhibitionExplainView.xib; sourceTree = "<group>"; };
+		230883802804162200620BC1 /* ProfileEdit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileEdit.storyboard; sourceTree = "<group>"; };
+		230883822804163100620BC1 /* ProfileEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditVC.swift; sourceTree = "<group>"; };
 		231EF8502763DCF4008218CC /* PlaneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneVC.swift; sourceTree = "<group>"; };
 		235583FE2767A6D80046C3EE /* FocusSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
 		235584002767A7100046C3EE /* FocusSquareSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquareSegment.swift; sourceTree = "<group>"; };
@@ -544,6 +548,7 @@
 			children = (
 				3305F7A52754E44B00E6E08E /* MypageVC.swift */,
 				23C9AD6128019FDA00DFF5A2 /* MypageNC.swift */,
+				230883822804163100620BC1 /* ProfileEditVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -552,6 +557,7 @@
 			isa = PBXGroup;
 			children = (
 				3305F7912754E35900E6E08E /* Mypage.storyboard */,
+				230883802804162200620BC1 /* ProfileEdit.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -741,6 +747,7 @@
 				23071DBB27ECFBAB00949BA1 /* ExhibitionExplainView.xib in Resources */,
 				23E734FF27EA1528000315E6 /* PostExplainView.xib in Resources */,
 				23E734EF27E99CC8000315E6 /* OrderView.xib in Resources */,
+				230883812804162200620BC1 /* ProfileEdit.storyboard in Resources */,
 				23E734F727E9A016000315E6 /* SelectedImageCVC.xib in Resources */,
 				23E734FB27E9A1A7000315E6 /* ArtworkListView.xib in Resources */,
 				3305F7AC2754E66700E6E08E /* AppleSDGothicNeoR.ttf in Resources */,
@@ -828,6 +835,7 @@
 				23B52A8B27E0FED600D6C339 /* ThemeView.swift in Sources */,
 				3305F7592754DFD700E6E08E /* UIView+.swift in Sources */,
 				3305F77D2754E20800E6E08E /* UserDefaults+.swift in Sources */,
+				230883832804163100620BC1 /* ProfileEditVC.swift in Sources */,
 				237B436E275CEE1E00B7FA3F /* ExhibitionListCVC.swift in Sources */,
 				237B4369275CDDD600B7FA3F /* ExhibitionListTVC.swift in Sources */,
 				3305F7A02754E3BA00E6E08E /* d.swift in Sources */,

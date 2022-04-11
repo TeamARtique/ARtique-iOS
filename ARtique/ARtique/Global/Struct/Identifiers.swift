@@ -14,6 +14,7 @@ struct Identifiers {
     static let detailSB = "Detail"
     static let addSB = "AddExhibition"
     static let mypageSB = "Mypage"
+    static let profileEditSB = "ProfileEdit"
     static let arGallerySB = "ARGallery"
     
     //MARK: - Controller
@@ -26,6 +27,7 @@ struct Identifiers {
     static let addExhibitionVC = "AddExhibitionVC"
     static let mypageNC = "MypageNC"
     static let mypageVC = "MypageVC"
+    static let profileEditVC = "ProfileEditVC"
     static let arGalleryVC = "ARGalleryVC"
     static let planeRecognitionVC = "PlaneVC"
     
