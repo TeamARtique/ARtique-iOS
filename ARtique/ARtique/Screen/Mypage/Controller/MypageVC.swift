@@ -23,6 +23,12 @@ class MypageVC: UIViewController {
         configureProfile()
         configureTV()
     }
+    
+    @IBAction func pushEditView(_ sender: Any) {
+        guard let profileEditVC = UIStoryboard(name: Identifiers.profileEditSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.profileEditVC) as? ProfileEditVC else { return }
+        profileEditVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(profileEditVC, animated: true)
+    }
 }
 
 // MARK: - Configure
