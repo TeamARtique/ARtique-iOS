@@ -36,6 +36,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.4.4)
   - KakaoSDKAuth (~> 2.8.6)
   - KakaoSDKUser (~> 2.8.6)
+  - PhotoCropper
   - RxCocoa (< 6.2.0)
   - RxSwift (< 6.2.0)
   - SnapKit (~> 5.0.1)
@@ -73,6 +74,6 @@ SPEC CHECKSUMS:
   Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: 8b135aa4a7e2e31f6ce71440f447030bb21af5f1
+PODFILE CHECKSUM: 0b2e52da0ddaf171d29ceb7d45d929c9196082ec
 
 COCOAPODS: 1.11.2

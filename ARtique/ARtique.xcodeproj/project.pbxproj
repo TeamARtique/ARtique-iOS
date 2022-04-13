@@ -32,6 +32,7 @@
 		239C5D4C27F224A300D8A3D2 /* ArtworkSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239C5D4A27F224A300D8A3D2 /* ArtworkSelectView.swift */; };
 		239C5D4D27F224A300D8A3D2 /* ArtworkSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 239C5D4B27F224A300D8A3D2 /* ArtworkSelectView.xib */; };
 		239C5D4F27F2327900D8A3D2 /* PHFetchOptions+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239C5D4E27F2327900D8A3D2 /* PHFetchOptions+.swift */; };
+		23A852C72806B1A600406A3C /* AppleSDGothicNeoL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23A852C62806B1A600406A3C /* AppleSDGothicNeoL.ttf */; };
 		23B2E5D42758F7F300FA8CC2 /* ExhibitionList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23B2E5D32758F7F300FA8CC2 /* ExhibitionList.storyboard */; };
 		23B2E5D62758F9D700FA8CC2 /* ExhibitionListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B2E5D52758F9D700FA8CC2 /* ExhibitionListVC.swift */; };
 		23B2E5D827591A9100FA8CC2 /* ExhibitionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B2E5D727591A9100FA8CC2 /* ExhibitionData.swift */; };
@@ -98,7 +99,6 @@
 		3305F7AC2754E66700E6E08E /* AppleSDGothicNeoR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3305F75A2754E00500E6E08E /* AppleSDGothicNeoR.ttf */; };
 		3305F7AD2754E66900E6E08E /* AppleSDGothicNeoSB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3305F75B2754E00500E6E08E /* AppleSDGothicNeoSB.ttf */; };
 		334E737127FB66B5001BAF25 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E737027FB66B5001BAF25 /* LoginVC.swift */; };
-		334E737327FC1F3F001BAF25 /* AppleSDGothicNeoL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 334E737227FC1F3A001BAF25 /* AppleSDGothicNeoL.ttf */; };
 		33AC27882763D21D00E0765A /* ARGallery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33AC27872763D21D00E0765A /* ARGallery.storyboard */; };
 		33AC278A2763D27200E0765A /* ARGalleryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AC27892763D27200E0765A /* ARGalleryVC.swift */; };
 		91832D0B8CCD458B4D6477F3 /* Pods_ARtique.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDA3E5AB13FCA77BEB6A01BC /* Pods_ARtique.framework */; };
@@ -131,6 +131,7 @@
 		239C5D4A27F224A300D8A3D2 /* ArtworkSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkSelectView.swift; sourceTree = "<group>"; };
 		239C5D4B27F224A300D8A3D2 /* ArtworkSelectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtworkSelectView.xib; sourceTree = "<group>"; };
 		239C5D4E27F2327900D8A3D2 /* PHFetchOptions+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHFetchOptions+.swift"; sourceTree = "<group>"; };
+		23A852C62806B1A600406A3C /* AppleSDGothicNeoL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoL.ttf; sourceTree = "<group>"; };
 		23B2E5D32758F7F300FA8CC2 /* ExhibitionList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ExhibitionList.storyboard; sourceTree = "<group>"; };
 		23B2E5D52758F9D700FA8CC2 /* ExhibitionListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionListVC.swift; sourceTree = "<group>"; };
 		23B2E5D727591A9100FA8CC2 /* ExhibitionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionData.swift; sourceTree = "<group>"; };
@@ -199,7 +200,6 @@
 		3305F7A72754E45800E6E08E /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		3305F7A92754E61F00E6E08E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		334E737027FB66B5001BAF25 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		334E737227FC1F3A001BAF25 /* AppleSDGothicNeoL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = AppleSDGothicNeoL.ttf; path = "../../../../../../../../Downloads/Apple+산돌고딕+Neo/AppleSDGothicNeoL.ttf"; sourceTree = "<group>"; };
 		3350596D27E5CC8C0088B708 /* GalleryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryType.swift; sourceTree = "<group>"; };
 		33AC27872763D21D00E0765A /* ARGallery.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ARGallery.storyboard; sourceTree = "<group>"; };
 		33AC27892763D27200E0765A /* ARGalleryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARGalleryVC.swift; sourceTree = "<group>"; };
@@ -419,11 +419,11 @@
 		3305F74F2754DF1E00E6E08E /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				23A852C62806B1A600406A3C /* AppleSDGothicNeoL.ttf */,
 				3305F75D2754E00500E6E08E /* AppleSDGothicNeoB.ttf */,
 				3305F75C2754E00500E6E08E /* AppleSDGothicNeoM.ttf */,
 				3305F75A2754E00500E6E08E /* AppleSDGothicNeoR.ttf */,
 				3305F75B2754E00500E6E08E /* AppleSDGothicNeoSB.ttf */,
-				334E737227FC1F3A001BAF25 /* AppleSDGothicNeoL.ttf */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -649,14 +649,6 @@
 			path = TVC;
 			sourceTree = "<group>";
 		};
-		3305F7982754E39900E6E08E /* CVC */ = {
-			isa = PBXGroup;
-			children = (
-				3305F7A12754E3C100E6E08E /* e.swift */,
-			);
-			path = CVC;
-			sourceTree = "<group>";
-		};
 		334E736E27FB6675001BAF25 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -780,7 +772,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3305F78E2754E34B00E6E08E /* Home.storyboard in Resources */,
-				334E737327FC1F3F001BAF25 /* AppleSDGothicNeoL.ttf in Resources */,
 				23B52A9427E1131C00D6C339 /* ThemeCVC.xib in Resources */,
 				23B52A9027E1013E00D6C339 /* RoundCVC.xib in Resources */,
 				3305F7332754DABA00E6E08E /* art.scnassets in Resources */,
@@ -805,6 +796,7 @@
 				239C5D4D27F224A300D8A3D2 /* ArtworkSelectView.xib in Resources */,
 				3305F7AD2754E66900E6E08E /* AppleSDGothicNeoSB.ttf in Resources */,
 				3305F7AA2754E66200E6E08E /* AppleSDGothicNeoM.ttf in Resources */,
+				23A852C72806B1A600406A3C /* AppleSDGothicNeoL.ttf in Resources */,
 				2395FBA227563A9700D3DB77 /* Detail.storyboard in Resources */,
 				235650DE27FA031F0082E048 /* AlbumListTVC.storyboard in Resources */,
 				23B52A7927E0A54D00D6C339 /* AddExhibition.storyboard in Resources */,
@@ -873,7 +865,6 @@
 				23071DB427ECB47600949BA1 /* ArtworkExplainCVC.swift in Sources */,
 				23B52A7D27E0A5A500D6C339 /* AddExhibitionNC.swift in Sources */,
 				3305F7692754E0EA00E6E08E /* APIConstants.swift in Sources */,
-				3305F7A22754E3C100E6E08E /* e.swift in Sources */,
 				334E737127FB66B5001BAF25 /* LoginVC.swift in Sources */,
 				3305F7812754E23F00E6E08E /* UIButton+.swift in Sources */,
 				3305F7512754DF3E00E6E08E /* UIColor+Additions.swift in Sources */,
