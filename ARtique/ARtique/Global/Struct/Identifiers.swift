@@ -35,9 +35,9 @@ struct Identifiers {
     //MARK: - TVC
     static let exhibitionListTVC = "ExhibitionListTVC"
     static let allTVC = "AllTVC"
+    static let albumTVC = "AlbumTVC"
     static let mypageClassificationTVC = "MypageClassificationTVC"
     static let myExhibitionTVC = "MyExhibitionTVC"
-    static let albumTVC = "AlbumTVC"
     
     //MARK: - CVC
     static let exhibitionListCVC = "ExhibitionListCVC"
