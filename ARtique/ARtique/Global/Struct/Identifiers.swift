@@ -30,10 +30,12 @@ struct Identifiers {
     static let profileEditVC = "ProfileEditVC"
     static let arGalleryVC = "ARGalleryVC"
     static let planeRecognitionVC = "PlaneVC"
+    static let albumListTVC = "AlbumListTVC"
     
     //MARK: - TVC
     static let exhibitionListTVC = "ExhibitionListTVC"
     static let allTVC = "AllTVC"
+    static let albumTVC = "AlbumTVC"
     static let mypageClassificationTVC = "MypageClassificationTVC"
     static let myExhibitionTVC = "MyExhibitionTVC"
     

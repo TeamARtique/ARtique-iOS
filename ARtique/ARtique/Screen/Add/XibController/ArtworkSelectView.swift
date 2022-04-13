@@ -7,36 +7,60 @@
 
 import UIKit
 import Photos
+import PhotoCropper
+import RxSwift
+import RxCocoa
 
 class ArtworkSelectView: UIView {
-    @IBOutlet weak var preview: UIImageView!
+    @IBOutlet weak var previewBaseView: UIView!
+    @IBOutlet weak var galleryBaseView: UIView!
     @IBOutlet weak var galleryCV: UICollectionView!
     @IBOutlet weak var albumListButton: UIButton!
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
+    var preview = PhotoCropperView()
+    private var spiner = UIActivityIndicatorView()
     
     var devicePhotos: PHFetchResult<PHAsset>!
     let imageManager = PHCachingImageManager()
+    var albumList = [PHAssetCollection]()
     
+    let bag = DisposeBag()
     let exhibitionModel = NewExhibition.shared
     var maxArtworkCnt: Int = 0
     var selectedImages = [UIImage]()
-    var selectedIds = [String]()
+    var selectedImageIds = [String]()
+    var isFirstSelection = true
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setContentView()
-        fetchAssets()
+        layoutView()
+        setNotification()
+        getAlbums()
         configurePreview()
+        configureLoading()
         configureAlbumListButton()
         configureCV()
+        addDragGesture()
+        saveCropImage()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setContentView()
-        fetchAssets()
+        layoutView()
+        setNotification()
+        getAlbums()
         configurePreview()
+        configureLoading()
         configureAlbumListButton()
         configureCV()
+        addDragGesture()
+        saveCropImage()
+    }
+    
+    @IBAction func showAlbumList(_ sender: Any) {
+        NotificationCenter.default.post(name: .whenAlbumListBtnSelected, object: albumList)
     }
 }
 
@@ -52,11 +76,34 @@ extension ArtworkSelectView {
         }
     }
     
+    private func layoutView() {
+        topConstraint.constant = 20
+
+        previewBaseView.addSubview(preview)
+        preview.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        preview.addSubview(spiner)
+        spiner.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
+    
     private func configurePreview() {
+        preview.scrollView.alwaysBounceVertical = true
+        preview.scrollView.alwaysBounceHorizontal = true
         preview.layer.borderColor = UIColor.black.cgColor
         preview.layer.borderWidth = 7
-        preview.contentMode = .scaleAspectFill
         setPreviewImage([0,0])
+    }
+    
+    private func configureLoading() {
+        spiner.backgroundColor = .white
+        spiner.layer.opacity = 0.5
+        spiner.color = .black
+        spiner.style = .large
+        spiner.hidesWhenStopped = true
     }
     
     private func configureAlbumListButton() {
@@ -80,23 +127,114 @@ extension ArtworkSelectView {
 
 // MARK: - Custom Methods
 extension ArtworkSelectView {
-    private func fetchAssets() {
-        devicePhotos = PHAsset.fetchAssets(with: .ascendingOptions)
+    private func fetchAssets(with album: PHAssetCollection) {
+        devicePhotos = PHAsset.fetchAssets(in: album, options: .descendingOptions)
+    }
+    
+    private func getAlbums() {
+        let options:PHFetchOptions = PHFetchOptions()
+        let getAlbums : PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: options)
+        let getSmartAlbums: PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: options)
+        
+        for i in 0 ..< getAlbums.count {
+            if PHAsset.fetchAssets(in: getSmartAlbums[i], options: options).count == 0 { continue }
+            albumList.append(getSmartAlbums[i])
+        }
+        
+        for i in 0 ..< getAlbums.count {
+            albumList.append(getAlbums[i])
+        }
+        
+        if albumList.count == 0 {
+            devicePhotos = PHAsset.fetchAssets(with: .descendingOptions)
+        } else {
+            fetchAssets(with: albumList[0])
+        }
     }
     
     private func setPreviewImage(_ indexPath: IndexPath) {
-        let width = preview.frame.width
-        let height = preview.frame.height
+        let width = devicePhotos.object(at: indexPath.row).pixelWidth
+        let height = devicePhotos.object(at: indexPath.row).pixelHeight
         
         let options = PHImageRequestOptions()
-        options.deliveryMode = .highQualityFormat
-        options.resizeMode = .exact
-        
-        PHImageManager.default().requestImage(for: devicePhotos.object(at: indexPath.row), targetSize: CGSize(width: width, height: height), contentMode: .aspectFit, options: options) { (image, _) in
-            if image != nil {
-                self.preview.image = image
+        options.isNetworkAccessAllowed = true
+        DispatchQueue.global(qos: .background).async {
+            PHImageManager.default().requestImage(for: self.devicePhotos.object(at: indexPath.row),
+                                                     targetSize: CGSize(width: width,
+                                                                        height: height),
+                                                     contentMode: .aspectFit,
+                                                     options: options) { (image, info) in
+                let isDegraded = (info?[PHImageResultIsDegradedKey] as? Bool) ?? false
+                if image != nil {
+                    DispatchQueue.main.async {
+                        self.preview.imageView.image = image
+                        self.preview.scrollView.zoomScale = self.preview.scrollView.minimumZoomScale
+                        self.preview.updateZoomScale()
+                        isDegraded ? self.spiner.startAnimating() : self.spiner.stopAnimating()
+                    }
+                }
             }
         }
+    }
+    
+    private func saveCropImage() {
+        galleryCV.rx.itemSelected
+            .map ({_ in})
+            .bind(to: preview.crop)
+            .disposed(by: bag)
+        
+        preview.resultImage
+            .subscribe(onNext: { [weak self] image in
+                guard let self = self else { return }
+                if !self.isFirstSelection {
+                    self.selectedImages.append(image ?? UIImage())
+                    self.exhibitionModel.selectedArtwork = self.selectedImages
+                }
+                // TODO: - ERROR
+                NotificationCenter.default.post(name: .whenArtworkSelected, object: self.galleryCV.indexPathsForSelectedItems?.count)
+                self.isFirstSelection = false
+            })
+            .disposed(by: bag)
+    }
+    
+    private func addDragGesture() {
+        let galleryVerticalScrollGesture = UIPanGestureRecognizer(target: self, action: #selector(galleryVerticalScroll))
+        galleryBaseView.addGestureRecognizer(galleryVerticalScrollGesture)
+    }
+    
+    private func setNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(changeAlbum), name: .whenAlbumChanged, object: nil)
+    }
+    
+    @objc func changeAlbum(_ notification: Notification) {
+        let collection = albumList[notification.object as! Int]
+        fetchAssets(with: collection)
+        albumListButton.setTitle(collection.localizedTitle ?? "", for: .normal)
+        galleryCV.reloadData()
+        galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
+        setPreviewImage([0,0])
+    }
+    
+    @objc func galleryVerticalScroll(sender: UIPanGestureRecognizer) {
+        let dragPosition = sender.translation(in: self)
+        if dragPosition.y < 0 {
+            previewStatus(isHidden: true)
+        } else {
+            previewStatus(isHidden: false)
+        }
+    }
+    
+    private func previewStatus(isHidden: Bool) {
+        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
+            if isHidden {
+                self.previewBaseView.layer.opacity = 0
+                self.topConstraint.constant = -self.previewBaseView.frame.height
+            } else {
+                self.previewBaseView.layer.opacity = 1
+                self.topConstraint.constant = 20
+            }
+            self.layoutIfNeeded()
+        }, completion: nil)
     }
 }
 
@@ -125,25 +263,27 @@ extension ArtworkSelectView: UICollectionViewDataSource {
 //MARK: UICollectionViewDelegate
 extension ArtworkSelectView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        setPreviewImage(indexPath)
         guard let cell = collectionView.cellForItem(at: indexPath) as? SelectedImageCVC else { return }
         cell.isSet = true
-        selectedIds.append(cell.id)
-        selectedImages.append(cell.image.image ?? UIImage())
-        exhibitionModel.selectedArtwork = selectedImages
-        NotificationCenter.default.post(name: .whenArtworkSelected, object: exhibitionModel.selectedArtwork?.count)
+        selectedImageIds.append(cell.id)
+        previewStatus(isHidden: false)
+        galleryCV.scrollToItem(at: indexPath, at: .top, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? SelectedImageCVC else { return }
         cell.isSet = false
-        selectedImages.remove(at: selectedIds.firstIndex(of: cell.id)!)
-        selectedIds.remove(at: selectedIds.firstIndex(of: cell.id)!)
+        selectedImages.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
+        selectedImageIds.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
         exhibitionModel.selectedArtwork = selectedImages
-        NotificationCenter.default.post(name: .whenArtworkSelected, object: exhibitionModel.selectedArtwork?.count)
+        NotificationCenter.default.post(name: .whenArtworkSelected, object: galleryCV.indexPathsForSelectedItems?.count)
+        spiner.stopAnimating()
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if spiner.isAnimating { return false }
+        
+        setPreviewImage(indexPath)
         if collectionView.indexPathsForSelectedItems!.count >= maxArtworkCnt {
             return false
         } else {
@@ -157,5 +297,16 @@ extension ArtworkSelectView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width/3.2,
                       height: collectionView.frame.width/3.2)
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension ArtworkSelectView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.velocity(in: scrollView).y < -3000 {
+            previewStatus(isHidden: true)
+        } else if scrollView.panGestureRecognizer.velocity(in: scrollView).y > 3000 {
+            previewStatus(isHidden: false)
+        }
     }
 }
