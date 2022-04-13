@@ -186,7 +186,7 @@
                                 </constraints>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="chevron.backward" catalog="system"/>
+                                <state key="normal" image="BackBtn"/>
                                 <connections>
                                     <action selector="didTapBackBtn:" destination="Kxr-2W-JvI" eventType="touchUpInside" id="zLn-tS-zT1"/>
                                 </connections>
@@ -240,11 +240,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="BackBtn" width="10.666666984558105" height="18"/>
         <image name="BookMark_UnSelected" width="13.333333015441895" height="16.666666030883789"/>
         <image name="Like_UnSelected" width="21" height="22"/>
         <image name="Share" width="24" height="24"/>
         <image name="calendar" width="12" height="12"/>
-        <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

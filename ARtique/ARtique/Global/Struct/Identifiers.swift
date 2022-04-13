@@ -14,6 +14,7 @@ struct Identifiers {
     static let detailSB = "Detail"
     static let addSB = "AddExhibition"
     static let mypageSB = "Mypage"
+    static let profileEditSB = "ProfileEdit"
     static let arGallerySB = "ARGallery"
     
     //MARK: - Controller
@@ -24,7 +25,9 @@ struct Identifiers {
     static let detailVC = "DetailVC"
     static let addExhibitionNC = "AddExhibitionNC"
     static let addExhibitionVC = "AddExhibitionVC"
+    static let mypageNC = "MypageNC"
     static let mypageVC = "MypageVC"
+    static let profileEditVC = "ProfileEditVC"
     static let arGalleryVC = "ARGalleryVC"
     static let planeRecognitionVC = "PlaneVC"
     static let albumListTVC = "AlbumListTVC"
@@ -33,6 +36,8 @@ struct Identifiers {
     static let exhibitionListTVC = "ExhibitionListTVC"
     static let allTVC = "AllTVC"
     static let albumTVC = "AlbumTVC"
+    static let mypageClassificationTVC = "MypageClassificationTVC"
+    static let myExhibitionTVC = "MyExhibitionTVC"
     
     //MARK: - CVC
     static let exhibitionListCVC = "ExhibitionListCVC"
@@ -41,6 +46,7 @@ struct Identifiers {
     static let themeCVC = "ThemeCVC"
     static let selectedImageCVC = "SelectedImageCVC"
     static let artworkExplainCVC = "ArtworkExplainCVC"
+    static let exhibitionCVC = "ExhibitionCVC"
     
     //MARK: - View
     static let themeView = "ThemeView"

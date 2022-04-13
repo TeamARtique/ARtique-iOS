@@ -27,7 +27,6 @@ class AllTVC: UITableViewCell{
     @IBOutlet weak var subTitle: UILabel!
     @IBOutlet weak var showAllListBtn: UIButton!
     @IBOutlet weak var lastCV: UICollectionView!
-    @IBOutlet weak var lastCVHeight: NSLayoutConstraint!
     
     // TVC cell 구분용
     var cellIdentifier = 0

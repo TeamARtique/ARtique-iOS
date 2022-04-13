@@ -97,7 +97,7 @@ extension AddExhibitionVC {
         navigationItem.leftBarButtonItem?.image
         = (progressView.progress < 0.3)
         ? UIImage(systemName: "xmark")
-        : UIImage(systemName: "chevron.backward")
+        : UIImage(named: "BackBtn")
     }
     
     private func configureRegisterProgressView() {
