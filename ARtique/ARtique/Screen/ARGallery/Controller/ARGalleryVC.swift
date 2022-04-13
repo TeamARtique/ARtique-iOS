@@ -23,9 +23,9 @@ class ARGalleryVC: UIViewController {
     var galleryScene: SCNScene!
     var defaultGalleryNode: SCNNode!
     var planeRecognizedPosition: SCNVector3?
-    var galleryType: GalleyType = .maximum
+    var galleryType: GalleyType = .minimum
     
-    // MARK: Life Cycles
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupGallerySceneView(type: galleryType)

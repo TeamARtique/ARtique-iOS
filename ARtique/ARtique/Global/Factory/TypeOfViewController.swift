@@ -25,7 +25,7 @@ extension TypeOfViewController {
         case .add:
             return StoryboardRepresentation(bundle: nil, storyboardName: Identifiers.addSB, storyboardId: Identifiers.addExhibitionNC)
         case .mypage:
-            return StoryboardRepresentation(bundle: nil, storyboardName: Identifiers.mypageSB, storyboardId: Identifiers.mypageVC)
+            return StoryboardRepresentation(bundle: nil, storyboardName: Identifiers.mypageSB, storyboardId: Identifiers.mypageNC)
         case .arGallery:
             return StoryboardRepresentation(bundle: nil, storyboardName: Identifiers.arGallerySB, storyboardId: Identifiers.planeRecognitionVC)
         case .category:
