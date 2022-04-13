@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import KakaoSDKCommon
+import KakaoSDKAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,7 +19,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         // SplashView 1초동안 보이게
         Thread.sleep(forTimeInterval: 1.0)
+        KakaoSDK.initSDK(appKey: "af3f7053ff24fb9670107358290a4365")
+        
+        // TODO: 로그인 연결 시 주석 해제
+//        let window = UIWindow(frame: UIScreen.main.bounds)
+//        window.rootViewController = LoginVC()
+//        self.window = window
+//        window.makeKeyAndVisible()
+        
         return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        if (AuthApi.isKakaoTalkLoginUrl(url)) {
+            return AuthController.handleOpenUrl(url: url)
+        }
+        
+        return false
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

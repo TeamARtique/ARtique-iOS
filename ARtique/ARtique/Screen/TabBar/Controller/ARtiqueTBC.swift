@@ -28,7 +28,7 @@ class ARtiqueTBC: UITabBarController {
     /// setTabBar - 탭바 Setting
     func setTabBar() {
         
-        let homeTab = makeTabVC(vcType: .home, tabBarTitle: "", tabBarImage: "Home_UnSelected", tabBarSelectedImage: "Home_Selected")
+        let homeTab = makeTabVC(vcType: .home, tabBarTitle: "", tabBarImage: "untab_home", tabBarSelectedImage: "tab_home")
         let addTab = makeTabVC(vcType: .add, tabBarTitle: "", tabBarImage: "Add_Default_", tabBarSelectedImage: "Add_Default_")
         let mypageTab = makeTabVC(vcType: .mypage, tabBarTitle: "", tabBarImage: "My_UnSelected", tabBarSelectedImage: "My_Selected")
         

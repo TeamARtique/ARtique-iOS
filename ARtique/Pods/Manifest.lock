@@ -1,5 +1,16 @@
 PODS:
   - Alamofire (5.4.4)
+  - KakaoSDKAuth (2.8.6):
+    - KakaoSDKCommon (= 2.8.6)
+  - KakaoSDKCommon (2.8.6):
+    - KakaoSDKCommon/Common (= 2.8.6)
+    - KakaoSDKCommon/Network (= 2.8.6)
+  - KakaoSDKCommon/Common (2.8.6)
+  - KakaoSDKCommon/Network (2.8.6):
+    - Alamofire (~> 5.1)
+    - KakaoSDKCommon/Common (= 2.8.6)
+  - KakaoSDKUser (2.8.6):
+    - KakaoSDKAuth (= 2.8.6)
   - Pageboy (3.6.2)
   - RxCocoa (6.1.0):
     - RxRelay (= 6.1.0)
@@ -14,6 +25,8 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.4.4)
+  - KakaoSDKAuth (~> 2.8.6)
+  - KakaoSDKUser (~> 2.8.6)
   - RxCocoa (< 6.2.0)
   - RxSwift (< 6.2.0)
   - SnapKit (~> 5.0.1)
@@ -23,6 +36,9 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - KakaoSDKAuth
+    - KakaoSDKCommon
+    - KakaoSDKUser
     - Pageboy
     - RxCocoa
     - RxRelay
@@ -33,6 +49,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  KakaoSDKAuth: 53e747a3bf343a3f3e87b14478d5a865d6c2acae
+  KakaoSDKCommon: 7e56600ff4c1bd82bed93fea4299b5a37f47e6a5
+  KakaoSDKUser: e79480355fa789f42e628dfba359fc21e9914f4c
   Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
   RxCocoa: 5c51f02d562cbd94629f6c26cf0c80fe4ab8d343
   RxRelay: 483e1a19fad961b41f0b0c0bee506f46c1ae14fe
@@ -41,6 +60,6 @@ SPEC CHECKSUMS:
   Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: 7c187d9361841b1f72d02803386ad04ab9d5e2d2
+PODFILE CHECKSUM: 8b135aa4a7e2e31f6ce71440f447030bb21af5f1
 
 COCOAPODS: 1.11.2

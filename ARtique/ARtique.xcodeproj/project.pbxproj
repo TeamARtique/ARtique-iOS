@@ -93,6 +93,8 @@
 		3305F7AB2754E66500E6E08E /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3305F75D2754E00500E6E08E /* AppleSDGothicNeoB.ttf */; };
 		3305F7AC2754E66700E6E08E /* AppleSDGothicNeoR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3305F75A2754E00500E6E08E /* AppleSDGothicNeoR.ttf */; };
 		3305F7AD2754E66900E6E08E /* AppleSDGothicNeoSB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3305F75B2754E00500E6E08E /* AppleSDGothicNeoSB.ttf */; };
+		334E737127FB66B5001BAF25 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E737027FB66B5001BAF25 /* LoginVC.swift */; };
+		334E737327FC1F3F001BAF25 /* AppleSDGothicNeoL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 334E737227FC1F3A001BAF25 /* AppleSDGothicNeoL.ttf */; };
 		33AC27882763D21D00E0765A /* ARGallery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33AC27872763D21D00E0765A /* ARGallery.storyboard */; };
 		33AC278A2763D27200E0765A /* ARGalleryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AC27892763D27200E0765A /* ARGalleryVC.swift */; };
 		91832D0B8CCD458B4D6477F3 /* Pods_ARtique.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDA3E5AB13FCA77BEB6A01BC /* Pods_ARtique.framework */; };
@@ -187,6 +189,8 @@
 		3305F7A52754E44B00E6E08E /* MypageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageVC.swift; sourceTree = "<group>"; };
 		3305F7A72754E45800E6E08E /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		3305F7A92754E61F00E6E08E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		334E737027FB66B5001BAF25 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		334E737227FC1F3A001BAF25 /* AppleSDGothicNeoL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = AppleSDGothicNeoL.ttf; path = "../../../../../../../../Downloads/Apple+산돌고딕+Neo/AppleSDGothicNeoL.ttf"; sourceTree = "<group>"; };
 		3350596D27E5CC8C0088B708 /* GalleryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryType.swift; sourceTree = "<group>"; };
 		33AC27872763D21D00E0765A /* ARGallery.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ARGallery.storyboard; sourceTree = "<group>"; };
 		33AC27892763D27200E0765A /* ARGalleryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARGalleryVC.swift; sourceTree = "<group>"; };
@@ -312,6 +316,7 @@
 		3305F7432754DB4000E6E08E /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				334E736E27FB6675001BAF25 /* Login */,
 				23C9AD632801C85B00DFF5A2 /* Shared */,
 				33AC27842763D1CD00E0765A /* ARGallery */,
 				3305F76C2754E13400E6E08E /* TabBar */,
@@ -409,6 +414,7 @@
 				3305F75C2754E00500E6E08E /* AppleSDGothicNeoM.ttf */,
 				3305F75A2754E00500E6E08E /* AppleSDGothicNeoR.ttf */,
 				3305F75B2754E00500E6E08E /* AppleSDGothicNeoSB.ttf */,
+				334E737227FC1F3A001BAF25 /* AppleSDGothicNeoL.ttf */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -630,6 +636,30 @@
 			path = TVC;
 			sourceTree = "<group>";
 		};
+		3305F7982754E39900E6E08E /* CVC */ = {
+			isa = PBXGroup;
+			children = (
+				3305F7A12754E3C100E6E08E /* e.swift */,
+			);
+			path = CVC;
+			sourceTree = "<group>";
+		};
+		334E736E27FB6675001BAF25 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				334E736F27FB668B001BAF25 /* Controller */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		334E736F27FB668B001BAF25 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				334E737027FB66B5001BAF25 /* LoginVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		33AC27842763D1CD00E0765A /* ARGallery */ = {
 			isa = PBXGroup;
 			children = (
@@ -736,6 +766,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3305F78E2754E34B00E6E08E /* Home.storyboard in Resources */,
+				334E737327FC1F3F001BAF25 /* AppleSDGothicNeoL.ttf in Resources */,
 				23B52A9427E1131C00D6C339 /* ThemeCVC.xib in Resources */,
 				23B52A9027E1013E00D6C339 /* RoundCVC.xib in Resources */,
 				3305F7332754DABA00E6E08E /* art.scnassets in Resources */,
@@ -826,6 +857,8 @@
 				23071DB427ECB47600949BA1 /* ArtworkExplainCVC.swift in Sources */,
 				23B52A7D27E0A5A500D6C339 /* AddExhibitionNC.swift in Sources */,
 				3305F7692754E0EA00E6E08E /* APIConstants.swift in Sources */,
+				3305F7A22754E3C100E6E08E /* e.swift in Sources */,
+				334E737127FB66B5001BAF25 /* LoginVC.swift in Sources */,
 				3305F7812754E23F00E6E08E /* UIButton+.swift in Sources */,
 				3305F7512754DF3E00E6E08E /* UIColor+Additions.swift in Sources */,
 				23E734EE27E99CC8000315E6 /* OrderView.swift in Sources */,
@@ -1014,12 +1047,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U2Z5Z44P4R;
+				DEVELOPMENT_TEAM = 2ZS26WP93H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARtique/Support/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "ARtique가 사용자의 갤러리에 접근하는 것을 허용합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = TabBar;
@@ -1027,6 +1062,7 @@
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1034,6 +1070,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.boragureum.ARtique;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1046,12 +1083,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U2Z5Z44P4R;
+				DEVELOPMENT_TEAM = 2ZS26WP93H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARtique/Support/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "ARtique가 사용자의 갤러리에 접근하는 것을 허용합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = TabBar;
@@ -1059,6 +1098,7 @@
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1066,6 +1106,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.boragureum.ARtique;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
