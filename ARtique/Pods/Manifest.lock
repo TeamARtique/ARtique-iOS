@@ -12,9 +12,18 @@ PODS:
   - KakaoSDKUser (2.8.6):
     - KakaoSDKAuth (= 2.8.6)
   - Pageboy (3.6.2)
+  - PhotoCropper (0.2.0):
+    - RxCocoa (~> 6.0)
+    - RxGesture (~> 4.0)
+    - RxSwift (~> 6.0)
+    - SnapKit (~> 5.0)
+    - Then (~> 2.0)
   - RxCocoa (6.1.0):
     - RxRelay (= 6.1.0)
     - RxSwift (= 6.1.0)
+  - RxGesture (4.0.4):
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
   - RxRelay (6.1.0):
     - RxSwift (= 6.1.0)
   - RxSwift (6.1.0)
@@ -27,6 +36,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.4.4)
   - KakaoSDKAuth (~> 2.8.6)
   - KakaoSDKUser (~> 2.8.6)
+  - PhotoCropper
   - RxCocoa (< 6.2.0)
   - RxSwift (< 6.2.0)
   - SnapKit (~> 5.0.1)
@@ -40,7 +50,9 @@ SPEC REPOS:
     - KakaoSDKCommon
     - KakaoSDKUser
     - Pageboy
+    - PhotoCropper
     - RxCocoa
+    - RxGesture
     - RxRelay
     - RxSwift
     - SnapKit
@@ -53,13 +65,15 @@ SPEC CHECKSUMS:
   KakaoSDKCommon: 7e56600ff4c1bd82bed93fea4299b5a37f47e6a5
   KakaoSDKUser: e79480355fa789f42e628dfba359fc21e9914f4c
   Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
+  PhotoCropper: f78fb08f01d35f6db83530b498a06909b381a95e
   RxCocoa: 5c51f02d562cbd94629f6c26cf0c80fe4ab8d343
+  RxGesture: f3efb47ed2d26a8082f7b660d4a59970e275a7f8
   RxRelay: 483e1a19fad961b41f0b0c0bee506f46c1ae14fe
   RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: 8b135aa4a7e2e31f6ce71440f447030bb21af5f1
+PODFILE CHECKSUM: 0b2e52da0ddaf171d29ceb7d45d929c9196082ec
 
 COCOAPODS: 1.11.2

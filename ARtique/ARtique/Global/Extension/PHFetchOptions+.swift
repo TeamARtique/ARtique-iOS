@@ -9,7 +9,7 @@ import UIKit
 import Photos
 
 extension PHFetchOptions {
-    static var ascendingOptions: PHFetchOptions = {
+    static var descendingOptions: PHFetchOptions = {
         let option = PHFetchOptions()
         option.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         return option
