@@ -15,7 +15,7 @@ class ProfileEditVC: UIViewController {
     @IBOutlet weak var nicknameTF: UITextField!
     @IBOutlet weak var explanationTV: UITextView!
     @IBOutlet weak var snsTF: UITextField!
-    var imagePicker:UIImagePickerController!
+    var imagePicker: UIImagePickerController!
     
     let textViewMaxCnt = 100
     var explanationPlaceholder = "ARTI들에게 자신을 소개해보세요!"
