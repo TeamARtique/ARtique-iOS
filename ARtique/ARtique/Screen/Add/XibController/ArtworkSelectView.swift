@@ -17,7 +17,7 @@ class ArtworkSelectView: UIView {
     @IBOutlet weak var galleryCV: UICollectionView!
     @IBOutlet weak var albumListButton: UIButton!
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
-    private var preview = PhotoCropperView()
+    var preview = PhotoCropperView()
     private var spiner = UIActivityIndicatorView()
     
     var devicePhotos: PHFetchResult<PHAsset>!
@@ -29,6 +29,7 @@ class ArtworkSelectView: UIView {
     var maxArtworkCnt: Int = 0
     var selectedImages = [UIImage]()
     var selectedImageIds = [String]()
+    var isFirstSelection = true
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -185,11 +186,13 @@ extension ArtworkSelectView {
         preview.resultImage
             .subscribe(onNext: { [weak self] image in
                 guard let self = self else { return }
-                if !self.selectedImages.contains(image ?? UIImage()) {
+                if !self.isFirstSelection {
                     self.selectedImages.append(image ?? UIImage())
                     self.exhibitionModel.selectedArtwork = self.selectedImages
-                    NotificationCenter.default.post(name: .whenArtworkSelected, object: self.exhibitionModel.selectedArtwork?.count)
                 }
+                // TODO: - ERROR
+                NotificationCenter.default.post(name: .whenArtworkSelected, object: self.galleryCV.indexPathsForSelectedItems?.count)
+                self.isFirstSelection = false
             })
             .disposed(by: bag)
     }
@@ -273,7 +276,7 @@ extension ArtworkSelectView: UICollectionViewDelegate {
         selectedImages.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
         selectedImageIds.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
         exhibitionModel.selectedArtwork = selectedImages
-        NotificationCenter.default.post(name: .whenArtworkSelected, object: exhibitionModel.selectedArtwork?.count)
+        NotificationCenter.default.post(name: .whenArtworkSelected, object: galleryCV.indexPathsForSelectedItems?.count)
         spiner.stopAnimating()
     }
     

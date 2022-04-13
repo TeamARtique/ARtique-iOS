@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Photos
+import RxSwift
+import RxCocoa
 
 class AddExhibitionVC: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
@@ -18,6 +20,7 @@ class AddExhibitionVC: UIViewController {
     let orderView = OrderView()
     let postExplainView = PostExplainView()
     let exhibitionExplainView = ExhibitionExplainView()
+    let bag = DisposeBag()
     
     var progress: Float = 0.2
     var page: Int = 0
@@ -30,6 +33,7 @@ class AddExhibitionVC: UIViewController {
         configureStackView()
         hideKeyboard()
         setNotification()
+        bindCrop()
     }
 }
 
@@ -65,6 +69,28 @@ extension AddExhibitionVC {
         (progressView.progress == 1)
         ? button.setTitle("등록하기", for: .normal)
         : button.setTitle("다음", for: .normal)
+    }
+    
+    private func bindCrop() {
+        let rightBarButton = self.navigationItem.rightBarButtonItem!
+        let button = rightBarButton.customView as! UIButton
+
+        button.rx.tap
+            .filter({ [weak self] _ in
+                self?.page == 2
+            })
+            .bind(to: artworkSelectView.preview.crop)
+            .disposed(by: bag)
+        
+        button.rx.tap
+            .filter({ [weak self] _ in
+                self?.page == 2
+            })
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.orderView.artworkListView.artworkCV.reloadData()
+            })
+            .disposed(by: bag)
     }
     
     private func configurePrevButton() {
@@ -148,7 +174,9 @@ extension AddExhibitionVC {
     }
     
     @objc func setSelectedViewNaviTitle(_ notification: Notification) {
-        configureNavigationTitle(1)
+        // TODO: - ERROR FIX
+//        configureNavigationTitle(1)
+        navigationItem.title = "사진 선택 (\(notification.object ?? 0)/\(NewExhibition.shared.artworkCnt ?? 0))"
     }
     
     @objc func presentAlbumList(_ notification: Notification) {
