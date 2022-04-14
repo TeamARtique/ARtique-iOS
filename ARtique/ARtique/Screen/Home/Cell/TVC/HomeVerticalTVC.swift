@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AllTVC: UITableViewCell{
+class HomeVerticalTVC: UITableViewCell{
     // 임시 데이터
     let allData = [
         ExhibitionData("My Lovely Cat", "우주인", UIImage(named: "MyLovelyCat")!, 8, 6),
@@ -26,7 +26,7 @@ class AllTVC: UITableViewCell{
 
     @IBOutlet weak var subTitle: UILabel!
     @IBOutlet weak var showAllListBtn: UIButton!
-    @IBOutlet weak var lastCV: UICollectionView!
+    @IBOutlet weak var allExhibitionCV: UICollectionView!
     
     // TVC cell 구분용
     var cellIdentifier = 0
@@ -45,10 +45,10 @@ class AllTVC: UITableViewCell{
 }
 
 //MARK: - Custom Method
-extension AllTVC {
+extension HomeVerticalTVC {
     func setUpDelegate() {
-        lastCV.delegate = self
-        lastCV.dataSource = self
+        allExhibitionCV.delegate = self
+        allExhibitionCV.dataSource = self
     }
     
     func setUpAllTVCView() {
@@ -61,12 +61,12 @@ extension AllTVC {
     }
     
     func setlastCV() {
-        lastCV.isScrollEnabled = false
+        allExhibitionCV.isScrollEnabled = false
     }
 }
 
 // MARK: UICollectionViewDataSource
-extension AllTVC: UICollectionViewDataSource {
+extension HomeVerticalTVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 6
     }
@@ -80,7 +80,7 @@ extension AllTVC: UICollectionViewDataSource {
 }
 
 // MARK: UICollectionViewDelegate
-extension AllTVC: UICollectionViewDelegate {
+extension HomeVerticalTVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // 화면 전환
         if let delegate = delegate {
@@ -89,7 +89,7 @@ extension AllTVC: UICollectionViewDelegate {
     }
 }
 // MARK: UICollectionViewDelegateFlowLayout
-extension AllTVC: UICollectionViewDelegateFlowLayout {
+extension HomeVerticalTVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
         let itemsPerRow: CGFloat = 2

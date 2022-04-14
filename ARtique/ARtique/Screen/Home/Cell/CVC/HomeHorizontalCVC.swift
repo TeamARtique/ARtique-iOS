@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExhibitionListCVC: UICollectionViewCell {
+class HomeHorizontalCVC: UICollectionViewCell {
     @IBOutlet weak var phoster: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var author: UILabel!

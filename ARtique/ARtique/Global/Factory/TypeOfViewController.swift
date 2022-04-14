@@ -29,7 +29,7 @@ extension TypeOfViewController {
         case .arGallery:
             return StoryboardRepresentation(bundle: nil, storyboardName: Identifiers.arGallerySB, storyboardId: Identifiers.planeRecognitionVC)
         case .category:
-            return StoryboardRepresentation(bundle: nil, storyboardName: Identifiers.exhibitionListSB, storyboardId: Identifiers.exhibitionListVC)
+            return StoryboardRepresentation(bundle: nil, storyboardName: Identifiers.homeListSB, storyboardId: Identifiers.homeListVC)
         }
     }
 }

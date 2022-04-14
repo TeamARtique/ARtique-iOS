@@ -14,9 +14,9 @@ class HomeVC: TabmanViewController {
     @IBOutlet weak var categoryTB: UIView!
     @IBOutlet weak var categoryTBTopAnchor: NSLayoutConstraint!
     
-    private let viewControllers: [ExhibitionListVC] = CategoryType.allCases
+    private let viewControllers: [HomeListVC] = CategoryType.allCases
         .compactMap { type in
-            let vc = ViewControllerFactory.viewController(for: type.viewControllerType) as? ExhibitionListVC
+            let vc = ViewControllerFactory.viewController(for: type.viewControllerType) as? HomeListVC
             vc?.categoryType = type
             return vc
         }

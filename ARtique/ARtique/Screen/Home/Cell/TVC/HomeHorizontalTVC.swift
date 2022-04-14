@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExhibitionListTVC: UITableViewCell {
+class HomeHorizontalTVC: UITableViewCell {
     // 임시 데이터
     let forARTI_DATA = [
         ExhibitionData("My Lovely Cat", "우주인", UIImage(named: "MyLovelyCat")!, 8, 6),
@@ -50,7 +50,7 @@ class ExhibitionListTVC: UITableViewCell {
 }
 
 //MARK: - Custom Method
-extension ExhibitionListTVC {
+extension HomeHorizontalTVC {
     
     /// setUpCV - 추천(ㅇㅇARTI를 위한 전시, ARTI들의 인기 전시) collectionview Setting
     func setUpCV(){
@@ -95,7 +95,7 @@ protocol CVCellDelegate {
 }
 
 // MARK: DataSource - 임시 데이터 셋업, 서버 생성 후 수정
-extension ExhibitionListTVC: UICollectionViewDataSource{
+extension HomeHorizontalTVC: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // 6개 고정
         return forARTI_DATA.count
@@ -104,7 +104,7 @@ extension ExhibitionListTVC: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellIndex = indexPath.row % forARTI_DATA.count
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.exhibitionListCVC, for: indexPath) as! ExhibitionListCVC
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.homeHorizontalCVC, for: indexPath) as! HomeHorizontalCVC
         
         if cellIdentifier == 0 {
             cell.phoster.image = forARTI_DATA[cellIndex].phoster
@@ -128,7 +128,7 @@ extension ExhibitionListTVC: UICollectionViewDataSource{
     }
 }
 // MARK: UICollectionViewDelegate
-extension ExhibitionListTVC: UICollectionViewDelegate{
+extension HomeHorizontalTVC: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // 옆 셀 눌렀을땐 넘어가게
         if indexPath != currentIndexPath {
@@ -191,7 +191,7 @@ extension ExhibitionListTVC: UICollectionViewDelegate{
     }
 }
 // MARK: UICollectionViewDelegateFlowLayout
-extension ExhibitionListTVC: UICollectionViewDelegateFlowLayout {
+extension HomeHorizontalTVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return cellSize
     }
