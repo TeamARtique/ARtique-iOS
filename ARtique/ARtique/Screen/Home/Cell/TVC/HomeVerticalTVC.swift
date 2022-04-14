@@ -42,6 +42,11 @@ class HomeVerticalTVC: UITableViewCell{
         setUpAllTVCView()
         setlastCV()
     }
+    
+    @IBAction func showAllExhibitionList(_ sender: Any) {
+        let title = subTitle.text?.split(separator: " ")
+        NotificationCenter.default.post(name: .whenAllExhibitionBtnSelected, object: "\(title?[0] ?? "")")
+    }
 }
 
 //MARK: - Custom Method

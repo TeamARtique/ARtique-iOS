@@ -105,7 +105,7 @@ extension MypageVC: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: false)
         
         guard let cell = tableView.cellForRow(at: indexPath) as? MypageClassificationTVC else { return }
-        guard let exhibitionListVC = UIStoryboard(name: Identifiers.exhibitionListSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.exhibitionListVC) as? ExhibitionListVC else { return }
+        guard let exhibitionListVC = ViewControllerFactory.viewController(for: .exhibitionList) as? ExhibitionListVC else { return }
         exhibitionListVC.hidesBottomBarWhenPushed = true
         exhibitionListVC.setNaviBarTitle((cell.exhibitionType.text ?? "") + " " + (cell.exhibitionCnt.text ?? ""))
         navigationController?.pushViewController(exhibitionListVC, animated: true)

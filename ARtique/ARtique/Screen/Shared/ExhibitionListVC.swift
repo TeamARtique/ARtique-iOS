@@ -25,6 +25,9 @@ class ExhibitionListVC: UIViewController {
         ExhibitionData("우리 코코", "plataa", UIImage(named: "coco_phoster")!, 312, 198)
     ]
     
+    var isRightBarBtnExist = false
+    var isOrderChanged = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
@@ -41,6 +44,8 @@ extension ExhibitionListVC {
                                                            target: self,
                                                            action: #selector(popVC))
         navigationController?.navigationBar.tintColor = .black
+        
+        setRightBarBtn()
     }
     
     private func configureCV() {
@@ -61,8 +66,47 @@ extension ExhibitionListVC {
         navigationItem.title = title
     }
     
+    func setRightBarBtn() {
+        if isRightBarBtnExist {
+            let buttonWidth = 75
+            let buttonHeight = 29
+            let button = UIButton(frame: CGRect(x: 0, y: 0, width: buttonWidth, height: buttonHeight))
+            
+            button.backgroundColor = .clear
+            button.setTitle("인기순 ", for: .normal)
+            button.setTitleColor(.black, for: .normal)
+            button.setImage(UIImage(named: "Reorder"), for: .normal)
+            button.titleLabel?.font = .AppleSDGothicB(size: 12)
+            button.semanticContentAttribute = .forceRightToLeft
+            button.addTarget(self, action: #selector(reorderList), for: .touchUpInside)
+            
+            let rightBarButtonItem = UIBarButtonItem(customView: button)
+            rightBarButtonItem.customView?.layer.borderColor = UIColor.label.cgColor
+            rightBarButtonItem.customView?.layer.borderWidth = 1
+            rightBarButtonItem.customView?.layer.cornerRadius = CGFloat(buttonHeight / 2)
+            navigationItem.rightBarButtonItem = rightBarButtonItem
+        }
+    }
+    
     @objc func popVC() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func reorderList(){
+        let rightBarButton = self.navigationItem.rightBarButtonItem!
+        let button = rightBarButton.customView as! UIButton
+        
+        isOrderChanged.toggle()
+        if isOrderChanged {
+            button.setTitle("최신순 ", for: .normal)
+            // TODO: - 데이터 순서 정렬
+        } else {
+            button.setTitle("인기순 ", for: .normal)
+            // TODO: - 데이터 순서 정렬
+        }
+        
+        exhibitionListCV.reloadData()
+        exhibitionListCV.scrollToItem(at: [0,0], at: .top, animated: true)
     }
 }
 
