@@ -27,11 +27,13 @@ class ExhibitionListVC: UIViewController {
     
     var isRightBarBtnExist = false
     var isOrderChanged = false
+    var checkedOrder = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
         configureCV()
+        setNotification()
     }
 }
 
@@ -78,7 +80,7 @@ extension ExhibitionListVC {
             button.setImage(UIImage(named: "Reorder"), for: .normal)
             button.titleLabel?.font = .AppleSDGothicB(size: 12)
             button.semanticContentAttribute = .forceRightToLeft
-            button.addTarget(self, action: #selector(reorderList), for: .touchUpInside)
+            button.addTarget(self, action: #selector(presentBottomSheet), for: .touchUpInside)
             
             let rightBarButtonItem = UIBarButtonItem(customView: button)
             rightBarButtonItem.customView?.layer.borderColor = UIColor.label.cgColor
@@ -88,25 +90,35 @@ extension ExhibitionListVC {
         }
     }
     
+    private func setNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reorderList), name: .whenReorderBtnTapped, object: nil)
+    }
+    
     @objc func popVC() {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func reorderList(){
+    @objc func presentBottomSheet(){
+        let reorderBottomSheet = ReorderBottomSheetVC()
+        reorderBottomSheet.checkedOrder = checkedOrder
+        self.present(reorderBottomSheet, animated: true)
+    }
+    
+    @objc func reorderList(_ notification: Notification) {
         let rightBarButton = self.navigationItem.rightBarButtonItem!
         let button = rightBarButton.customView as! UIButton
         
-        isOrderChanged.toggle()
-        if isOrderChanged {
-            button.setTitle("최신순 ", for: .normal)
+        if notification.object as? Int ?? 0 == 0 {
+            button.setTitle("인기순 ", for: .normal)
             // TODO: - 데이터 순서 정렬
         } else {
-            button.setTitle("인기순 ", for: .normal)
+            button.setTitle("최신순 ", for: .normal)
             // TODO: - 데이터 순서 정렬
         }
         
         exhibitionListCV.reloadData()
         exhibitionListCV.scrollToItem(at: [0,0], at: .top, animated: true)
+        checkedOrder = notification.object as? Int ?? 0
     }
 }
 

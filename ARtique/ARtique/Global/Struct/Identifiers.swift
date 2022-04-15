@@ -40,6 +40,7 @@ struct Identifiers {
     static let albumTVC = "AlbumTVC"
     static let mypageClassificationTVC = "MypageClassificationTVC"
     static let myExhibitionTVC = "MyExhibitionTVC"
+    static let reorderTVC = "ReorderTVC"
     
     //MARK: - CVC
     static let homeHorizontalCVC = "HomeHorizontalCVC"
