@@ -12,6 +12,7 @@ struct Identifiers {
     static let homeSB = "Home"
     static let exhibitionListSB = "ExhibitionList"
     static let detailSB = "Detail"
+    static let searchSB = "Search"
     static let addSB = "AddExhibition"
     static let mypageSB = "Mypage"
     static let profileEditSB = "ProfileEdit"
@@ -23,6 +24,7 @@ struct Identifiers {
     static let homeVC = "HomeVC"
     static let exhibitionListVC = "ExhibitionListVC"
     static let detailVC = "DetailVC"
+    static let searchVC = "SearchVC"
     static let addExhibitionNC = "AddExhibitionNC"
     static let addExhibitionVC = "AddExhibitionVC"
     static let mypageNC = "MypageNC"
@@ -42,6 +44,7 @@ struct Identifiers {
     //MARK: - CVC
     static let exhibitionListCVC = "ExhibitionListCVC"
     static let allCVC = "AllCVC"
+    static let latestSearchedCVC = "LatestSearchedCVC"
     static let roundCVC = "RoundCVC"
     static let themeCVC = "ThemeCVC"
     static let selectedImageCVC = "SelectedImageCVC"
