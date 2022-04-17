@@ -17,19 +17,6 @@ class RecommendCVC: UICollectionViewCell {
         super.prepareForReuse()
     }
     
-    override var isSelected: Bool {
-        didSet{
-            if isSelected {
-                contentLabel.textColor = .white
-                backgroundColor = .black
-            }
-            else {
-                contentLabel.textColor = .black
-                backgroundColor = .white
-            }
-        }
-    }
-    
     func configureCell(with label: String) {
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1

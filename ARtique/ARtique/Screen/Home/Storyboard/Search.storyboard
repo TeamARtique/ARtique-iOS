@@ -107,7 +107,7 @@
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="128" height="30"/>
                                         <connections>
-                                            <outlet property="contentLabel" destination="0el-Bl-Gw8" id="IoJ-De-173"/>
+                                            <outlet property="contentLabel" destination="0el-Bl-Gw8" id="TbW-4A-sMf"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -147,7 +147,7 @@
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="128" height="30"/>
                                         <connections>
-                                            <outlet property="contentLabel" destination="Ytm-gC-Nae" id="H5u-fk-sCk"/>
+                                            <outlet property="contentLabel" destination="Ytm-gC-Nae" id="gqc-zx-eVV"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

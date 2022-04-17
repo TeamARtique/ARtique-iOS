@@ -21,11 +21,7 @@ class SearchVC: UIViewController {
     }
     
     @IBAction func showSearchResultView(_ sender: Any) {
-        guard let resultVC = UIStoryboard(name: Identifiers.searchResultSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.searchResultVC) as? SearchResultVC else { return }
-        resultVC.keyword = keywordTF.text
-        // TODO: - 검색 개수 서버 연결
-        resultVC.searchCnt = 5
-        navigationController?.pushViewController(resultVC, animated: true)
+        didTapSearchBtn(keyword: keywordTF.text ?? "")
     }
 }
 
@@ -57,6 +53,14 @@ extension SearchVC {
 extension SearchVC {
     @objc func popVC() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    private func didTapSearchBtn(keyword: String) {
+        guard let resultVC = UIStoryboard(name: Identifiers.searchResultSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.searchResultVC) as? SearchResultVC else { return }
+        resultVC.keyword = keyword
+        // TODO: - 검색 개수 서버 연결
+        resultVC.searchCnt = 5
+        navigationController?.pushViewController(resultVC, animated: true)
     }
 }
 
@@ -98,5 +102,19 @@ extension SearchVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let recommandCell = recommendCV.cellForItem(at: indexPath) as? RecommendCVC,
+              let latestCell = latestCV.cellForItem(at: indexPath) as? LatestSearchedCVC else { return }
+        
+        switch collectionView {
+        case recommendCV:
+            didTapSearchBtn(keyword: recommandCell.contentLabel.text ?? "")
+        case latestCV:
+            didTapSearchBtn(keyword: latestCell.contentLabel.text ?? "")
+        default:
+            return
+        }
     }
 }
