@@ -39,6 +39,9 @@
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="Search"/>
+                                <connections>
+                                    <action selector="showSearchResultView:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="DHY-Q3-5gH"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="추천 검색어" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5f-BJ-hSF">
                                 <rect key="frame" x="20" y="131.5" width="69" height="20"/>
@@ -174,6 +177,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="keywordTF" destination="z6d-XS-pjQ" id="IMS-Dt-BdF"/>
                         <outlet property="latestCV" destination="NA5-yW-yO0" id="JNq-GV-ydy"/>
                         <outlet property="recommendCV" destination="iwZ-gE-mkZ" id="1xw-Fi-1NA"/>
                     </connections>

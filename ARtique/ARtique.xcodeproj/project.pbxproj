@@ -14,6 +14,8 @@
 		23071DBB27ECFBAB00949BA1 /* ExhibitionExplainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23071DB927ECFBAB00949BA1 /* ExhibitionExplainView.xib */; };
 		230883812804162200620BC1 /* ProfileEdit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230883802804162200620BC1 /* ProfileEdit.storyboard */; };
 		230883832804163100620BC1 /* ProfileEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230883822804163100620BC1 /* ProfileEditVC.swift */; };
+		23144217280C4040007DB53C /* SearchResult.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23144216280C4040007DB53C /* SearchResult.storyboard */; };
+		23144219280C4053007DB53C /* SearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23144218280C4053007DB53C /* SearchResultVC.swift */; };
 		231EF8512763DCF4008218CC /* PlaneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231EF8502763DCF4008218CC /* PlaneVC.swift */; };
 		235583FF2767A6D80046C3EE /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235583FE2767A6D80046C3EE /* FocusSquare.swift */; };
 		235584012767A7100046C3EE /* FocusSquareSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235584002767A7100046C3EE /* FocusSquareSegment.swift */; };
@@ -116,6 +118,8 @@
 		23071DB927ECFBAB00949BA1 /* ExhibitionExplainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExhibitionExplainView.xib; sourceTree = "<group>"; };
 		230883802804162200620BC1 /* ProfileEdit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileEdit.storyboard; sourceTree = "<group>"; };
 		230883822804163100620BC1 /* ProfileEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditVC.swift; sourceTree = "<group>"; };
+		23144216280C4040007DB53C /* SearchResult.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchResult.storyboard; sourceTree = "<group>"; };
+		23144218280C4053007DB53C /* SearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultVC.swift; sourceTree = "<group>"; };
 		231EF8502763DCF4008218CC /* PlaneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneVC.swift; sourceTree = "<group>"; };
 		235583FE2767A6D80046C3EE /* FocusSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
 		235584002767A7100046C3EE /* FocusSquareSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquareSegment.swift; sourceTree = "<group>"; };
@@ -519,6 +523,7 @@
 				2395FBA327563AA500D3DB77 /* DetailVC.swift */,
 				23B2E5D52758F9D700FA8CC2 /* ExhibitionListVC.swift */,
 				2383787A280AFB9B002088E6 /* SearchVC.swift */,
+				23144218280C4053007DB53C /* SearchResultVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -530,6 +535,7 @@
 				2395FBA127563A9700D3DB77 /* Detail.storyboard */,
 				23B2E5D32758F7F300FA8CC2 /* ExhibitionList.storyboard */,
 				2383787C280AFBBC002088E6 /* Search.storyboard */,
+				23144216280C4040007DB53C /* SearchResult.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -797,6 +803,7 @@
 				23E734EF27E99CC8000315E6 /* OrderView.xib in Resources */,
 				230883812804162200620BC1 /* ProfileEdit.storyboard in Resources */,
 				235650DA27F9FC870082E048 /* AlbumTVC.xib in Resources */,
+				23144217280C4040007DB53C /* SearchResult.storyboard in Resources */,
 				23E734F727E9A016000315E6 /* SelectedImageCVC.xib in Resources */,
 				23E734FB27E9A1A7000315E6 /* ArtworkListView.xib in Resources */,
 				3305F7AC2754E66700E6E08E /* AppleSDGothicNeoR.ttf in Resources */,
@@ -919,6 +926,7 @@
 				235584042767A75F0046C3EE /* Utilities.swift in Sources */,
 				238C65762756606100EADA93 /* HomeNC.swift in Sources */,
 				3305F7A82754E45800E6E08E /* HomeVC.swift in Sources */,
+				23144219280C4053007DB53C /* SearchResultVC.swift in Sources */,
 				23BB927027F0EB9100D91354 /* TagType.swift in Sources */,
 				3305F7612754E03600E6E08E /* Identifiers.swift in Sources */,
 				3305F7312754DABA00E6E08E /* AppDelegate.swift in Sources */,

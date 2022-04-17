@@ -8,6 +8,7 @@
 import UIKit
 
 class SearchVC: UIViewController {
+    @IBOutlet weak var keywordTF: UITextField!
     @IBOutlet weak var recommendCV: UICollectionView!
     @IBOutlet weak var latestCV: UICollectionView!
     let recommendData = ["제주고양이", "Love Love Love", "The Cat"]
@@ -17,6 +18,14 @@ class SearchVC: UIViewController {
         super.viewDidLoad()
         configureNaviBar()
         configureCV()
+    }
+    
+    @IBAction func showSearchResultView(_ sender: Any) {
+        guard let resultVC = UIStoryboard(name: Identifiers.searchResultSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.searchResultVC) as? SearchResultVC else { return }
+        resultVC.keyword = keywordTF.text
+        // TODO: - 검색 개수 서버 연결
+        resultVC.searchCnt = 5
+        navigationController?.pushViewController(resultVC, animated: true)
     }
 }
 
