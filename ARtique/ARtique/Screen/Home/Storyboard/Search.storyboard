@@ -15,6 +15,9 @@
         <array key="AppleSDGothicNeoL.ttf">
             <string>AppleSDGothicNeoL00</string>
         </array>
+        <array key="AppleSDGothicNeoR.ttf">
+            <string>AppleSDGothicNeoR00</string>
+        </array>
     </customFonts>
     <scenes>
         <!--SearchVC-->
@@ -46,6 +49,12 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="최근 검색어" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Xi-YH-qiP">
                                 <rect key="frame" x="20" y="131.5" width="69" height="20"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeoB00" family="AppleSDGothicNeoB00" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="최근 검색어가 없습니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asr-dw-9bF">
+                                <rect key="frame" x="20" y="164.5" width="142" height="19"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeoR00" family="AppleSDGothicNeoR00" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -111,10 +120,12 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="9V0-0H-lCB" firstAttribute="top" secondItem="z6d-XS-pjQ" secondAttribute="bottom" constant="8" id="FAW-fY-D0u"/>
+                            <constraint firstItem="asr-dw-9bF" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="Fvi-RZ-LCV"/>
                             <constraint firstItem="z6d-XS-pjQ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="22" id="L9h-c1-uUn"/>
                             <constraint firstItem="z6d-XS-pjQ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="LoV-RX-pun"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="NA5-yW-yO0" secondAttribute="trailing" constant="20" id="O7G-Wd-Z5i"/>
                             <constraint firstItem="9V0-0H-lCB" firstAttribute="left" secondItem="5EZ-qb-Rvc" secondAttribute="left" constant="20" id="aG5-5z-C91"/>
+                            <constraint firstItem="asr-dw-9bF" firstAttribute="top" secondItem="8Xi-YH-qiP" secondAttribute="bottom" constant="13" id="b1O-y2-Gef"/>
                             <constraint firstItem="NA5-yW-yO0" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="fr9-uY-bv6"/>
                             <constraint firstItem="CKy-EA-E9k" firstAttribute="leading" secondItem="z6d-XS-pjQ" secondAttribute="trailing" constant="8" id="mNy-4N-V4y"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="NA5-yW-yO0" secondAttribute="bottom" id="nFG-WN-Y6i"/>

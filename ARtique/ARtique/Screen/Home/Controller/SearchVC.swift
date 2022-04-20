@@ -13,7 +13,8 @@ class SearchVC: UIViewController {
     @IBOutlet weak var keywordTF: UITextField!
     @IBOutlet weak var latestCV: UICollectionView!
     @IBOutlet weak var searchBtn: UIButton!
-    var latestData = ["우리 코코", "사랑스러운", "Photo", "사랑스러운", "Photo"]
+    var latestData = BehaviorRelay<[String]>(value: ["우리 코코", "사랑스러운", "Photo", "사랑스러운", "Photo"])
+    
     
     let bag = DisposeBag()
     
@@ -47,6 +48,14 @@ extension SearchVC {
         latestCV.delegate = self
         latestCV.showsVerticalScrollIndicator = false
         latestCV.collectionViewLayout = CollectionViewLeftAlignFlowLayout()
+        latestCV.backgroundColor = .white
+        
+        latestData.asObservable()
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                self.latestCV.isHidden = self.latestData.value.isEmpty
+            }
+            .disposed(by: bag)
     }
     
     private func configureSearchBtn() {
@@ -76,27 +85,29 @@ extension SearchVC {
         guard let resultVC = UIStoryboard(name: Identifiers.searchResultSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.searchResultVC) as? SearchResultVC else { return }
         resultVC.keyword = keyword
         // TODO: - 검색 개수 서버 연결
-        resultVC.searchCnt = latestData.count
+        resultVC.searchCnt = latestData.value.count
         navigationController?.pushViewController(resultVC, animated: true)
     }
     
     @objc func deleteSearchList(sender : UIButton) {
         latestCV.deleteItems(at: [IndexPath.init(row: sender.tag, section: 0)])
-        latestData.remove(at: sender.tag)
+        var items = latestData.value
+        items.remove(at: sender.tag)
+        latestData.accept(items)
     }
 }
 
 // MARK: - UICollectionViewDataSource
 extension SearchVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return latestData.count
+        return latestData.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = latestCV.dequeueReusableCell(withReuseIdentifier: Identifiers.latestSearchedCVC, for: indexPath) as? LatestSearchedCVC else { return UICollectionViewCell() }
         cell.deleteBtn.tag = indexPath.row
         cell.deleteBtn.addTarget(self, action: #selector(deleteSearchList(sender:)), for: .touchUpInside)
-        cell.configureCell(with: latestData[indexPath.row])
+        cell.configureCell(with: latestData.value[indexPath.row])
         return cell
     }
 }
@@ -105,7 +116,7 @@ extension SearchVC: UICollectionViewDataSource {
 extension SearchVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let cell = latestCV.dequeueReusableCell(withReuseIdentifier: Identifiers.latestSearchedCVC, for: indexPath) as? LatestSearchedCVC else { return .zero }
-        cell.keyword.text = latestData[indexPath.row]
+        cell.keyword.text = latestData.value[indexPath.row]
         cell.keyword.sizeToFit()
         
         let cellWidth = cell.keyword.frame.width + 16 + 8 + 20 + 8
