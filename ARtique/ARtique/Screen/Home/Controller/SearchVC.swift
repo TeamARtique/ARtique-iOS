@@ -10,7 +10,7 @@ import UIKit
 class SearchVC: UIViewController {
     @IBOutlet weak var keywordTF: UITextField!
     @IBOutlet weak var latestCV: UICollectionView!
-    let latestData = ["우리 코코", "사랑스러운", "Photo", "사랑스러운", "Photo"]
+    var latestData = ["우리 코코", "사랑스러운", "Photo", "사랑스러운", "Photo"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +56,11 @@ extension SearchVC {
         resultVC.searchCnt = latestData.count
         navigationController?.pushViewController(resultVC, animated: true)
     }
+    
+    @objc func deleteSearchList(sender : UIButton) {
+        latestCV.deleteItems(at: [IndexPath.init(row: sender.tag, section: 0)])
+        latestData.remove(at: sender.tag)
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -66,7 +71,8 @@ extension SearchVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = latestCV.dequeueReusableCell(withReuseIdentifier: Identifiers.latestSearchedCVC, for: indexPath) as? LatestSearchedCVC else { return UICollectionViewCell() }
-        
+        cell.deleteBtn.tag = indexPath.row
+        cell.deleteBtn.addTarget(self, action: #selector(deleteSearchList(sender:)), for: .touchUpInside)
         cell.configureCell(with: latestData[indexPath.row])
         return cell
     }
