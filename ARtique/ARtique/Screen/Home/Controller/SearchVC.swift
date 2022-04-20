@@ -6,16 +6,23 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class SearchVC: UIViewController {
     @IBOutlet weak var keywordTF: UITextField!
     @IBOutlet weak var latestCV: UICollectionView!
+    @IBOutlet weak var searchBtn: UIButton!
     var latestData = ["우리 코코", "사랑스러운", "Photo", "사랑스러운", "Photo"]
+    
+    let bag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNaviBar()
         configureCV()
+        configureSearchBtn()
+        hideKeyboard()
     }
     
     @IBAction func showSearchResultView(_ sender: Any) {
@@ -40,6 +47,22 @@ extension SearchVC {
         latestCV.delegate = self
         latestCV.showsVerticalScrollIndicator = false
         latestCV.collectionViewLayout = CollectionViewLeftAlignFlowLayout()
+    }
+    
+    private func configureSearchBtn() {
+        keywordTF.rx.text.orEmpty
+            .distinctUntilChanged()
+            .subscribe(onNext: {[weak self] _ in
+                guard let self = self else { return }
+                if self.keywordTF.text == "" {
+                    self.searchBtn.tintColor = .lightGray
+                    self.searchBtn.isUserInteractionEnabled = false
+                } else {
+                    self.searchBtn.tintColor = .black
+                    self.searchBtn.isUserInteractionEnabled = true
+                }
+            })
+            .disposed(by: bag)
     }
 }
 
