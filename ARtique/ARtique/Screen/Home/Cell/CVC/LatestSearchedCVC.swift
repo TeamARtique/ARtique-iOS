@@ -8,7 +8,9 @@
 import UIKit
 
 class LatestSearchedCVC: UICollectionViewCell {
-    @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var keyword: UILabel!
+    @IBOutlet weak var deleteBtn: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -22,7 +24,8 @@ class LatestSearchedCVC: UICollectionViewCell {
         layer.borderWidth = 1
         layer.cornerRadius = frame.height / 2
         
-        contentLabel.font = .AppleSDGothicL(size: 13)
-        contentLabel.text = "\(label)"
+        keyword.font = .AppleSDGothicL(size: 13)
+        keyword.text = "\(label)"
+        deleteBtn.imageView?.layer.transform = CATransform3DMakeScale(0.7, 0.7, 0.7)
     }
 }
