@@ -8,7 +8,7 @@
 import UIKit
 import Tabman
 
-class ExhibitionListVC: UIViewController {
+class HomeListVC: UIViewController {
     @IBOutlet weak var pageTV: UITableView!
     @IBOutlet weak var pageTVTopAnchor: NSLayoutConstraint!
     var categoryType: CategoryType?
@@ -30,7 +30,7 @@ class ExhibitionListVC: UIViewController {
 }
 
 // MARK: - Custom Method
-extension ExhibitionListVC{
+extension HomeListVC{
     func setUpTV(){
         pageTV.showsVerticalScrollIndicator = false
         pageTV.separatorColor = .clear
@@ -61,26 +61,26 @@ extension ExhibitionListVC{
 }
 
 // MARK: UITableViewDataSource
-extension ExhibitionListVC: UITableViewDataSource {
+extension HomeListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-            let cell = pageTV.dequeueReusableCell(withIdentifier: Identifiers.exhibitionListTVC, for: indexPath) as! ExhibitionListTVC
+            let cell = pageTV.dequeueReusableCell(withIdentifier: Identifiers.homeHorizontalTVC, for: indexPath) as! HomeHorizontalTVC
             cell.subTitle.text = "YELYN ARTI를 위한 전시"
             cell.delegate = self
             cell.cellIdentifier = 0
             return cell
         } else if indexPath.row == 1 {
-            let cell = pageTV.dequeueReusableCell(withIdentifier: Identifiers.exhibitionListTVC, for: indexPath) as! ExhibitionListTVC
+            let cell = pageTV.dequeueReusableCell(withIdentifier: Identifiers.homeHorizontalTVC, for: indexPath) as! HomeHorizontalTVC
             cell.subTitle.text = "ARTI들의 인기 전시"
             cell.delegate = self
             cell.cellIdentifier = 1
             return cell
         } else {
-            let cell = pageTV.dequeueReusableCell(withIdentifier: Identifiers.allTVC, for: indexPath) as! AllTVC
+            let cell = pageTV.dequeueReusableCell(withIdentifier: Identifiers.homeVerticalTVC, for: indexPath) as! HomeVerticalTVC
             cell.subTitle.text = "\(tabmanBarItems![0].title!) 전시"
             cell.delegate = self
             cell.cellIdentifier = 2
@@ -90,7 +90,7 @@ extension ExhibitionListVC: UITableViewDataSource {
 }
 
 // MARK: UITableViewDelegate
-extension ExhibitionListVC: UITableViewDelegate {
+extension HomeListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 2 {
             let viewWidth = view.frame.width
@@ -134,7 +134,7 @@ extension ExhibitionListVC: UITableViewDelegate {
 }
 
 // MARK: CVCellDelegate 화면 전환용
-extension ExhibitionListVC: CVCellDelegate {
+extension HomeListVC: CVCellDelegate {
     func selectedCVC(_ index: IndexPath, _ cellIdentifier: Int, _ collectionView: UICollectionView) {
         guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
         
@@ -148,7 +148,7 @@ extension ExhibitionListVC: CVCellDelegate {
             detailVC.likeCntTmp = "26"
             detailVC.bookMarkCntTmp = "20"
         } else {
-            let cell = collectionView.cellForItem(at: index) as! ExhibitionListCVC
+            let cell = collectionView.cellForItem(at: index) as! HomeHorizontalCVC
             
             detailVC.titleTmp = cell.title.text
             detailVC.authorTmp = cell.author.text

@@ -1,5 +1,11 @@
 PODS:
   - Alamofire (5.4.4)
+  - DynamicBottomSheet (1.0.2):
+    - RxCocoa (~> 6.0)
+    - RxGesture (~> 4.0)
+    - RxSwift (~> 6.0)
+    - SnapKit (~> 5.0)
+    - Then (~> 2.0)
   - KakaoSDKAuth (2.8.6):
     - KakaoSDKCommon (= 2.8.6)
   - KakaoSDKCommon (2.8.6):
@@ -34,6 +40,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.4.4)
+  - DynamicBottomSheet
   - KakaoSDKAuth (~> 2.8.6)
   - KakaoSDKUser (~> 2.8.6)
   - PhotoCropper
@@ -46,6 +53,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - DynamicBottomSheet
     - KakaoSDKAuth
     - KakaoSDKCommon
     - KakaoSDKUser
@@ -61,6 +69,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  DynamicBottomSheet: b11ead81bf8ee494b26cbd16ff2312313e90d9e3
   KakaoSDKAuth: 53e747a3bf343a3f3e87b14478d5a865d6c2acae
   KakaoSDKCommon: 7e56600ff4c1bd82bed93fea4299b5a37f47e6a5
   KakaoSDKUser: e79480355fa789f42e628dfba359fc21e9914f4c
@@ -74,6 +83,6 @@ SPEC CHECKSUMS:
   Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: 0b2e52da0ddaf171d29ceb7d45d929c9196082ec
+PODFILE CHECKSUM: 52ca68333b7a96831a5701f7da4dec08a094dc0f
 
 COCOAPODS: 1.11.2

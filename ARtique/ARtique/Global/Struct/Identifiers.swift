@@ -10,7 +10,7 @@ struct Identifiers {
     //MARK: - Storyboard
     static let tabBarSB = "TabBar"
     static let homeSB = "Home"
-    static let exhibitionListSB = "ExhibitionList"
+    static let homeListSB = "HomeList"
     static let detailSB = "Detail"
     static let searchSB = "Search"
     static let searchResultSB = "SearchResult"
@@ -18,12 +18,13 @@ struct Identifiers {
     static let mypageSB = "Mypage"
     static let profileEditSB = "ProfileEdit"
     static let arGallerySB = "ARGallery"
+    static let exhibitionListSB = "ExhibitionList"
     
     //MARK: - Controller
     static let artiqueTBC = "ARtiqueTBC"
     static let homeNC = "HomeNC"
     static let homeVC = "HomeVC"
-    static let exhibitionListVC = "ExhibitionListVC"
+    static let homeListVC = "HomeListVC"
     static let detailVC = "DetailVC"
     static let searchVC = "SearchVC"
     static let searchResultVC = "SearchResultVC"
@@ -35,16 +36,18 @@ struct Identifiers {
     static let arGalleryVC = "ARGalleryVC"
     static let planeRecognitionVC = "PlaneVC"
     static let albumListTVC = "AlbumListTVC"
+    static let exhibitionListVC = "ExhibitionListVC"
     
     //MARK: - TVC
-    static let exhibitionListTVC = "ExhibitionListTVC"
-    static let allTVC = "AllTVC"
+    static let homeHorizontalTVC = "HomeHorizontalTVC"
+    static let homeVerticalTVC = "HomeVerticalTVC"
     static let albumTVC = "AlbumTVC"
     static let mypageClassificationTVC = "MypageClassificationTVC"
     static let myExhibitionTVC = "MyExhibitionTVC"
+    static let reorderTVC = "ReorderTVC"
     
     //MARK: - CVC
-    static let exhibitionListCVC = "ExhibitionListCVC"
+    static let homeHorizontalCVC = "HomeHorizontalCVC"
     static let allCVC = "AllCVC"
     static let latestSearchedCVC = "LatestSearchedCVC"
     static let roundCVC = "RoundCVC"

@@ -11,6 +11,7 @@ target 'ARtique' do
   pod 'Then', '~> 2.7.0'
   pod 'Tabman', '~> 2.9'
   pod 'PhotoCropper'
+  pod 'DynamicBottomSheet'
 
   # Rx
   pod 'RxSwift', '< 6.2.0'
