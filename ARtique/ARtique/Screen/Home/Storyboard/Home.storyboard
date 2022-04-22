@@ -34,8 +34,12 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="jzn-Xe-lLB" secondAttribute="height" multiplier="1:1" id="9IP-wM-GM2"/>
                                         </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="Search"/>
+                                        <connections>
+                                            <action selector="showSearchView:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="BmF-v3-mFU"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

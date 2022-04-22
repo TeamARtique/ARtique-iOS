@@ -47,6 +47,12 @@ class HomeVC: TabmanViewController {
         setCategoryIndicator()
         setNotification()
     }
+    
+    @IBAction func showSearchView(_ sender: Any) {
+        guard let searchVC = UIStoryboard(name: Identifiers.searchSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.searchVC) as? SearchVC else { return }
+        searchVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(searchVC, animated: true)
+    }
 }
 
 //MARK: - Custom Method
