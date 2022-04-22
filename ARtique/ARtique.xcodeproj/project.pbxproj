@@ -522,6 +522,7 @@
 				3305F7A72754E45800E6E08E /* HomeVC.swift */,
 				2395FBA327563AA500D3DB77 /* DetailVC.swift */,
 				23B2E5D52758F9D700FA8CC2 /* HomeListVC.swift */,
+				238BFDCD280947950018D256 /* ReorderBottomSheetVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -578,7 +579,6 @@
 				3305F7A52754E44B00E6E08E /* MypageVC.swift */,
 				23C9AD6128019FDA00DFF5A2 /* MypageNC.swift */,
 				230883822804163100620BC1 /* ProfileEditVC.swift */,
-				238BFDCD280947950018D256 /* ReorderBottomSheetVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

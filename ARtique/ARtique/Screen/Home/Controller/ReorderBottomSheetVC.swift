@@ -13,6 +13,7 @@ import Then
 class ReorderBottomSheetVC: DynamicBottomSheetViewController {
     let orderList = ["인기순 ", "최신순 "]
     var checkedOrder = 0
+    var delegate: TVCellDelegate?
     
     private var sheetTitle = UILabel()
         .then {
@@ -33,6 +34,12 @@ class ReorderBottomSheetVC: DynamicBottomSheetViewController {
     }()
 }
 
+// MARK: - TVCellDelegat
+protocol TVCellDelegate {
+    func selectedTVC(sortedBy index: Int)
+}
+
+// MARK: - Configure
 extension ReorderBottomSheetVC {
     override func configureView() {
         super.configureView()
@@ -57,6 +64,7 @@ extension ReorderBottomSheetVC {
     }
 }
 
+// MARK: - UITableViewDataSource
 extension ReorderBottomSheetVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return orderList.count
@@ -77,9 +85,12 @@ extension ReorderBottomSheetVC: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension ReorderBottomSheetVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        NotificationCenter.default.post(name: .whenReorderBtnTapped, object: indexPath.row)
-        dismiss(animated: true, completion: nil)
+        if let delegate = delegate {
+            delegate.selectedTVC(sortedBy: indexPath.row)
+            dismiss(animated: true, completion: nil)
+        }
     }
 }

@@ -33,7 +33,6 @@ class ExhibitionListVC: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureCV()
-        setNotification()
     }
 }
 
@@ -90,35 +89,15 @@ extension ExhibitionListVC {
         }
     }
     
-    private func setNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reorderList), name: .whenReorderBtnTapped, object: nil)
-    }
-    
     @objc func popVC() {
         navigationController?.popViewController(animated: true)
     }
     
     @objc func presentBottomSheet(){
         let reorderBottomSheet = ReorderBottomSheetVC()
+        reorderBottomSheet.delegate = self
         reorderBottomSheet.checkedOrder = checkedOrder
         self.present(reorderBottomSheet, animated: true)
-    }
-    
-    @objc func reorderList(_ notification: Notification) {
-        let rightBarButton = self.navigationItem.rightBarButtonItem!
-        let button = rightBarButton.customView as! UIButton
-        
-        if notification.object as? Int ?? 0 == 0 {
-            button.setTitle("인기순 ", for: .normal)
-            // TODO: - 데이터 순서 정렬
-        } else {
-            button.setTitle("최신순 ", for: .normal)
-            // TODO: - 데이터 순서 정렬
-        }
-        
-        exhibitionListCV.reloadData()
-        exhibitionListCV.scrollToItem(at: [0,0], at: .top, animated: true)
-        checkedOrder = notification.object as? Int ?? 0
     }
 }
 
@@ -147,5 +126,25 @@ extension ExhibitionListVC: UICollectionViewDelegateFlowLayout {
         let cellHeight = 4 * cellWidth / 3 + 50
 
         return CGSize(width: cellWidth, height: cellHeight)
+    }
+}
+
+// MARK: - TVCellDelegate
+extension ExhibitionListVC: TVCellDelegate {
+    func selectedTVC(sortedBy index: Int) {
+        let rightBarButton = self.navigationItem.rightBarButtonItem!
+        let button = rightBarButton.customView as! UIButton
+        
+        if index == 0 {
+            button.setTitle("인기순 ", for: .normal)
+            // TODO: - 데이터 순서 정렬
+        } else {
+            button.setTitle("최신순 ", for: .normal)
+            // TODO: - 데이터 순서 정렬
+        }
+        
+        exhibitionListCV.reloadData()
+        exhibitionListCV.scrollToItem(at: [0,0], at: .top, animated: true)
+        checkedOrder = index
     }
 }
