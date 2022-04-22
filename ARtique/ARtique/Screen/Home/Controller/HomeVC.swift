@@ -14,9 +14,9 @@ class HomeVC: TabmanViewController {
     @IBOutlet weak var categoryTB: UIView!
     @IBOutlet weak var categoryTBTopAnchor: NSLayoutConstraint!
     
-    private let viewControllers: [ExhibitionListVC] = CategoryType.allCases
+    private let viewControllers: [HomeListVC] = CategoryType.allCases
         .compactMap { type in
-            let vc = ViewControllerFactory.viewController(for: type.viewControllerType) as? ExhibitionListVC
+            let vc = ViewControllerFactory.viewController(for: type.viewControllerType) as? HomeListVC
             vc?.categoryType = type
             return vc
         }
@@ -88,6 +88,7 @@ extension HomeVC {
     func setNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(upCategoryTabBar), name: .whenExhibitionListTVScrolledUp, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(downCategoryTabBar), name: .whenExhibitionListTVScrolledDown, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showAllExhibitionList), name: .whenAllExhibitionBtnSelected, object: nil)
     }
     
     @objc func upCategoryTabBar() {
@@ -104,6 +105,14 @@ extension HomeVC {
         self.customNavigationBar.layer.opacity = 1
         self.categoryTBTopAnchor.constant = 68
         self.view.layoutIfNeeded()
+    }
+    
+    @objc func showAllExhibitionList(_ notification: Notification) {
+        guard let exhibitionListVC = ViewControllerFactory.viewController(for: .exhibitionList) as? ExhibitionListVC else { return }
+        exhibitionListVC.hidesBottomBarWhenPushed = true
+        exhibitionListVC.setNaviBarTitle(notification.object as? String ?? "")
+        exhibitionListVC.isRightBarBtnExist = true
+        navigationController?.pushViewController(exhibitionListVC, animated: true)
     }
 }
 

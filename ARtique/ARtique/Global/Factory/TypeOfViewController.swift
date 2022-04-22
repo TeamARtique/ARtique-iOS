@@ -13,6 +13,7 @@ enum TypeOfViewController {
     case mypage
     case arGallery
     case category
+    case exhibitionList
 }
 
 extension TypeOfViewController {
@@ -29,6 +30,8 @@ extension TypeOfViewController {
         case .arGallery:
             return StoryboardRepresentation(bundle: nil, storyboardName: Identifiers.arGallerySB, storyboardId: Identifiers.planeRecognitionVC)
         case .category:
+            return StoryboardRepresentation(bundle: nil, storyboardName: Identifiers.homeListSB, storyboardId: Identifiers.homeListVC)
+        case .exhibitionList:
             return StoryboardRepresentation(bundle: nil, storyboardName: Identifiers.exhibitionListSB, storyboardId: Identifiers.exhibitionListVC)
         }
     }
