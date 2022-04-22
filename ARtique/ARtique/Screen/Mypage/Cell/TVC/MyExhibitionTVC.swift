@@ -9,6 +9,8 @@ import UIKit
 
 class MyExhibitionTVC: UITableViewCell {
     @IBOutlet weak var exhibitionCV: UICollectionView!
+    var exhibitionData: [ExhibitionData]?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         configureCV()
@@ -33,12 +35,13 @@ extension MyExhibitionTVC {
 // MARK: - UICollectionViewDataSource
 extension MyExhibitionTVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        exhibitionData?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.exhibitionCVC, for: indexPath) as? ExhibitionCVC else { return UICollectionViewCell() }
-        cell.configureCell("asdf", "2020.04.09")
+        guard let exhibitionData = exhibitionData?[indexPath.row] else { return UICollectionViewCell() }
+        cell.configureCell(exhibitionData)
         return cell
     }
 }

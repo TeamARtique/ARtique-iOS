@@ -8,18 +8,39 @@
 import UIKit
 
 class MypageVC: UIViewController {
+    @IBOutlet weak var baseSV: UIScrollView!
     @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var editBtn: UIButton!
     @IBOutlet weak var nickname: UILabel!
     @IBOutlet weak var explanation: UILabel!
     @IBOutlet weak var snsUrl: UILabel!
     @IBOutlet weak var exhibitionTV: UITableView!
+    @IBOutlet weak var exhibitionTVHeight: NSLayoutConstraint!
     @IBOutlet weak var registeredExhibitionCnt: UILabel!
     @IBOutlet weak var bookmarkExhibitionCnt: UILabel!
+    
+    // dummyData
+    var registerData: [ExhibitionData] = [
+        ExhibitionData("My Lovely Cat", "우주인", UIImage(named: "MyLovelyCat")!, 8, 6),
+        ExhibitionData("Future Body", "cl0ud", UIImage(named: "Future_Body")!, 10, 2),
+        ExhibitionData("The Cat", "asdf", UIImage(named: "theCat")!, 12, 10),
+        ExhibitionData("AGITATO 고양이", "TATO", UIImage(named: "AGITATO")!, 5, 3),
+        ExhibitionData("제주 고양이", "juJe", UIImage(named: "JejuCat")!, 20, 15),
+        ExhibitionData("Cat and Flower", "caf", UIImage(named: "CatAndFlower")!, 13, 9)
+    ]
+    var bookmarkData:[ExhibitionData] = [
+        ExhibitionData("This is the Sun", "Magdiel", UIImage(named: "ThisistheSun")!, 120, 56),
+        ExhibitionData("SAISON 17/18", "is0n", UIImage(named: "SAISON")!, 112, 89),
+        ExhibitionData("Love Love Love", "Lx3", UIImage(named: "LoveLoveLove")!, 212, 101),
+        ExhibitionData("PhotoClub", "toPho", UIImage(named: "PhotoClub")!, 95, 73),
+        ExhibitionData("APOLLO", "StrongArm", UIImage(named: "APOLLO")!, 220, 115),
+        ExhibitionData("우리 코코", "plataa", UIImage(named: "coco_phoster")!, 312, 198)
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNaviBar()
+        configureSV()
         configureProfile()
         configureTV()
     }
@@ -46,6 +67,10 @@ extension MypageVC {
         navigationItem.rightBarButtonItem = rightBarBtn
     }
     
+    private func configureSV() {
+        baseSV.showsVerticalScrollIndicator = false
+    }
+    
     private func configureProfile() {
         profileImg.layer.cornerRadius = profileImg.frame.height / 2
         nickname.font = .AppleSDGothicR(size: 17)
@@ -57,8 +82,16 @@ extension MypageVC {
         exhibitionTV.dataSource = self
         exhibitionTV.delegate = self
         exhibitionTV.separatorStyle = .none
-        exhibitionTV.showsVerticalScrollIndicator = false
+        exhibitionTV.isScrollEnabled = false
         exhibitionTV.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
+        
+        if registerData.isEmpty && bookmarkData.isEmpty {
+            exhibitionTV.isHidden = true
+        } else if !registerData.isEmpty && !bookmarkData.isEmpty {
+            exhibitionTVHeight.constant = 652
+        } else {
+            exhibitionTVHeight.constant = 326
+        }
     }
 }
 
@@ -86,12 +119,14 @@ extension MypageVC: UITableViewDataSource {
             return titleCell
         case 1:
             // TODO: - 전시 연결
+            exhibitionCell.exhibitionData = registerData
             return exhibitionCell
         case 2:
             titleCell.configureCell("북마크한 전시", 5)
             return titleCell
         case 3:
             // TODO: - 전시 연결
+            exhibitionCell.exhibitionData = bookmarkData
             return exhibitionCell
         default:
             return UITableViewCell()

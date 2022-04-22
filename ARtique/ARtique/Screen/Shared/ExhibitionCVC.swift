@@ -26,8 +26,8 @@ extension ExhibitionCVC {
         date.font = .AppleSDGothicR(size: 11)
     }
     
-    func configureCell(_ title: String, _ date: String) {
-        self.title.text = title
-        self.date.text = date
+    func configureCell(_ exhibition: ExhibitionData) {
+        phoster.image = exhibition.phoster
+        title.text = exhibition.title
     }
 }
