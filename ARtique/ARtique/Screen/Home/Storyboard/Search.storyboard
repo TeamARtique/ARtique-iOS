@@ -138,9 +138,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="keywordTF" destination="z6d-XS-pjQ" id="IMS-Dt-BdF"/>
                         <outlet property="latestCV" destination="NA5-yW-yO0" id="JNq-GV-ydy"/>
                         <outlet property="searchBtn" destination="CKy-EA-E9k" id="QIu-z3-mAN"/>
+                        <outlet property="searchTextField" destination="z6d-XS-pjQ" id="IMS-Dt-BdF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

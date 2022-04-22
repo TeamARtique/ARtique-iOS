@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 class SearchVC: UIViewController {
-    @IBOutlet weak var keywordTF: UITextField!
+    @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var latestCV: UICollectionView!
     @IBOutlet weak var searchBtn: UIButton!
     var latestData = BehaviorRelay<[String]>(value: ["우리 코코", "사랑스러운", "Photo", "사랑스러운", "Photo"])
@@ -27,7 +27,7 @@ class SearchVC: UIViewController {
     }
     
     @IBAction func showSearchResultView(_ sender: Any) {
-        didTapSearchBtn(keyword: keywordTF.text ?? "")
+        didTapSearchBtn(keyword: searchTextField.text ?? "")
     }
 }
 
@@ -59,17 +59,16 @@ extension SearchVC {
     }
     
     private func configureSearchBtn() {
-        keywordTF.rx.text.orEmpty
+        searchTextField.rx.text.orEmpty
             .distinctUntilChanged()
             .subscribe(onNext: {[weak self] _ in
                 guard let self = self else { return }
-                if self.keywordTF.text == "" {
-                    self.searchBtn.tintColor = .lightGray
-                    self.searchBtn.isUserInteractionEnabled = false
-                } else {
-                    self.searchBtn.tintColor = .black
-                    self.searchBtn.isUserInteractionEnabled = true
-                }
+                self.searchBtn.tintColor
+                = self.searchTextField.text == ""
+                ? .lightGray : .black
+                self.searchBtn.isUserInteractionEnabled
+                = self.searchTextField.text == ""
+                ? false : true
             })
             .disposed(by: bag)
     }
