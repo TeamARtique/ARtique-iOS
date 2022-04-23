@@ -25,7 +25,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K5l-UA-HzH">
-                                <rect key="frame" x="0.0" y="106" width="375" height="672"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lMF-k2-EnC">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="644.66666666666663"/>
@@ -151,7 +151,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="lmW-Pn-bpO"/>
                             </scrollView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="whf-Qq-UsW">
-                                <rect key="frame" x="146.33333333333334" y="72" width="82.666666666666657" height="20.666666666666671"/>
+                                <rect key="frame" x="146.33333333333334" y="53.999999999999993" width="82.666666666666657" height="20.666666666666664"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iF-wt-18v">
                                         <rect key="frame" x="0.0" y="0.0" width="41" height="20.666666666666668"/>
@@ -179,7 +179,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ybF-RJ-tMg">
-                                <rect key="frame" x="12" y="67" width="31" height="31"/>
+                                <rect key="frame" x="12" y="49" width="31" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="31" id="4tx-7z-gcH"/>
                                     <constraint firstAttribute="height" constant="31" id="hl9-s9-pDb"/>
@@ -192,7 +192,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFz-Tu-UnM">
-                                <rect key="frame" x="329" y="69.333333333333329" width="26" height="26"/>
+                                <rect key="frame" x="329" y="51.333333333333343" width="26" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="DWY-vS-qBx"/>
                                     <constraint firstAttribute="width" constant="26" id="vCo-hg-MII"/>
@@ -216,7 +216,7 @@
                             <constraint firstItem="ybF-RJ-tMg" firstAttribute="leading" secondItem="pWg-Rk-0tr" secondAttribute="leading" constant="12" id="XfD-4V-nqS"/>
                             <constraint firstItem="K5l-UA-HzH" firstAttribute="trailing" secondItem="pWg-Rk-0tr" secondAttribute="trailing" id="b6T-6S-XB7"/>
                             <constraint firstItem="pWg-Rk-0tr" firstAttribute="trailing" secondItem="lth-VT-Au3" secondAttribute="trailing" constant="20" id="dc3-mL-ROu"/>
-                            <constraint firstItem="whf-Qq-UsW" firstAttribute="top" secondItem="pWg-Rk-0tr" secondAttribute="top" constant="28" id="lxx-AM-gFd"/>
+                            <constraint firstItem="whf-Qq-UsW" firstAttribute="top" secondItem="pWg-Rk-0tr" secondAttribute="top" constant="10" id="lxx-AM-gFd"/>
                             <constraint firstItem="K5l-UA-HzH" firstAttribute="leading" secondItem="pWg-Rk-0tr" secondAttribute="leading" id="uVK-c2-lRW"/>
                         </constraints>
                     </view>

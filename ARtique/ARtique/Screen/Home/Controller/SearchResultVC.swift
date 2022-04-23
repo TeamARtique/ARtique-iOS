@@ -50,13 +50,11 @@ extension SearchResultVC {
     }
     
     private func configureResultLabel() {
-        if searchCnt == 0 {
-            resultLabel.text = "'\(keyword ?? "")' 에 해당하는 전시를 찾지 못했어요"
-            resultLabel.font = .AppleSDGothicL(size: 15)
-        } else {
-            resultLabel.text = "'\(keyword ?? "")' 에 대한 검색 결과"
-            resultLabel.font = .AppleSDGothicSB(size: 17)
-        }
+        resultLabel.text = searchCnt == 0
+        ? "'\(keyword ?? "")' 에 해당하는 전시를 찾지 못했어요"
+        : "'\(keyword ?? "")' 에 대한 검색 결과"
+        
+        resultLabel.font = .AppleSDGothicSB(size: 17)
     }
     
     private func configureCV() {
