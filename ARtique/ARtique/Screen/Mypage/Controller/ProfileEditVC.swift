@@ -19,6 +19,7 @@ class ProfileEditVC: UIViewController {
     @IBOutlet weak var snsTextField: UITextField!
     var imagePicker: UIImagePickerController!
     
+    let bag = DisposeBag()
     let textViewMaxCnt = 100
     var explanationPlaceholder = "ARTI들에게 자신을 소개해보세요!"
     
@@ -27,6 +28,7 @@ class ProfileEditVC: UIViewController {
         configureNaviBar()
         configureSV()
         configureContentView()
+        bindUI()
         hideKeyboard()
     }
     
@@ -83,6 +85,16 @@ extension ProfileEditVC {
         snsTextField.setRoundTextField(with: "www.instagram.com")
     }
     
+    private func bindUI() {
+        nicknameTextField.rx.text.orEmpty
+            .distinctUntilChanged()
+            .subscribe(onNext: {[weak self] text in
+                guard let self = self else { return }
+                self.navigationItem.rightBarButtonItem?.customView?.backgroundColor = text.isEmpty ? .light_gray : .black
+                self.navigationItem.rightBarButtonItem?.isEnabled = text.isEmpty ? false : true
+            })
+            .disposed(by: bag)
+    }
 }
 
 // MARK: - Custom Methods
