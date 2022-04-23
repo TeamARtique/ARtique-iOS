@@ -10,7 +10,7 @@ import UIKit
 class ExhibitionListVC: UIViewController {
     @IBOutlet weak var exhibitionListCV: UICollectionView!
     
-    let exhibitionData = [
+    var exhibitionData: [ExhibitionData] = [
         ExhibitionData("My Lovely Cat", "우주인", UIImage(named: "MyLovelyCat")!, 8, 6),
         ExhibitionData("Future Body", "cl0ud", UIImage(named: "Future_Body")!, 10, 2),
         ExhibitionData("The Cat", "asdf", UIImage(named: "theCat")!, 12, 10),

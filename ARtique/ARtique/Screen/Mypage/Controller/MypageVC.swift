@@ -16,8 +16,8 @@ class MypageVC: UIViewController {
     @IBOutlet weak var snsUrl: UILabel!
     @IBOutlet weak var exhibitionTV: UITableView!
     @IBOutlet weak var exhibitionTVHeight: NSLayoutConstraint!
-    @IBOutlet weak var registeredExhibitionCnt: UILabel!
-    @IBOutlet weak var bookmarkExhibitionCnt: UILabel!
+    @IBOutlet weak var registeredExhibitionBtn: ExhibitionCntBtn!
+    @IBOutlet weak var ticketBtn: ExhibitionCntBtn!
     
     // dummyData
     var registerData: [ExhibitionData] = [
@@ -36,12 +36,14 @@ class MypageVC: UIViewController {
         ExhibitionData("APOLLO", "StrongArm", UIImage(named: "APOLLO")!, 220, 115),
         ExhibitionData("우리 코코", "plataa", UIImage(named: "coco_phoster")!, 312, 198)
     ]
+    var ticketCnt: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNaviBar()
         configureSV()
         configureProfile()
+        configureExhibitionCntBtn()
         configureTV()
     }
     
@@ -49,6 +51,10 @@ class MypageVC: UIViewController {
         guard let profileEditVC = UIStoryboard(name: Identifiers.profileEditSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.profileEditVC) as? ProfileEditVC else { return }
         profileEditVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(profileEditVC, animated: true)
+    }
+    
+    @IBAction func showRegisteredExhibition(_ sender: Any) {
+        showExhibitionListVC(title: "등록한 전시 \(registerData.count)", data: registerData)
     }
 }
 
@@ -78,6 +84,14 @@ extension MypageVC {
         snsUrl.font = .AppleSDGothicR(size: 12)
     }
     
+    private func configureExhibitionCntBtn() {
+        registeredExhibitionBtn.title.text = "등록 전시 수"
+        registeredExhibitionBtn.exhibitionCnt.text = "\(registerData.count)"
+        
+        ticketBtn.title.text = "내 티켓 수"
+        ticketBtn.exhibitionCnt.text = "\(ticketCnt ?? 0)"
+    }
+    
     private func configureTV() {
         exhibitionTV.dataSource = self
         exhibitionTV.delegate = self
@@ -100,6 +114,14 @@ extension MypageVC {
     @objc func didTapRightNaviBtn() {
         // TODO: - Alarm View 구현
         print("Alarm View")
+    }
+    
+    private func showExhibitionListVC(title: String, data: [ExhibitionData]) {
+        guard let exhibitionListVC = ViewControllerFactory.viewController(for: .exhibitionList) as? ExhibitionListVC else { return }
+        exhibitionListVC.hidesBottomBarWhenPushed = true
+        exhibitionListVC.exhibitionData = data
+        exhibitionListVC.setNaviBarTitle(title)
+        navigationController?.pushViewController(exhibitionListVC, animated: true)
     }
 }
 
