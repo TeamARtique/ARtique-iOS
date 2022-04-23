@@ -143,10 +143,10 @@
                     </view>
                     <connections>
                         <outlet property="baseSV" destination="FTc-7E-j2e" id="oIG-0o-t3u"/>
-                        <outlet property="explanationTV" destination="ibA-BK-QbZ" id="mjc-Qa-cKK"/>
-                        <outlet property="nicknameTF" destination="lsK-cZ-7f3" id="BtB-Ee-FPM"/>
+                        <outlet property="explanationTextView" destination="ibA-BK-QbZ" id="mjc-Qa-cKK"/>
+                        <outlet property="nicknameTextField" destination="lsK-cZ-7f3" id="BtB-Ee-FPM"/>
                         <outlet property="profileImg" destination="YpF-fq-22h" id="CB2-OE-bgf"/>
-                        <outlet property="snsTF" destination="y6Z-fh-k1t" id="bwT-FH-Zwi"/>
+                        <outlet property="snsTextField" destination="y6Z-fh-k1t" id="bwT-FH-Zwi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

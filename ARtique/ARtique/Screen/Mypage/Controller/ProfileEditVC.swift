@@ -8,13 +8,15 @@
 import UIKit
 import Photos
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class ProfileEditVC: UIViewController {
     @IBOutlet weak var baseSV: UIScrollView!
     @IBOutlet weak var profileImg: UIButton!
-    @IBOutlet weak var nicknameTF: UITextField!
-    @IBOutlet weak var explanationTV: UITextView!
-    @IBOutlet weak var snsTF: UITextField!
+    @IBOutlet weak var nicknameTextField: UITextField!
+    @IBOutlet weak var explanationTextView: UITextView!
+    @IBOutlet weak var snsTextField: UITextField!
     var imagePicker: UIImagePickerController!
     
     let textViewMaxCnt = 100
@@ -74,11 +76,11 @@ extension ProfileEditVC {
     private func configureContentView() {
         profileImg.layer.cornerRadius = profileImg.frame.height / 2
         profileImg.layer.masksToBounds = true
-        nicknameTF.setRoundTextField(with: "ARTI")
-        explanationTV.setRoundTextView()
-        explanationTV.setTextViewPlaceholder(explanationPlaceholder)
-        explanationTV.delegate = self
-        snsTF.setRoundTextField(with: "www.instagram.com")
+        nicknameTextField.setRoundTextField(with: "ARTI")
+        explanationTextView.setRoundTextView()
+        explanationTextView.setTextViewPlaceholder(explanationPlaceholder)
+        explanationTextView.delegate = self
+        snsTextField.setRoundTextField(with: "www.instagram.com")
     }
     
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ArtworkListView: UIView {
     @IBOutlet weak var artworkCV: UICollectionView!

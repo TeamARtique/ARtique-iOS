@@ -10,6 +10,7 @@ import Photos
 import PhotoCropper
 import RxSwift
 import RxCocoa
+import SnapKit
 
 class ArtworkSelectView: UIView {
     @IBOutlet weak var previewBaseView: UIView!
