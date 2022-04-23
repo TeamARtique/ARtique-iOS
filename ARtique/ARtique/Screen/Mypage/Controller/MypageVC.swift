@@ -142,6 +142,7 @@ extension MypageVC: UITableViewDataSource {
         guard let titleCell = tableView.dequeueReusableCell(withIdentifier: Identifiers.mypageClassificationTVC, for: indexPath) as? MypageClassificationTVC,
               let exhibitionCell = tableView.dequeueReusableCell(withIdentifier: Identifiers.myExhibitionTVC, for: indexPath) as? MyExhibitionTVC else { return UITableViewCell() }
         titleCell.selectionStyle = .none
+        exhibitionCell.delegate = self
         
         switch indexPath.row {
         case 0:
@@ -178,5 +179,16 @@ extension MypageVC: UITableViewDelegate {
         default:
             break
         }
+    }
+}
+
+// MARK: - CVCellDelegate
+extension MypageVC: CVCellDelegate {
+    func selectedCVC(_ index: IndexPath, _ cellIdentifier: Int, _ collectionView: UICollectionView) {
+        guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC,
+              let cell = collectionView.cellForItem(at: index) as? ExhibitionCVC else { return }
+        detailVC.exhibitionData = cell.exhibitionData
+        
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }

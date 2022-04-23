@@ -10,6 +10,7 @@ import UIKit
 class MyExhibitionTVC: UITableViewCell {
     @IBOutlet weak var exhibitionCV: UICollectionView!
     var exhibitionData: [ExhibitionData]?
+    var delegate: CVCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,6 +44,15 @@ extension MyExhibitionTVC: UICollectionViewDataSource {
         guard let exhibitionData = exhibitionData?[indexPath.row] else { return UICollectionViewCell() }
         cell.configureCell(exhibitionData)
         return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension MyExhibitionTVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let delegate = delegate {
+            delegate.selectedCVC(indexPath, 0, collectionView)
+        }
     }
 }
 

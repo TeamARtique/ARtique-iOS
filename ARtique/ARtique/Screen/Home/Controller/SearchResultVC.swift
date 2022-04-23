@@ -92,9 +92,19 @@ extension SearchResultVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.exhibitionCVC, for: indexPath) as? ExhibitionCVC else { return UICollectionViewCell() }
 
-        cell.phoster.image = exhibitionData[indexPath.row].phoster
-        cell.title.text = exhibitionData[indexPath.row].title
+        cell.configureCell(exhibitionData[indexPath.row])
         return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension SearchResultVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC,
+              let cell = collectionView.cellForItem(at: indexPath) as? ExhibitionCVC else { return }
+        detailVC.exhibitionData = cell.exhibitionData
+        
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 

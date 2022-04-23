@@ -20,18 +20,15 @@ class DetailVC: UIViewController {
     @IBOutlet weak var naviRightBtn: UIButton!
     
     var isAuthor: Bool?
-    var phosterTmp:UIImage?
-    var titleTmp:String?
-    var authorTmp:String?
-    var likeCntTmp:String?
-    var bookMarkCntTmp:String?
+    var exhibitionData: ExhibitionData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // TODO: - 서버연결 후 연결
         isAuthor = false
         configureView()
-        setView()
+        configureExhibitionData()
+        configureARBtn()
         configureMenuBtn()
     }
     
@@ -77,8 +74,22 @@ extension DetailVC {
         createdAt.font = .AppleSDGothicM(size: 15)
         explaination.font = .AppleSDGothicR(size: 14)
         explaination.setLineBreakMode()
+    }
+    
+    func configureExhibitionData() {
+        exhiTitle.text = exhibitionData?.title
+        author.text = exhibitionData?.author
+        phoster.image = exhibitionData?.phoster
         likeBtn.isSelected = false
         bookMarkBtn.isSelected = false
+    }
+    
+    func configureARBtn(){
+        gotoARBtn.backgroundColor = .black
+        gotoARBtn.tintColor = .white
+        gotoARBtn.setTitle("AR 전시 보러가기  →", for: .normal)
+        gotoARBtn.titleLabel?.font = UIFont.AppleSDGothicB(size: 16)
+        gotoARBtn.layer.cornerRadius = gotoARBtn.frame.height/2
     }
     
     func configureMenuBtn() {
@@ -109,20 +120,6 @@ extension DetailVC {
 
 //MARK: - Custom Method
 extension DetailVC {
-    /// setView - 오브젝트 Setting
-    func setView(){
-        phoster.image = phosterTmp
-        exhiTitle.text = titleTmp
-        author.text = authorTmp
-        
-        // AR전시 보러가기 Btn
-        gotoARBtn.backgroundColor = .black
-        gotoARBtn.tintColor = .white
-        gotoARBtn.setTitle("AR 전시 보러가기  →", for: .normal)
-        gotoARBtn.titleLabel?.font = UIFont.AppleSDGothicB(size: 16)
-        gotoARBtn.layer.cornerRadius = gotoARBtn.frame.height/2
-    }
-    
     @objc func didTapShareBtn() {
         // TODO: - Firebase 연동 후 동적 URL 생성
         let url = "Exhibition URL"

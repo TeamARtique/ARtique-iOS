@@ -102,23 +102,11 @@ extension HomeHorizontalTVC: UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cellIndex = indexPath.row % forARTI_DATA.count
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.homeHorizontalCVC, for: indexPath) as? HomeHorizontalCVC else { return UICollectionViewCell() }
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.homeHorizontalCVC, for: indexPath) as! HomeHorizontalCVC
-        
-        if cellIdentifier == 0 {
-            cell.phoster.image = forARTI_DATA[cellIndex].phoster
-            cell.title.text = forARTI_DATA[cellIndex].title
-            cell.author.text = forARTI_DATA[cellIndex].author
-            cell.likeCnt.text = "\(forARTI_DATA[cellIndex].like)"
-            cell.bookMarkCnt.text = "\(forARTI_DATA[cellIndex].bookMark)"
-        } else {
-            cell.phoster.image = popular_DATA[cellIndex].phoster
-            cell.title.text = popular_DATA[cellIndex].title
-            cell.author.text = popular_DATA[cellIndex].author
-            cell.likeCnt.text = "\(popular_DATA[cellIndex].like)"
-            cell.bookMarkCnt.text = "\(popular_DATA[cellIndex].bookMark)"
-        }
+        cellIdentifier == 0
+        ? cell.configureCell(forARTI_DATA[indexPath.row])
+        : cell.configureCell(popular_DATA[indexPath.row])
         
         /// 처음 로드될 때 현재 셀 아니면 사이즈 줄이기  -> scrollViewDidScroll이랑 중복, 수정 요망
         if indexPath.row != 0 {

@@ -109,10 +109,19 @@ extension ExhibitionListVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.exhibitionCVC, for: indexPath) as? ExhibitionCVC else { return UICollectionViewCell() }
-        
-        cell.phoster.image = exhibitionData[indexPath.row].phoster
-        cell.title.text = exhibitionData[indexPath.row].title
+        cell.configureCell(exhibitionData[indexPath.row])
         return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegat
+extension ExhibitionListVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? ExhibitionCVC,
+              let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
+        
+        detailVC.exhibitionData = cell.exhibitionData
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 

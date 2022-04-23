@@ -11,7 +11,17 @@ class AllCVC: UICollectionViewCell {
     @IBOutlet weak var phoster: UIImageView!
     @IBOutlet weak var title: UILabel!
     
+    var exhibitionData: ExhibitionData?
+    
     override func awakeFromNib() {
         phoster.contentMode = .scaleAspectFill
+    }
+}
+
+extension AllCVC {
+    func configureCell(_ exhibition: ExhibitionData) {
+        exhibitionData = exhibition
+        phoster.image = exhibition.phoster
+        title.text = exhibition.title
     }
 }
