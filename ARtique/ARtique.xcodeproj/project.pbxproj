@@ -18,6 +18,8 @@
 		23144219280C4053007DB53C /* SearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23144218280C4053007DB53C /* SearchResultVC.swift */; };
 		231EF8512763DCF4008218CC /* PlaneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231EF8502763DCF4008218CC /* PlaneVC.swift */; };
 		232E76D82813F91200E7CF39 /* ExhibitionCntBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232E76D72813F91200E7CF39 /* ExhibitionCntBtn.swift */; };
+		232E76DC281406E700E7CF39 /* NoneExhibition.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 232E76DB281406E700E7CF39 /* NoneExhibition.storyboard */; };
+		232E76DE281406F500E7CF39 /* NoneExhibitionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232E76DD281406F500E7CF39 /* NoneExhibitionVC.swift */; };
 		233DA02D28104AC300696487 /* CollectionViewLeftAlignFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233DA02C28104AC300696487 /* CollectionViewLeftAlignFlowLayout.swift */; };
 		235583FF2767A6D80046C3EE /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235583FE2767A6D80046C3EE /* FocusSquare.swift */; };
 		235584012767A7100046C3EE /* FocusSquareSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235584002767A7100046C3EE /* FocusSquareSegment.swift */; };
@@ -128,6 +130,8 @@
 		23144218280C4053007DB53C /* SearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultVC.swift; sourceTree = "<group>"; };
 		231EF8502763DCF4008218CC /* PlaneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneVC.swift; sourceTree = "<group>"; };
 		232E76D72813F91200E7CF39 /* ExhibitionCntBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCntBtn.swift; sourceTree = "<group>"; };
+		232E76DB281406E700E7CF39 /* NoneExhibition.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NoneExhibition.storyboard; sourceTree = "<group>"; };
+		232E76DD281406F500E7CF39 /* NoneExhibitionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneExhibitionVC.swift; sourceTree = "<group>"; };
 		233DA02C28104AC300696487 /* CollectionViewLeftAlignFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLeftAlignFlowLayout.swift; sourceTree = "<group>"; };
 		235583FE2767A6D80046C3EE /* FocusSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
 		235584002767A7100046C3EE /* FocusSquareSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquareSegment.swift; sourceTree = "<group>"; };
@@ -607,6 +611,7 @@
 				3305F7A52754E44B00E6E08E /* MypageVC.swift */,
 				23C9AD6128019FDA00DFF5A2 /* MypageNC.swift */,
 				230883822804163100620BC1 /* ProfileEditVC.swift */,
+				232E76DD281406F500E7CF39 /* NoneExhibitionVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -616,6 +621,7 @@
 			children = (
 				3305F7912754E35900E6E08E /* Mypage.storyboard */,
 				230883802804162200620BC1 /* ProfileEdit.storyboard */,
+				232E76DB281406E700E7CF39 /* NoneExhibition.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -817,6 +823,7 @@
 			files = (
 				3305F78E2754E34B00E6E08E /* Home.storyboard in Resources */,
 				23B52A9427E1131C00D6C339 /* ThemeCVC.xib in Resources */,
+				232E76DC281406E700E7CF39 /* NoneExhibition.storyboard in Resources */,
 				23B52A9027E1013E00D6C339 /* RoundCVC.xib in Resources */,
 				3305F7332754DABA00E6E08E /* art.scnassets in Resources */,
 				23B2E5D42758F7F300FA8CC2 /* HomeList.storyboard in Resources */,
@@ -905,6 +912,7 @@
 				239C5D4F27F2327900D8A3D2 /* PHFetchOptions+.swift in Sources */,
 				3305F7672754E0D900E6E08E /* GenericResponse.swift in Sources */,
 				232E76D82813F91200E7CF39 /* ExhibitionCntBtn.swift in Sources */,
+				232E76DE281406F500E7CF39 /* NoneExhibitionVC.swift in Sources */,
 				235584012767A7100046C3EE /* FocusSquareSegment.swift in Sources */,
 				3305F7872754E28B00E6E08E /* ViewControllerFactory.swift in Sources */,
 				23B52A7B27E0A56900D6C339 /* AddExhibitionVC.swift in Sources */,

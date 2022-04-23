@@ -55,7 +55,13 @@ class MypageVC: UIViewController {
     }
     
     @IBAction func showRegisteredExhibition(_ sender: Any) {
-        showExhibitionListVC(title: "등록한 전시 \(registerData.count)", data: registerData)
+        if !registerData.isEmpty {
+            showExhibitionListVC(title: "등록한 전시 \(registerData.count)", data: registerData)
+        } else {
+            guard let noneExhibitionVC = UIStoryboard(name: Identifiers.noneExhibitionSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.noneExhibitionVC) as? NoneExhibitionVC else { return }
+            noneExhibitionVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(noneExhibitionVC, animated: true)
+        }
     }
 }
 
