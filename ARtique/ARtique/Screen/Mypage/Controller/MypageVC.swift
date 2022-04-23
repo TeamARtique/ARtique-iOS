@@ -28,6 +28,7 @@ class MypageVC: UIViewController {
         ExhibitionData("제주 고양이", "juJe", UIImage(named: "JejuCat")!, 20, 15),
         ExhibitionData("Cat and Flower", "caf", UIImage(named: "CatAndFlower")!, 13, 9)
     ]
+    
     var bookmarkData:[ExhibitionData] = [
         ExhibitionData("This is the Sun", "Magdiel", UIImage(named: "ThisistheSun")!, 120, 56),
         ExhibitionData("SAISON 17/18", "is0n", UIImage(named: "SAISON")!, 112, 89),
@@ -128,26 +129,28 @@ extension MypageVC {
 // MARK: - UITableViewDataSource
 extension MypageVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        4
+        !registerData.isEmpty && !bookmarkData.isEmpty ? 4 : 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let titleCell = tableView.dequeueReusableCell(withIdentifier: Identifiers.mypageClassificationTVC, for: indexPath) as? MypageClassificationTVC,
               let exhibitionCell = tableView.dequeueReusableCell(withIdentifier: Identifiers.myExhibitionTVC, for: indexPath) as? MyExhibitionTVC else { return UITableViewCell() }
         titleCell.selectionStyle = .none
+        
         switch indexPath.row {
         case 0:
-            titleCell.configureCell("등록한 전시", 5)
+            !registerData.isEmpty
+            ? titleCell.configureCell("등록한 전시", registerData.count)
+            : titleCell.configureCell("북마크한 전시", bookmarkData.count)
             return titleCell
         case 1:
-            // TODO: - 전시 연결
-            exhibitionCell.exhibitionData = registerData
+            exhibitionCell.exhibitionData = !registerData.isEmpty
+            ? registerData : bookmarkData
             return exhibitionCell
         case 2:
-            titleCell.configureCell("북마크한 전시", 5)
+            titleCell.configureCell("북마크한 전시", bookmarkData.count)
             return titleCell
         case 3:
-            // TODO: - 전시 연결
             exhibitionCell.exhibitionData = bookmarkData
             return exhibitionCell
         default:
@@ -159,12 +162,15 @@ extension MypageVC: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension MypageVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
-        
         guard let cell = tableView.cellForRow(at: indexPath) as? MypageClassificationTVC else { return }
-        guard let exhibitionListVC = ViewControllerFactory.viewController(for: .exhibitionList) as? ExhibitionListVC else { return }
-        exhibitionListVC.hidesBottomBarWhenPushed = true
-        exhibitionListVC.setNaviBarTitle((cell.exhibitionType.text ?? "") + " " + (cell.exhibitionCnt.text ?? ""))
-        navigationController?.pushViewController(exhibitionListVC, animated: true)
+        
+        switch cell.exhibitionType.text {
+        case "등록한 전시":
+            showExhibitionListVC(title: "등록한 전시 \(registerData.count)", data: registerData)
+        case "북마크한 전시":
+            showExhibitionListVC(title: "북마크한 전시 \(bookmarkData.count)", data: bookmarkData)
+        default:
+            break
+        }
     }
 }
