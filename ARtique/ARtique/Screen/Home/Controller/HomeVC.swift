@@ -79,13 +79,22 @@ extension HomeVC {
         bar.indicator.widthAnchor.constraint(equalToConstant: 60).isActive = true
         
         bar.indicator.weight = .heavy
-        bar.indicator.tintColor = .white
+        bar.indicator.tintColor = .clear
         bar.indicator.overscrollBehavior = .compress
         
         bar.layout.alignment = .centerDistributed
         bar.layout.contentMode = .intrinsic
         bar.layout.interButtonSpacing = 35
         bar.layout.transitionStyle = .snap
+        
+        let indicatorView = UIView()
+        indicatorView.backgroundColor = .white
+        indicatorView.layer.cornerRadius = 3
+        indicatorView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        bar.indicator.addSubview(indicatorView)
+        indicatorView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
         
         // Add to view
         addBar(bar, dataSource: self, at: .custom(view: categoryTB, layout: nil))
