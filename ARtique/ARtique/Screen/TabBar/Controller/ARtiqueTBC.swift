@@ -29,11 +29,11 @@ class ARtiqueTBC: UITabBarController {
     func setTabBar() {
         
         let homeTab = makeTabVC(vcType: .home, tabBarTitle: "", tabBarImage: "untab_home", tabBarSelectedImage: "tab_home")
-        let addTab = makeTabVC(vcType: .add, tabBarTitle: "", tabBarImage: "Add_Default_", tabBarSelectedImage: "Add_Default_")
+        let addTab = makeTabVC(vcType: .add, tabBarTitle: "", tabBarImage: "Add_Default", tabBarSelectedImage: "Add_Default")
         let mypageTab = makeTabVC(vcType: .mypage, tabBarTitle: "", tabBarImage: "My_UnSelected", tabBarSelectedImage: "My_Selected")
         
         homeTab.tabBarItem.imageInsets = UIEdgeInsets(top: -0.5, left: -0.5, bottom: -0.5, right: -35)
-        addTab.tabBarItem.imageInsets = UIEdgeInsets(top: -40, left: -0.5, bottom: -0.5, right: -0.5)
+        addTab.tabBarItem.imageInsets = UIEdgeInsets(top: -10, left: -0.5, bottom: -0.5, right: -0.5)
         mypageTab.tabBarItem.imageInsets = UIEdgeInsets(top: -0.5, left: -35, bottom: -0.5, right: -0.5)
         
         // 탭바 스타일 설정
