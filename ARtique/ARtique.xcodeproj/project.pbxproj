@@ -112,6 +112,19 @@
 		3305F7AB2754E66500E6E08E /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3305F75D2754E00500E6E08E /* AppleSDGothicNeoB.ttf */; };
 		3305F7AC2754E66700E6E08E /* AppleSDGothicNeoR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3305F75A2754E00500E6E08E /* AppleSDGothicNeoR.ttf */; };
 		3305F7AD2754E66900E6E08E /* AppleSDGothicNeoSB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3305F75B2754E00500E6E08E /* AppleSDGothicNeoSB.ttf */; };
+		33083C22281980E70038886B /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C21281980E70038886B /* NetworkLoggerPlugin.swift */; };
+		33083C24281981010038886B /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C23281981010038886B /* AuthService.swift */; };
+		33083C262819822D0038886B /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C252819822D0038886B /* AuthAPI.swift */; };
+		33083C28281983010038886B /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C27281983010038886B /* BaseAPI.swift */; };
+		33083C2B281984210038886B /* LoginDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C2A281984210038886B /* LoginDataModel.swift */; };
+		33083C35281985000038886B /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C34281985000038886B /* Like.swift */; };
+		33083C37281985060038886B /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C36281985060038886B /* Bookmark.swift */; };
+		33083C3A2819893D0038886B /* TokenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C392819893D0038886B /* TokenInfo.swift */; };
+		33083C3C28198B0A0038886B /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C3B28198B0A0038886B /* BaseVC.swift */; };
+		33083C3F28198F430038886B /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C3E28198F430038886B /* Navigator.swift */; };
+		33083C4128198F640038886B /* NaviType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C4028198F640038886B /* NaviType.swift */; };
+		33083C4328199B560038886B /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C4228199B560038886B /* String+.swift */; };
+		33083C452819B07F0038886B /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C442819B07F0038886B /* Token.swift */; };
 		334E737127FB66B5001BAF25 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E737027FB66B5001BAF25 /* LoginVC.swift */; };
 		33AC27882763D21D00E0765A /* ARGallery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33AC27872763D21D00E0765A /* ARGallery.storyboard */; };
 		33AC278A2763D27200E0765A /* ARGalleryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AC27892763D27200E0765A /* ARGalleryVC.swift */; };
@@ -227,6 +240,19 @@
 		3305F7A52754E44B00E6E08E /* MypageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageVC.swift; sourceTree = "<group>"; };
 		3305F7A72754E45800E6E08E /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		3305F7A92754E61F00E6E08E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		33083C21281980E70038886B /* NetworkLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerPlugin.swift; sourceTree = "<group>"; };
+		33083C23281981010038886B /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		33083C252819822D0038886B /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
+		33083C27281983010038886B /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
+		33083C2A281984210038886B /* LoginDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDataModel.swift; sourceTree = "<group>"; };
+		33083C34281985000038886B /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
+		33083C36281985060038886B /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
+		33083C392819893D0038886B /* TokenInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInfo.swift; sourceTree = "<group>"; };
+		33083C3B28198B0A0038886B /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
+		33083C3E28198F430038886B /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
+		33083C4028198F640038886B /* NaviType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaviType.swift; sourceTree = "<group>"; };
+		33083C4228199B560038886B /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		33083C442819B07F0038886B /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		334E737027FB66B5001BAF25 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		3350596D27E5CC8C0088B708 /* GalleryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryType.swift; sourceTree = "<group>"; };
 		33AC27872763D21D00E0765A /* ARGallery.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ARGallery.storyboard; sourceTree = "<group>"; };
@@ -280,6 +306,7 @@
 				23B52A8627E0E89200D6C339 /* AddProcess.swift */,
 				23071DB627ECF5A100949BA1 /* CategoryType.swift */,
 				23BB926F27F0EB9100D91354 /* TagType.swift */,
+				33083C4028198F640038886B /* NaviType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -404,6 +431,9 @@
 			children = (
 				3305F7642754E0B700E6E08E /* APIModels */,
 				3305F7652754E0BE00E6E08E /* APIServices */,
+				33083C1F281980A00038886B /* APIManagers */,
+				33083C20281980B60038886B /* MoyaTarget */,
+				33083C21281980E70038886B /* NetworkLoggerPlugin.swift */,
 			);
 			path = Networtk;
 			sourceTree = "<group>";
@@ -411,9 +441,11 @@
 		3305F74B2754DF0900E6E08E /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				33083C3B28198B0A0038886B /* BaseVC.swift */,
 				3305F7622754E07B00E6E08E /* BaseCell.swift */,
 				23E1A35027EF124D009C337F /* NewExhibition.swift */,
-				233DA02C28104AC300696487 /* CollectionViewLeftAlignFlowLayout.swift */,
+				33083C392819893D0038886B /* TokenInfo.swift */,
+				33083C3D28198B4E0038886B /* CollectionView */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -423,6 +455,7 @@
 			children = (
 				3305F7602754E03600E6E08E /* Identifiers.swift */,
 				23B2E5D727591A9100FA8CC2 /* ExhibitionData.swift */,
+				33083C3E28198F430038886B /* Navigator.swift */,
 			);
 			path = Struct;
 			sourceTree = "<group>";
@@ -451,6 +484,7 @@
 				23B52A8027E0A7B900D6C339 /* UINavigationController+.swift */,
 				23E7350627EA4D1B000315E6 /* UIScrollView+.swift */,
 				239C5D4E27F2327900D8A3D2 /* PHFetchOptions+.swift */,
+				33083C4228199B560038886B /* String+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -471,6 +505,7 @@
 			isa = PBXGroup;
 			children = (
 				3305F7662754E0D900E6E08E /* GenericResponse.swift */,
+				33083C1E281980980038886B /* Models */,
 			);
 			path = APIModels;
 			sourceTree = "<group>";
@@ -699,6 +734,58 @@
 			path = TVC;
 			sourceTree = "<group>";
 		};
+		33083C1E281980980038886B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				33083C33281984F10038886B /* Public */,
+				33083C292819840C0038886B /* Login */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		33083C1F281980A00038886B /* APIManagers */ = {
+			isa = PBXGroup;
+			children = (
+				33083C27281983010038886B /* BaseAPI.swift */,
+				33083C252819822D0038886B /* AuthAPI.swift */,
+			);
+			path = APIManagers;
+			sourceTree = "<group>";
+		};
+		33083C20281980B60038886B /* MoyaTarget */ = {
+			isa = PBXGroup;
+			children = (
+				33083C23281981010038886B /* AuthService.swift */,
+			);
+			path = MoyaTarget;
+			sourceTree = "<group>";
+		};
+		33083C292819840C0038886B /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				33083C2A281984210038886B /* LoginDataModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		33083C33281984F10038886B /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				33083C34281985000038886B /* Like.swift */,
+				33083C36281985060038886B /* Bookmark.swift */,
+				33083C442819B07F0038886B /* Token.swift */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		33083C3D28198B4E0038886B /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				233DA02C28104AC300696487 /* CollectionViewLeftAlignFlowLayout.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
 		334E736E27FB6675001BAF25 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -913,6 +1000,7 @@
 				3305F7672754E0D900E6E08E /* GenericResponse.swift in Sources */,
 				232E76D82813F91200E7CF39 /* ExhibitionCntBtn.swift in Sources */,
 				232E76DE281406F500E7CF39 /* NoneExhibitionVC.swift in Sources */,
+				33083C4128198F640038886B /* NaviType.swift in Sources */,
 				235584012767A7100046C3EE /* FocusSquareSegment.swift in Sources */,
 				3305F7872754E28B00E6E08E /* ViewControllerFactory.swift in Sources */,
 				23B52A7B27E0A56900D6C339 /* AddExhibitionVC.swift in Sources */,
@@ -926,9 +1014,11 @@
 				334E737127FB66B5001BAF25 /* LoginVC.swift in Sources */,
 				3305F7812754E23F00E6E08E /* UIButton+.swift in Sources */,
 				3305F7512754DF3E00E6E08E /* UIColor+Additions.swift in Sources */,
+				33083C24281981010038886B /* AuthService.swift in Sources */,
 				23E734EE27E99CC8000315E6 /* OrderView.swift in Sources */,
 				3305F7532754DF4C00E6E08E /* UIFont+.swift in Sources */,
 				239C5D4C27F224A300D8A3D2 /* ArtworkSelectView.swift in Sources */,
+				33083C262819822D0038886B /* AuthAPI.swift in Sources */,
 				3305F7A62754E44B00E6E08E /* MypageVC.swift in Sources */,
 				23B52A8B27E0FED600D6C339 /* ThemeView.swift in Sources */,
 				3305F7592754DFD700E6E08E /* UIView+.swift in Sources */,
@@ -946,7 +1036,9 @@
 				23E1A35127EF124D009C337F /* NewExhibition.swift in Sources */,
 				3305F78C2754E31000E6E08E /* ARtiqueTBC.swift in Sources */,
 				23C9AD692801CB2100DFF5A2 /* MypageClassificationTVC.swift in Sources */,
+				33083C2B281984210038886B /* LoginDataModel.swift in Sources */,
 				2395FBA427563AA500D3DB77 /* DetailVC.swift in Sources */,
+				33083C4328199B560038886B /* String+.swift in Sources */,
 				238BFDCE280947950018D256 /* ReorderBottomSheetVC.swift in Sources */,
 				23E7350727EA4D1B000315E6 /* UIScrollView+.swift in Sources */,
 				233DA02D28104AC300696487 /* CollectionViewLeftAlignFlowLayout.swift in Sources */,
@@ -956,9 +1048,12 @@
 				237B4370275CFA3E00B7FA3F /* AllCVC.swift in Sources */,
 				23E734FE27EA1528000315E6 /* PostExplainView.swift in Sources */,
 				23071DB727ECF5A100949BA1 /* CategoryType.swift in Sources */,
+				33083C28281983010038886B /* BaseAPI.swift in Sources */,
 				3305F7852754E27300E6E08E /* TypeOfViewController.swift in Sources */,
+				33083C3C28198B0A0038886B /* BaseVC.swift in Sources */,
 				23C9AD662801C8BB00DFF5A2 /* ExhibitionCVC.swift in Sources */,
 				237B436B275CE83600B7FA3F /* HomeVerticalTVC.swift in Sources */,
+				33083C22281980E70038886B /* NetworkLoggerPlugin.swift in Sources */,
 				235583FF2767A6D80046C3EE /* FocusSquare.swift in Sources */,
 				235650D527F9FB6F0082E048 /* AlbumListTVC.swift in Sources */,
 				3305F7632754E07B00E6E08E /* BaseCell.swift in Sources */,
@@ -971,16 +1066,21 @@
 				3305F7312754DABA00E6E08E /* AppDelegate.swift in Sources */,
 				23B52A8727E0E89200D6C339 /* AddProcess.swift in Sources */,
 				23B52A8127E0A7B900D6C339 /* UINavigationController+.swift in Sources */,
+				33083C452819B07F0038886B /* Token.swift in Sources */,
 				33AC278A2763D27200E0765A /* ARGalleryVC.swift in Sources */,
 				23C9AD6228019FDA00DFF5A2 /* MypageNC.swift in Sources */,
 				23C9AD6B2801CC8500DFF5A2 /* MyExhibitionTVC.swift in Sources */,
 				23B2E5D827591A9100FA8CC2 /* ExhibitionData.swift in Sources */,
 				23071DBA27ECFBAB00949BA1 /* ExhibitionExplainView.swift in Sources */,
+				33083C35281985000038886B /* Like.swift in Sources */,
 				238BFDD12809523D0018D256 /* ReorderTVC.swift in Sources */,
+				33083C3F28198F430038886B /* Navigator.swift in Sources */,
+				33083C3A2819893D0038886B /* TokenInfo.swift in Sources */,
 				3305F76B2754E10300E6E08E /* NetworkResult.swift in Sources */,
 				23B52A7F27E0A73800D6C339 /* UIViewController+.swift in Sources */,
 				3305F77F2754E22800E6E08E /* UITextField+.swift in Sources */,
 				23B52A9327E1131C00D6C339 /* ThemeCVC.swift in Sources */,
+				33083C37281985060038886B /* Bookmark.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1126,11 +1226,11 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U2Z5Z44P4R;
+				DEVELOPMENT_TEAM = 2ZS26WP93H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARtique/Support/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "ARtique가 사용자의 갤러리에 접근하는 것을 허용합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근 허용";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 접근 허용";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = TabBar;
@@ -1162,11 +1262,11 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U2Z5Z44P4R;
+				DEVELOPMENT_TEAM = 2ZS26WP93H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARtique/Support/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "ARtique가 사용자의 갤러리에 접근하는 것을 허용합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근 허용";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 접근 허용";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = TabBar;
