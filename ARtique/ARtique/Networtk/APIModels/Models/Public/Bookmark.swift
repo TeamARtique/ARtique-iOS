@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+// MARK: - Bookmark
+struct Bookmark: Codable {
+    let isBookmarked: Bool
+    let bookmarkCount: Int
+}
