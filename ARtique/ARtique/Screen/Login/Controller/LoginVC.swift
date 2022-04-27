@@ -12,7 +12,7 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
 
-class LoginVC: UIViewController {
+class LoginVC: BaseVC {
     
     // MARK: Properties
     private let logoImageView = UIImageView().then {
@@ -20,9 +20,9 @@ class LoginVC: UIViewController {
         $0.contentMode = .scaleAspectFill
     }
     
-    // TODO: ARTI -> attributedString으로 바꾸기
     private let detailLabel = UILabel().then {
         $0.numberOfLines = 0
+        // TODO: ARTI -> attributedString으로 바꾸기
         $0.text = "소셜 로그인으로 간편하게 ARTI가 되어\n언제 어디서나 다양한 전시를 즐기고\n나만의 전시를 만들어 보세요."
         $0.font = .AppleSDGothicL(size: 14.0)
         $0.textAlignment = .center
@@ -37,12 +37,14 @@ class LoginVC: UIViewController {
         $0.setBackgroundImage(UIImage(named: "appleLogin"), for: .normal)
         $0.contentMode = .scaleAspectFit
     }
-
+    
+    // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        kakaoLoginBtn.press {
-            self.kakaoLogin()
+        navigator = Navigator(vc: self)
+        kakaoLoginBtn.press { [weak self] in
+            self?.kakaoLogin()
         }
     }
 }
@@ -88,12 +90,38 @@ extension LoginVC {
                 if let error = error {
                     print(error)
                 } else {
-                    print("loginWithKakaoTalk() success.")
-                    // TODO: accessToken post 서버 연결
-                    print(oauthToken?.accessToken)
+                    print(oauthToken?.refreshToken)
+                    self.requestKakaoLogin(refreshToken: oauthToken?.refreshToken ?? "")
                 }
             }
         }
     }
 }
 
+// MARK: - Network
+extension LoginVC {
+    private func requestKakaoLogin(refreshToken: String) {
+        LoginAPI.shared.kakaoLoginAPI(refreshToken: refreshToken, completion: { networkResult in
+            switch networkResult {
+            case .success(let res):
+                if let data = res as? LoginDataModel {
+                    self.setUserInfo(userID: data.user.userID,
+                                     userEmail: data.user.email,
+                                     nickname: data.user.nickname,
+                                     accessToken: data.token.accessToken,
+                                     refreshToken: data.token.refreshToken)
+                    
+                    /// 로그인 성공시 ARTiqueTBC로 화면전환
+                    self.navigator?.instantiateVC(destinationViewControllerType: ARtiqueTBC.self, useStoryboard: false, storyboardName: "", naviType: .present, modalPresentationStyle: .fullScreen) { destination in }
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        })
+    }
+}

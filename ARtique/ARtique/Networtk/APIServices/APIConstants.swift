@@ -6,9 +6,8 @@
 //
 
 import Foundation
+
 struct APIConstants {
     //MARK: Base URL
-    static let baseURL = ""
-    
-    //MARK: Feature URL
+    static let baseURL = "https://asia-northeast3-artique-34e8e.cloudfunctions.net/server"
 }
