@@ -17,4 +17,8 @@ extension UIColor {
     @nonobjc class var textViewPlaceholder: UIColor {
         return UIColor(red: 173.0 / 255.0, green: 173.0 / 255.0, blue: 173.0 / 255.0, alpha: 1.0)
     }
+    
+    @nonobjc class var light_gray: UIColor {
+        return UIColor(red: 233.0 / 255.0, green: 232.0 / 255.0, blue: 235.0 / 255.0, alpha: 1.0)
+    }
 }

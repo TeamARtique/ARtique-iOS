@@ -138,23 +138,12 @@ extension HomeListVC: CVCellDelegate {
     func selectedCVC(_ index: IndexPath, _ cellIdentifier: Int, _ collectionView: UICollectionView) {
         guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
         
-        // TODO: - data model 생성 후 함수화 예정
         if cellIdentifier == 2 {
-            let cell = collectionView.cellForItem(at: index) as! AllCVC
-            
-            detailVC.titleTmp = cell.title.text
-            detailVC.phosterTmp = cell.phoster.image
-            detailVC.authorTmp = "자까"
-            detailVC.likeCntTmp = "26"
-            detailVC.bookMarkCntTmp = "20"
+            guard let cell = collectionView.cellForItem(at: index) as? AllCVC else { return }
+            detailVC.exhibitionData = cell.exhibitionData
         } else {
-            let cell = collectionView.cellForItem(at: index) as! HomeHorizontalCVC
-            
-            detailVC.titleTmp = cell.title.text
-            detailVC.authorTmp = cell.author.text
-            detailVC.phosterTmp = cell.phoster.image
-            detailVC.likeCntTmp = cell.likeCnt.text
-            detailVC.bookMarkCntTmp = cell.bookMarkCnt.text
+            guard let cell = collectionView.cellForItem(at: index) as? HomeHorizontalCVC else { return }
+            detailVC.exhibitionData = cell.exhibitionData
         }
         
         navigationController?.pushViewController(detailVC, animated: true)

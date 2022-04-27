@@ -8,15 +8,18 @@
 import UIKit
 import Photos
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class ProfileEditVC: UIViewController {
     @IBOutlet weak var baseSV: UIScrollView!
     @IBOutlet weak var profileImg: UIButton!
-    @IBOutlet weak var nicknameTF: UITextField!
-    @IBOutlet weak var explanationTV: UITextView!
-    @IBOutlet weak var snsTF: UITextField!
+    @IBOutlet weak var nicknameTextField: UITextField!
+    @IBOutlet weak var explanationTextView: UITextView!
+    @IBOutlet weak var snsTextField: UITextField!
     var imagePicker: UIImagePickerController!
     
+    let bag = DisposeBag()
     let textViewMaxCnt = 100
     var explanationPlaceholder = "ARTI들에게 자신을 소개해보세요!"
     
@@ -25,6 +28,7 @@ class ProfileEditVC: UIViewController {
         configureNaviBar()
         configureSV()
         configureContentView()
+        bindUI()
         hideKeyboard()
     }
     
@@ -74,13 +78,23 @@ extension ProfileEditVC {
     private func configureContentView() {
         profileImg.layer.cornerRadius = profileImg.frame.height / 2
         profileImg.layer.masksToBounds = true
-        nicknameTF.setRoundTextField(with: "ARTI")
-        explanationTV.setRoundTextView()
-        explanationTV.setTextViewPlaceholder(explanationPlaceholder)
-        explanationTV.delegate = self
-        snsTF.setRoundTextField(with: "www.instagram.com")
+        nicknameTextField.setRoundTextField(with: "ARTI")
+        explanationTextView.setRoundTextView()
+        explanationTextView.setTextViewPlaceholder(explanationPlaceholder)
+        explanationTextView.delegate = self
+        snsTextField.setRoundTextField(with: "www.instagram.com")
     }
     
+    private func bindUI() {
+        nicknameTextField.rx.text.orEmpty
+            .distinctUntilChanged()
+            .subscribe(onNext: {[weak self] text in
+                guard let self = self else { return }
+                self.navigationItem.rightBarButtonItem?.customView?.backgroundColor = text.isEmpty ? .light_gray : .black
+                self.navigationItem.rightBarButtonItem?.isEnabled = text.isEmpty ? false : true
+            })
+            .disposed(by: bag)
+    }
 }
 
 // MARK: - Custom Methods

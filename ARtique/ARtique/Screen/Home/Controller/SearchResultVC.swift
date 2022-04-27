@@ -50,13 +50,11 @@ extension SearchResultVC {
     }
     
     private func configureResultLabel() {
-        if searchCnt == 0 {
-            resultLabel.text = "'\(keyword ?? "")' 에 해당하는 전시를 찾지 못했어요"
-            resultLabel.font = .AppleSDGothicL(size: 15)
-        } else {
-            resultLabel.text = "'\(keyword ?? "")' 에 대한 검색 결과"
-            resultLabel.font = .AppleSDGothicSB(size: 17)
-        }
+        resultLabel.text = searchCnt == 0
+        ? "'\(keyword ?? "")' 에 해당하는 전시를 찾지 못했어요"
+        : "'\(keyword ?? "")' 에 대한 검색 결과"
+        
+        resultLabel.font = .AppleSDGothicSB(size: 17)
     }
     
     private func configureCV() {
@@ -92,9 +90,19 @@ extension SearchResultVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.exhibitionCVC, for: indexPath) as? ExhibitionCVC else { return UICollectionViewCell() }
 
-        cell.phoster.image = exhibitionData[indexPath.row].phoster
-        cell.title.text = exhibitionData[indexPath.row].title
+        cell.configureCell(exhibitionData[indexPath.row])
         return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension SearchResultVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC,
+              let cell = collectionView.cellForItem(at: indexPath) as? ExhibitionCVC else { return }
+        detailVC.exhibitionData = cell.exhibitionData
+        
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class OrderView: UIView {
     @IBOutlet weak var message: UILabel!

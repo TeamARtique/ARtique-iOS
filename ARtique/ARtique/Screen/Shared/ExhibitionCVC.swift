@@ -13,6 +13,8 @@ class ExhibitionCVC: UICollectionViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var date: UILabel!
     
+    var exhibitionData: ExhibitionData?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         configureFont()
@@ -26,8 +28,9 @@ extension ExhibitionCVC {
         date.font = .AppleSDGothicR(size: 11)
     }
     
-    func configureCell(_ title: String, _ date: String) {
-        self.title.text = title
-        self.date.text = date
+    func configureCell(_ exhibition: ExhibitionData) {
+        exhibitionData = exhibition
+        phoster.image = exhibition.phoster
+        title.text = exhibition.title
     }
 }
