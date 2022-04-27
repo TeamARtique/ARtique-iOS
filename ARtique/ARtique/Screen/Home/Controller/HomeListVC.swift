@@ -95,9 +95,10 @@ extension HomeListVC: UITableViewDataSource {
 extension HomeListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 2 {
-            let viewWidth = view.frame.width
-            let cellHeight = viewWidth * 2 + 90
-            return CGFloat(cellHeight)
+            let cellWidth = (UIScreen.main.bounds.width - 55) / 2
+            let cellHeight = 4 * cellWidth / 3 + 64 + 27
+            
+            return CGFloat(cellHeight * 3 + 82)
         } else {
             return CGFloat(exhibitionListTVCHeight)
         }
@@ -141,7 +142,7 @@ extension HomeListVC: CVCellDelegate {
         guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
         
         if cellIdentifier == 2 {
-            guard let cell = collectionView.cellForItem(at: index) as? AllCVC else { return }
+            guard let cell = collectionView.cellForItem(at: index) as? ExhibitionCVC else { return }
             detailVC.exhibitionData = cell.exhibitionData
         } else {
             guard let cell = collectionView.cellForItem(at: index) as? HomeHorizontalCVC else { return }
