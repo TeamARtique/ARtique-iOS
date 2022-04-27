@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+enum NaviType {
+    case push
+    case present
+}
