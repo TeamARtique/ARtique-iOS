@@ -65,7 +65,7 @@ extension SearchVC {
                 guard let self = self else { return }
                 self.searchBtn.tintColor
                 = self.searchTextField.text == ""
-                ? .lightGray : .black
+                ? .gray1 : .black
                 self.searchBtn.isUserInteractionEnabled
                 = self.searchTextField.text == ""
                 ? false : true

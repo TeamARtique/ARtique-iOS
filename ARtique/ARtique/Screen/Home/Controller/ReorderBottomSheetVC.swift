@@ -78,7 +78,7 @@ extension ReorderBottomSheetVC: UITableViewDataSource {
             cell.reorderTitle.textColor = .black
             cell.checkmark.isHidden = false
         } else {
-            cell.reorderTitle.textColor = .gray
+            cell.reorderTitle.textColor = .gray2
             cell.checkmark.isHidden = true
         }
         return cell

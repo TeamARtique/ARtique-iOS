@@ -149,7 +149,7 @@ extension ExhibitionExplainView {
     }
     
     private func setTextViewMaxCnt(_ cnt: Int) {
-        if exhibitionExplainTextView.textColor != .textViewPlaceholder {
+        if exhibitionExplainTextView.textColor != .gray2 {
             exhibitionExplainTextCnt.text = "(\(cnt)/\(textViewMaxCnt))"
         }
     }
@@ -234,7 +234,7 @@ extension ExhibitionExplainView: UICollectionViewDelegate {
 // MARK: - UITextViewDelegate
 extension ExhibitionExplainView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        guard textView.textColor == .textViewPlaceholder else { return }
+        guard textView.textColor == .gray2 else { return }
         textView.textColor = .label
         textView.text = ""
     }

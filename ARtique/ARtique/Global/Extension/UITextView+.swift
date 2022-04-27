@@ -23,7 +23,7 @@ extension UITextView {
     func setTextViewPlaceholder(_ placeholder: String) {
         if text == "" {
             text = placeholder
-            textColor = .textViewPlaceholder
+            textColor = .gray2
         }
     }
     
