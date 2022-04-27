@@ -77,9 +77,8 @@ extension HomeVerticalTVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.allCVC, for: indexPath) as! AllCVC
-        cell.phoster.image = allData[11 - indexPath.row * 2].phoster
-        cell.title.text = allData[11 - indexPath.row * 2].title
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.allCVC, for: indexPath) as? AllCVC else { return UICollectionViewCell() }
+        cell.configureCell(allData[indexPath.row])
         return cell
     }
 }
