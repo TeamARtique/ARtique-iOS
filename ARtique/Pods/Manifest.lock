@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.4.4)
+  - Alamofire (5.5.0)
   - DynamicBottomSheet (1.0.2):
     - RxCocoa (~> 6.0)
     - RxGesture (~> 4.0)
@@ -17,6 +17,10 @@ PODS:
     - KakaoSDKCommon/Common (= 2.8.6)
   - KakaoSDKUser (2.8.6):
     - KakaoSDKAuth (= 2.8.6)
+  - Moya (15.0.0):
+    - Moya/Core (= 15.0.0)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
   - Pageboy (3.6.2)
   - PhotoCropper (0.2.0):
     - RxCocoa (~> 6.0)
@@ -39,10 +43,10 @@ PODS:
   - Then (2.7.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.4.4)
   - DynamicBottomSheet
   - KakaoSDKAuth (~> 2.8.6)
   - KakaoSDKUser (~> 2.8.6)
+  - Moya
   - PhotoCropper
   - RxCocoa (< 6.2.0)
   - RxSwift (< 6.2.0)
@@ -57,6 +61,7 @@ SPEC REPOS:
     - KakaoSDKAuth
     - KakaoSDKCommon
     - KakaoSDKUser
+    - Moya
     - Pageboy
     - PhotoCropper
     - RxCocoa
@@ -68,11 +73,12 @@ SPEC REPOS:
     - Then
 
 SPEC CHECKSUMS:
-  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   DynamicBottomSheet: b11ead81bf8ee494b26cbd16ff2312313e90d9e3
   KakaoSDKAuth: 53e747a3bf343a3f3e87b14478d5a865d6c2acae
   KakaoSDKCommon: 7e56600ff4c1bd82bed93fea4299b5a37f47e6a5
   KakaoSDKUser: e79480355fa789f42e628dfba359fc21e9914f4c
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
   PhotoCropper: f78fb08f01d35f6db83530b498a06909b381a95e
   RxCocoa: 5c51f02d562cbd94629f6c26cf0c80fe4ab8d343
@@ -83,6 +89,6 @@ SPEC CHECKSUMS:
   Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: 52ca68333b7a96831a5701f7da4dec08a094dc0f
+PODFILE CHECKSUM: 84530d9357e0c04858f16172eab9fe11b1f7cf09
 
 COCOAPODS: 1.11.2
