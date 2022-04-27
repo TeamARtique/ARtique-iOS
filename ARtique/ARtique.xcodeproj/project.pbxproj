@@ -533,11 +533,10 @@
 			children = (
 				238C65752756606100EADA93 /* HomeNC.swift */,
 				3305F7A72754E45800E6E08E /* HomeVC.swift */,
+				23B2E5D52758F9D700FA8CC2 /* HomeListVC.swift */,
 				2395FBA327563AA500D3DB77 /* DetailVC.swift */,
-				23B2E5D52758F9D700FA8CC2 /* ExhibitionListVC.swift */,
 				2383787A280AFB9B002088E6 /* SearchVC.swift */,
 				23144218280C4053007DB53C /* SearchResultVC.swift */,
-				23B2E5D52758F9D700FA8CC2 /* HomeListVC.swift */,
 				238BFDCD280947950018D256 /* ReorderBottomSheetVC.swift */,
 			);
 			path = Controller;
@@ -547,11 +546,10 @@
 			isa = PBXGroup;
 			children = (
 				3305F78D2754E34B00E6E08E /* Home.storyboard */,
+				23B2E5D32758F7F300FA8CC2 /* HomeList.storyboard */,
 				2395FBA127563A9700D3DB77 /* Detail.storyboard */,
-				23B2E5D32758F7F300FA8CC2 /* ExhibitionList.storyboard */,
 				2383787C280AFBBC002088E6 /* Search.storyboard */,
 				23144216280C4040007DB53C /* SearchResult.storyboard */,
-				23B2E5D32758F7F300FA8CC2 /* HomeList.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";

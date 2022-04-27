@@ -8,6 +8,7 @@
 import UIKit
 import Tabman
 import Pageboy
+import SnapKit
 
 class HomeVC: TabmanViewController {
     @IBOutlet weak var customNavigationBar: UIView!
@@ -65,26 +66,24 @@ extension HomeVC {
     func setCategoryIndicator() {
         let bar = TMBar.ButtonBar()
         bar.backgroundView.style = .flat(color: .black)
-        bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 34.0, bottom: 0.0, right: 34.0)
+        bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 15.0, bottom: 0.0, right: 15.0)
         bar.buttons.customize { (button) in
             button.tintColor = .white
             button.selectedTintColor = .white
             
-            button.font = UIFont.AppleSDGothicR(size: 16)
+            button.font = UIFont.AppleSDGothicL(size: 16)
             button.selectedFont = UIFont.AppleSDGothicB(size: 16)
-            button.widthAnchor.constraint(equalToConstant: 60).isActive = true
+            button.widthAnchor.constraint(equalToConstant: 90).isActive = true
         }
         
         // 인디케이터 조정
-        bar.indicator.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        
         bar.indicator.weight = .heavy
         bar.indicator.tintColor = .clear
         bar.indicator.overscrollBehavior = .compress
         
         bar.layout.alignment = .centerDistributed
         bar.layout.contentMode = .intrinsic
-        bar.layout.interButtonSpacing = 35
+        bar.layout.interButtonSpacing = 6
         bar.layout.transitionStyle = .snap
         
         let indicatorView = UIView()
@@ -93,7 +92,9 @@ extension HomeVC {
         indicatorView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         bar.indicator.addSubview(indicatorView)
         indicatorView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
+            $0.leading.equalToSuperview().offset(15)
+            $0.trailing.equalToSuperview().offset(-15)
         }
         
         // Add to view

@@ -13,8 +13,10 @@ class HomeListVC: UIViewController {
     @IBOutlet weak var pageTVTopAnchor: NSLayoutConstraint!
     var categoryType: CategoryType?
     
-    let exhibitionListTVCHeight = 536
-
+    let exhibitionListTVCHeight = 490
+    let categoryBarHeight: CGFloat = 48
+    let largeNavigationBarHeight: CGFloat = 116
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,7 +50,7 @@ extension HomeListVC{
     
     /// 카테고리 바꿨을때 네비바 상태 공유
     func configureTopLayout() {
-        pageTVTopAnchor.constant = HomeVC.isNaviBarHidden ? 56 : 124
+        pageTVTopAnchor.constant = HomeVC.isNaviBarHidden ? categoryBarHeight : largeNavigationBarHeight
     }
     
     private func animateUIView(topAnchorConstant: CGFloat, NotificationName: Notification.Name) {
@@ -103,9 +105,9 @@ extension HomeListVC: UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
-            animateUIView(topAnchorConstant: 56, NotificationName: .whenExhibitionListTVScrolledUp)
+            animateUIView(topAnchorConstant: categoryBarHeight, NotificationName: .whenExhibitionListTVScrolledUp)
         } else {
-            animateUIView(topAnchorConstant: 124, NotificationName: .whenExhibitionListTVScrolledDown)
+            animateUIView(topAnchorConstant: largeNavigationBarHeight, NotificationName: .whenExhibitionListTVScrolledDown)
         }
     }
     

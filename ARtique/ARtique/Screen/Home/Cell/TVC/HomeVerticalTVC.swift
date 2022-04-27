@@ -34,7 +34,7 @@ class HomeVerticalTVC: UITableViewCell{
     // 화면 전환용
     var delegate: CVCellDelegate?
     
-    let sectionInsets = UIEdgeInsets(top: 13.0, left: 31.5, bottom: 0.0, right: 31.5)
+    let sectionInsets = UIEdgeInsets(top: 0.0, left: 20, bottom: 0.0, right: 20)
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -61,7 +61,7 @@ extension HomeVerticalTVC {
         showAllListBtn.layer.cornerRadius = showAllListBtn.frame.height / 2
         
         showAllListBtn.setTitle("전체보기", for: .normal)
-        showAllListBtn.titleLabel?.font = UIFont.AppleSDGothicB(size: 11)
+        showAllListBtn.titleLabel?.font = UIFont.AppleSDGothicB(size: 12)
         showAllListBtn.tintColor = .white
     }
     

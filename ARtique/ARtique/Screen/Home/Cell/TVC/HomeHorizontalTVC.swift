@@ -29,8 +29,8 @@ class HomeHorizontalTVC: UITableViewCell {
     @IBOutlet weak var subTitle: UILabel!
     @IBOutlet weak var exhibitionListCV: UICollectionView!
     
-    let cellSize = CGSize(width: 261, height: 474)
-    var minItemSpacing: CGFloat = 5
+    let cellSize = CGSize(width: 277, height: 429)
+    var minItemSpacing: CGFloat = 0
     var currentIndexPath = IndexPath()
     var currentIndex:CGFloat = 0
     
@@ -55,7 +55,7 @@ extension HomeHorizontalTVC {
     /// setUpCV - 추천(ㅇㅇARTI를 위한 전시, ARTI들의 인기 전시) collectionview Setting
     func setUpCV(){
         exhibitionListCV.showsHorizontalScrollIndicator = false
-        exhibitionListCV.contentInset = UIEdgeInsets(top: 0.0, left: 29.0, bottom: 0.0, right: 29.0)
+        exhibitionListCV.contentInset = UIEdgeInsets(top: 0.0, left: 20.0, bottom: 0.0, right: 20.0)
         
         if let layout = exhibitionListCV.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
