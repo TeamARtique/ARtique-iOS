@@ -46,7 +46,7 @@ extension AddExhibitionVC {
                                                   title: "다음",
                                                   target: self,
                                                   action: #selector(bindRightBarButton))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"),
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "dismissBtn"),
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(bindLeftBarButton))
@@ -96,7 +96,7 @@ extension AddExhibitionVC {
     private func configurePrevButton() {
         navigationItem.leftBarButtonItem?.image
         = (progressView.progress < 0.3)
-        ? UIImage(systemName: "xmark")
+        ? UIImage(named: "dismissBtn")
         : UIImage(named: "BackBtn")
     }
     

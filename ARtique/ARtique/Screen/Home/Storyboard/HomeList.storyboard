@@ -146,7 +146,7 @@
                                                             <connections>
                                                                 <outlet property="author" destination="J24-kK-N55" id="Qqo-Lk-sPl"/>
                                                                 <outlet property="bookMarkBtn" destination="2Ub-AK-eNc" id="Xi5-ZQ-sbg"/>
-                                                                <outlet property="bookMarkCnt" destination="4Ro-TM-hWw" id="oUA-GB-HMR"/>
+                                                                <outlet property="bookmarkCnt" destination="4Ro-TM-hWw" id="DHf-xo-2iC"/>
                                                                 <outlet property="likeBtn" destination="O15-bm-ZCb" id="pxx-Mb-fXV"/>
                                                                 <outlet property="likeCnt" destination="7U5-Bw-df2" id="lPJ-0y-TuE"/>
                                                                 <outlet property="phoster" destination="TQR-Bg-wC2" id="erZ-ft-cZs"/>

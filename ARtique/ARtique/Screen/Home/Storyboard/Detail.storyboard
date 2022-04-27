@@ -179,7 +179,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ybF-RJ-tMg">
-                                <rect key="frame" x="12" y="49" width="31" height="31"/>
+                                <rect key="frame" x="10" y="49" width="31" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="31" id="4tx-7z-gcH"/>
                                     <constraint firstAttribute="height" constant="31" id="hl9-s9-pDb"/>
@@ -213,7 +213,7 @@
                             <constraint firstItem="pWg-Rk-0tr" firstAttribute="bottom" secondItem="lth-VT-Au3" secondAttribute="bottom" constant="10" id="Okf-HS-rHb"/>
                             <constraint firstItem="whf-Qq-UsW" firstAttribute="centerY" secondItem="ybF-RJ-tMg" secondAttribute="centerY" id="Rj2-vM-0mn"/>
                             <constraint firstItem="jFz-Tu-UnM" firstAttribute="centerY" secondItem="whf-Qq-UsW" secondAttribute="centerY" id="XUf-ky-Eu9"/>
-                            <constraint firstItem="ybF-RJ-tMg" firstAttribute="leading" secondItem="pWg-Rk-0tr" secondAttribute="leading" constant="12" id="XfD-4V-nqS"/>
+                            <constraint firstItem="ybF-RJ-tMg" firstAttribute="leading" secondItem="pWg-Rk-0tr" secondAttribute="leading" constant="10" id="XfD-4V-nqS"/>
                             <constraint firstItem="K5l-UA-HzH" firstAttribute="trailing" secondItem="pWg-Rk-0tr" secondAttribute="trailing" id="b6T-6S-XB7"/>
                             <constraint firstItem="pWg-Rk-0tr" firstAttribute="trailing" secondItem="lth-VT-Au3" secondAttribute="trailing" constant="20" id="dc3-mL-ROu"/>
                             <constraint firstItem="whf-Qq-UsW" firstAttribute="top" secondItem="pWg-Rk-0tr" secondAttribute="top" constant="10" id="lxx-AM-gFd"/>
