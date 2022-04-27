@@ -90,7 +90,6 @@ extension LoginVC {
                 if let error = error {
                     print(error)
                 } else {
-                    print(oauthToken?.refreshToken)
                     self.requestKakaoLogin(refreshToken: oauthToken?.refreshToken ?? "")
                 }
             }
@@ -101,7 +100,7 @@ extension LoginVC {
 // MARK: - Network
 extension LoginVC {
     private func requestKakaoLogin(refreshToken: String) {
-        LoginAPI.shared.kakaoLoginAPI(refreshToken: refreshToken, completion: { networkResult in
+        AuthAPI.shared.kakaoLoginAPI(refreshToken: refreshToken, completion: { networkResult in
             switch networkResult {
             case .success(let res):
                 if let data = res as? LoginDataModel {
