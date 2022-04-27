@@ -6,3 +6,20 @@
 //
 
 import Foundation
+
+// MARK: - LoginData
+struct LoginDataModel: Codable {
+    let user: LoginUser
+    let token: Token
+}
+
+// MARK: - User
+struct LoginUser: Codable {
+    let userID: Int
+    let email, nickname: String
+    
+    enum CodingKeys: String, CodingKey {
+        case userID = "userId"
+        case email, nickname
+    }
+}
