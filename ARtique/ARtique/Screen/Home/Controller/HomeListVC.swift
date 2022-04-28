@@ -8,7 +8,7 @@
 import UIKit
 import Tabman
 
-class HomeListVC: UIViewController {
+class HomeListVC: BaseVC {
     @IBOutlet weak var pageTV: UITableView!
     @IBOutlet weak var pageTVTopAnchor: NSLayoutConstraint!
     var categoryType: CategoryType?
@@ -18,6 +18,8 @@ class HomeListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 자동로그인
+        requestRenewalToken(refreshToken: UserDefaults.standard.string(forKey: UserDefaults.Keys.refreshToken) ?? "")
         setUpDelegate()
         setUpTV()
     }

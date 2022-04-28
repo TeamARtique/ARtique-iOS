@@ -6,12 +6,12 @@ target 'ARtique' do
   use_frameworks!
 
   # Pods for ARtique
-  pod 'Alamofire' , '~> 5.4.4'
   pod 'SnapKit', '~> 5.0.1'
   pod 'Then', '~> 2.7.0'
   pod 'Tabman', '~> 2.9'
   pod 'PhotoCropper'
   pod 'DynamicBottomSheet'
+  pod 'Moya'
 
   # Rx
   pod 'RxSwift', '< 6.2.0'
