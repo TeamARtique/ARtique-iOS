@@ -44,7 +44,7 @@ extension PostExplainView {
     }
     
     private func configureMessage() {
-        message.textColor = .lightGray
+        message.textColor = .gray3
         message.font = .AppleSDGothicR(size: 12)
     }
     
@@ -81,7 +81,7 @@ extension PostExplainView {
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        message.textColor = .lightGray
+        message.textColor = .gray3
         artworkListViewTopAnchor.constant = 79
         artworkListViewBottomAnchor.constant = 55
         artworkListView.artworkCV.subviews

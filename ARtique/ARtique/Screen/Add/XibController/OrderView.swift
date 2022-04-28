@@ -40,7 +40,7 @@ extension OrderView {
     }
     
     private func configureMessage() {
-        message.textColor = .lightGray
+        message.textColor = .gray3
         message.font = .AppleSDGothicR(size: 12)
     }
     

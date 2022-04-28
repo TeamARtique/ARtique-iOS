@@ -13,8 +13,10 @@ class HomeListVC: BaseVC {
     @IBOutlet weak var pageTVTopAnchor: NSLayoutConstraint!
     var categoryType: CategoryType?
     
-    let exhibitionListTVCHeight = 536
-
+    let exhibitionListTVCHeight = 490
+    let categoryBarHeight: CGFloat = 48
+    let largeNavigationBarHeight: CGFloat = 116
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,7 +52,7 @@ extension HomeListVC{
     
     /// 카테고리 바꿨을때 네비바 상태 공유
     func configureTopLayout() {
-        pageTVTopAnchor.constant = HomeVC.isNaviBarHidden ? 56 : 124
+        pageTVTopAnchor.constant = HomeVC.isNaviBarHidden ? categoryBarHeight : largeNavigationBarHeight
     }
     
     private func animateUIView(topAnchorConstant: CGFloat, NotificationName: Notification.Name) {
@@ -95,9 +97,10 @@ extension HomeListVC: UITableViewDataSource {
 extension HomeListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 2 {
-            let viewWidth = view.frame.width
-            let cellHeight = viewWidth * 2 + 90
-            return CGFloat(cellHeight)
+            let cellWidth = (UIScreen.main.bounds.width - 55) / 2
+            let cellHeight = 4 * cellWidth / 3 + 64 + 27
+            
+            return CGFloat(cellHeight * 3 + 82)
         } else {
             return CGFloat(exhibitionListTVCHeight)
         }
@@ -105,9 +108,9 @@ extension HomeListVC: UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
-            animateUIView(topAnchorConstant: 56, NotificationName: .whenExhibitionListTVScrolledUp)
+            animateUIView(topAnchorConstant: categoryBarHeight, NotificationName: .whenExhibitionListTVScrolledUp)
         } else {
-            animateUIView(topAnchorConstant: 124, NotificationName: .whenExhibitionListTVScrolledDown)
+            animateUIView(topAnchorConstant: largeNavigationBarHeight, NotificationName: .whenExhibitionListTVScrolledDown)
         }
     }
     
@@ -141,7 +144,7 @@ extension HomeListVC: CVCellDelegate {
         guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
         
         if cellIdentifier == 2 {
-            guard let cell = collectionView.cellForItem(at: index) as? AllCVC else { return }
+            guard let cell = collectionView.cellForItem(at: index) as? ExhibitionCVC else { return }
             detailVC.exhibitionData = cell.exhibitionData
         } else {
             guard let cell = collectionView.cellForItem(at: index) as? HomeHorizontalCVC else { return }

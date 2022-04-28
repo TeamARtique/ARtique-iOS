@@ -28,6 +28,7 @@ class ExhibitionListVC: UIViewController {
     var isRightBarBtnExist = false
     var isOrderChanged = false
     var checkedOrder = 0
+    let minimumLineSpacing: CGFloat = 25
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,7 +115,7 @@ extension ExhibitionListVC: UICollectionViewDataSource {
     }
 }
 
-// MARK: - UICollectionViewDelegat
+// MARK: - UICollectionViewDelegate
 extension ExhibitionListVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? ExhibitionCVC,
@@ -132,9 +133,13 @@ extension ExhibitionListVC: UICollectionViewDelegateFlowLayout {
         let widthPadding: CGFloat = 15
 
         let cellWidth = (width - widthPadding) / 2
-        let cellHeight = 4 * cellWidth / 3 + 50
+        let cellHeight = 4 * cellWidth / 3 + 64
 
         return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        minimumLineSpacing
     }
 }
 

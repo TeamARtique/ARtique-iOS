@@ -30,17 +30,14 @@ class HomeVerticalTVC: UITableViewCell{
     
     // TVC cell 구분용
     var cellIdentifier = 0
-    
-    // 화면 전환용
     var delegate: CVCellDelegate?
-    
-    let sectionInsets = UIEdgeInsets(top: 13.0, left: 31.5, bottom: 0.0, right: 31.5)
+    let minimumLineSpacing: CGFloat = 25
     
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpDelegate()
         setUpAllTVCView()
-        setlastCV()
+        setAllExhibitionCV()
     }
     
     @IBAction func showAllExhibitionList(_ sender: Any) {
@@ -61,12 +58,13 @@ extension HomeVerticalTVC {
         showAllListBtn.layer.cornerRadius = showAllListBtn.frame.height / 2
         
         showAllListBtn.setTitle("전체보기", for: .normal)
-        showAllListBtn.titleLabel?.font = UIFont.AppleSDGothicB(size: 11)
+        showAllListBtn.titleLabel?.font = UIFont.AppleSDGothicB(size: 12)
         showAllListBtn.tintColor = .white
     }
     
-    func setlastCV() {
+    func setAllExhibitionCV() {
         allExhibitionCV.isScrollEnabled = false
+        allExhibitionCV.register(UINib(nibName: Identifiers.exhibitionCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.exhibitionCVC)
     }
 }
 
@@ -77,7 +75,7 @@ extension HomeVerticalTVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.allCVC, for: indexPath) as? AllCVC else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.exhibitionCVC, for: indexPath) as? ExhibitionCVC else { return UICollectionViewCell() }
         cell.configureCell(allData[indexPath.row])
         return cell
     }
@@ -96,20 +94,15 @@ extension HomeVerticalTVC: UICollectionViewDelegate {
 extension HomeVerticalTVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
-        let itemsPerRow: CGFloat = 2
-        let widthPadding = sectionInsets.left * itemsPerRow + 10
+        let widthPadding: CGFloat = 15
 
-        let cellWidth = (width - widthPadding) / itemsPerRow
-        let cellHeight = 4 * cellWidth / 3 + 30
-
+        let cellWidth = (width - widthPadding) / 2
+        let cellHeight = 4 * cellWidth / 3 + 64
+        
         return CGSize(width: cellWidth, height: cellHeight)
     }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return sectionInsets
-    }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return sectionInsets.top
+        minimumLineSpacing
     }
 }

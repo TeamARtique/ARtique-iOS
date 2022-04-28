@@ -15,7 +15,7 @@ class HomeHorizontalCVC: UICollectionViewCell {
     @IBOutlet weak var likeBtn: UIButton!
     @IBOutlet weak var bookMarkBtn: UIButton!
     @IBOutlet weak var likeCnt: UILabel!
-    @IBOutlet weak var bookMarkCnt: UILabel!
+    @IBOutlet weak var bookmarkCnt: UILabel!
     
     var exhibitionData: ExhibitionData?
     
@@ -31,10 +31,10 @@ class HomeHorizontalCVC: UICollectionViewCell {
     @IBAction func pushBookMark(_ sender: Any) {
         if bookMarkBtn.currentImage == UIImage(named: "BookMark_Selected"){
             bookMarkBtn.setImage(UIImage(named: "BookMark_UnSelected"), for: .normal)
-            bookMarkCnt.text = "\(Int(bookMarkCnt.text!)! - 1)"
+            bookmarkCnt.text = "\(Int(bookmarkCnt.text!)! - 1)"
         } else {
             bookMarkBtn.setImage(UIImage(named: "BookMark_Selected"), for: .normal)
-            bookMarkCnt.text = "\(Int(bookMarkCnt.text!)! + 1)"
+            bookmarkCnt.text = "\(Int(bookmarkCnt.text!)! + 1)"
         }
     }
 }
@@ -44,5 +44,8 @@ extension HomeHorizontalCVC {
         exhibitionData = exhibition
         phoster.image = exhibition.phoster
         title.text = exhibition.title
+        author.text = exhibition.author
+        likeCnt.text = "\(exhibition.like)"
+        bookmarkCnt.text = "\(exhibition.bookMark)"
     }
 }

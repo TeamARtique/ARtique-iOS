@@ -50,7 +50,6 @@ struct Identifiers {
     
     //MARK: - CVC
     static let homeHorizontalCVC = "HomeHorizontalCVC"
-    static let allCVC = "AllCVC"
     static let latestSearchedCVC = "LatestSearchedCVC"
     static let roundCVC = "RoundCVC"
     static let themeCVC = "ThemeCVC"

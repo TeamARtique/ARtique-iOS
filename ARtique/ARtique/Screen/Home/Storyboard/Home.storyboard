@@ -56,10 +56,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fbr-ak-npC">
-                                <rect key="frame" x="0.0" y="112" width="375" height="56"/>
+                                <rect key="frame" x="0.0" y="112" width="375" height="48"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="pd0-92-Evk"/>
+                                    <constraint firstAttribute="height" constant="48" id="pd0-92-Evk"/>
                                 </constraints>
                             </view>
                         </subviews>

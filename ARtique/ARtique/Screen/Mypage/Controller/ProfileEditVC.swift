@@ -90,7 +90,7 @@ extension ProfileEditVC {
             .distinctUntilChanged()
             .subscribe(onNext: {[weak self] text in
                 guard let self = self else { return }
-                self.navigationItem.rightBarButtonItem?.customView?.backgroundColor = text.isEmpty ? .light_gray : .black
+                self.navigationItem.rightBarButtonItem?.customView?.backgroundColor = text.isEmpty ? .gray1 : .black
                 self.navigationItem.rightBarButtonItem?.isEnabled = text.isEmpty ? false : true
             })
             .disposed(by: bag)
@@ -140,7 +140,7 @@ extension ProfileEditVC: UIImagePickerControllerDelegate, UINavigationController
 // MARK: - UITextViewDelegate
 extension ProfileEditVC: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        guard textView.textColor == .textViewPlaceholder else { return }
+        guard textView.textColor == .gray2 else { return }
         textView.textColor = .label
         textView.text = ""
     }

@@ -13,6 +13,7 @@ class SearchResultVC: UIViewController {
     @IBOutlet weak var resultCV: UICollectionView!
     var searchCnt: Int?
     var keyword: String?
+    let minimumLineSpacing: CGFloat = 25
     
     let exhibitionData = [
             ExhibitionData("My Lovely Cat", "우주인", UIImage(named: "MyLovelyCat")!, 8, 6),
@@ -69,7 +70,7 @@ extension SearchResultVC {
     
     private func layoutCV(with height: CGFloat) {
         resultCV.snp.makeConstraints {
-            $0.height.equalTo(CGFloat(searchCnt ?? 0) * height)
+            $0.height.equalTo(CGFloat(searchCnt ?? 0) * (height + minimumLineSpacing))
         }
     }
 }
@@ -113,10 +114,14 @@ extension SearchResultVC: UICollectionViewDelegateFlowLayout {
         let widthPadding: CGFloat = 15
 
         let cellWidth = (width - widthPadding) / 2
-        let cellHeight = 4 * cellWidth / 3 + 50
+        let cellHeight = 4 * cellWidth / 3 + 64
 
         layoutCV(with: cellHeight)
         
         return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        minimumLineSpacing
     }
 }

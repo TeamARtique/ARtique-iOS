@@ -19,7 +19,7 @@ extension CategoryType {
     var categoryTitle: String {
         switch self {
         case .contemporaryArt:
-            return "현대미술"
+            return "전문예술"
         case .illustration:
             return "일러스트"
         case .daily:
