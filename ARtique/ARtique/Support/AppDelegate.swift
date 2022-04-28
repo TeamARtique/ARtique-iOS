@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Thread.sleep(forTimeInterval: 1.0)
         KakaoSDK.initSDK(appKey: "af3f7053ff24fb9670107358290a4365")
         
-        // TODO: 로그인 연결 시 주석 해제
         let window = UIWindow(frame: UIScreen.main.bounds)
         
         if UserDefaults.standard.string(forKey: UserDefaults.Keys.refreshToken) != nil {

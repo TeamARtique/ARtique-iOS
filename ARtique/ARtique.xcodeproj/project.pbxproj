@@ -379,7 +379,7 @@
 			isa = PBXGroup;
 			children = (
 				3305F7452754DB4E00E6E08E /* Global */,
-				3305F7462754DB5600E6E08E /* Networtk */,
+				3305F7462754DB5600E6E08E /* Network */,
 				3305F7432754DB4000E6E08E /* Screen */,
 				3305F7322754DABA00E6E08E /* art.scnassets */,
 				3305F7442754DB4A00E6E08E /* Support */,
@@ -426,7 +426,7 @@
 			path = Global;
 			sourceTree = "<group>";
 		};
-		3305F7462754DB5600E6E08E /* Networtk */ = {
+		3305F7462754DB5600E6E08E /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				3305F7642754E0B700E6E08E /* APIModels */,
@@ -435,7 +435,7 @@
 				33083C20281980B60038886B /* MoyaTarget */,
 				33083C21281980E70038886B /* NetworkLoggerPlugin.swift */,
 			);
-			path = Networtk;
+			path = Network;
 			sourceTree = "<group>";
 		};
 		3305F74B2754DF0900E6E08E /* Class */ = {

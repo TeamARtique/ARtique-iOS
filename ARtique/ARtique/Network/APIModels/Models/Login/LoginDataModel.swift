@@ -7,13 +7,13 @@
 
 import Foundation
 
-// MARK: - LoginData
+// MARK: - LoginDataModel
 struct LoginDataModel: Codable {
     let user: LoginUser
     let token: Token
 }
 
-// MARK: - User
+// MARK: - LoginUser
 struct LoginUser: Codable {
     let userID: Int
     let email, nickname: String
