@@ -58,7 +58,7 @@ class ARtiqueTBC: UITabBarController {
     
     /// openGallerySetting - 갤러리 접근 권한이 없을때 요청 alert을 띄우는 함수
     func openGallerySetting() {
-        let alert = UIAlertController(title: "'ARTique'이(가) 갤러리 접근이 허용되어 있지 않습니다",
+        let alert = UIAlertController(title: "'ARtique'이(가) 갤러리 접근이 허용되어 있지 않습니다",
                                       message: "전시 등록을 위해\n갤러리 접근 권한을 설정해주세요",
                                       preferredStyle: .alert)
         
