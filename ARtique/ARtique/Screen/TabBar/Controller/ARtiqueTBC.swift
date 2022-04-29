@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 class ARtiqueTBC: UITabBarController {
     
@@ -18,9 +19,8 @@ class ARtiqueTBC: UITabBarController {
     
     //MARK: - Custom Method
     /// makeTabVC - 탭별 아이템 생성하는 함수
-    func makeTabVC(vcType: TypeOfViewController, tabBarTitle: String, tabBarImage: String, tabBarSelectedImage: String) -> UIViewController {
-        
-        let tab = ViewControllerFactory.viewController(for: vcType)
+    func makeTabVC(vcType: TypeOfViewController?, tabBarTitle: String, tabBarImage: String, tabBarSelectedImage: String) -> UIViewController {
+        let tab = vcType != nil ? ViewControllerFactory.viewController(for: vcType!) : UIViewController()
         tab.tabBarItem = UITabBarItem(title: tabBarTitle, image: UIImage(named: tabBarImage), selectedImage: UIImage(named: tabBarSelectedImage))
         return tab
     }
@@ -29,7 +29,7 @@ class ARtiqueTBC: UITabBarController {
     func setTabBar() {
         
         let homeTab = makeTabVC(vcType: .home, tabBarTitle: "", tabBarImage: "untab_home", tabBarSelectedImage: "tab_home")
-        let addTab = makeTabVC(vcType: .add, tabBarTitle: "", tabBarImage: "Add_Default", tabBarSelectedImage: "Add_Default")
+        let addTab = makeTabVC(vcType: nil, tabBarTitle: "", tabBarImage: "Add_Default", tabBarSelectedImage: "Add_Default")
         let mypageTab = makeTabVC(vcType: .mypage, tabBarTitle: "", tabBarImage: "My_UnSelected", tabBarSelectedImage: "My_Selected")
         
         homeTab.tabBarItem.imageInsets = UIEdgeInsets(top: -0.5, left: -0.5, bottom: -0.5, right: -35)
@@ -55,6 +55,23 @@ class ARtiqueTBC: UITabBarController {
         // VC에 루트로 설정
         self.setViewControllers(tabs, animated: false)
     }
+    
+    /// openGallerySetting - 갤러리 접근 권한이 없을때 요청 alert을 띄우는 함수
+    func openGallerySetting() {
+        let alert = UIAlertController(title: "'ARTique'이(가) 갤러리 접근이 허용되어 있지 않습니다",
+                                      message: "전시 등록을 위해\n갤러리 접근 권한을 설정해주세요",
+                                      preferredStyle: .alert)
+        
+        let cancel = UIAlertAction(title: "취소", style: .default, handler: nil)
+        let confirm = UIAlertAction(title: "설정", style: .default) { _ in
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(confirm)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 
 extension ARtiqueTBC: UITabBarControllerDelegate {
@@ -62,9 +79,20 @@ extension ARtiqueTBC: UITabBarControllerDelegate {
         let addVC = viewControllers![1]
         
         if viewController == addVC {
-            let addExhibitionVC = ViewControllerFactory.viewController(for: .add)
-            addExhibitionVC.modalPresentationStyle = .fullScreen
-            present(addExhibitionVC, animated: true, completion: nil)
+            PHPhotoLibrary.requestAuthorization( { status in
+                switch status{
+                case .authorized:
+                    DispatchQueue.main.async {
+                        let addExhibitionVC = ViewControllerFactory.viewController(for: .add)
+                        addExhibitionVC.modalPresentationStyle = .fullScreen
+                        self.present(addExhibitionVC, animated: true, completion: nil)
+                    }
+                default:
+                    DispatchQueue.main.async {
+                        self.openGallerySetting()
+                    }
+                }
+            })
             return false
         } else {
             return true
