@@ -164,6 +164,7 @@ extension AddExhibitionVC {
     
     /// 순서 조정 단계에서 테마 선택 단계로 돌아갈 경우 선택된 사진을 모두 지우는 함수
     private func deletePrevData(_ page: Int) {
+        
         if page == 1 {
             NewExhibition.shared.selectedArtwork?.removeAll()
             artworkSelectView.galleryCV.indexPathsForSelectedItems?.forEach({

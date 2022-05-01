@@ -46,6 +46,7 @@ class LoginVC: BaseVC {
         kakaoLoginBtn.press { [weak self] in
             self?.kakaoLogin()
         }
+        tmpLogin()
     }
 }
 
@@ -122,5 +123,15 @@ extension LoginVC {
                 self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         })
+    }
+}
+
+// 시뮬레이터를 위한 임시 로그인
+extension LoginVC {
+    private func tmpLogin() {
+        appleLoginBtn.press { [weak self] in
+            guard let self = self else { return }
+            self.navigator?.instantiateVC(destinationViewControllerType: ARtiqueTBC.self, useStoryboard: false, storyboardName: "", naviType: .present, modalPresentationStyle: .fullScreen) { destination in }
+        }
     }
 }
