@@ -42,15 +42,19 @@ extension AlertVC {
         rightBtn.titleLabel?.font = .AppleSDGothicR(size: 15)
     }
     
-    func configureAlert(targetView: UIViewController, alertType: AlertType, leftBtnAction: Selector, rightBtnAction: Selector) {
+    func configureAlert(targetView: UIViewController, alertType: AlertType, leftBtnAction: Selector?, rightBtnAction: Selector) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.alertImage.image = alertType.alertImage
             self.message.attributedText = alertType.message
             self.leftBtn.setTitle(alertType.leftBtnLabel, for: .normal)
             self.rightBtn.setTitle(alertType.rightBtnLabel, for: .normal)
-            self.leftBtn.addTarget(targetView, action: leftBtnAction, for: .touchUpInside)
             self.rightBtn.addTarget(targetView, action: rightBtnAction, for: .touchUpInside)
+            guard let leftBtnAction = leftBtnAction else {
+                self.leftBtn.isHidden = true
+                return
+            }
+            self.leftBtn.addTarget(targetView, action: leftBtnAction, for: .touchUpInside)
         }
     }
 }
