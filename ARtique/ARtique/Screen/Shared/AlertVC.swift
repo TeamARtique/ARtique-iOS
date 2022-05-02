@@ -26,6 +26,7 @@ extension AlertVC {
         alertBaseView.layer.cornerRadius = 14
         
         message.setLineBreakMode()
+        message.font = .AppleSDGothicR(size: 16)
         message.textAlignment = .center
         
         leftBtn.layer.cornerRadius = leftBtn.frame.height / 2
@@ -39,5 +40,17 @@ extension AlertVC {
         rightBtn.titleLabel?.textColor = .white
         rightBtn.setTitleColor(.white, for: .normal)
         rightBtn.titleLabel?.font = .AppleSDGothicR(size: 15)
+    }
+    
+    func configureAlert(targetView: UIViewController, alertType: AlertType, leftBtnAction: Selector, rightBtnAction: Selector) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.alertImage.image = alertType.alertImage
+            self.message.attributedText = alertType.message
+            self.leftBtn.setTitle(alertType.leftBtnLabel, for: .normal)
+            self.rightBtn.setTitle(alertType.rightBtnLabel, for: .normal)
+            self.leftBtn.addTarget(targetView, action: leftBtnAction, for: .touchUpInside)
+            self.rightBtn.addTarget(targetView, action: rightBtnAction, for: .touchUpInside)
+        }
     }
 }
