@@ -20,6 +20,7 @@ struct Identifiers {
     static let arGallerySB = "ARGallery"
     static let exhibitionListSB = "ExhibitionList"
     static let noneExhibitionSB = "NoneExhibition"
+    static let alertSB = "Alert"
     
     //MARK: - Controller
     static let artiqueTBC = "ARtiqueTBC"
@@ -39,6 +40,7 @@ struct Identifiers {
     static let albumListTVC = "AlbumListTVC"
     static let exhibitionListVC = "ExhibitionListVC"
     static let noneExhibitionVC = "NoneExhibitionVC"
+    static let alertVC = "AlertVC"
     
     //MARK: - TVC
     static let homeHorizontalTVC = "HomeHorizontalTVC"

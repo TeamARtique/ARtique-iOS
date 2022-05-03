@@ -40,7 +40,7 @@ class AddExhibitionVC: UIViewController {
 // MARK: - Configure
 extension AddExhibitionVC {
     private func configureNavigationBar() {
-        configureNavigationTitle(0)
+        setNavigationTitle(0)
         navigationController?.additionalSafeAreaInsets.top = 8
         navigationController?.setRoundRightBarBtn(navigationItem: self.navigationItem,
                                                   title: "다음",
@@ -53,13 +53,16 @@ extension AddExhibitionVC {
         navigationController?.navigationBar.tintColor = .black
     }
     
-    private func configureNavigationTitle(_ index: Int) {
-        navigationItem.title = AddProcess.allCases[index].naviTitle
-    }
-    
     private func configureNaviBarButton() {
         configurePrevButton()
         configureNextButton()
+    }
+    
+    private func configurePrevButton() {
+        navigationItem.leftBarButtonItem?.image
+        = (progressView.progress < 0.3)
+        ? UIImage(named: "dismissBtn")
+        : UIImage(named: "BackBtn")
     }
     
     private func configureNextButton() {
@@ -69,35 +72,6 @@ extension AddExhibitionVC {
         (progressView.progress == 1)
         ? button.setTitle("등록하기", for: .normal)
         : button.setTitle("다음", for: .normal)
-    }
-    
-    private func bindCrop() {
-        let rightBarButton = self.navigationItem.rightBarButtonItem!
-        let button = rightBarButton.customView as! UIButton
-
-        button.rx.tap
-            .filter({ [weak self] _ in
-                self?.page == 2
-            })
-            .bind(to: artworkSelectView.preview.crop)
-            .disposed(by: bag)
-        
-        button.rx.tap
-            .filter({ [weak self] _ in
-                self?.page == 2
-            })
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.orderView.artworkListView.artworkCV.reloadData()
-            })
-            .disposed(by: bag)
-    }
-    
-    private func configurePrevButton() {
-        navigationItem.leftBarButtonItem?.image
-        = (progressView.progress < 0.3)
-        ? UIImage(named: "dismissBtn")
-        : UIImage(named: "BackBtn")
     }
     
     private func configureRegisterProgressView() {
@@ -149,6 +123,26 @@ extension AddExhibitionVC {
             $0.height.equalTo(scrollView.snp.height)
         }
     }
+}
+
+// MARK: - Custom Methods
+extension AddExhibitionVC {
+    private func setNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(setSelectedViewNaviTitle), name: .whenArtworkSelected, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentAlbumList), name: .whenAlbumListBtnSelected, object: nil)
+    }
+    
+    private func setNavigationTitle(_ index: Int) {
+        navigationItem.title = AddProcess.allCases[index].naviTitle
+    }
+    
+    private func configurePageView(_ progress: Float,_ page: Int) {
+        progressView.setProgress(progress, animated: true)
+        setNavigationTitle(page)
+        configureNaviBarButton()
+        setScrollViewPaging(page: page)
+        reloadPage(page)
+    }
     
     private func reloadPage(_ page: Int) {
         switch page {
@@ -168,14 +162,20 @@ extension AddExhibitionVC {
         }
     }
     
-    private func setNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(setSelectedViewNaviTitle), name: .whenArtworkSelected, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(presentAlbumList), name: .whenAlbumListBtnSelected, object: nil)
+    /// 순서 조정 단계에서 테마 선택 단계로 돌아갈 경우 선택된 사진을 모두 지우는 함수
+    private func deletePrevData(_ page: Int) {
+        
+        if page == 1 {
+            NewExhibition.shared.selectedArtwork?.removeAll()
+            artworkSelectView.galleryCV.indexPathsForSelectedItems?.forEach({
+                artworkSelectView.galleryCV.deselectItem(at: $0, animated: false)
+            })
+            artworkSelectView.galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
+            NotificationCenter.default.post(name: .whenAlbumChanged, object: 0)
+        }
     }
     
     @objc func setSelectedViewNaviTitle(_ notification: Notification) {
-        // TODO: - ERROR FIX
-//        configureNavigationTitle(1)
         navigationItem.title = "사진 선택 (\(notification.object ?? 0)/\(NewExhibition.shared.artworkCnt ?? 0))"
     }
     
@@ -184,6 +184,25 @@ extension AddExhibitionVC {
         albumListVC.albumList = notification.object as! [PHAssetCollection]
         
         self.present(albumListVC, animated: true, completion: nil)
+    }
+    
+    @objc func dismissAlert() {
+        dismiss(animated: false, completion: nil)
+    }
+    
+    @objc func removeAllExhibitionData() {
+        NewExhibition.shared.artworkCnt = nil
+        NewExhibition.shared.themeId = nil
+        dismiss(animated: false) {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @objc func registerExhibition() {
+        // TODO: - 게시글 등록 완료
+        dismiss(animated: false) {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 
@@ -195,26 +214,53 @@ extension AddExhibitionVC {
             page += 1
             configurePageView(progress, page)
         } else {
-            // TODO: - 게시글 등록 완료
-            dismiss(animated: true)
+            popupAlert(targetView: self,
+                       alertType: .registerExhibition,
+                       leftBtnAction: #selector(dismissAlert),
+                       rightBtnAction: #selector(registerExhibition))
         }
     }
     
     @objc func bindLeftBarButton() {
         if progressView.progress > 0.3 {
+            deletePrevData(page)
             progress -= 0.2
             page -= 1
             configurePageView(progress, page)
         } else {
-            dismiss(animated: true)
+            if NewExhibition.shared.artworkCnt != nil
+                || NewExhibition.shared.themeId != nil {
+                dump(NewExhibition.shared)
+                popupAlert(targetView: self,
+                           alertType: .removeAllExhibition,
+                           leftBtnAction: #selector(removeAllExhibitionData),
+                           rightBtnAction: #selector(dismissAlert))
+            } else {
+                dismiss(animated: true, completion: nil)
+            }
         }
     }
     
-    private func configurePageView(_ progress: Float,_ page: Int) {
-        progressView.setProgress(progress, animated: true)
-        configureNavigationTitle(page)
-        configureNaviBarButton()
-        setScrollViewPaging(page: page)
-        reloadPage(page)
+    // TODO: ERROR 1) 해당 장수 넘을 경우 저장안되게 2) 네비바 타이틀
+    private func bindCrop() {
+        let rightBarButton = self.navigationItem.rightBarButtonItem!
+        let button = rightBarButton.customView as! UIButton
+        
+        button.rx.tap
+            .filter({ [weak self] _ in
+                self?.page == 2
+            })
+            .bind(to: artworkSelectView.preview.crop)
+            .disposed(by: bag)
+
+        button.rx.tap
+            .filter({ [weak self] _ in
+                self?.page == 2
+            })
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.orderView.artworkListView.artworkCV.reloadData()
+            })
+            .disposed(by: bag)
     }
 }
