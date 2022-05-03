@@ -208,12 +208,14 @@ extension ArtworkSelectView {
     }
     
     @objc func changeAlbum(_ notification: Notification) {
-        let collection = albumList[notification.object as! Int]
-        fetchAssets(with: collection)
-        albumListButton.setTitle(collection.localizedTitle ?? "", for: .normal)
-        galleryCV.reloadData()
-        galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
-        setPreviewImage([0,0])
+        if !albumList.isEmpty {
+            let collection = albumList[notification.object as! Int]
+            fetchAssets(with: collection)
+            albumListButton.setTitle(collection.localizedTitle ?? "", for: .normal)
+            galleryCV.reloadData()
+            galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
+            setPreviewImage([0,0])
+        }
     }
     
     @objc func galleryVerticalScroll(sender: UIPanGestureRecognizer) {

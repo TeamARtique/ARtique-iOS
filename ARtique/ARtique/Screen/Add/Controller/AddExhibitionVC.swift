@@ -185,6 +185,25 @@ extension AddExhibitionVC {
         
         self.present(albumListVC, animated: true, completion: nil)
     }
+    
+    @objc func dismissAlert() {
+        dismiss(animated: false, completion: nil)
+    }
+    
+    @objc func removeAllExhibitionData() {
+        NewExhibition.shared.artworkCnt = nil
+        NewExhibition.shared.themeId = nil
+        dismiss(animated: false) {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @objc func registerExhibition() {
+        // TODO: - 게시글 등록 완료
+        dismiss(animated: false) {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
 }
 
 // MARK: - Bind Button Action
@@ -195,8 +214,10 @@ extension AddExhibitionVC {
             page += 1
             configurePageView(progress, page)
         } else {
-            // TODO: - 게시글 등록 완료
-            dismiss(animated: true)
+            popupAlert(targetView: self,
+                       alertType: .registerExhibition,
+                       leftBtnAction: #selector(dismissAlert),
+                       rightBtnAction: #selector(registerExhibition))
         }
     }
     
@@ -207,7 +228,16 @@ extension AddExhibitionVC {
             page -= 1
             configurePageView(progress, page)
         } else {
-            dismiss(animated: true)
+            if NewExhibition.shared.artworkCnt != nil
+                || NewExhibition.shared.themeId != nil {
+                dump(NewExhibition.shared)
+                popupAlert(targetView: self,
+                           alertType: .removeAllExhibition,
+                           leftBtnAction: #selector(removeAllExhibitionData),
+                           rightBtnAction: #selector(dismissAlert))
+            } else {
+                dismiss(animated: true, completion: nil)
+            }
         }
     }
     
