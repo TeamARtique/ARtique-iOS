@@ -42,7 +42,7 @@ extension ArtworkListView {
     }
     
     private func configureCV() {
-        artworkCV.register(UINib(nibName: Identifiers.selectedImageCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.selectedImageCVC)
+        artworkCV.register(UINib(nibName: Identifiers.phosterCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.phosterCVC)
         artworkCV.register(UINib(nibName: Identifiers.artworkExplainCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.artworkExplainCVC)
         
         artworkCV.dataSource = self
@@ -93,7 +93,7 @@ extension ArtworkListView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let orderViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.selectedImageCVC, for: indexPath) as? SelectedImageCVC,
+        guard let orderViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.phosterCVC, for: indexPath) as? PhosterCVC,
               let explainViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.artworkExplainCVC, for: indexPath) as? ArtworkExplainCVC
         else { return  UICollectionViewCell() }
         

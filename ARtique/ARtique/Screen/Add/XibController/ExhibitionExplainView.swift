@@ -14,6 +14,7 @@ class ExhibitionExplainView: UIView {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var categoryCV: UICollectionView!
+    @IBOutlet weak var phosterChangeBtn: UIButton!
     @IBOutlet weak var phosterCV: UICollectionView!
     @IBOutlet weak var exhibitionExplainTextCnt: UILabel!
     @IBOutlet weak var exhibitionExplainTextView: UITextView!
@@ -56,11 +57,15 @@ extension ExhibitionExplainView {
     private func configureView() {
         scrollView.showsVerticalScrollIndicator = false
         
-        titleTextField.setRoundTextField(with: "제목을 입력하세요")
+        titleTextField.setRoundTextField(with: "전시회의 제목을 입력하세요")
         
+        categoryCV.isScrollEnabled = false
         configureCV(categoryCV, Identifiers.roundCVC)
-        configureCV(phosterCV, Identifiers.selectedImageCVC)
-        
+        configureCV(phosterCV, Identifiers.phosterCVC)
+        phosterCV.showsHorizontalScrollIndicator = false
+        if let layout = phosterCV.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
         exhibitionExplainTextView.setRoundTextView()
         exhibitionExplainTextView.setTextViewPlaceholder(exhibitionExplainPlaceholder)
         exhibitionExplainTextView.delegate = self
@@ -69,6 +74,13 @@ extension ExhibitionExplainView {
         tagCV.allowsMultipleSelection = true
         tagCV.dataSource = self
         tagCV.delegate = self
+        
+        isPublic.onTintColor = .black
+        
+        phosterChangeBtn.tintColor = .black
+        phosterChangeBtn.setTitle("  대표사진 변경하기", for: .normal)
+        phosterChangeBtn.titleLabel?.font = .AppleSDGothicSB(size: 12)
+        phosterChangeBtn.setImage(UIImage(named: "Change"), for: .normal)
     }
     
     private func bindUI() {
@@ -104,7 +116,6 @@ extension ExhibitionExplainView {
         didSelectItem(at: categoryCV)
         didSelectItem(at: phosterCV)
         didSelectItem(at: tagCV)
-        
     }
 }
 
@@ -116,10 +127,6 @@ extension ExhibitionExplainView {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        collectionView.showsHorizontalScrollIndicator = false
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-        }
     }
     
     private func didSelectItem(at collectionView: UICollectionView) {
@@ -170,7 +177,7 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let roundCell = categoryCV.dequeueReusableCell(withReuseIdentifier: Identifiers.roundCVC, for: indexPath) as? RoundCVC,
-              let selectedImageCell = phosterCV.dequeueReusableCell(withReuseIdentifier: Identifiers.selectedImageCVC, for: indexPath) as? SelectedImageCVC,
+              let selectedImageCell = phosterCV.dequeueReusableCell(withReuseIdentifier: Identifiers.phosterCVC, for: indexPath) as? PhosterCVC,
               let tagCell = tagCV.dequeueReusableCell(withReuseIdentifier: Identifiers.roundCVC, for: indexPath) as? RoundCVC
         else { return UICollectionViewCell() }
                 
@@ -179,7 +186,7 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
             roundCell.configureCell(with: CategoryType.allCases[indexPath.row].categoryTitle)
             return roundCell
         case phosterCV:
-            selectedImageCell.configureCell(with: UIImage(named: "Theme1")!)
+            selectedImageCell.configureCell(with: NewExhibition.shared.selectedArtwork?.first ?? UIImage())
             selectedImageCell.image.contentMode = .scaleAspectFill
             return selectedImageCell
         default:
@@ -194,21 +201,25 @@ extension ExhibitionExplainView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {
         case categoryCV:
-            return CGSize(width: 75,
-                          height: collectionView.frame.height)
+            return CGSize(width: (collectionView.frame.width - 52) / 3,
+                          height: 30)
         case phosterCV:
             return CGSize(width: 98,
                           height: collectionView.frame.height)
         default:
-            return CGSize(width: (collectionView.frame.width - 24) / 4,
-                          height: 30)
+            guard let cell = tagCV.dequeueReusableCell(withReuseIdentifier: Identifiers.roundCVC, for: indexPath) as? RoundCVC else { return .zero }
+            cell.contentLabel.text = TagType.allCases[indexPath.row].tagTitle
+            cell.contentLabel.sizeToFit()
+            let space = collectionView.frame.width - 208 - 5 * 3
+            let cellWidth = cell.contentLabel.frame.width + space / 4
+            return CGSize(width: cellWidth, height: 30)
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         switch collectionView {
         case tagCV:
-            return 8
+            return 5
         default:
             return 6
         }

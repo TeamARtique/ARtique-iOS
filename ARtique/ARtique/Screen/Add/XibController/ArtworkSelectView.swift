@@ -118,8 +118,8 @@ extension ArtworkSelectView {
     }
     
     private func configureCV() {
-        galleryCV.register(UINib(nibName: Identifiers.selectedImageCVC, bundle: nil),
-                           forCellWithReuseIdentifier: Identifiers.selectedImageCVC)
+        galleryCV.register(UINib(nibName: Identifiers.phosterCVC, bundle: nil),
+                           forCellWithReuseIdentifier: Identifiers.phosterCVC)
         galleryCV.dataSource = self
         galleryCV.delegate = self
         galleryCV.allowsMultipleSelection = true
@@ -247,7 +247,7 @@ extension ArtworkSelectView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.selectedImageCVC, for: indexPath) as? SelectedImageCVC else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.phosterCVC, for: indexPath) as? PhosterCVC else { return UICollectionViewCell() }
         
         let asset = devicePhotos.object(at: indexPath.item)
         
@@ -265,7 +265,7 @@ extension ArtworkSelectView: UICollectionViewDataSource {
 //MARK: UICollectionViewDelegate
 extension ArtworkSelectView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? SelectedImageCVC else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PhosterCVC else { return }
         cell.isSet = true
         selectedImageIds.append(cell.id)
         previewStatus(isHidden: false)
@@ -273,7 +273,7 @@ extension ArtworkSelectView: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? SelectedImageCVC else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PhosterCVC else { return }
         cell.isSet = false
         selectedImages.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
         selectedImageIds.remove(at: selectedImageIds.firstIndex(of: cell.id)!)

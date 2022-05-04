@@ -36,7 +36,7 @@ class RoundCVC: UICollectionViewCell {
         layer.borderWidth = 1
         layer.cornerRadius = frame.height / 2
         
-        contentLabel.font = .AppleSDGothicM(size: 13)
+        contentLabel.font = .AppleSDGothicL(size: 13)
         contentLabel.textColor = .gray2
         contentLabel.text = "\(label)"
     }

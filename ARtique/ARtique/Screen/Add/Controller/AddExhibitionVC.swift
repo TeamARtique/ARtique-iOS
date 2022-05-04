@@ -167,6 +167,7 @@ extension AddExhibitionVC {
             postExplainView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: true)
         case 4:
             exhibitionExplainView.scrollView.scrollToTop()
+            exhibitionExplainView.phosterCV.reloadData()
         default:
             break
         }

@@ -55,7 +55,7 @@ struct Identifiers {
     static let latestSearchedCVC = "LatestSearchedCVC"
     static let roundCVC = "RoundCVC"
     static let themeCVC = "ThemeCVC"
-    static let selectedImageCVC = "SelectedImageCVC"
+    static let phosterCVC = "PhosterCVC"
     static let artworkExplainCVC = "ArtworkExplainCVC"
     static let exhibitionCVC = "ExhibitionCVC"
     
