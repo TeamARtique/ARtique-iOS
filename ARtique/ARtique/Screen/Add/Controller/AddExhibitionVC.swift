@@ -42,7 +42,7 @@ class AddExhibitionVC: UIViewController {
 // MARK: - Configure
 extension AddExhibitionVC {
     private func configureNavigationBar() {
-        setNavigationTitle(0)
+        navigationItem.title = "전시 등록"
         navigationController?.additionalSafeAreaInsets.top = 8
         navigationController?.setRoundRightBarBtn(navigationItem: self.navigationItem,
                                                   title: "다음",
@@ -135,12 +135,7 @@ extension AddExhibitionVC {
 // MARK: - Custom Methods
 extension AddExhibitionVC {
     private func setNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(setSelectedViewNaviTitle), name: .whenArtworkSelected, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentAlbumList), name: .whenAlbumListBtnSelected, object: nil)
-    }
-    
-    private func setNavigationTitle(_ index: Int) {
-        navigationItem.title = AddProcess.allCases[index].naviTitle
     }
     
     private func setProgress(_ page: Int) {
@@ -152,7 +147,6 @@ extension AddExhibitionVC {
     
     private func configurePageView(_ page: Int) {
         setProgress(page)
-        setNavigationTitle(page)
         configureNaviBarButton()
         setScrollViewPaging(page)
         reloadPage(page)
@@ -186,10 +180,6 @@ extension AddExhibitionVC {
             artworkSelectView.galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
             NotificationCenter.default.post(name: .whenAlbumChanged, object: 0)
         }
-    }
-    
-    @objc func setSelectedViewNaviTitle(_ notification: Notification) {
-        navigationItem.title = "사진 선택 (\(notification.object ?? 0)/\(NewExhibition.shared.artworkCnt ?? 0))"
     }
     
     @objc func presentAlbumList(_ notification: Notification) {

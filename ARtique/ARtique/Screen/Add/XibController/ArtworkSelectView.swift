@@ -192,7 +192,6 @@ extension ArtworkSelectView {
                     self.exhibitionModel.selectedArtwork = self.selectedImages
                 }
                 // TODO: - ERROR
-                NotificationCenter.default.post(name: .whenArtworkSelected, object: self.galleryCV.indexPathsForSelectedItems?.count)
                 self.isFirstSelection = false
             })
             .disposed(by: bag)
@@ -279,7 +278,6 @@ extension ArtworkSelectView: UICollectionViewDelegate {
         selectedImages.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
         selectedImageIds.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
         exhibitionModel.selectedArtwork = selectedImages
-        NotificationCenter.default.post(name: .whenArtworkSelected, object: galleryCV.indexPathsForSelectedItems?.count)
         spiner.stopAnimating()
     }
     
