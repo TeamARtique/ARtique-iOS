@@ -12,13 +12,14 @@ import Then
 class BorderCVC: UICollectionViewCell {
     private var imageView = UIImageView()
         .then {
-            $0.contentMode = .scaleAspectFit
+            $0.clipsToBounds = true
+            $0.contentMode = .scaleAspectFill
         }
     
     private var selectedOverlay = UIView()
         .then {
             $0.backgroundColor = .white
-            $0.layer.opacity = 60
+            $0.layer.opacity = 0.6
         }
     
     override init(frame: CGRect) {
@@ -49,8 +50,10 @@ class BorderCVC: UICollectionViewCell {
     }
     
     private func configureContentView() {
+        contentView.addSubview(imageView)
+        contentView.addSubview(selectedOverlay)
+
         imageView.layer.borderColor = UIColor.clear.cgColor
-        
         imageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
@@ -64,7 +67,7 @@ class BorderCVC: UICollectionViewCell {
         
         selectedOverlay.snp.makeConstraints {
             $0.top.leading.equalToSuperview().offset(borderWidth)
-            $0.bottom.trailing.equalToSuperview().offset(borderWidth)
+            $0.bottom.trailing.equalToSuperview().offset(-borderWidth)
         }
     }
 }
