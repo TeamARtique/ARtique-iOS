@@ -14,6 +14,7 @@
 		23071DBB27ECFBAB00949BA1 /* ExhibitionExplainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23071DB927ECFBAB00949BA1 /* ExhibitionExplainView.xib */; };
 		230883812804162200620BC1 /* ProfileEdit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230883802804162200620BC1 /* ProfileEdit.storyboard */; };
 		230883832804163100620BC1 /* ProfileEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230883822804163100620BC1 /* ProfileEditVC.swift */; };
+		231435702822D66E00E41D7F /* ThemeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2314356F2822D66E00E41D7F /* ThemeType.swift */; };
 		23144217280C4040007DB53C /* SearchResult.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23144216280C4040007DB53C /* SearchResult.storyboard */; };
 		23144219280C4053007DB53C /* SearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23144218280C4053007DB53C /* SearchResultVC.swift */; };
 		231EF8512763DCF4008218CC /* PlaneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231EF8502763DCF4008218CC /* PlaneVC.swift */; };
@@ -57,7 +58,6 @@
 		23B52A7D27E0A5A500D6C339 /* AddExhibitionNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B52A7C27E0A5A500D6C339 /* AddExhibitionNC.swift */; };
 		23B52A7F27E0A73800D6C339 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B52A7E27E0A73800D6C339 /* UIViewController+.swift */; };
 		23B52A8127E0A7B900D6C339 /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B52A8027E0A7B900D6C339 /* UINavigationController+.swift */; };
-		23B52A8727E0E89200D6C339 /* AddProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B52A8627E0E89200D6C339 /* AddProcess.swift */; };
 		23B52A8B27E0FED600D6C339 /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B52A8927E0FED600D6C339 /* ThemeView.swift */; };
 		23B52A8C27E0FED600D6C339 /* ThemeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23B52A8A27E0FED600D6C339 /* ThemeView.xib */; };
 		23B52A8F27E1013E00D6C339 /* RoundCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B52A8D27E1013E00D6C339 /* RoundCVC.swift */; };
@@ -141,6 +141,7 @@
 		23071DB927ECFBAB00949BA1 /* ExhibitionExplainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExhibitionExplainView.xib; sourceTree = "<group>"; };
 		230883802804162200620BC1 /* ProfileEdit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileEdit.storyboard; sourceTree = "<group>"; };
 		230883822804163100620BC1 /* ProfileEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditVC.swift; sourceTree = "<group>"; };
+		2314356F2822D66E00E41D7F /* ThemeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeType.swift; sourceTree = "<group>"; };
 		23144216280C4040007DB53C /* SearchResult.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchResult.storyboard; sourceTree = "<group>"; };
 		23144218280C4053007DB53C /* SearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultVC.swift; sourceTree = "<group>"; };
 		231EF8502763DCF4008218CC /* PlaneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneVC.swift; sourceTree = "<group>"; };
@@ -185,7 +186,6 @@
 		23B52A7C27E0A5A500D6C339 /* AddExhibitionNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExhibitionNC.swift; sourceTree = "<group>"; };
 		23B52A7E27E0A73800D6C339 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		23B52A8027E0A7B900D6C339 /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
-		23B52A8627E0E89200D6C339 /* AddProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProcess.swift; sourceTree = "<group>"; };
 		23B52A8927E0FED600D6C339 /* ThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
 		23B52A8A27E0FED600D6C339 /* ThemeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemeView.xib; sourceTree = "<group>"; };
 		23B52A8D27E1013E00D6C339 /* RoundCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundCVC.swift; sourceTree = "<group>"; };
@@ -307,11 +307,11 @@
 			isa = PBXGroup;
 			children = (
 				23FE54D627EB086400FF0DF9 /* GalleryType.swift */,
-				23B52A8627E0E89200D6C339 /* AddProcess.swift */,
 				23071DB627ECF5A100949BA1 /* CategoryType.swift */,
 				23BB926F27F0EB9100D91354 /* TagType.swift */,
 				33083C4028198F640038886B /* NaviType.swift */,
 				236FA17B281ED66500E819FE /* AlertType.swift */,
+				2314356F2822D66E00E41D7F /* ThemeType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -1071,7 +1071,6 @@
 				23BB927027F0EB9100D91354 /* TagType.swift in Sources */,
 				3305F7612754E03600E6E08E /* Identifiers.swift in Sources */,
 				3305F7312754DABA00E6E08E /* AppDelegate.swift in Sources */,
-				23B52A8727E0E89200D6C339 /* AddProcess.swift in Sources */,
 				23B52A8127E0A7B900D6C339 /* UINavigationController+.swift in Sources */,
 				33083C452819B07F0038886B /* Token.swift in Sources */,
 				33AC278A2763D27200E0765A /* ARGalleryVC.swift in Sources */,
@@ -1085,6 +1084,7 @@
 				33083C3F28198F430038886B /* Navigator.swift in Sources */,
 				33083C3A2819893D0038886B /* TokenInfo.swift in Sources */,
 				3305F76B2754E10300E6E08E /* NetworkResult.swift in Sources */,
+				231435702822D66E00E41D7F /* ThemeType.swift in Sources */,
 				23B52A7F27E0A73800D6C339 /* UIViewController+.swift in Sources */,
 				3305F77F2754E22800E6E08E /* UITextField+.swift in Sources */,
 				23B52A9327E1131C00D6C339 /* ThemeCVC.swift in Sources */,

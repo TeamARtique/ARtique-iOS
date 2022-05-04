@@ -21,22 +21,23 @@ class RoundCVC: UICollectionViewCell {
     override var isSelected: Bool {
         didSet{
             if isSelected {
-                contentLabel.textColor = .white
-                backgroundColor = .black
+                contentLabel.textColor = .black
+                layer.borderColor = UIColor.black.cgColor
             }
             else {
-                contentLabel.textColor = .black
-                backgroundColor = .white
+                contentLabel.textColor = .gray2
+                layer.borderColor = UIColor.gray2.cgColor
             }
         }
     }
     
     func configureCell(with label: String) {
-        layer.borderColor = UIColor.black.cgColor
+        layer.borderColor = UIColor.gray2.cgColor
         layer.borderWidth = 1
         layer.cornerRadius = frame.height / 2
         
         contentLabel.font = .AppleSDGothicM(size: 13)
+        contentLabel.textColor = .gray2
         contentLabel.text = "\(label)"
     }
 }

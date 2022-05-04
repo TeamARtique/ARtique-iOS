@@ -33,23 +33,34 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AT3-OR-199">
+                        <rect key="frame" x="5" y="5" width="150" height="150"/>
+                        <color key="backgroundColor" white="1" alpha="0.60391659768211925" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="AT3-OR-199" secondAttribute="height" multiplier="1:1" id="sXE-ah-ZHV"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="N8B-9M-KR3" secondAttribute="trailing" id="9M8-DJ-jca"/>
                 <constraint firstItem="N8B-9M-KR3" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="E9v-jR-Bam"/>
+                <constraint firstItem="AT3-OR-199" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="HsG-SH-ofA"/>
                 <constraint firstItem="WqV-Tm-eAM" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="KFC-WM-6Q7"/>
                 <constraint firstItem="N8B-9M-KR3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Q19-nl-fG4"/>
+                <constraint firstAttribute="trailing" secondItem="AT3-OR-199" secondAttribute="trailing" constant="5" id="cCt-u1-3ey"/>
                 <constraint firstItem="WqV-Tm-eAM" firstAttribute="top" secondItem="N8B-9M-KR3" secondAttribute="bottom" constant="8" id="eIP-CC-57n"/>
+                <constraint firstItem="AT3-OR-199" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="i5Q-ll-e04"/>
                 <constraint firstAttribute="bottom" secondItem="WqV-Tm-eAM" secondAttribute="bottom" id="tP0-Vz-lRm"/>
             </constraints>
             <size key="customSize" width="183" height="257"/>
             <connections>
+                <outlet property="selectedOverlay" destination="AT3-OR-199" id="72M-e0-qli"/>
                 <outlet property="themeImage" destination="N8B-9M-KR3" id="jYI-iD-GVo"/>
                 <outlet property="themeTitle" destination="WqV-Tm-eAM" id="m6z-dg-Ooz"/>
             </connections>
-            <point key="canvasLocation" x="233.33333333333334" y="179.12946428571428"/>
+            <point key="canvasLocation" x="233.33333333333334" y="178.79464285714286"/>
         </collectionViewCell>
     </objects>
 </document>
