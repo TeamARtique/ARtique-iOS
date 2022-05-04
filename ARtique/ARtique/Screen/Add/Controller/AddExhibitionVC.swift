@@ -35,7 +35,6 @@ class AddExhibitionVC: UIViewController {
         configureStackView()
         hideKeyboard()
         setNotification()
-        bindCrop()
     }
 }
 
@@ -44,10 +43,10 @@ extension AddExhibitionVC {
     private func configureNavigationBar() {
         navigationItem.title = "전시 등록"
         navigationController?.additionalSafeAreaInsets.top = 8
-        navigationController?.setRoundRightBarBtn(navigationItem: self.navigationItem,
-                                                  title: "다음",
-                                                  target: self,
-                                                  action: #selector(bindRightBarButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "NextBtn"),
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(bindRightBarButton))
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "dismissBtn"),
                                                            style: .plain,
                                                            target: self,
@@ -79,12 +78,15 @@ extension AddExhibitionVC {
     }
     
     private func configureNextButton() {
-        let rightBarButton = navigationItem.rightBarButtonItem!
-        let button = rightBarButton.customView as! UIButton
-        
-        (page == 4)
-        ? button.setTitle("등록하기", for: .normal)
-        : button.setTitle("다음", for: .normal)
+        navigationItem.rightBarButtonItem
+        = (page == 4)
+        ? navigationController?.roundFilledBarBtn(title: "등록하기",
+                                                  target: self,
+                                                  action: #selector(bindRightBarButton))
+        : UIBarButtonItem(image: UIImage(named: "NextBtn"),
+                          style: .plain,
+                          target: self,
+                          action: #selector(bindRightBarButton))
     }
     
     // MARK: - Configure Content Page
@@ -231,7 +233,6 @@ extension AddExhibitionVC {
         } else {
             if NewExhibition.shared.artworkCnt != nil
                 || NewExhibition.shared.themeId != nil {
-                dump(NewExhibition.shared)
                 popupAlert(targetView: self,
                            alertType: .removeAllExhibition,
                            leftBtnAction: #selector(removeAllExhibitionData),
