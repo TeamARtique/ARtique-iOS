@@ -16,34 +16,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Eu3-kD-Fpk">
-                                <rect key="frame" x="0.0" y="98" width="414" height="6"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="6" id="SVn-wl-17A"/>
-                                </constraints>
-                            </progressView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="96u-2T-yq2">
                                 <rect key="frame" x="0.0" y="104" width="414" height="758"/>
                                 <viewLayoutGuide key="contentLayoutGuide" id="YAn-2S-sW7"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="cfO-zd-50y"/>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96K-dr-Vv1">
+                                <rect key="frame" x="20" y="98" width="374" height="6"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YED-Ms-OX5">
+                                        <rect key="frame" x="0.0" y="0.0" width="67" height="6"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="6" id="Z7F-bf-9dw"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="YED-Ms-OX5" firstAttribute="leading" secondItem="96K-dr-Vv1" secondAttribute="leading" id="A6K-o9-xf3"/>
+                                    <constraint firstAttribute="height" constant="6" id="xUS-9R-utq"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Eu3-kD-Fpk" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9mI-UI-Moe"/>
                             <constraint firstItem="96u-2T-yq2" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="Hbw-GY-wsB"/>
                             <constraint firstItem="96u-2T-yq2" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Qb4-s8-Cyx"/>
-                            <constraint firstItem="96u-2T-yq2" firstAttribute="top" secondItem="Eu3-kD-Fpk" secondAttribute="bottom" id="hS7-c7-eKC"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Eu3-kD-Fpk" secondAttribute="trailing" id="ll5-39-bs1"/>
-                            <constraint firstItem="Eu3-kD-Fpk" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="ypW-Qo-ZNT"/>
+                            <constraint firstItem="96u-2T-yq2" firstAttribute="top" secondItem="96K-dr-Vv1" secondAttribute="bottom" id="Ubt-iZ-5nz"/>
+                            <constraint firstItem="96K-dr-Vv1" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="Vfw-PM-5WF"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="96K-dr-Vv1" secondAttribute="trailing" constant="20" id="b2E-z0-fus"/>
+                            <constraint firstItem="96K-dr-Vv1" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="o3K-Hn-aAb"/>
                             <constraint firstItem="96u-2T-yq2" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="zbH-ob-4C0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="S3u-Z7-4nP"/>
                     <connections>
-                        <outlet property="progressView" destination="Eu3-kD-Fpk" id="4ra-VS-TsJ"/>
-                        <outlet property="scrollView" destination="96u-2T-yq2" id="gnO-oP-Bs3"/>
+                        <outlet property="contentSV" destination="96u-2T-yq2" id="gnO-oP-Bs3"/>
+                        <outlet property="progress" destination="A6K-o9-xf3" id="xrG-I8-Yvp"/>
+                        <outlet property="progressBaseView" destination="96K-dr-Vv1" id="uON-kK-2xj"/>
+                        <outlet property="progressIndicator" destination="YED-Ms-OX5" id="lDx-1E-zay"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
