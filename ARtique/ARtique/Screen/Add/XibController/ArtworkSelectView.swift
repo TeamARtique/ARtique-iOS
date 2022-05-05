@@ -266,6 +266,7 @@ extension ArtworkSelectView: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) as? GalleryCVC else { return }
         cell.isSet = true
         selectedImageIds.append(cell.id)
+        cell.setSelectedIndex(selectedImageIds.count)
         previewStatus(isHidden: false)
         galleryCV.scrollToItem(at: indexPath, at: .top, animated: true)
     }

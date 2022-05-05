@@ -70,7 +70,11 @@ extension OrderView {
                 collectionView.deleteItems(at: [sourceIndexPath])
                 collectionView.insertItems(at: [destinationIndexPath])
                 
-            }, completion: nil)
+            }, completion: {_ in
+                DispatchQueue.main.async {
+                    collectionView.reloadData()
+                }
+            })
             coordinator.drop(item.dragItem, toItemAt : destinationIndexPath)
         }
     }
@@ -85,6 +89,7 @@ extension OrderView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.galleryCVC, for: indexPath) as? GalleryCVC else { return UICollectionViewCell() }
         cell.configureCell(with: exhibitionModel.selectedArtwork?[indexPath.row] ?? UIImage())
+        cell.setSelectedIndex(indexPath.row + 1)
         return cell
     }
 }
