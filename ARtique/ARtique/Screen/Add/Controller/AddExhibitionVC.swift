@@ -160,11 +160,11 @@ extension AddExhibitionVC {
             artworkSelectView.maxArtworkCnt = exhibitionModel.artworkCnt ?? 0
             artworkSelectView.selectedImages = exhibitionModel.selectedArtwork ?? [UIImage]()
         case 2:
-            orderView.artworkListView.artworkCV.reloadData()
-            orderView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: true)
+            orderView.selectedPhotoCV.reloadData()
+            orderView.selectedPhotoCV.scrollToItem(at: [0,0], at: .top, animated: false)
         case 3:
             postExplainView.artworkListView.artworkCV.reloadData()
-            postExplainView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: true)
+            postExplainView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: false)
         case 4:
             exhibitionExplainView.baseSV.scrollToTop()
             exhibitionExplainView.phosterCV.reloadData()
@@ -262,7 +262,7 @@ extension AddExhibitionVC {
             })
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.orderView.artworkListView.artworkCV.reloadData()
+                self.orderView.selectedPhotoCV.reloadData()
             })
             .disposed(by: bag)
     }

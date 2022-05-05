@@ -51,37 +51,9 @@ extension ArtworkListView {
         artworkCV.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         artworkCV.showsHorizontalScrollIndicator = false
         artworkCV.decelerationRate = UIScrollView.DecelerationRate.fast
-        
+         
         if let layout = artworkCV.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
-        }
-    }
-}
-
-// MARK: - Custom Methods
-extension ArtworkListView {
-    func bindCVReorderGesture() {
-        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(_:)))
-        
-        gesture.minimumPressDuration = 0.5
-        artworkCV.addGestureRecognizer(gesture)
-    }
-    
-    @objc func handleLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
-        guard let collectionView = artworkCV else { return }
-        guard let targetIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else { return }
-        switch gesture.state {
-        case .began:
-            collectionView.beginInteractiveMovementForItem(at: targetIndexPath)
-            collectionView.cellForItem(at: targetIndexPath)?.layer.borderColor = UIColor.black.cgColor
-        case .changed:
-            collectionView.updateInteractiveMovementTargetPosition(gesture.location(in: collectionView))
-        case .ended:
-            collectionView.endInteractiveMovement()
-            collectionView.cellForItem(at: targetIndexPath)?.layer.borderColor = UIColor.clear.cgColor
-            collectionView.scrollToItem(at: targetIndexPath, at: .left, animated: true)
-        default:
-            collectionView.cancelInteractiveMovement()
         }
     }
 }
