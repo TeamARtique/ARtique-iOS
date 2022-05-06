@@ -163,8 +163,8 @@ extension AddExhibitionVC {
             orderView.selectedPhotoCV.reloadData()
             orderView.selectedPhotoCV.scrollToItem(at: [0,0], at: .top, animated: false)
         case 3:
-            postExplainView.artworkListView.artworkCV.reloadData()
-            postExplainView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: false)
+            postExplainView.artworkExplainCV.reloadData()
+            postExplainView.artworkExplainCV.scrollToItem(at: [0,0], at: .left, animated: false)
         case 4:
             exhibitionExplainView.baseSV.scrollToTop()
             exhibitionExplainView.phosterCV.reloadData()

@@ -75,8 +75,6 @@
 		23E734EE27E99CC8000315E6 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E734EC27E99CC8000315E6 /* OrderView.swift */; };
 		23E734EF27E99CC8000315E6 /* OrderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23E734ED27E99CC8000315E6 /* OrderView.xib */; };
 		23E734F627E9A016000315E6 /* GalleryCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E734F427E9A016000315E6 /* GalleryCVC.swift */; };
-		23E734FA27E9A1A7000315E6 /* ArtworkListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E734F827E9A1A7000315E6 /* ArtworkListView.swift */; };
-		23E734FB27E9A1A7000315E6 /* ArtworkListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23E734F927E9A1A7000315E6 /* ArtworkListView.xib */; };
 		23E734FE27EA1528000315E6 /* PostExplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E734FC27EA1528000315E6 /* PostExplainView.swift */; };
 		23E734FF27EA1528000315E6 /* PostExplainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23E734FD27EA1528000315E6 /* PostExplainView.xib */; };
 		23E7350527EA24A1000315E6 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7350427EA24A1000315E6 /* UITextView+.swift */; };
@@ -203,8 +201,6 @@
 		23E734EC27E99CC8000315E6 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		23E734ED27E99CC8000315E6 /* OrderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderView.xib; sourceTree = "<group>"; };
 		23E734F427E9A016000315E6 /* GalleryCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCVC.swift; sourceTree = "<group>"; };
-		23E734F827E9A1A7000315E6 /* ArtworkListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkListView.swift; sourceTree = "<group>"; };
-		23E734F927E9A1A7000315E6 /* ArtworkListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtworkListView.xib; sourceTree = "<group>"; };
 		23E734FC27EA1528000315E6 /* PostExplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostExplainView.swift; sourceTree = "<group>"; };
 		23E734FD27EA1528000315E6 /* PostExplainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostExplainView.xib; sourceTree = "<group>"; };
 		23E7350427EA24A1000315E6 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
@@ -322,7 +318,6 @@
 				23B52A8A27E0FED600D6C339 /* ThemeView.xib */,
 				239C5D4B27F224A300D8A3D2 /* ArtworkSelectView.xib */,
 				23E734ED27E99CC8000315E6 /* OrderView.xib */,
-				23E734F927E9A1A7000315E6 /* ArtworkListView.xib */,
 				23E734FD27EA1528000315E6 /* PostExplainView.xib */,
 				23071DB927ECFBAB00949BA1 /* ExhibitionExplainView.xib */,
 			);
@@ -348,7 +343,6 @@
 				23B52A8927E0FED600D6C339 /* ThemeView.swift */,
 				239C5D4A27F224A300D8A3D2 /* ArtworkSelectView.swift */,
 				23E734EC27E99CC8000315E6 /* OrderView.swift */,
-				23E734F827E9A1A7000315E6 /* ArtworkListView.swift */,
 				23E734FC27EA1528000315E6 /* PostExplainView.swift */,
 				23071DB827ECFBAB00949BA1 /* ExhibitionExplainView.swift */,
 			);
@@ -930,7 +924,6 @@
 				230883812804162200620BC1 /* ProfileEdit.storyboard in Resources */,
 				235650DA27F9FC870082E048 /* AlbumTVC.xib in Resources */,
 				23144217280C4040007DB53C /* SearchResult.storyboard in Resources */,
-				23E734FB27E9A1A7000315E6 /* ArtworkListView.xib in Resources */,
 				3305F7AC2754E66700E6E08E /* AppleSDGothicNeoR.ttf in Resources */,
 				23B52A8C27E0FED600D6C339 /* ThemeView.xib in Resources */,
 				33AC27882763D21D00E0765A /* ARGallery.storyboard in Resources */,
@@ -1011,7 +1004,6 @@
 				3305F7872754E28B00E6E08E /* ViewControllerFactory.swift in Sources */,
 				23B52A7B27E0A56900D6C339 /* AddExhibitionVC.swift in Sources */,
 				23E7350527EA24A1000315E6 /* UITextView+.swift in Sources */,
-				23E734FA27E9A1A7000315E6 /* ArtworkListView.swift in Sources */,
 				3305F7552754DF5B00E6E08E /* UILabel+.swift in Sources */,
 				23071DB427ECB47600949BA1 /* ArtworkExplainCVC.swift in Sources */,
 				23B52A7D27E0A5A500D6C339 /* AddExhibitionNC.swift in Sources */,

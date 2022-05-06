@@ -9,25 +9,24 @@ import UIKit
 import SnapKit
 
 class PostExplainView: UIView {
-    @IBOutlet weak var message: UILabel!
-    @IBOutlet weak var artworkListView: ArtworkListView!
-    @IBOutlet weak var artworkListViewTopAnchor: NSLayoutConstraint!
-    @IBOutlet weak var artworkListViewBottomAnchor: NSLayoutConstraint!
+    @IBOutlet weak var baseSV: UIScrollView!
+    @IBOutlet weak var artworkExplainCV: UICollectionView!
+    
+    var currentIndex:CGFloat = 0
+    let cellWidth: CGFloat = 300
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setContentView()
-        configureMessage()
-        configureArtworkView()
-        setNotification()
+        configureLayout()
+        configureCV()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setContentView()
-        configureMessage()
-        configureArtworkView()
-        setNotification()
+        configureLayout()
+        configureCV()
     }
 }
 
@@ -43,54 +42,83 @@ extension PostExplainView {
         }
     }
     
-    private func configureMessage() {
-        message.textColor = .gray3
-        message.font = .AppleSDGothicR(size: 12)
+    private func configureCV() {
+        artworkExplainCV.register(UINib(nibName: Identifiers.artworkExplainCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.artworkExplainCVC)
+        artworkExplainCV.dataSource = self
+        artworkExplainCV.delegate = self
+        artworkExplainCV.contentInset = UIEdgeInsets(top: 0,
+                                                     left: 20,
+                                                     bottom: 0,
+                                                     right: 20)
+        artworkExplainCV.decelerationRate = .fast
+        artworkExplainCV.showsHorizontalScrollIndicator = false
+        if let layout = artworkExplainCV.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
     }
     
-    private func configureArtworkView() {
-        artworkListView.isOrderView = false
+    private func configureLayout() {
+        baseSV.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalToSuperview().offset(89)
+        }
+        
+        artworkExplainCV.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.height.equalTo(UIScreen.main.bounds.height - 170)
+        }
     }
 }
 
-// MARK: - Custom Methods
-extension PostExplainView {
-    private func setNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+// MARK: - UICollectionViewDataSource
+extension PostExplainView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        NewExhibition.shared.selectedArtwork?.count ?? 0
     }
     
-    @objc func keyboardWillShow(notification: NSNotification) {
-        let animateDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
-        let keyboardFrame = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-        let heiget = keyboardFrame.size.height - safeAreaInsets.bottom
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.artworkExplainCVC, for: indexPath) as? ArtworkExplainCVC else { return UICollectionViewCell() }
+        cell.configureCell(index: indexPath.row)
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension PostExplainView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 300, height: collectionView.frame.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        12
+    }
+}
+
+extension PostExplainView: UICollectionViewDelegate {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let cellWidthIncludeSpacing = cellWidth + 12
+        var offset = targetContentOffset.pointee
+        let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludeSpacing
+        var roundedIndex = round(index)
         
-        message.textColor = .clear
-        UIView.animate(withDuration: animateDuration) {
-            self.artworkListViewTopAnchor.constant = 0
-            self.artworkListViewBottomAnchor.constant = 55 + 79
-            self.artworkListView.artworkCV.subviews
-                .compactMap({ $0 as? ArtworkExplainCVC })
-                .forEach {
-                    $0.scrollView.contentInset.top = 20
-                    $0.scrollView.contentInset.bottom = heiget - 100
-                    $0.scrollView.scrollToBottom()
-                }
-            self.artworkListView.layoutIfNeeded()
+        if scrollView.contentOffset.x > targetContentOffset.pointee.x {
+            roundedIndex = floor(index)
+        } else if scrollView.contentOffset.x < targetContentOffset.pointee.x {
+            roundedIndex = ceil(index)
+        } else {
+            roundedIndex = round(index)
         }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        message.textColor = .gray3
-        artworkListViewTopAnchor.constant = 79
-        artworkListViewBottomAnchor.constant = 55
-        artworkListView.artworkCV.subviews
-            .compactMap({ $0 as? ArtworkExplainCVC })
-            .forEach {
-                $0.scrollView.contentInset.top = 0
-                $0.scrollView.contentInset.bottom = 0
-                $0.scrollView.scrollToBottom()
+        
+        if currentIndex > roundedIndex {
+            currentIndex -= 1
+            roundedIndex = currentIndex
+        } else if currentIndex < roundedIndex {
+            currentIndex += 1
+            roundedIndex = currentIndex
         }
-        artworkListView.layoutIfNeeded()
+        
+        offset = CGPoint(x: roundedIndex * cellWidthIncludeSpacing - scrollView.contentInset.left,
+                         y: scrollView.contentInset.top)
+        targetContentOffset.pointee = offset
     }
 }
