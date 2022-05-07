@@ -187,14 +187,14 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
                 
         switch collectionView {
         case categoryCV:
-            roundCell.configureCell(with: CategoryType.allCases[indexPath.row].categoryTitle)
+            roundCell.configureCell(with: CategoryType.allCases[indexPath.row].categoryTitle, fontSize: 14)
             return roundCell
         case phosterCV:
             phosterCell.configureCell(image: NewExhibition.shared.selectedArtwork?.first ?? UIImage(),
                                       borderWidth: 4)
             return phosterCell
         default:
-            tagCell.configureCell(with: TagType.allCases[indexPath.row].tagTitle)
+            tagCell.configureCell(with: TagType.allCases[indexPath.row].tagTitle, fontSize: 13)
             return tagCell
         }
     }
