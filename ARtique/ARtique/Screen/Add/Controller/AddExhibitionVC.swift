@@ -157,6 +157,7 @@ extension AddExhibitionVC {
     private func reloadPage(_ page: Int) {
         switch page {
         case 1:
+            artworkSelectView.configureViewTitle()
             artworkSelectView.maxArtworkCnt = exhibitionModel.artworkCnt ?? 0
             artworkSelectView.selectedImages = exhibitionModel.selectedArtwork ?? [UIImage]()
         case 2:

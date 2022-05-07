@@ -13,6 +13,8 @@ import RxCocoa
 import SnapKit
 
 class ArtworkSelectView: UIView {
+    @IBOutlet weak var viewTitle: UILabel!
+    @IBOutlet weak var message: UILabel!
     @IBOutlet weak var previewBaseView: UIView!
     @IBOutlet weak var galleryBaseView: UIView!
     @IBOutlet weak var galleryCV: UICollectionView!
@@ -38,6 +40,7 @@ class ArtworkSelectView: UIView {
         layoutView()
         setNotification()
         getAlbums()
+        configureViewTitle()
         configurePreview()
         configureLoading()
         configureAlbumListButton()
@@ -52,6 +55,7 @@ class ArtworkSelectView: UIView {
         layoutView()
         setNotification()
         getAlbums()
+        configureViewTitle()
         configurePreview()
         configureLoading()
         configureAlbumListButton()
@@ -78,7 +82,7 @@ extension ArtworkSelectView {
     }
     
     private func layoutView() {
-        topConstraint.constant = 20
+        topConstraint.constant = 89
 
         previewBaseView.addSubview(preview)
         preview.snp.makeConstraints {
@@ -89,6 +93,11 @@ extension ArtworkSelectView {
         spiner.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    func configureViewTitle() {
+        //TODO: - 데이터 구조 수정 후 수정
+        viewTitle.text = "사진선택 (\(selectedImageIds.count)/\(exhibitionModel.artworkCnt ?? 0))"
     }
     
     private func configurePreview() {
@@ -226,14 +235,14 @@ extension ArtworkSelectView {
     }
     
     private func previewStatus(isHidden: Bool) {
+        let opacity: Float = isHidden ? 0 : 1
+        let constant = isHidden ? -self.previewBaseView.frame.height : 89
+
         UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
-            if isHidden {
-                self.previewBaseView.layer.opacity = 0
-                self.topConstraint.constant = -self.previewBaseView.frame.height
-            } else {
-                self.previewBaseView.layer.opacity = 1
-                self.topConstraint.constant = 20
-            }
+            self.viewTitle.isHidden = isHidden
+            self.message.isHidden = isHidden
+            self.previewBaseView.layer.opacity = opacity
+            self.topConstraint.constant = constant
             self.layoutIfNeeded()
         }, completion: nil)
     }
@@ -269,6 +278,7 @@ extension ArtworkSelectView: UICollectionViewDelegate {
         cell.setSelectedIndex(selectedImageIds.count)
         previewStatus(isHidden: false)
         galleryCV.scrollToItem(at: indexPath, at: .top, animated: true)
+        configureViewTitle()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -278,6 +288,7 @@ extension ArtworkSelectView: UICollectionViewDelegate {
         selectedImageIds.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
         exhibitionModel.selectedArtwork = selectedImages
         spiner.stopAnimating()
+        configureViewTitle()
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
