@@ -56,8 +56,7 @@ class DetailVC: BaseVC {
     }
     
     @IBAction func didTapAuthorBtn(_ sender: Any) {
-        // 버튼 사이즈 안됨 확인하쟈
-        print("asdf")
+        //TODO: - 작가 프로필 화면 연결
     }
 }
 
@@ -216,9 +215,5 @@ extension DetailVC {
         activityVC.popoverPresentationController?.sourceView = self.view
         
         self.present(activityVC, animated: true, completion: nil)
-    }
-    
-    @objc func popVC() {
-        navigationController?.popViewController(animated: true)
     }
 }

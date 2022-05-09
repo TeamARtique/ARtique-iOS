@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NoneExhibitionVC: UIViewController {
+class NoneExhibitionVC: BaseVC {
     @IBOutlet weak var addExhibitionBtn: UIButton!
     
     override func viewDidLoad() {
@@ -40,12 +40,5 @@ extension NoneExhibitionVC {
         addExhibitionBtn.backgroundColor = .black
         addExhibitionBtn.tintColor = .white
         addExhibitionBtn.titleLabel?.font = .AppleSDGothicB(size: 16)
-    }
-}
-
-// MARK: - Custom Methods
-extension NoneExhibitionVC {
-    @objc func popVC() {
-        navigationController?.popToRootViewController(animated: true)
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExhibitionListVC: UIViewController {
+class ExhibitionListVC: BaseVC {
     @IBOutlet weak var exhibitionListCV: UICollectionView!
     
     var exhibitionData: [ExhibitionData] = [
@@ -88,10 +88,6 @@ extension ExhibitionListVC {
             rightBarButtonItem.customView?.layer.cornerRadius = CGFloat(buttonHeight / 2)
             navigationItem.rightBarButtonItem = rightBarButtonItem
         }
-    }
-    
-    @objc func popVC() {
-        navigationController?.popViewController(animated: true)
     }
     
     @objc func presentBottomSheet(){

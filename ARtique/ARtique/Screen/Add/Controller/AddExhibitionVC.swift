@@ -11,7 +11,7 @@ import Photos
 import RxSwift
 import RxCocoa
 
-class AddExhibitionVC: UIViewController {
+class AddExhibitionVC: BaseVC {
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var scrollView: UIScrollView!
     let exhibitionModel = NewExhibition.shared

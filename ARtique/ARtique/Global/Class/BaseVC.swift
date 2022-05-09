@@ -38,6 +38,10 @@ extension BaseVC {
         UserDefaults.standard.set(nickname, forKey: UserDefaults.Keys.nickname)
         UserDefaults.standard.set(refreshToken, forKey: UserDefaults.Keys.refreshToken)
     }
+    
+    @objc func popVC() {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 // MARK: - Network

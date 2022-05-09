@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MypageVC: UIViewController {
+class MypageVC: BaseVC {
     @IBOutlet weak var baseSV: UIScrollView!
     @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var editBtn: UIButton!

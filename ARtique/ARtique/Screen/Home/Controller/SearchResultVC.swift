@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SearchResultVC: UIViewController {
+class SearchResultVC: BaseVC {
     @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var resultCV: UICollectionView!
     var searchCnt: Int?
@@ -72,13 +72,6 @@ extension SearchResultVC {
         resultCV.snp.makeConstraints {
             $0.height.equalTo(CGFloat(searchCnt ?? 0) * (height + minimumLineSpacing))
         }
-    }
-}
-
-// MARK: - Custom Methods
-extension SearchResultVC {
-    @objc func popVC() {
-        navigationController?.popViewController(animated: true)
     }
 }
 

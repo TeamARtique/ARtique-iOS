@@ -97,7 +97,7 @@ extension HomeListVC: UITableViewDataSource {
 extension HomeListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 2 {
-            let cellWidth = (UIScreen.main.bounds.width - 55) / 2
+            let cellWidth = (screenWidth - 55) / 2
             let cellHeight = 4 * cellWidth / 3 + 64 + 27
             
             return CGFloat(cellHeight * 3 + 82)
