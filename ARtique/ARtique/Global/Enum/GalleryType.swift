@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum GalleyType {
-    case minimum
-    case medium
-    case maximum
+enum GalleyType: Int {
+    case minimum = 5
+    case medium = 12
+    case maximum = 30
 }

@@ -10,7 +10,7 @@ import ARKit
 import SceneKit
 import AVFoundation
 
-class ARGalleryVC: UIViewController {
+class ARGalleryVC: BaseVC {
     
     // MARK: Properties
     @IBOutlet var gallerySceneView: ARSCNView!
@@ -69,7 +69,6 @@ class ARGalleryVC: UIViewController {
     /// view screenshot func
     @IBAction func captureBtnDidTap(_ sender: UIButton) {
         guard let screenshot = self.view.makeScreenShot() else { return }
-        
         UIImageWriteToSavedPhotosAlbum(screenshot, self, #selector(imageWasSaved), nil)
     }
     
@@ -82,27 +81,17 @@ class ARGalleryVC: UIViewController {
 extension ARGalleryVC {
     
     /// 이미지가 저장되었을 때 호출되는 func
-    @objc func imageWasSaved(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer) {
+    @objc
+    private func imageWasSaved(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer) {
         if let error = error {
             print(error.localizedDescription)
             return
         }
-        print("Image was saved in the photo gallery")
         UIApplication.shared.open(URL(string:"photos-redirect://")!)
-    }
-}
-
-//MARK: - AR Functions
-extension ARGalleryVC: ARSCNViewDelegate {
-    
-    /// AR Session Create
-    func createSessonConfiguration(_ arView: ARSCNView) {
-        let configuration = ARWorldTrackingConfiguration()
-        arView.session.run(configuration)
     }
     
     /// 갤러리 scene 생성
-    func setupGallerySceneView(type: GalleyType) {
+    private func setupGallerySceneView(type: GalleyType) {
         var galleryScenePath: String = ""
         
         switch type {
@@ -118,6 +107,53 @@ extension ARGalleryVC: ARSCNViewDelegate {
         galleryScene = SCNScene(named: galleryScenePath)!
         gallerySceneView.scene = galleryScene
         gallerySceneView.scene.rootNode.position = planeRecognizedPosition!
+    }
+    
+    private func setupGalleryTheme(galleryType: GalleyType, themeType: GalleryThemeType) {
+        var frameIdentifier1: String?
+        var frameIdentifier2: String?
+        var frameColor: UIColor?
+        
+        switch galleryType {
+        case .minimum:
+            frameIdentifier1 = "defaultFrame"
+        case .medium:
+            frameIdentifier1 = "frame"
+        case .maximum:
+            frameIdentifier1 = "upframe"
+            frameIdentifier2 = "downframe"
+        }
+        
+        switch themeType {
+        case .white:
+            frameColor = .black
+        case .dark:
+            frameColor = .black
+        case .container:
+            frameColor = .white
+        case .wood:
+            frameColor = .woodFrame
+        }
+        
+        setupGalleryFrameColor(value: galleryType.rawValue, frameIdentifier: frameIdentifier1 ?? "", color: .black)
+        galleryType == .maximum ? setupGalleryFrameColor(value: galleryType.rawValue, frameIdentifier: frameIdentifier2 ?? "", color: frameColor ?? .black) : nil
+    }
+    
+    private func setupGalleryFrameColor(value: Int, frameIdentifier: String, color: UIColor) {
+        let maxValue = value == 30 ? 15 : value
+        for i in 1...maxValue {
+            gallerySceneView.scene.rootNode.childNode(withName: frameIdentifier + "\(i)", recursively: true)?.geometry?.material(named: "frameColor")?.diffuse.contents = color
+        }
+    }
+}
+
+//MARK: - AR Functions
+extension ARGalleryVC: ARSCNViewDelegate {
+    
+    /// AR Session Create
+    func createSessonConfiguration(_ arView: ARSCNView) {
+        let configuration = ARWorldTrackingConfiguration()
+        arView.session.run(configuration)
     }
     
     //MARK: AR session
