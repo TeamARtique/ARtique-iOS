@@ -14,6 +14,8 @@ class ArtworkExplainCVC: UICollectionViewCell {
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
+    @IBOutlet weak var indexBase: UIView!
+    @IBOutlet weak var index: UILabel!
     
     let bag = DisposeBag()
     var cellIndex: Int?
@@ -39,6 +41,11 @@ extension ArtworkExplainCVC {
         titleTextField.setRoundTextField(with: "제목을 입력하세요")
         contentTextView.setRoundTextView()
         contentTextView.delegate = self
+        indexBase.backgroundColor = .white
+        indexBase.layer.cornerRadius = indexBase.frame.height / 2
+        indexBase.layer.borderWidth = 1
+        indexBase.layer.borderColor = UIColor.black.cgColor
+        index.font = .AppleSDGothicSB(size: 15)
     }
     
     func configureCell(index: Int) {
@@ -47,6 +54,7 @@ extension ArtworkExplainCVC {
         titleTextField.text = exhibitionModel.artworkTitle?[index] ?? ""
         contentTextView.text = exhibitionModel.artworkExplain?[index] ?? ""
         contentTextView.setTextViewPlaceholder(postContentPlaceholder)
+        self.index.text = "\(index + 1)"
         bindText()
     }
     

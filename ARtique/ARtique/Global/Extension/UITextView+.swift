@@ -29,9 +29,9 @@ extension UITextView {
     
     /// setRoundTextView - ARTique 테두리 있는 textView 기본 디자인, delegate 추가해서 사용
     func setRoundTextView() {
-        layer.borderColor = UIColor.black.cgColor
+        layer.borderColor = UIColor.gray4.cgColor
         layer.borderWidth = 1
-        layer.cornerRadius = 8
+        layer.cornerRadius = 3
         font = .AppleSDGothicR(size: 13)
         
         setPadding()

@@ -11,7 +11,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class ProfileEditVC: UIViewController {
+class ProfileEditVC: BaseVC {
     @IBOutlet weak var baseSV: UIScrollView!
     @IBOutlet weak var profileImg: UIButton!
     @IBOutlet weak var nicknameTextField: UITextField!
@@ -61,10 +61,9 @@ extension ProfileEditVC {
                                                            style: .done,
                                                            target: self,
                                                            action: #selector(popVC))
-        navigationController?.setRoundRightBarBtn(navigationItem: self.navigationItem,
-                                                  title: "완료",
-                                                  target: self,
-                                                  action: #selector(bindRightBarButton))
+        navigationItem.rightBarButtonItem = navigationController?.roundFilledBarBtn(title: "완료",
+                                                                                    target: self,
+                                                                                    action: #selector(bindRightBarButton))
     }
 
     private func configureSV() {
@@ -99,11 +98,6 @@ extension ProfileEditVC {
 
 // MARK: - Custom Methods
 extension ProfileEditVC {
-    @objc func popVC() {
-        // TODO: - Show alert
-        navigationController?.popViewController(animated: true)
-    }
-    
     @objc func bindRightBarButton() {
         // TODO: - post server
         navigationController?.popViewController(animated: true)

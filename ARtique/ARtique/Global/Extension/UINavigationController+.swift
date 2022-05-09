@@ -10,9 +10,9 @@ import UIKit
 extension UINavigationController {
     
     /// 우상단 검정배경 라운드 버튼 구현 함수
-    func setRoundRightBarBtn(navigationItem: UINavigationItem, title: String, target: UIViewController, action: Selector) {
-        let buttonWidth = 75
-        let buttonHeight = 29
+    func roundFilledBarBtn(title: String, target: UIViewController, action: Selector) -> UIBarButtonItem {
+        let buttonWidth = 72
+        let buttonHeight = 26
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: buttonWidth, height: buttonHeight))
         
         button.backgroundColor = .black
@@ -23,7 +23,7 @@ extension UINavigationController {
         
         let rightBarButtonItem = UIBarButtonItem(customView: button)
         rightBarButtonItem.customView?.layer.cornerRadius = CGFloat(buttonHeight / 2)
-        navigationItem.rightBarButtonItem = rightBarButtonItem
+        return rightBarButtonItem
     }
     
     open override func viewDidLoad() {

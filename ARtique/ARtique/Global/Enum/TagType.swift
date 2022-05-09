@@ -22,21 +22,21 @@ extension TagType {
     var tagTitle: String {
         switch self {
         case .modern:
-            return "모던한"
+            return "#모던한"
         case .lovely:
-            return "사랑스러운"
+            return "#사랑스러운"
         case .vintage:
-            return "빈티지한"
+            return "#빈티지한"
         case .dynamic:
-            return "다이나믹한"
+            return "#자유로운"
         case .serene:
-            return "고요한"
+            return "#고요한"
         case .cute:
-            return "아기자기한"
+            return "#아기자기한"
         case .cozy:
-            return "포근한"
+            return "#포근한"
         case .free:
-            return "자유로운"
+            return "#다이나믹한"
         }
     }
 }
