@@ -158,7 +158,7 @@ extension ExhibitionListVC: TVCellDelegate {
         }
         
         exhibitionListCV.reloadData()
-        exhibitionListCV.scrollToItem(at: [0,0], at: .top, animated: true)
+//        exhibitionListCV.scrollToItem(at: [0,0], at: .top, animated: true)
         checkedOrder = index
     }
 }
