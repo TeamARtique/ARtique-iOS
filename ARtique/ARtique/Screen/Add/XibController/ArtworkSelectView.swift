@@ -284,6 +284,13 @@ extension ArtworkSelectView: UICollectionViewDelegate {
         exhibitionModel.artworks = selectedImages
         spiner.stopAnimating()
         configureViewTitle()
+        
+        collectionView.indexPathsForSelectedItems?.forEach {
+            let restCell = collectionView.cellForItem(at: $0) as! GalleryCVC
+            if Int(restCell.selectedIndex.text!)! > Int(cell.selectedIndex.text!)! {
+                restCell.selectedIndex.text = "\(Int(restCell.selectedIndex.text!)! - 1)"
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
