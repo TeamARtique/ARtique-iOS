@@ -10,16 +10,13 @@ import SnapKit
 import Then
 
 class GalleryCVC: BorderCVC {
-    var id: String = ""
-    var isSet: Bool?
-    
     private var indexBase = UIView()
         .then {
             $0.backgroundColor = .gray4
             $0.layer.cornerRadius = 8
         }
     
-    private var selectedIndex = UILabel()
+    var selectedIndex = UILabel()
         .then {
             $0.textColor = .white
             $0.font = .AppleSDGothicSB(size: 10)
@@ -72,7 +69,6 @@ extension GalleryCVC {
 
     func configureCell(with artwork: UIImage) {
         configureCell(image: artwork, borderWidth: 3)
-        isSelected = (isSet ?? false) ? true : false
     }
     
     func setSelectedIndex(_ index: Int) {

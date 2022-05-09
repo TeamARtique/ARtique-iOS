@@ -31,7 +31,8 @@ class ArtworkSelectView: UIView {
     let exhibitionModel = NewExhibition.shared
     var maxArtworkCnt: Int = 0
     var selectedImages = [UIImage]()
-    var selectedImageIds = [String]()
+//    var selectedImageIds = [String]()
+    var selectedIndex: IndexPath?
     var isFirstSelection = true
     
     override init(frame: CGRect) {
@@ -96,8 +97,7 @@ extension ArtworkSelectView {
     }
     
     func configureViewTitle() {
-        //TODO: - 데이터 구조 수정 후 수정
-        viewTitle.text = "사진선택 (\(selectedImageIds.count)/\(exhibitionModel.gallerySize ?? 0))"
+        viewTitle.text = "사진선택 (\(galleryCV.indexPathsForSelectedItems?.count ?? 0)/\(exhibitionModel.gallerySize ?? 0))"
     }
     
     private func configurePreview() {
@@ -188,19 +188,28 @@ extension ArtworkSelectView {
     
     private func saveCropImage() {
         galleryCV.rx.itemSelected
-            .map ({_ in})
+            .map { [weak self] index in
+                guard let self = self else { return }
+                self.selectedIndex = index
+            }
             .bind(to: preview.crop)
             .disposed(by: bag)
         
         preview.resultImage
             .subscribe(onNext: { [weak self] image in
                 guard let self = self else { return }
+                guard let cell = self.galleryCV.cellForItem(at: self.selectedIndex ?? [0,0]) as? GalleryCVC else { return }
+                self.previewStatus(isHidden: false)
+                self.galleryCV.scrollToItem(at: self.selectedIndex ?? [0,0], at: .top, animated: true)
                 if !self.isFirstSelection {
+                    cell.setSelectedIndex((self.exhibitionModel.artworks?.count ?? 0) + 2)
                     self.selectedImages.append(image ?? UIImage())
                     self.exhibitionModel.artworks = self.selectedImages
+                } else {
+                    cell.setSelectedIndex(1)
+                    self.isFirstSelection = false
                 }
-                // TODO: - ERROR
-                self.isFirstSelection = false
+                self.configureViewTitle()
             })
             .disposed(by: bag)
     }
@@ -256,11 +265,7 @@ extension ArtworkSelectView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.galleryCVC, for: indexPath) as? GalleryCVC else { return UICollectionViewCell() }
-        
         let asset = devicePhotos.object(at: indexPath.item)
-        
-        cell.id = asset.localIdentifier
-        
         imageManager.requestImage(for: asset, targetSize: cell.frame.size, contentMode: .aspectFill, options: nil) { (image, _) in
             cell.configureCell(with: image ?? UIImage())
         }
@@ -271,29 +276,17 @@ extension ArtworkSelectView: UICollectionViewDataSource {
 
 //MARK: UICollectionViewDelegate
 extension ArtworkSelectView: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? GalleryCVC else { return }
-        cell.isSet = true
-        selectedImageIds.append(cell.id)
-        cell.setSelectedIndex(selectedImageIds.count)
-        previewStatus(isHidden: false)
-        galleryCV.scrollToItem(at: indexPath, at: .top, animated: true)
-        configureViewTitle()
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? GalleryCVC else { return }
-        cell.isSet = false
-        selectedImages.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
-        selectedImageIds.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
+        let selectedIndex = Int(cell.selectedIndex.text ?? "1")!
+        if selectedImages.isEmpty { return }
+        selectedImages.remove(at: selectedIndex - 1)
         exhibitionModel.artworks = selectedImages
         spiner.stopAnimating()
         configureViewTitle()
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if spiner.isAnimating { return false }
-        
         setPreviewImage(indexPath)
         if collectionView.indexPathsForSelectedItems!.count >= maxArtworkCnt {
             return false
