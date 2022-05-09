@@ -50,7 +50,7 @@ extension ArtworkExplainCVC {
     
     func configureCell(index: Int) {
         cellIndex = index
-        image.image = exhibitionModel.selectedArtwork?[index] ?? UIImage()
+        image.image = exhibitionModel.artworks?[index] ?? UIImage()
         titleTextField.text = exhibitionModel.artworkTitle?[index] ?? ""
         contentTextView.text = exhibitionModel.artworkExplain?[index] ?? ""
         contentTextView.setTextViewPlaceholder(postContentPlaceholder)

@@ -97,7 +97,7 @@ extension ArtworkSelectView {
     
     func configureViewTitle() {
         //TODO: - 데이터 구조 수정 후 수정
-        viewTitle.text = "사진선택 (\(selectedImageIds.count)/\(exhibitionModel.artworkCnt ?? 0))"
+        viewTitle.text = "사진선택 (\(selectedImageIds.count)/\(exhibitionModel.gallerySize ?? 0))"
     }
     
     private func configurePreview() {
@@ -197,7 +197,7 @@ extension ArtworkSelectView {
                 guard let self = self else { return }
                 if !self.isFirstSelection {
                     self.selectedImages.append(image ?? UIImage())
-                    self.exhibitionModel.selectedArtwork = self.selectedImages
+                    self.exhibitionModel.artworks = self.selectedImages
                 }
                 // TODO: - ERROR
                 self.isFirstSelection = false
@@ -286,7 +286,7 @@ extension ArtworkSelectView: UICollectionViewDelegate {
         cell.isSet = false
         selectedImages.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
         selectedImageIds.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
-        exhibitionModel.selectedArtwork = selectedImages
+        exhibitionModel.artworks = selectedImages
         spiner.stopAnimating()
         configureViewTitle()
     }

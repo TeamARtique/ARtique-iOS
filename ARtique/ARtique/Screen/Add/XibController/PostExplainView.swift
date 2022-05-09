@@ -73,7 +73,7 @@ extension PostExplainView {
 // MARK: - UICollectionViewDataSource
 extension PostExplainView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        NewExhibition.shared.selectedArtwork?.count ?? 0
+        NewExhibition.shared.artworks?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

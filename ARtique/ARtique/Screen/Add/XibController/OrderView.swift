@@ -58,8 +58,8 @@ extension OrderView {
     private func reorderItems(coordinator : UICollectionViewDropCoordinator, destinationIndexPath : IndexPath, collectionView : UICollectionView) {
         if let item = coordinator.items.first, let sourceIndexPath = item.sourceIndexPath {
             collectionView.performBatchUpdates({
-                let item = exhibitionModel.selectedArtwork?.remove(at: sourceIndexPath.row) ?? UIImage()
-                exhibitionModel.selectedArtwork?.insert(item, at: destinationIndexPath.row)
+                let item = exhibitionModel.artworks?.remove(at: sourceIndexPath.row) ?? UIImage()
+                exhibitionModel.artworks?.insert(item, at: destinationIndexPath.row)
                 
                 guard let title = exhibitionModel.artworkTitle?.remove(at: sourceIndexPath.row) else { return }
                 exhibitionModel.artworkTitle?.insert(title, at: destinationIndexPath.row)
@@ -83,12 +83,12 @@ extension OrderView {
 // MARK: - UICollectionViewDataSource
 extension OrderView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        NewExhibition.shared.selectedArtwork?.count ?? 0
+        NewExhibition.shared.artworks?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.galleryCVC, for: indexPath) as? GalleryCVC else { return UICollectionViewCell() }
-        cell.configureCell(with: exhibitionModel.selectedArtwork?[indexPath.row] ?? UIImage())
+        cell.configureCell(with: exhibitionModel.artworks?[indexPath.row] ?? UIImage())
         cell.setSelectedIndex(indexPath.row + 1)
         return cell
     }

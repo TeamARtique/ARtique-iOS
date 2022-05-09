@@ -158,8 +158,8 @@ extension AddExhibitionVC {
         switch page {
         case 1:
             artworkSelectView.configureViewTitle()
-            artworkSelectView.maxArtworkCnt = exhibitionModel.artworkCnt ?? 0
-            artworkSelectView.selectedImages = exhibitionModel.selectedArtwork ?? [UIImage]()
+            artworkSelectView.maxArtworkCnt = exhibitionModel.gallerySize ?? 0
+            artworkSelectView.selectedImages = exhibitionModel.artworks ?? [UIImage]()
         case 2:
             orderView.selectedPhotoCV.reloadData()
             orderView.selectedPhotoCV.scrollToItem(at: [0,0], at: .top, animated: false)
@@ -177,7 +177,7 @@ extension AddExhibitionVC {
     /// 순서 조정 단계에서 테마 선택 단계로 돌아갈 경우 선택된 사진을 모두 지우는 함수
     private func deletePrevData(_ page: Int) {
         if page == 1 {
-            NewExhibition.shared.selectedArtwork?.removeAll()
+            NewExhibition.shared.artworks?.removeAll()
             artworkSelectView.galleryCV.indexPathsForSelectedItems?.forEach({
                 artworkSelectView.galleryCV.deselectItem(at: $0, animated: false)
             })
@@ -198,8 +198,8 @@ extension AddExhibitionVC {
     }
     
     @objc func removeAllExhibitionData() {
-        NewExhibition.shared.artworkCnt = nil
-        NewExhibition.shared.themeId = nil
+        NewExhibition.shared.gallerySize = nil
+        NewExhibition.shared.galleryTheme = nil
         dismiss(animated: false) {
             self.dismiss(animated: true, completion: nil)
         }
@@ -233,8 +233,8 @@ extension AddExhibitionVC {
             page -= 1
             configurePageView(page)
         } else {
-            if NewExhibition.shared.artworkCnt != nil
-                || NewExhibition.shared.themeId != nil {
+            if NewExhibition.shared.gallerySize != nil
+                || NewExhibition.shared.galleryTheme != nil {
                 popupAlert(targetView: self,
                            alertType: .removeAllExhibition,
                            leftBtnAction: #selector(removeAllExhibitionData),
