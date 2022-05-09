@@ -11,12 +11,12 @@ import Photos
 import RxSwift
 import RxCocoa
 
-class AddExhibitionVC: UIViewController {
+class AddExhibitionVC: BaseVC {
     @IBOutlet weak var progressBaseView: UIView!
     @IBOutlet weak var progressIndicator: UIView!
     @IBOutlet weak var progress: NSLayoutConstraint!
     @IBOutlet weak var contentSV: UIScrollView!
-    
+  
     let exhibitionModel = NewExhibition.shared
     let themeView = ThemeView()
     let artworkSelectView = ArtworkSelectView()

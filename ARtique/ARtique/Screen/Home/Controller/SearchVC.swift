@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class SearchVC: UIViewController {
+class SearchVC: BaseVC {
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var latestCV: UICollectionView!
     @IBOutlet weak var searchBtn: UIButton!
@@ -76,10 +76,6 @@ extension SearchVC {
 
 // MARK: - Custom Methods
 extension SearchVC {
-    @objc func popVC() {
-        navigationController?.popViewController(animated: true)
-    }
-    
     private func didTapSearchBtn(keyword: String) {
         guard let resultVC = UIStoryboard(name: Identifiers.searchResultSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.searchResultVC) as? SearchResultVC else { return }
         resultVC.keyword = keyword
