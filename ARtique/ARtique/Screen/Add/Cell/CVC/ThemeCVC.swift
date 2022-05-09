@@ -9,6 +9,7 @@ import UIKit
 
 class ThemeCVC: UICollectionViewCell {
     @IBOutlet weak var themeImage: UIImageView!
+    @IBOutlet weak var selectedOverlay: UIView!
     @IBOutlet weak var themeTitle: UILabel!
     
     override func awakeFromNib() {
@@ -20,9 +21,11 @@ class ThemeCVC: UICollectionViewCell {
         didSet{
             if isSelected {
                 themeImage.layer.borderColor = UIColor.black.cgColor
+                selectedOverlay.isHidden = false
             }
             else {
                 themeImage.layer.borderColor = UIColor.clear.cgColor
+                selectedOverlay.isHidden = true
             }
         }
     }
@@ -33,5 +36,7 @@ class ThemeCVC: UICollectionViewCell {
         
         themeImage.image = image
         themeTitle.text = title
+        
+        selectedOverlay.isHidden = true
     }
 }

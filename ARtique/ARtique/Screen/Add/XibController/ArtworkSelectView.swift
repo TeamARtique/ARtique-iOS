@@ -13,6 +13,8 @@ import RxCocoa
 import SnapKit
 
 class ArtworkSelectView: UIView {
+    @IBOutlet weak var viewTitle: UILabel!
+    @IBOutlet weak var message: UILabel!
     @IBOutlet weak var previewBaseView: UIView!
     @IBOutlet weak var galleryBaseView: UIView!
     @IBOutlet weak var galleryCV: UICollectionView!
@@ -38,6 +40,7 @@ class ArtworkSelectView: UIView {
         layoutView()
         setNotification()
         getAlbums()
+        configureViewTitle()
         configurePreview()
         configureLoading()
         configureAlbumListButton()
@@ -52,6 +55,7 @@ class ArtworkSelectView: UIView {
         layoutView()
         setNotification()
         getAlbums()
+        configureViewTitle()
         configurePreview()
         configureLoading()
         configureAlbumListButton()
@@ -78,7 +82,7 @@ extension ArtworkSelectView {
     }
     
     private func layoutView() {
-        topConstraint.constant = 20
+        topConstraint.constant = 89
 
         previewBaseView.addSubview(preview)
         preview.snp.makeConstraints {
@@ -89,6 +93,11 @@ extension ArtworkSelectView {
         spiner.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    func configureViewTitle() {
+        //TODO: - 데이터 구조 수정 후 수정
+        viewTitle.text = "사진선택 (\(selectedImageIds.count)/\(exhibitionModel.artworkCnt ?? 0))"
     }
     
     private func configurePreview() {
@@ -118,8 +127,7 @@ extension ArtworkSelectView {
     }
     
     private func configureCV() {
-        galleryCV.register(UINib(nibName: Identifiers.selectedImageCVC, bundle: nil),
-                           forCellWithReuseIdentifier: Identifiers.selectedImageCVC)
+        galleryCV.register(GalleryCVC.self, forCellWithReuseIdentifier: Identifiers.galleryCVC)
         galleryCV.dataSource = self
         galleryCV.delegate = self
         galleryCV.allowsMultipleSelection = true
@@ -192,7 +200,6 @@ extension ArtworkSelectView {
                     self.exhibitionModel.selectedArtwork = self.selectedImages
                 }
                 // TODO: - ERROR
-                NotificationCenter.default.post(name: .whenArtworkSelected, object: self.galleryCV.indexPathsForSelectedItems?.count)
                 self.isFirstSelection = false
             })
             .disposed(by: bag)
@@ -228,14 +235,14 @@ extension ArtworkSelectView {
     }
     
     private func previewStatus(isHidden: Bool) {
+        let opacity: Float = isHidden ? 0 : 1
+        let constant = isHidden ? -self.previewBaseView.frame.height : 89
+
         UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
-            if isHidden {
-                self.previewBaseView.layer.opacity = 0
-                self.topConstraint.constant = -self.previewBaseView.frame.height
-            } else {
-                self.previewBaseView.layer.opacity = 1
-                self.topConstraint.constant = 20
-            }
+            self.viewTitle.isHidden = isHidden
+            self.message.isHidden = isHidden
+            self.previewBaseView.layer.opacity = opacity
+            self.topConstraint.constant = constant
             self.layoutIfNeeded()
         }, completion: nil)
     }
@@ -248,12 +255,11 @@ extension ArtworkSelectView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.selectedImageCVC, for: indexPath) as? SelectedImageCVC else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.galleryCVC, for: indexPath) as? GalleryCVC else { return UICollectionViewCell() }
         
         let asset = devicePhotos.object(at: indexPath.item)
         
         cell.id = asset.localIdentifier
-        cell.image.contentMode = .scaleAspectFill
         
         imageManager.requestImage(for: asset, targetSize: cell.frame.size, contentMode: .aspectFill, options: nil) { (image, _) in
             cell.configureCell(with: image ?? UIImage())
@@ -266,21 +272,23 @@ extension ArtworkSelectView: UICollectionViewDataSource {
 //MARK: UICollectionViewDelegate
 extension ArtworkSelectView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? SelectedImageCVC else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? GalleryCVC else { return }
         cell.isSet = true
         selectedImageIds.append(cell.id)
+        cell.setSelectedIndex(selectedImageIds.count)
         previewStatus(isHidden: false)
         galleryCV.scrollToItem(at: indexPath, at: .top, animated: true)
+        configureViewTitle()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? SelectedImageCVC else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? GalleryCVC else { return }
         cell.isSet = false
         selectedImages.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
         selectedImageIds.remove(at: selectedImageIds.firstIndex(of: cell.id)!)
         exhibitionModel.selectedArtwork = selectedImages
-        NotificationCenter.default.post(name: .whenArtworkSelected, object: galleryCV.indexPathsForSelectedItems?.count)
         spiner.stopAnimating()
+        configureViewTitle()
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {

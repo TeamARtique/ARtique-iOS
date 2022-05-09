@@ -47,6 +47,7 @@ extension ThemeView {
         themeCV.dataSource = self
         themeCV.delegate = self
         themeCV.register(UINib(nibName: Identifiers.themeCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.themeCVC)
+        themeCV.isScrollEnabled = false
     }
 }
 
@@ -85,11 +86,11 @@ extension ThemeView: UICollectionViewDataSource {
         
         switch collectionView {
         case cntCV:
-            roundCell.configureCell(with: "\(setGalleryCount(indexPath.row))개")
+            roundCell.configureCell(with: "\(setGalleryCount(indexPath.row))개", fontSize: 15)
             return roundCell
         case themeCV:
-            themeCell.configureCell(image: UIImage(named: "Theme\(indexPath.row + 1)")!,
-                                    title: "테마 \(indexPath.row + 1)")
+            themeCell.configureCell(image: ThemeType.allCases[indexPath.row].themeImage,
+                                    title: ThemeType.allCases[indexPath.row].themeTitle)
             return themeCell
         default:
             return UICollectionViewCell()
@@ -100,11 +101,15 @@ extension ThemeView: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 extension ThemeView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        20
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         switch collectionView {
         case cntCV:
             return 13
         default:
-            return 16
+            return 15
         }
     }
     
@@ -114,7 +119,7 @@ extension ThemeView: UICollectionViewDelegateFlowLayout {
             return CGSize(width: (UIScreen.main.bounds.width - 40 - 26) / 3,
                           height: collectionView.frame.height)
         default:
-            let cellWidth = (collectionView.frame.width - 16) / 2
+            let cellWidth = (collectionView.frame.width - 15) / 2
             return CGSize(width: cellWidth,
                           height: cellWidth + 23)
         }

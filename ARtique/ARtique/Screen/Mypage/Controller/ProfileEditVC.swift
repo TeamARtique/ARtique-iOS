@@ -61,10 +61,9 @@ extension ProfileEditVC {
                                                            style: .done,
                                                            target: self,
                                                            action: #selector(popVC))
-        navigationController?.setRoundRightBarBtn(navigationItem: self.navigationItem,
-                                                  title: "완료",
-                                                  target: self,
-                                                  action: #selector(bindRightBarButton))
+        navigationItem.rightBarButtonItem = navigationController?.roundFilledBarBtn(title: "완료",
+                                                                                    target: self,
+                                                                                    action: #selector(bindRightBarButton))
     }
 
     private func configureSV() {

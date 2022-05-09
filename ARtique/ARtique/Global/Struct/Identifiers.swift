@@ -55,14 +55,14 @@ struct Identifiers {
     static let latestSearchedCVC = "LatestSearchedCVC"
     static let roundCVC = "RoundCVC"
     static let themeCVC = "ThemeCVC"
-    static let selectedImageCVC = "SelectedImageCVC"
+    static let borderCVC = "BorderCVC"
+    static let galleryCVC = "GalleryCVC"
     static let artworkExplainCVC = "ArtworkExplainCVC"
     static let exhibitionCVC = "ExhibitionCVC"
     
     //MARK: - View
     static let themeView = "ThemeView"
     static let orderView = "OrderView"
-    static let artworkListView = "ArtworkListView"
     static let postExplainView = "PostExplainView"
     static let exhibitionExplainView = "ExhibitionExplainView"
     static let artworkSelectView = "ArtworkSelectView"

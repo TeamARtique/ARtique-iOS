@@ -12,8 +12,11 @@ import RxSwift
 import RxCocoa
 
 class AddExhibitionVC: BaseVC {
-    @IBOutlet weak var progressView: UIProgressView!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var progressBaseView: UIView!
+    @IBOutlet weak var progressIndicator: UIView!
+    @IBOutlet weak var progress: NSLayoutConstraint!
+    @IBOutlet weak var contentSV: UIScrollView!
+  
     let exhibitionModel = NewExhibition.shared
     let themeView = ThemeView()
     let artworkSelectView = ArtworkSelectView()
@@ -22,30 +25,28 @@ class AddExhibitionVC: BaseVC {
     let exhibitionExplainView = ExhibitionExplainView()
     let bag = DisposeBag()
     
-    var progress: Float = 0.2
     var page: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
-        configureRegisterProgressView()
-        configureScrollView()
+        configureProgressView()
+        configureContentSV()
         configureStackView()
         hideKeyboard()
         setNotification()
-        bindCrop()
     }
 }
 
 // MARK: - Configure
 extension AddExhibitionVC {
     private func configureNavigationBar() {
-        setNavigationTitle(0)
+        navigationItem.title = "전시 등록"
         navigationController?.additionalSafeAreaInsets.top = 8
-        navigationController?.setRoundRightBarBtn(navigationItem: self.navigationItem,
-                                                  title: "다음",
-                                                  target: self,
-                                                  action: #selector(bindRightBarButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "NextBtn"),
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(bindRightBarButton))
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "dismissBtn"),
                                                            style: .plain,
                                                            target: self,
@@ -58,44 +59,52 @@ extension AddExhibitionVC {
         configureNextButton()
     }
     
+    private func configureProgressView() {
+        progressBaseView.backgroundColor = .gray1
+        progressBaseView.layer.cornerRadius = progressBaseView.frame.height / 2
+        
+        progressIndicator.backgroundColor = .black
+        progressIndicator.layer.cornerRadius = progressIndicator.frame.height / 2
+        progressIndicator.snp.makeConstraints {
+            $0.width.equalToSuperview().dividedBy(5)
+        }
+    }
+    
     private func configurePrevButton() {
         navigationItem.leftBarButtonItem?.image
-        = (progressView.progress < 0.3)
+        = (page == 0)
         ? UIImage(named: "dismissBtn")
         : UIImage(named: "BackBtn")
     }
     
     private func configureNextButton() {
-        let rightBarButton = self.navigationItem.rightBarButtonItem!
-        let button = rightBarButton.customView as! UIButton
-        
-        (progressView.progress == 1)
-        ? button.setTitle("등록하기", for: .normal)
-        : button.setTitle("다음", for: .normal)
-    }
-    
-    private func configureRegisterProgressView() {
-        progressView.tintColor = .black
-        progressView.progress = progress
+        navigationItem.rightBarButtonItem
+        = (page == 4)
+        ? navigationController?.roundFilledBarBtn(title: "등록하기",
+                                                  target: self,
+                                                  action: #selector(bindRightBarButton))
+        : UIBarButtonItem(image: UIImage(named: "NextBtn"),
+                          style: .plain,
+                          target: self,
+                          action: #selector(bindRightBarButton))
     }
     
     // MARK: - Configure Content Page
-    private func configureScrollView() {
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.contentSize = CGSize(width: view.frame.width * 5,
+    private func configureContentSV() {
+        contentSV.showsHorizontalScrollIndicator = false
+        contentSV.contentSize = CGSize(width: view.frame.width * 5,
                                         height: 0)
-        scrollView.isScrollEnabled = false
+        contentSV.isScrollEnabled = false
     }
     
-    private func setScrollViewPaging(page: Int) {
-        let page = page
-        let width = scrollView.frame.width
+    private func setScrollViewPaging(_ page: Int) {
+        let width = contentSV.frame.width
         let targetX = CGFloat(page) * width
         
-        var offset = scrollView.contentOffset
+        var offset = contentSV.contentOffset
         offset.x = targetX
         
-        scrollView.setContentOffset(offset, animated: true)
+        contentSV.setContentOffset(offset, animated: true)
     }
     
     private func configureStackView() {
@@ -110,7 +119,7 @@ extension AddExhibitionVC {
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(stackView)
+        contentSV.addSubview(stackView)
         
         registerProcessViews.forEach {
             configureLayout($0)
@@ -119,8 +128,8 @@ extension AddExhibitionVC {
     
     private func configureLayout(_ view: UIView) {
         view.snp.makeConstraints {
-            $0.width.equalTo(scrollView.snp.width)
-            $0.height.equalTo(scrollView.snp.height)
+            $0.width.equalTo(contentSV.snp.width)
+            $0.height.equalTo(contentSV.snp.height)
         }
     }
 }
@@ -128,35 +137,38 @@ extension AddExhibitionVC {
 // MARK: - Custom Methods
 extension AddExhibitionVC {
     private func setNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(setSelectedViewNaviTitle), name: .whenArtworkSelected, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentAlbumList), name: .whenAlbumListBtnSelected, object: nil)
     }
     
-    private func setNavigationTitle(_ index: Int) {
-        navigationItem.title = AddProcess.allCases[index].naviTitle
+    private func setProgress(_ page: Int) {
+        UIView.animate(withDuration: 0.3) {
+            self.progress.constant = CGFloat(page) * self.progressIndicator.frame.width
+            self.view.layoutIfNeeded()
+        }
     }
     
-    private func configurePageView(_ progress: Float,_ page: Int) {
-        progressView.setProgress(progress, animated: true)
-        setNavigationTitle(page)
+    private func configurePageView(_ page: Int) {
+        setProgress(page)
         configureNaviBarButton()
-        setScrollViewPaging(page: page)
+        setScrollViewPaging(page)
         reloadPage(page)
     }
     
     private func reloadPage(_ page: Int) {
         switch page {
         case 1:
+            artworkSelectView.configureViewTitle()
             artworkSelectView.maxArtworkCnt = exhibitionModel.artworkCnt ?? 0
             artworkSelectView.selectedImages = exhibitionModel.selectedArtwork ?? [UIImage]()
         case 2:
-            orderView.artworkListView.artworkCV.reloadData()
-            orderView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: true)
+            orderView.selectedPhotoCV.reloadData()
+            orderView.selectedPhotoCV.scrollToItem(at: [0,0], at: .top, animated: false)
         case 3:
-            postExplainView.artworkListView.artworkCV.reloadData()
-            postExplainView.artworkListView.artworkCV.scrollToItem(at: [0,0], at: .left, animated: true)
+            postExplainView.artworkExplainCV.reloadData()
+            postExplainView.artworkExplainCV.scrollToItem(at: [0,0], at: .left, animated: false)
         case 4:
-            exhibitionExplainView.scrollView.scrollToTop()
+            exhibitionExplainView.baseSV.scrollToTop()
+            exhibitionExplainView.phosterCV.reloadData()
         default:
             break
         }
@@ -164,7 +176,6 @@ extension AddExhibitionVC {
     
     /// 순서 조정 단계에서 테마 선택 단계로 돌아갈 경우 선택된 사진을 모두 지우는 함수
     private func deletePrevData(_ page: Int) {
-        
         if page == 1 {
             NewExhibition.shared.selectedArtwork?.removeAll()
             artworkSelectView.galleryCV.indexPathsForSelectedItems?.forEach({
@@ -173,10 +184,6 @@ extension AddExhibitionVC {
             artworkSelectView.galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
             NotificationCenter.default.post(name: .whenAlbumChanged, object: 0)
         }
-    }
-    
-    @objc func setSelectedViewNaviTitle(_ notification: Notification) {
-        navigationItem.title = "사진 선택 (\(notification.object ?? 0)/\(NewExhibition.shared.artworkCnt ?? 0))"
     }
     
     @objc func presentAlbumList(_ notification: Notification) {
@@ -209,10 +216,9 @@ extension AddExhibitionVC {
 // MARK: - Bind Button Action
 extension AddExhibitionVC {
     @objc func bindRightBarButton() {
-        if progressView.progress != 1 {
-            progress += 0.2
+        if page != 4 {
             page += 1
-            configurePageView(progress, page)
+            configurePageView(page)
         } else {
             popupAlert(targetView: self,
                        alertType: .registerExhibition,
@@ -222,15 +228,13 @@ extension AddExhibitionVC {
     }
     
     @objc func bindLeftBarButton() {
-        if progressView.progress > 0.3 {
+        if page != 0 {
             deletePrevData(page)
-            progress -= 0.2
             page -= 1
-            configurePageView(progress, page)
+            configurePageView(page)
         } else {
             if NewExhibition.shared.artworkCnt != nil
                 || NewExhibition.shared.themeId != nil {
-                dump(NewExhibition.shared)
                 popupAlert(targetView: self,
                            alertType: .removeAllExhibition,
                            leftBtnAction: #selector(removeAllExhibitionData),
@@ -259,7 +263,7 @@ extension AddExhibitionVC {
             })
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.orderView.artworkListView.artworkCV.reloadData()
+                self.orderView.selectedPhotoCV.reloadData()
             })
             .disposed(by: bag)
     }
