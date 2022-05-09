@@ -70,9 +70,9 @@ extension DetailVC {
         explaination.setLineBreakMode()
         author.titleLabel?.font = .AppleSDGothicL(size: 13)
         author.imageView?.layer.cornerRadius = 12
-        createdAt.textColor = .gray3
-        category.textColor = .gray3
-        gallery.textColor = .gray3
+        [createdAt, category, gallery].forEach {
+            $0?.textColor = .gray3
+        }
         infoTopView.layer.cornerRadius = 15
         infoTopView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
