@@ -70,10 +70,8 @@ extension OrderView {
                 collectionView.deleteItems(at: [sourceIndexPath])
                 collectionView.insertItems(at: [destinationIndexPath])
                 
-            }, completion: {_ in
-                DispatchQueue.main.async {
-                    collectionView.reloadData()
-                }
+            }, completion: { _ in
+                self.selectedPhotoCV.reloadItems(at: self.selectedPhotoCV.indexPathsForVisibleItems)
             })
             coordinator.drop(item.dragItem, toItemAt : destinationIndexPath)
         }

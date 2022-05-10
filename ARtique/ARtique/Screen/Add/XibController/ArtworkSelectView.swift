@@ -18,6 +18,7 @@ class ArtworkSelectView: UIView {
     @IBOutlet weak var message: UILabel!
     @IBOutlet weak var previewBaseView: UIView!
     @IBOutlet weak var galleryBaseView: UIView!
+    @IBOutlet weak var verticalScrollBar: UIView!
     @IBOutlet weak var galleryCV: UICollectionView!
     @IBOutlet weak var albumListButton: UIButton!
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
@@ -83,11 +84,15 @@ extension ArtworkSelectView {
     }
     
     private func layoutView() {
-        topConstraint.constant = 89
-
+        previewBaseView.snp.makeConstraints {
+            $0.height.equalTo(previewBaseView.snp.width).offset(89 - 40)
+        }
         previewBaseView.addSubview(preview)
         preview.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalToSuperview().offset(89)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.bottom.equalToSuperview()
         }
         
         preview.addSubview(spiner)
@@ -131,6 +136,7 @@ extension ArtworkSelectView {
         galleryCV.dataSource = self
         galleryCV.delegate = self
         galleryCV.allowsMultipleSelection = true
+        verticalScrollBar.layer.cornerRadius = verticalScrollBar.frame.height
     }
 }
 
@@ -207,8 +213,6 @@ extension ArtworkSelectView {
                 guard let self = self,
                       let selectedIndex = self.selectedIndex,
                       let cell = self.galleryCV.cellForItem(at: selectedIndex) as? GalleryCVC else { return }
-                self.previewStatus(isHidden: false)
-                self.galleryCV.scrollToItem(at: selectedIndex, at: .top, animated: true)
                 if self.isEdited {
                     self.selectedImages.removeLast()
                     self.indexArr.removeLast()
@@ -216,6 +220,7 @@ extension ArtworkSelectView {
                     cell.setSelectedIndex((self.exhibitionModel.artworks?.count ?? 0) + 1)
                     self.configureViewTitle()
                 }
+                if self.selectedImages.count >= self.exhibitionModel.gallerySize ?? 0 { return }
                 self.indexArr.append((selectedIndex).row)
                 self.selectedImages.append(image ?? UIImage())
                 self.exhibitionModel.artworks = self.selectedImages
@@ -258,13 +263,9 @@ extension ArtworkSelectView {
     }
     
     private func previewStatus(isHidden: Bool) {
-        let opacity: Float = isHidden ? 0 : 1
-        let constant = isHidden ? -self.previewBaseView.frame.height : 89
+        let constant = isHidden ? -self.previewBaseView.frame.height : 0
 
         UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
-            self.viewTitle.isHidden = isHidden
-            self.message.isHidden = isHidden
-            self.previewBaseView.layer.opacity = opacity
             self.topConstraint.constant = constant
             self.layoutIfNeeded()
         }, completion: nil)
@@ -289,7 +290,7 @@ extension ArtworkSelectView: UICollectionViewDataSource {
             
             guard let items = collectionView.indexPathsForSelectedItems else { return }
             if items.contains(indexPath) {
-                cell.setSelectedIndex((self.indexArr.firstIndex(of: indexPath.row) ?? 0) + 1)
+                cell.setSelectedIndex((self.indexArr.firstIndex(of: indexPath.row)!) + 1)
             }
         }
         
@@ -323,10 +324,13 @@ extension ArtworkSelectView: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if collectionView.indexPathsForSelectedItems!.count >= exhibitionModel.gallerySize ?? 0 {
+        if selectedImages.count >= exhibitionModel.gallerySize ?? 0
+            || (spiner.isAnimating && indexPath != selectedIndex) {
             return false
         } else {
             setPreviewImage(indexPath)
+            previewStatus(isHidden: false)
+            galleryCV.scrollToItem(at: indexPath, at: .top, animated: true)
             return true
         }
     }
