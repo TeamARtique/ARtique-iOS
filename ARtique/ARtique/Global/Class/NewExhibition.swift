@@ -19,6 +19,7 @@ class NewExhibition {
     var gallerySize: Int?
     var galleryTheme: Int?
     var isPublic: Bool?
+    var artworkIndex = [Int]()
     var artworks: [UIImage]?
     var artworkTitle: [String]?
     var artworkExplain: [String]?

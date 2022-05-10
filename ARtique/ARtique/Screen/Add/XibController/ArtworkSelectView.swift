@@ -24,15 +24,15 @@ class ArtworkSelectView: UIView {
     var preview = PhotoCropperView()
     private var spiner = UIActivityIndicatorView()
     
-    var devicePhotos: PHFetchResult<PHAsset>!
     let imageManager = PHCachingImageManager()
+    var devicePhotos: PHFetchResult<PHAsset>!
     var albumList = [PHAssetCollection]()
     
     let bag = DisposeBag()
     let exhibitionModel = NewExhibition.shared
-    var maxArtworkCnt: Int = 0
     var selectedImages = [UIImage]()
     var selectedIndex: IndexPath?
+    var indexArr = [Int]()
     var isEdited: Bool = false
     
     override init(frame: CGRect) {
@@ -204,16 +204,19 @@ extension ArtworkSelectView {
         
         preview.resultImage
             .subscribe(onNext: { [weak self] image in
-                guard let self = self else { return }
-                guard let cell = self.galleryCV.cellForItem(at: self.selectedIndex ?? [0,0]) as? GalleryCVC else { return }
+                guard let self = self,
+                      let selectedIndex = self.selectedIndex,
+                      let cell = self.galleryCV.cellForItem(at: selectedIndex) as? GalleryCVC else { return }
                 self.previewStatus(isHidden: false)
-                self.galleryCV.scrollToItem(at: self.selectedIndex ?? [0,0], at: .top, animated: true)
+                self.galleryCV.scrollToItem(at: selectedIndex, at: .top, animated: true)
                 if self.isEdited {
                     self.selectedImages.removeLast()
+                    self.indexArr.removeLast()
                 } else {
                     cell.setSelectedIndex((self.exhibitionModel.artworks?.count ?? 0) + 1)
                     self.configureViewTitle()
                 }
+                self.indexArr.append((selectedIndex).row)
                 self.selectedImages.append(image ?? UIImage())
                 self.exhibitionModel.artworks = self.selectedImages
             })
@@ -235,6 +238,7 @@ extension ArtworkSelectView {
             fetchAssets(with: collection)
             albumListButton.setTitle(collection.localizedTitle ?? "", for: .normal)
             selectedImages.removeAll()
+            indexArr.removeAll()
             exhibitionModel.artworks = selectedImages
             configureViewTitle()
             galleryCV.indexPathsForSelectedItems?.forEach({ galleryCV.deselectItem(at: $0, animated: false) })
@@ -276,8 +280,17 @@ extension ArtworkSelectView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.galleryCVC, for: indexPath) as? GalleryCVC else { return UICollectionViewCell() }
         let asset = devicePhotos.object(at: indexPath.item)
-        imageManager.requestImage(for: asset, targetSize: cell.frame.size, contentMode: .aspectFill, options: nil) { (image, _) in
+        imageManager.requestImage(for: asset,
+                                     targetSize: cell.frame.size,
+                                     contentMode: .aspectFill,
+                                     options: nil) { [weak self] (image, _) in
+            guard let self = self else { return }
             cell.configureCell(with: image ?? UIImage())
+            
+            guard let items = collectionView.indexPathsForSelectedItems else { return }
+            if items.contains(indexPath) {
+                cell.setSelectedIndex((self.indexArr.firstIndex(of: indexPath.row) ?? 0) + 1)
+            }
         }
         
         return cell
@@ -293,6 +306,7 @@ extension ArtworkSelectView: UICollectionViewDelegate {
                   return
               }
         if selectedImages.isEmpty || selectedImages.count <= Int(selectedIndex)! - 1 { return }
+        indexArr.remove(at: Int(selectedIndex)! - 1)
         selectedImages.remove(at: Int(selectedIndex)! - 1)
         exhibitionModel.artworks = selectedImages
         spiner.stopAnimating()
@@ -309,7 +323,7 @@ extension ArtworkSelectView: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if collectionView.indexPathsForSelectedItems!.count >= maxArtworkCnt {
+        if collectionView.indexPathsForSelectedItems!.count >= exhibitionModel.gallerySize ?? 0 {
             return false
         } else {
             setPreviewImage(indexPath)
