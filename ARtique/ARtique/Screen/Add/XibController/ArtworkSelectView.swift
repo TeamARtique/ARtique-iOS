@@ -179,13 +179,13 @@ extension ArtworkSelectView {
                         self.preview.imageView.image = image
                         self.preview.scrollView.zoomScale = self.preview.scrollView.minimumZoomScale
                         self.preview.updateZoomScale()
-                        if !isDegraded && (self.galleryCV.indexPathsForSelectedItems?.count ?? 0) != 0 {
-                            self.spiner.stopAnimating()
+                        guard let cell = self.galleryCV.cellForItem(at: indexPath) as? GalleryCVC else { return }
+                        isDegraded ? self.spiner.startAnimating() : self.spiner.stopAnimating()
+                        if !isDegraded && (self.galleryCV.indexPathsForSelectedItems?.count ?? 0) != 0
+                            && !self.spiner.isAnimating && cell.isSelected {
                             self.preview.crop.onNext(())
                             self.selectedIndex = indexPath
                             self.isEdited = false
-                        } else {
-                            self.spiner.startAnimating()
                         }
                     }
                 }
@@ -234,6 +234,10 @@ extension ArtworkSelectView {
             let collection = albumList[notification.object as! Int]
             fetchAssets(with: collection)
             albumListButton.setTitle(collection.localizedTitle ?? "", for: .normal)
+            selectedImages.removeAll()
+            exhibitionModel.artworks = selectedImages
+            configureViewTitle()
+            galleryCV.indexPathsForSelectedItems?.forEach({ galleryCV.deselectItem(at: $0, animated: false) })
             galleryCV.reloadData()
             galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
             setPreviewImage([0,0])
@@ -283,17 +287,22 @@ extension ArtworkSelectView: UICollectionViewDataSource {
 //MARK: UICollectionViewDelegate
 extension ArtworkSelectView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? GalleryCVC else { return }
-        let selectedIndex = Int(cell.selectedIndex.text ?? "1")!
-        if selectedImages.isEmpty { return }
-        selectedImages.remove(at: selectedIndex - 1)
+        guard let cell = collectionView.cellForItem(at: indexPath) as? GalleryCVC,
+              let selectedIndex = cell.selectedIndex.text else {
+                  spiner.stopAnimating()
+                  return
+              }
+        if selectedImages.isEmpty || selectedImages.count <= Int(selectedIndex)! - 1 { return }
+        selectedImages.remove(at: Int(selectedIndex)! - 1)
         exhibitionModel.artworks = selectedImages
         spiner.stopAnimating()
         configureViewTitle()
         
         collectionView.indexPathsForSelectedItems?.forEach {
-            let restCell = collectionView.cellForItem(at: $0) as! GalleryCVC
-            if Int(restCell.selectedIndex.text!)! > Int(cell.selectedIndex.text!)! {
+            guard let restCell = collectionView.cellForItem(at: $0) as? GalleryCVC,
+                  let index = restCell.selectedIndex.text,
+                  let cellIndex = cell.selectedIndex.text else { return }
+            if Int(index)! > Int(cellIndex)! {
                 restCell.selectedIndex.text = "\(Int(restCell.selectedIndex.text!)! - 1)"
             }
         }
