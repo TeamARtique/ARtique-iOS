@@ -16,6 +16,7 @@ target 'ARtique' do
   # Rx
   pod 'RxSwift', '< 6.2.0'
   pod 'RxCocoa', '< 6.2.0'
+  pod "RxGesture"
 
   # Kakaotalk
   pod 'KakaoSDKUser', '~> 2.8.6'

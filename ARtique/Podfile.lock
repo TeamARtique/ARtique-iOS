@@ -49,6 +49,7 @@ DEPENDENCIES:
   - Moya
   - PhotoCropper
   - RxCocoa (< 6.2.0)
+  - RxGesture
   - RxSwift (< 6.2.0)
   - SnapKit (~> 5.0.1)
   - Tabman (~> 2.9)
@@ -89,6 +90,6 @@ SPEC CHECKSUMS:
   Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: 84530d9357e0c04858f16172eab9fe11b1f7cf09
+PODFILE CHECKSUM: 30e99017eb152720c5b98f67fc163cb7099755a1
 
 COCOAPODS: 1.11.2

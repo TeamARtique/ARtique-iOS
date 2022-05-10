@@ -11,6 +11,7 @@ import PhotoCropper
 import RxSwift
 import RxCocoa
 import SnapKit
+import RxGesture
 
 class ArtworkSelectView: UIView {
     @IBOutlet weak var viewTitle: UILabel!
@@ -31,9 +32,8 @@ class ArtworkSelectView: UIView {
     let exhibitionModel = NewExhibition.shared
     var maxArtworkCnt: Int = 0
     var selectedImages = [UIImage]()
-//    var selectedImageIds = [String]()
     var selectedIndex: IndexPath?
-    var isFirstSelection = true
+    var isEdited: Bool = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -179,7 +179,14 @@ extension ArtworkSelectView {
                         self.preview.imageView.image = image
                         self.preview.scrollView.zoomScale = self.preview.scrollView.minimumZoomScale
                         self.preview.updateZoomScale()
-                        isDegraded ? self.spiner.startAnimating() : self.spiner.stopAnimating()
+                        if !isDegraded && (self.galleryCV.indexPathsForSelectedItems?.count ?? 0) != 0 {
+                            self.spiner.stopAnimating()
+                            self.preview.crop.onNext(())
+                            self.selectedIndex = indexPath
+                            self.isEdited = false
+                        } else {
+                            self.spiner.startAnimating()
+                        }
                     }
                 }
             }
@@ -187,11 +194,11 @@ extension ArtworkSelectView {
     }
     
     private func saveCropImage() {
-        galleryCV.rx.itemSelected
-            .map { [weak self] index in
-                guard let self = self else { return }
-                self.selectedIndex = index
-            }
+        preview.rx.pinchGesture()
+            .when(.ended)
+            .map({ _ in
+                self.isEdited = true
+            })
             .bind(to: preview.crop)
             .disposed(by: bag)
         
@@ -201,15 +208,14 @@ extension ArtworkSelectView {
                 guard let cell = self.galleryCV.cellForItem(at: self.selectedIndex ?? [0,0]) as? GalleryCVC else { return }
                 self.previewStatus(isHidden: false)
                 self.galleryCV.scrollToItem(at: self.selectedIndex ?? [0,0], at: .top, animated: true)
-                if !self.isFirstSelection {
-                    cell.setSelectedIndex((self.exhibitionModel.artworks?.count ?? 0) + 2)
-                    self.selectedImages.append(image ?? UIImage())
-                    self.exhibitionModel.artworks = self.selectedImages
+                if self.isEdited {
+                    self.selectedImages.removeLast()
                 } else {
-                    cell.setSelectedIndex(1)
-                    self.isFirstSelection = false
+                    cell.setSelectedIndex((self.exhibitionModel.artworks?.count ?? 0) + 1)
+                    self.configureViewTitle()
                 }
-                self.configureViewTitle()
+                self.selectedImages.append(image ?? UIImage())
+                self.exhibitionModel.artworks = self.selectedImages
             })
             .disposed(by: bag)
     }
@@ -294,10 +300,10 @@ extension ArtworkSelectView: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        setPreviewImage(indexPath)
         if collectionView.indexPathsForSelectedItems!.count >= maxArtworkCnt {
             return false
         } else {
+            setPreviewImage(indexPath)
             return true
         }
     }
