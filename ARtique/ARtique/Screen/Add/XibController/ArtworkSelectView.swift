@@ -167,7 +167,7 @@ extension ArtworkSelectView {
         }
     }
     
-    private func setPreviewImage(_ indexPath: IndexPath) {
+    func setPreviewImage(_ indexPath: IndexPath) {
         let width = devicePhotos.object(at: indexPath.row).pixelWidth
         let height = devicePhotos.object(at: indexPath.row).pixelHeight
         
@@ -185,12 +185,13 @@ extension ArtworkSelectView {
                         self.preview.imageView.image = image
                         self.preview.scrollView.zoomScale = self.preview.scrollView.minimumZoomScale
                         self.preview.updateZoomScale()
+                        self.selectedIndex = indexPath
                         guard let cell = self.galleryCV.cellForItem(at: indexPath) as? GalleryCVC else { return }
                         isDegraded ? self.spiner.startAnimating() : self.spiner.stopAnimating()
+                        if self.spiner.isAnimating { cell.selectedIndex.text = "" }
                         if !isDegraded && (self.galleryCV.indexPathsForSelectedItems?.count ?? 0) != 0
                             && !self.spiner.isAnimating && cell.isSelected {
                             self.preview.crop.onNext(())
-                            self.selectedIndex = indexPath
                             self.isEdited = false
                         }
                     }
@@ -302,13 +303,19 @@ extension ArtworkSelectView: UICollectionViewDataSource {
 extension ArtworkSelectView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? GalleryCVC,
-              let selectedIndex = cell.selectedIndex.text else {
+              let selectedIndex = cell.selectedIndex.text,
+              let index = Int(selectedIndex) else {
                   spiner.stopAnimating()
                   return
               }
-        if selectedImages.isEmpty || selectedImages.count <= Int(selectedIndex)! - 1 { return }
-        indexArr.remove(at: Int(selectedIndex)! - 1)
-        selectedImages.remove(at: Int(selectedIndex)! - 1)
+        
+        if spiner.isAnimating {
+            spiner.stopAnimating()
+            return
+        }
+        
+        indexArr.remove(at: index - 1)
+        selectedImages.remove(at: index - 1)
         exhibitionModel.artworks = selectedImages
         spiner.stopAnimating()
         configureViewTitle()
@@ -331,6 +338,15 @@ extension ArtworkSelectView: UICollectionViewDelegate {
             setPreviewImage(indexPath)
             previewStatus(isHidden: false)
             galleryCV.scrollToItem(at: indexPath, at: .top, animated: true)
+            return true
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
+        guard let isContains = collectionView.indexPathsForSelectedItems?.contains(indexPath) else { return true }
+        if spiner.isAnimating && isContains && indexPath != selectedIndex {
+            return false
+        } else {
             return true
         }
     }

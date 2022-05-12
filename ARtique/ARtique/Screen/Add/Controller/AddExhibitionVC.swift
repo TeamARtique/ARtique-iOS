@@ -158,6 +158,7 @@ extension AddExhibitionVC {
         switch page {
         case 1:
             artworkSelectView.configureViewTitle()
+            artworkSelectView.setPreviewImage([0,0])
             artworkSelectView.selectedImages = exhibitionModel.artworks ?? [UIImage]()
         case 2:
             orderView.selectedPhotoCV.reloadData()
