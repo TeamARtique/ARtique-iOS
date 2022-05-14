@@ -244,27 +244,4 @@ extension AddExhibitionVC {
             }
         }
     }
-    
-    // TODO: ERROR 1) 해당 장수 넘을 경우 저장안되게 2) 네비바 타이틀
-    private func bindCrop() {
-        let rightBarButton = self.navigationItem.rightBarButtonItem!
-        let button = rightBarButton.customView as! UIButton
-        
-        button.rx.tap
-            .filter({ [weak self] _ in
-                self?.page == 2
-            })
-            .bind(to: artworkSelectView.preview.crop)
-            .disposed(by: bag)
-
-        button.rx.tap
-            .filter({ [weak self] _ in
-                self?.page == 2
-            })
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.orderView.selectedPhotoCV.reloadData()
-            })
-            .disposed(by: bag)
-    }
 }

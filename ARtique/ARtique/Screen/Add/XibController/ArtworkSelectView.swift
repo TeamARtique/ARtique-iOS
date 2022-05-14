@@ -201,11 +201,18 @@ extension ArtworkSelectView {
     }
     
     private func saveCropImage() {
+        preview.scrollView.rx.didEndDecelerating
+            .map { _ in
+                self.isEdited = true
+            }
+            .bind(to: preview.crop)
+            .disposed(by: bag)
+        
         preview.rx.pinchGesture()
             .when(.ended)
-            .map({ _ in
+            .map { _ in
                 self.isEdited = true
-            })
+            }
             .bind(to: preview.crop)
             .disposed(by: bag)
         
@@ -215,13 +222,18 @@ extension ArtworkSelectView {
                       let selectedIndex = self.selectedIndex,
                       let cell = self.galleryCV.cellForItem(at: selectedIndex) as? GalleryCVC else { return }
                 if self.isEdited {
-                    self.selectedImages.removeLast()
-                    self.indexArr.removeLast()
+                    if self.selectedImages.isEmpty {
+                        self.galleryCV.selectItem(at: selectedIndex, animated: true, scrollPosition: .top)
+                        cell.setSelectedIndex(1)
+                    } else {
+                        self.selectedImages.removeLast()
+                        self.indexArr.removeLast()
+                    }
                 } else {
                     cell.setSelectedIndex((self.exhibitionModel.artworks?.count ?? 0) + 1)
-                    self.configureViewTitle()
                 }
                 if self.selectedImages.count >= self.exhibitionModel.gallerySize ?? 0 { return }
+                self.configureViewTitle()
                 self.indexArr.append((selectedIndex).row)
                 self.selectedImages.append(image ?? UIImage())
                 self.exhibitionModel.artworks = self.selectedImages
@@ -265,7 +277,7 @@ extension ArtworkSelectView {
     
     private func previewStatus(isHidden: Bool) {
         let constant = isHidden ? -self.previewBaseView.frame.height : 0
-
+        
         UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
             self.topConstraint.constant = constant
             self.layoutIfNeeded()
@@ -332,7 +344,8 @@ extension ArtworkSelectView: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         if selectedImages.count >= exhibitionModel.gallerySize ?? 0
-            || (spiner.isAnimating && indexPath != selectedIndex) {
+            || (spiner.isAnimating && indexPath != selectedIndex)
+            || preview.scrollView.isDecelerating {
             return false
         } else {
             setPreviewImage(indexPath)
