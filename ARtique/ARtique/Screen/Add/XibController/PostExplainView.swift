@@ -9,24 +9,24 @@ import UIKit
 import SnapKit
 
 class PostExplainView: UIView {
-    @IBOutlet weak var baseSV: UIScrollView!
     @IBOutlet weak var artworkExplainCV: UICollectionView!
     
+    var isKeyboardVisible = false
     var currentIndex:CGFloat = 0
     let cellWidth: CGFloat = 300
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setContentView()
-        configureLayout()
         configureCV()
+        setNotification()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setContentView()
-        configureLayout()
         configureCV()
+        setNotification()
     }
 }
 
@@ -56,17 +56,26 @@ extension PostExplainView {
             layout.scrollDirection = .horizontal
         }
     }
+}
+// MARK: - Custom Methods
+extension PostExplainView {
+    private func setNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(scrollToFirstResponder), name: .changeFirstResponder, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     
-    private func configureLayout() {
-        baseSV.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalToSuperview().offset(89)
-        }
-        
-        artworkExplainCV.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-            $0.height.equalTo(UIScreen.main.bounds.height - 170)
-        }
+    @objc func keyboardWillShow(notification: NSNotification) {
+        isKeyboardVisible = true
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        isKeyboardVisible = false
+    }
+    
+    @objc func scrollToFirstResponder(_ notification: Notification) {
+        guard let index = notification.object as? Int else { return }
+        artworkExplainCV.scrollToItem(at: [0, index], at: .left, animated: true)
     }
 }
 
@@ -121,5 +130,11 @@ extension PostExplainView: UICollectionViewDelegate {
         offset = CGPoint(x: roundedIndex * cellWidthIncludeSpacing - scrollView.contentInset.left,
                          y: scrollView.contentInset.top)
         targetContentOffset.pointee = offset
+        
+        if isKeyboardVisible {
+            guard let cell = artworkExplainCV.cellForItem(at: [0, Int(currentIndex)]) as? ArtworkExplainCVC else { return }
+            
+            cell.titleTextField.becomeFirstResponder()
+        }
     }
 }

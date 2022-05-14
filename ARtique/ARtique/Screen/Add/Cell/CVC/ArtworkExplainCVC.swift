@@ -40,6 +40,7 @@ extension ArtworkExplainCVC {
         image.backgroundColor = .black
         titleTextField.setRoundTextField(with: "제목을 입력하세요")
         contentTextView.setRoundTextView()
+        titleTextField.delegate = self
         contentTextView.delegate = self
         indexBase.backgroundColor = .white
         indexBase.layer.cornerRadius = indexBase.frame.height / 2
@@ -51,11 +52,24 @@ extension ArtworkExplainCVC {
     func configureCell(index: Int) {
         cellIndex = index
         image.image = exhibitionModel.artworks?[index] ?? UIImage()
-        titleTextField.text = exhibitionModel.artworkTitle?[index] ?? ""
-        contentTextView.text = exhibitionModel.artworkExplain?[index] ?? ""
+        configureText(title: exhibitionModel.artworkTitle?[index] ?? "",
+                      description: exhibitionModel.artworkExplain?[index] ?? "")
         contentTextView.setTextViewPlaceholder(postContentPlaceholder)
         self.index.text = "\(index + 1)"
         bindText()
+    }
+    
+    private func configureText(title: String, description: String) {
+        titleTextField.textColor
+        = title == titleTextField.placeholder
+        ? .gray2 : .label
+        
+        contentTextView.textColor
+        = description == postContentPlaceholder
+        ? .gray2 : .label
+        
+        titleTextField.text = title
+        contentTextView.text = description
     }
     
     private func bindText() {
@@ -81,6 +95,7 @@ extension ArtworkExplainCVC: UITextViewDelegate {
         guard textView.textColor == .gray2 else { return }
         textView.textColor = .label
         textView.text = ""
+        NotificationCenter.default.post(name: .changeFirstResponder, object: cellIndex)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -97,5 +112,18 @@ extension ArtworkExplainCVC: UITextViewDelegate {
         guard let str = textView.text else { return true }
         let newLength = str.count + text.count - range.length
         return newLength <= textViewMaxCnt + 1
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension ArtworkExplainCVC: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        NotificationCenter.default.post(name: .changeFirstResponder, object: cellIndex)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        titleTextField.resignFirstResponder()
+        contentTextView.becomeFirstResponder()
+        return true
     }
 }
