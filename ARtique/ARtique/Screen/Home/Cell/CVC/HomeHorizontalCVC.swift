@@ -6,46 +6,38 @@
 //
 
 import UIKit
+import Kingfisher
 
 class HomeHorizontalCVC: UICollectionViewCell {
     @IBOutlet weak var phoster: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var author: UILabel!
-    
-    @IBOutlet weak var likeBtn: UIButton!
-    @IBOutlet weak var bookMarkBtn: UIButton!
+    @IBOutlet weak var isLiked: UIImageView!
     @IBOutlet weak var likeCnt: UILabel!
+    @IBOutlet weak var isBookmarked: UIImageView!
     @IBOutlet weak var bookmarkCnt: UILabel!
     
-    var exhibitionData: ExhibitionData?
-    
-    @IBAction func pushLike(_ sender: Any) {
-        if likeBtn.currentImage == UIImage(named: "Like_Selected"){
-            likeBtn.setImage(UIImage(named: "Like_UnSelected"), for: .normal)
-            likeCnt.text = "\(Int(likeCnt.text!)! - 1)"
-        } else {
-            likeBtn.setImage(UIImage(named: "Like_Selected"), for: .normal)
-            likeCnt.text = "\(Int(likeCnt.text!)! + 1)"
-        }
-    }
-    @IBAction func pushBookMark(_ sender: Any) {
-        if bookMarkBtn.currentImage == UIImage(named: "BookMark_Selected"){
-            bookMarkBtn.setImage(UIImage(named: "BookMark_UnSelected"), for: .normal)
-            bookmarkCnt.text = "\(Int(bookmarkCnt.text!)! - 1)"
-        } else {
-            bookMarkBtn.setImage(UIImage(named: "BookMark_Selected"), for: .normal)
-            bookmarkCnt.text = "\(Int(bookmarkCnt.text!)! + 1)"
-        }
-    }
+    var exhibitionData: ExhibitionModel?
 }
 
 extension HomeHorizontalCVC {
-    func configureCell(_ exhibition: ExhibitionData) {
+    func configureCell(_ exhibition: ExhibitionModel) {
+        phoster.kf.setImage(with: exhibition.phosterImgURL,
+                            placeholder: UIImage(named: "DefaultPhoster"),
+                            options: [
+                              .scaleFactor(UIScreen.main.scale),
+                              .cacheOriginalImage
+                            ])
         exhibitionData = exhibition
-        phoster.image = exhibition.phoster
-        title.text = exhibition.title
-        author.text = exhibition.author
-        likeCnt.text = "\(exhibition.like)"
-        bookmarkCnt.text = "\(exhibition.bookMark)"
+        title.text = exhibition.title ?? "ARtique"
+        author.text = exhibition.artist?.nickname ?? "ARTI"
+        likeCnt.text = "\(exhibition.like?.likeCount ?? 0)"
+        isLiked.image = (exhibition.like?.isLiked ?? false)
+        ? UIImage(named: "Like_Selected")!
+        : UIImage(named: "Like_UnSelected")!
+        bookmarkCnt.text = "\(exhibition.bookmark?.bookmarkCount ?? 0)"
+        isBookmarked.image = (exhibition.bookmark?.isBookmarked ?? false)
+        ? UIImage(named: "BookMark_Selected")!
+        : UIImage(named: "BookMark_UnSelected")!
     }
 }

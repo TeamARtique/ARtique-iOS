@@ -8,7 +8,6 @@
 import Foundation
 extension UserDefaults {
     enum Keys {
-        static var loginUserName = "loginUserName"
         static var userID = "userID"
         static var userEmail = "userEmail"
         static var nickname = "nickname"

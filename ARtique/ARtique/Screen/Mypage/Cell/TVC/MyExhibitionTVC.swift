@@ -9,7 +9,7 @@ import UIKit
 
 class MyExhibitionTVC: UITableViewCell {
     @IBOutlet weak var exhibitionCV: UICollectionView!
-    var exhibitionData: [ExhibitionData]?
+    var exhibitionData: [ExhibitionModel]?
     var delegate: CVCellDelegate?
     
     override func awakeFromNib() {

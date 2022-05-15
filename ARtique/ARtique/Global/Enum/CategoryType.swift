@@ -16,6 +16,21 @@ enum CategoryType: CaseIterable {
 }
 
 extension CategoryType {
+    var categoryId: Int {
+        switch self {
+        case .contemporaryArt:
+            return 1
+        case .illustration:
+            return 2
+        case .daily:
+            return 3
+        case .pet:
+            return 4
+        case .fan:
+            return 5
+        }
+    }
+    
     var categoryTitle: String {
         switch self {
         case .contemporaryArt:

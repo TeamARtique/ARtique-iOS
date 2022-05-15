@@ -20,23 +20,8 @@ class MypageVC: BaseVC {
     @IBOutlet weak var ticketBtn: ExhibitionCntBtn!
     
     // dummyData
-    var registerData: [ExhibitionData] = [
-        ExhibitionData("My Lovely Cat", "우주인", UIImage(named: "MyLovelyCat")!, [1, 2, 3], 8, 6),
-        ExhibitionData("Future Body", "cl0ud", UIImage(named: "Future_Body")!, [1, 2, 3], 10, 2),
-        ExhibitionData("The Cat", "asdf", UIImage(named: "theCat")!, [1, 2, 3], 12, 10),
-        ExhibitionData("AGITATO 고양이", "TATO", UIImage(named: "AGITATO")!, [1, 2, 3], 5, 3),
-        ExhibitionData("제주 고양이", "juJe", UIImage(named: "JejuCat")!, [1, 2, 3], 20, 15),
-        ExhibitionData("Cat and Flower", "caf", UIImage(named: "CatAndFlower")!, [1, 2, 3], 13, 9)
-    ]
-    
-    var bookmarkData:[ExhibitionData] = [
-        ExhibitionData("This is the Sun", "Magdiel", UIImage(named: "ThisistheSun")!, [1, 2, 3], 120, 56),
-        ExhibitionData("SAISON 17/18", "is0n", UIImage(named: "SAISON")!, [1, 2, 3], 112, 89),
-        ExhibitionData("Love Love Love", "Lx3", UIImage(named: "LoveLoveLove")!, [1, 2, 3], 212, 101),
-        ExhibitionData("PhotoClub", "toPho", UIImage(named: "PhotoClub")!, [1, 2, 3], 95, 73),
-        ExhibitionData("APOLLO", "StrongArm", UIImage(named: "APOLLO")!, [1, 2, 3], 220, 115),
-        ExhibitionData("우리 코코", "plataa", UIImage(named: "coco_phoster")!, [1, 2, 3], 312, 198)
-    ]
+    var registerData: [ExhibitionModel]?
+    var bookmarkData: [ExhibitionModel]?
     var ticketCnt: Int?
     
     override func viewDidLoad() {
@@ -55,8 +40,8 @@ class MypageVC: BaseVC {
     }
     
     @IBAction func showRegisteredExhibition(_ sender: Any) {
-        if !registerData.isEmpty {
-            showExhibitionListVC(title: "등록한 전시 \(registerData.count)", data: registerData)
+        if !(registerData?.isEmpty ?? true) {
+            showExhibitionListVC(title: "등록한 전시 \(registerData?.count)", data: registerData!)
         } else {
             guard let noneExhibitionVC = UIStoryboard(name: Identifiers.noneExhibitionSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.noneExhibitionVC) as? NoneExhibitionVC else { return }
             noneExhibitionVC.hidesBottomBarWhenPushed = true
@@ -93,7 +78,7 @@ extension MypageVC {
     
     private func configureExhibitionCntBtn() {
         registeredExhibitionBtn.title.text = "등록 전시 수"
-        registeredExhibitionBtn.exhibitionCnt.text = "\(registerData.count)"
+        registeredExhibitionBtn.exhibitionCnt.text = "\(registerData?.count ?? 0)"
         
         ticketBtn.title.text = "내 티켓 수"
         ticketBtn.exhibitionCnt.text = "\(ticketCnt ?? 0)"
@@ -106,9 +91,11 @@ extension MypageVC {
         exhibitionTV.isScrollEnabled = false
         exhibitionTV.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         
-        if registerData.isEmpty && bookmarkData.isEmpty {
+        let isRegisterData = registerData?.isEmpty ?? true
+        let isBookmarkData = bookmarkData?.isEmpty ?? true
+        if isRegisterData && isBookmarkData {
             exhibitionTV.isHidden = true
-        } else if !registerData.isEmpty && !bookmarkData.isEmpty {
+        } else if !isRegisterData && !isBookmarkData {
             exhibitionTVHeight.constant = 652
         } else {
             exhibitionTVHeight.constant = 326
@@ -123,7 +110,7 @@ extension MypageVC {
         print("Alarm View")
     }
     
-    private func showExhibitionListVC(title: String, data: [ExhibitionData]) {
+    private func showExhibitionListVC(title: String, data: [ExhibitionModel]) {
         guard let exhibitionListVC = ViewControllerFactory.viewController(for: .exhibitionList) as? ExhibitionListVC else { return }
         exhibitionListVC.hidesBottomBarWhenPushed = true
         exhibitionListVC.exhibitionData = data
@@ -135,7 +122,9 @@ extension MypageVC {
 // MARK: - UITableViewDataSource
 extension MypageVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        !registerData.isEmpty && !bookmarkData.isEmpty ? 4 : 2
+        guard let isRegisterData = registerData?.isEmpty,
+              let isBookmarkData = bookmarkData?.isEmpty else { return 0 }
+        return !isRegisterData && !isBookmarkData ? 4 : 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -146,16 +135,16 @@ extension MypageVC: UITableViewDataSource {
         
         switch indexPath.row {
         case 0:
-            !registerData.isEmpty
-            ? titleCell.configureCell("등록한 전시", registerData.count)
-            : titleCell.configureCell("북마크한 전시", bookmarkData.count)
+            !(registerData?.isEmpty ?? true)
+            ? titleCell.configureCell("등록한 전시", registerData?.count ?? 0)
+            : titleCell.configureCell("북마크한 전시", bookmarkData?.count ?? 0)
             return titleCell
         case 1:
-            exhibitionCell.exhibitionData = !registerData.isEmpty
+            exhibitionCell.exhibitionData = !(registerData?.isEmpty ?? true)
             ? registerData : bookmarkData
             return exhibitionCell
         case 2:
-            titleCell.configureCell("북마크한 전시", bookmarkData.count)
+            titleCell.configureCell("북마크한 전시", bookmarkData?.count ?? 0)
             return titleCell
         case 3:
             exhibitionCell.exhibitionData = bookmarkData
@@ -173,9 +162,9 @@ extension MypageVC: UITableViewDelegate {
         
         switch cell.exhibitionType.text {
         case "등록한 전시":
-            showExhibitionListVC(title: "등록한 전시 \(registerData.count)", data: registerData)
+            showExhibitionListVC(title: "등록한 전시 \(registerData?.count ?? 0)", data: registerData ?? [ExhibitionModel]())
         case "북마크한 전시":
-            showExhibitionListVC(title: "북마크한 전시 \(bookmarkData.count)", data: bookmarkData)
+            showExhibitionListVC(title: "북마크한 전시 \(bookmarkData?.count ?? 0)", data: bookmarkData ?? [ExhibitionModel]())
         default:
             break
         }

@@ -8,23 +8,7 @@
 import UIKit
 
 class HomeHorizontalTVC: UITableViewCell {
-    // 임시 데이터
-    let forARTI_DATA = [
-        ExhibitionData("My Lovely Cat", "우주인", UIImage(named: "MyLovelyCat")!, [1, 2, 3], 8, 6),
-        ExhibitionData("The Cat", "asdf", UIImage(named: "theCat")!, [1, 2, 3], 12, 10),
-        ExhibitionData("AGITATO 고양이", "TATO", UIImage(named: "AGITATO")!, [1, 2, 3], 5, 3),
-        ExhibitionData("제주 고양이", "juJe", UIImage(named: "JejuCat")!, [1, 2, 3], 20, 15),
-        ExhibitionData("Cat and Flower", "caf", UIImage(named: "CatAndFlower")!, [1, 2, 3], 13, 9),
-        ExhibitionData("Future Body", "cl0ud", UIImage(named: "Future_Body")!, [1, 2, 3], 10, 2)
-    ]
-    let popular_DATA = [
-        ExhibitionData("This is the Sun", "Magdiel", UIImage(named: "ThisistheSun")!, [1, 2, 3], 120, 56),
-        ExhibitionData("Love Love Love", "Lx3", UIImage(named: "LoveLoveLove")!, [1, 2, 3], 212, 101),
-        ExhibitionData("SAISON 17/18", "is0n", UIImage(named: "SAISON")!, [1, 2, 3], 112, 89),
-        ExhibitionData("PhotoClub", "toPho", UIImage(named: "PhotoClub")!, [1, 2, 3], 95, 73),
-        ExhibitionData("APOLLO", "StrongArm", UIImage(named: "APOLLO")!, [1, 2, 3], 220, 115),
-        ExhibitionData("우리 코코", "plataa", UIImage(named: "coco_phoster")!, [1, 2, 3], 312, 198)
-    ]
+    var exhibitionData: HomeModel?
     
     @IBOutlet weak var subTitle: UILabel!
     @IBOutlet weak var exhibitionListCV: UICollectionView!
@@ -60,6 +44,7 @@ extension HomeHorizontalTVC {
         if let layout = exhibitionListCV.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
             layout.minimumLineSpacing = minItemSpacing
+            layout.minimumInteritemSpacing = minItemSpacing
         }
         exhibitionListCV.decelerationRate = UIScrollView.DecelerationRate.fast
     }
@@ -94,19 +79,20 @@ protocol CVCellDelegate {
     func selectedCVC(_ index: IndexPath, _ cellIdentifier: Int, _ collectionView: UICollectionView)
 }
 
-// MARK: DataSource - 임시 데이터 셋업, 서버 생성 후 수정
-extension HomeHorizontalTVC: UICollectionViewDataSource{
+// MARK: UICollectionViewDataSource
+extension HomeHorizontalTVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // 6개 고정
-        return forARTI_DATA.count
+        return cellIdentifier == 0
+        ? exhibitionData?.forArtiExhibition.count ?? 6
+        : exhibitionData?.popularExhibition.count ?? 6
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.homeHorizontalCVC, for: indexPath) as? HomeHorizontalCVC else { return UICollectionViewCell() }
         
         cellIdentifier == 0
-        ? cell.configureCell(forARTI_DATA[indexPath.row])
-        : cell.configureCell(popular_DATA[indexPath.row])
+        ? cell.configureCell(exhibitionData?.forArtiExhibition[indexPath.row] ?? ExhibitionModel())
+        : cell.configureCell(exhibitionData?.popularExhibition[indexPath.row] ?? ExhibitionModel())
         
         /// 처음 로드될 때 현재 셀 아니면 사이즈 줄이기  -> scrollViewDidScroll이랑 중복, 수정 요망
         if indexPath.row != 0 {

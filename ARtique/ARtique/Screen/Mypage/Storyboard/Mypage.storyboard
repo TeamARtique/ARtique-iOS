@@ -34,7 +34,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JY0-Zu-ljX">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="538.66666666666663"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Theme1" translatesAutoresizingMaskIntoConstraints="NO" id="l1H-OH-h4p">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultProfile" translatesAutoresizingMaskIntoConstraints="NO" id="l1H-OH-h4p">
                                                 <rect key="frame" x="20" y="25" width="100" height="100"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="FwG-BE-tkx"/>
@@ -328,8 +328,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="DefaultProfile" width="134" height="134"/>
         <image name="Edit_Circle" width="20" height="20"/>
-        <image name="Theme1" width="160" height="160"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class DetailVC: BaseVC {
     @IBOutlet weak var phoster: UIImageView!
@@ -17,16 +18,19 @@ class DetailVC: BaseVC {
     @IBOutlet weak var exhiTitle: UILabel!
     @IBOutlet weak var author: UIButton!
     @IBOutlet weak var likeBtn: UIButton!
+    @IBOutlet weak var likeCnt: UILabel!
     @IBOutlet weak var bookMarkBtn: UIButton!
+    @IBOutlet weak var bookmarkCnt: UILabel!
     @IBOutlet weak var tagStackView: UIStackView!
     @IBOutlet weak var createdAt: UILabel!
     @IBOutlet weak var category: UILabel!
     @IBOutlet weak var gallery: UILabel!
     @IBOutlet weak var explaination: UILabel!
     @IBOutlet weak var gotoARBtn: UIButton!
+    @IBOutlet weak var scrollBar: UIView!
     
     var isAuthor: Bool?
-    var exhibitionData: ExhibitionData?
+    var exhibitionData: ExhibitionModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +79,7 @@ extension DetailVC {
         }
         infoTopView.layer.cornerRadius = 15
         infoTopView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        scrollBar.layer.cornerRadius = scrollBar.frame.height
     }
     
     private func configureNaviBar() {
@@ -154,21 +159,36 @@ extension DetailVC {
     }
     
     private func configureExhibitionData() {
-        isAuthor = true
-        phoster.image = exhibitionData?.phoster
+        phoster.kf.setImage(with: exhibitionData?.phosterImgURL,
+                            placeholder: UIImage(named: "DefaultPhoster"),
+                            options: [
+                              .scaleFactor(UIScreen.main.scale),
+                              .cacheOriginalImage
+                            ])
+        isAuthor = exhibitionData?.artist?.isWritter ?? false
         exhiTitle.text = exhibitionData?.title
-        author.setTitle("  " + (exhibitionData?.author ?? ""), for: .normal)
-        author.setImage(UIImage(named: "Theme2")?.resized(to: CGSize(width: 24, height: 24)), for: .normal)
-        likeBtn.isSelected = false
-        bookMarkBtn.isSelected = false
-        createdAt.text = "2021/11/19"
+        author.setTitle("  " + (exhibitionData?.artist?.nickname ?? ""), for: .normal)
+        author.setImage(UIImage(named: "DefaultProfile")?.resized(to: CGSize(width: 24, height: 24)), for: .normal)
+        likeBtn.isSelected = exhibitionData?.like?.isLiked ?? false
+        likeBtn.setImage((exhibitionData?.like?.isLiked ?? false)
+                         ? UIImage(named: "Like_Selected")
+                         : UIImage(named: "Like_UnSelected"),
+                         for: .normal)
+        likeCnt.text = "\(exhibitionData?.like?.likeCount ?? 0)"
+        bookMarkBtn.isSelected = exhibitionData?.bookmark?.isBookmarked ?? false
+        bookMarkBtn.setImage((exhibitionData?.bookmark?.isBookmarked ?? false)
+                         ? UIImage(named: "BookMark_Selected")
+                         : UIImage(named: "BookMark_UnSelected"),
+                         for: .normal)
+        bookmarkCnt.text = "\(exhibitionData?.bookmark?.bookmarkCount ?? 0)"
+        createdAt.text = exhibitionData?.date ?? "Date"
         category.text = CategoryType.allCases[0].categoryTitle
-        gallery.text = "화이트 / 5개"
+        gallery.text = "\(ThemeType.init(rawValue: exhibitionData?.galleryTheme ?? 1)?.themeTitle ?? "테마") / \(exhibitionData?.gallerySize ?? 0)개"
         configureTagStackView()
     }
     
     private func configureTagStackView() {
-        exhibitionData?.tagId.forEach { tagId in
+        exhibitionData?.tag?.forEach { tagId in
             let tag = UIView()
             tag.layer.cornerRadius = 10
             tag.layer.borderColor = UIColor.black.cgColor

@@ -12,6 +12,7 @@ class HomeListVC: BaseVC {
     @IBOutlet weak var pageTV: UITableView!
     @IBOutlet weak var pageTVTopAnchor: NSLayoutConstraint!
     var categoryType: CategoryType?
+    var homeListData: HomeModel?
     
     let exhibitionListTVCHeight = 490
     let categoryBarHeight: CGFloat = 48
@@ -22,8 +23,9 @@ class HomeListVC: BaseVC {
         
         // 자동로그인
         requestRenewalToken(refreshToken: UserDefaults.standard.string(forKey: UserDefaults.Keys.refreshToken) ?? "")
-        setUpDelegate()
         setUpTV()
+        getExhibitionList(categoryID: categoryType?.categoryId ?? 1)
+        setNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,7 +37,9 @@ class HomeListVC: BaseVC {
 
 // MARK: - Custom Method
 extension HomeListVC{
-    func setUpTV(){
+    private func setUpTV(){
+        pageTV.dataSource = self
+        pageTV.delegate = self
         pageTV.showsVerticalScrollIndicator = false
         pageTV.separatorColor = .clear
         pageTV.allowsSelection = false
@@ -45,13 +49,8 @@ extension HomeListVC{
         pageTV.decelerationRate = UIScrollView.DecelerationRate.fast
     }
     
-    func setUpDelegate() {
-        pageTV.dataSource = self
-        pageTV.delegate = self
-    }
-    
     /// 카테고리 바꿨을때 네비바 상태 공유
-    func configureTopLayout() {
+    private func configureTopLayout() {
         pageTVTopAnchor.constant = HomeVC.isNaviBarHidden ? categoryBarHeight : largeNavigationBarHeight
     }
     
@@ -62,6 +61,45 @@ extension HomeListVC{
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
+    
+    func setNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(showAllExhibitionList), name: .whenAllExhibitionBtnSelected, object: nil)
+    }
+    
+    @objc func showAllExhibitionList(_ notification: Notification) {
+        guard let exhibitionListVC = ViewControllerFactory.viewController(for: .exhibitionList) as? ExhibitionListVC else { return }
+        exhibitionListVC.exhibitionData = homeListData?.categoryExhibition
+        exhibitionListVC.hidesBottomBarWhenPushed = true
+        exhibitionListVC.setNaviBarTitle(notification.object as? String ?? "")
+        exhibitionListVC.isRightBarBtnExist = true
+        navigationController?.pushViewController(exhibitionListVC, animated: true)
+    }
+}
+
+// MARK: - Network
+extension HomeListVC {
+    private func getExhibitionList(categoryID: Int) {
+        HomeAPI.shared.getHomeExhibitionList(categoryID: categoryID) { [weak self] networkResult in
+            switch networkResult {
+            case .success(let list):
+                if let list = list as? HomeModel {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self = self else { return }
+                        self.homeListData = list
+                        self.pageTV.reloadData()
+                    }
+                }
+            case .requestErr(let res):
+                self?.getExhibitionList(categoryID: categoryID)
+                if let message = res as? String {
+                    print(message)
+                    self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
+    }
 }
 
 // MARK: UITableViewDataSource
@@ -70,21 +108,25 @@ extension HomeListVC: UITableViewDataSource {
         return 3
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if indexPath.row == 0 {
             let cell = pageTV.dequeueReusableCell(withIdentifier: Identifiers.homeHorizontalTVC, for: indexPath) as! HomeHorizontalTVC
-            cell.subTitle.text = "YELYN ARTI를 위한 전시"
+            cell.exhibitionData = homeListData
+            cell.subTitle.text = "\(UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) ?? "") ARTI를 위한 전시"
             cell.delegate = self
             cell.cellIdentifier = 0
+            cell.exhibitionListCV.reloadData()
             return cell
         } else if indexPath.row == 1 {
             let cell = pageTV.dequeueReusableCell(withIdentifier: Identifiers.homeHorizontalTVC, for: indexPath) as! HomeHorizontalTVC
+            cell.exhibitionData = homeListData
             cell.subTitle.text = "ARTI들의 인기 전시"
             cell.delegate = self
             cell.cellIdentifier = 1
+            cell.exhibitionListCV.reloadData()
             return cell
         } else {
             let cell = pageTV.dequeueReusableCell(withIdentifier: Identifiers.homeVerticalTVC, for: indexPath) as! HomeVerticalTVC
+            cell.allData = homeListData?.categoryExhibition
             cell.subTitle.text = "\(tabmanBarItems![0].title!) 전시"
             cell.delegate = self
             cell.cellIdentifier = 2

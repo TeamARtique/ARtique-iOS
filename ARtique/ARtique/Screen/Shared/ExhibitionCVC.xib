@@ -26,7 +26,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="132" height="241"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashView" translatesAutoresizingMaskIntoConstraints="NO" id="wob-Nt-BhP">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultPhoster" translatesAutoresizingMaskIntoConstraints="NO" id="wob-Nt-BhP">
                         <rect key="frame" x="0.0" y="0.0" width="132" height="176"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="wob-Nt-BhP" secondAttribute="height" multiplier="3:4" id="mME-B2-coO"/>
@@ -54,7 +54,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="0d9-e0-G7J">
-                        <rect key="frame" x="99" y="212" width="33" height="12"/>
+                        <rect key="frame" x="99" y="210" width="33" height="12"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookMark_UnSelected" translatesAutoresizingMaskIntoConstraints="NO" id="wQg-4y-pNO">
                                 <rect key="frame" x="0.0" y="0.0" width="12" height="12"/>
@@ -72,7 +72,7 @@
                         </subviews>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="LlO-9K-RYy">
-                        <rect key="frame" x="61" y="212" width="33" height="12"/>
+                        <rect key="frame" x="61" y="210" width="33" height="12"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Like_UnSelected" translatesAutoresizingMaskIntoConstraints="NO" id="gKf-fs-bap">
                                 <rect key="frame" x="0.0" y="0.0" width="12" height="12"/>
@@ -95,23 +95,25 @@
                 <constraint firstItem="Smb-hY-wgE" firstAttribute="top" secondItem="xnT-Mc-l6k" secondAttribute="bottom" constant="2" id="74B-IH-uYR"/>
                 <constraint firstAttribute="trailing" secondItem="wob-Nt-BhP" secondAttribute="trailing" id="7p4-4x-xAL"/>
                 <constraint firstItem="xnT-Mc-l6k" firstAttribute="top" secondItem="YGI-OX-2EF" secondAttribute="bottom" constant="6" id="AJM-DF-PM7"/>
-                <constraint firstItem="0d9-e0-G7J" firstAttribute="top" secondItem="YGI-OX-2EF" secondAttribute="bottom" constant="10" id="BhC-AU-YpV"/>
                 <constraint firstAttribute="trailing" secondItem="YGI-OX-2EF" secondAttribute="trailing" id="Eim-Q2-Lx6"/>
                 <constraint firstItem="xnT-Mc-l6k" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="GLw-rX-8wS"/>
-                <constraint firstItem="LlO-9K-RYy" firstAttribute="top" secondItem="YGI-OX-2EF" secondAttribute="bottom" constant="10" id="MqA-By-rdU"/>
                 <constraint firstItem="wob-Nt-BhP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Ohc-tR-byV"/>
                 <constraint firstAttribute="trailing" secondItem="0d9-e0-G7J" secondAttribute="trailing" id="Sn3-za-Zo1"/>
                 <constraint firstItem="YGI-OX-2EF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="WHZ-kr-KhL"/>
+                <constraint firstItem="0d9-e0-G7J" firstAttribute="centerY" secondItem="xnT-Mc-l6k" secondAttribute="centerY" id="ZxF-Ed-V3Q"/>
                 <constraint firstItem="wob-Nt-BhP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ahq-Ls-cIz"/>
                 <constraint firstItem="YGI-OX-2EF" firstAttribute="top" secondItem="wob-Nt-BhP" secondAttribute="bottom" constant="10" id="gic-mf-2vh"/>
                 <constraint firstItem="0d9-e0-G7J" firstAttribute="leading" secondItem="LlO-9K-RYy" secondAttribute="trailing" constant="5" id="o4S-3H-CPn"/>
                 <constraint firstItem="Smb-hY-wgE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="swG-BZ-gDg"/>
+                <constraint firstItem="LlO-9K-RYy" firstAttribute="centerY" secondItem="xnT-Mc-l6k" secondAttribute="centerY" id="ucF-4c-kp5"/>
             </constraints>
             <size key="customSize" width="200" height="290"/>
             <connections>
                 <outlet property="author" destination="xnT-Mc-l6k" id="8vA-KB-M0c"/>
                 <outlet property="bookmarkCnt" destination="aGU-BQ-pN3" id="CDH-F6-yg3"/>
                 <outlet property="date" destination="Smb-hY-wgE" id="hFQ-Ul-5Hh"/>
+                <outlet property="isBookmarked" destination="wQg-4y-pNO" id="hqH-T1-cnK"/>
+                <outlet property="isLiked" destination="gKf-fs-bap" id="Juq-EF-T0f"/>
                 <outlet property="likeCnt" destination="x0M-2x-T83" id="6kz-jM-KAy"/>
                 <outlet property="phoster" destination="wob-Nt-BhP" id="9oH-Ji-bzg"/>
                 <outlet property="title" destination="YGI-OX-2EF" id="Vg0-kI-5bH"/>
@@ -120,8 +122,8 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="BookMark_UnSelected" width="22" height="22"/>
-        <image name="Like_UnSelected" width="21" height="22"/>
-        <image name="SplashView" width="136" height="119.66666412353516"/>
+        <image name="BookMark_UnSelected" width="36" height="36"/>
+        <image name="DefaultPhoster" width="333" height="444"/>
+        <image name="Like_UnSelected" width="36" height="36"/>
     </resources>
 </document>
