@@ -90,7 +90,7 @@ extension ThemeView: UICollectionViewDataSource {
             return roundCell
         case themeCV:
             themeCell.configureCell(image: ThemeType.init(rawValue: indexPath.row + 1)?.themeImage ?? UIImage(),
-                                            title: ThemeType.init(rawValue: indexPath.row + 1)?.themeTitle ?? "")
+                                    title: ThemeType.init(rawValue: indexPath.row + 1)?.themeTitle ?? "")
             return themeCell
         default:
             return UICollectionViewCell()
