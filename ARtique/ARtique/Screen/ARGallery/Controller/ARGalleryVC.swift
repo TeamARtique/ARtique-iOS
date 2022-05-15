@@ -28,7 +28,7 @@ class ARGalleryVC: BaseVC {
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        getARGalleryInfo(exhibitionID: 2)
+        getARGalleryInfo(exhibitionID: 36)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -149,6 +149,19 @@ extension ARGalleryVC {
         }
     }
     
+    /// 현재 보여지는 범위의 조명을 켜고 끄는 메서드
+    private func turnLightsOnOff(galleryType: GalleyType, value: Int) {
+        let frameIdentifier1: String = galleryType.frameIdentifier1
+        let maxValue = value == 30 ? 15 : value
+        
+        for i in 1...maxValue {
+            if let pointOfView = gallerySceneView.pointOfView {
+                let isMaybeVisible = gallerySceneView.isNode(gallerySceneView.scene.rootNode.childNode(withName: frameIdentifier1 + "\(i)", recursively: true) ?? SCNNode(), insideFrustumOf: pointOfView)
+                gallerySceneView.scene.rootNode.childNode(withName: "spot\(i)", recursively: true)?.isHidden = isMaybeVisible ? false : true
+            }
+        }
+    }
+    
     /// 갤러리 모델 내 frame artwork -> content UIImage 구성 메서드
     private func setupArtworkImage(value: Int, frameIdentifier: String, artwork: [Artwork]) {
         // TODO: image URL parsing
@@ -183,6 +196,10 @@ extension ARGalleryVC: ARSCNViewDelegate {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
     }
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        turnLightsOnOff(galleryType: galleryType, value: galleryType.rawValue)
+    }
 }
 
 // MARK: - Network
@@ -193,6 +210,7 @@ extension ARGalleryVC {
             case .success(let res):
                 if let data = res as? ARGalleryDataModel {
                     //✅ 받아온 데이터로 AR Scene 구성
+                    self?.galleryType = GalleyType(rawValue: data.gallery.gallerySize) ?? .medium
                     self?.setupGallerySceneView(type: GalleyType(rawValue: data.gallery.gallerySize) ?? .medium)
                     self?.setupGalleryTheme(galleryType: GalleyType(rawValue: data.gallery.gallerySize) ?? .medium, themeType: ThemeType(rawValue: data.gallery.galleryTheme) ?? .dark)
                     self?.setupTitleText(value: data.gallery.gallerySize, artwork: data.artworks)
