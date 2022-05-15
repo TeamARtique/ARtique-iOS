@@ -57,7 +57,7 @@ extension HomeVerticalTVC {
 // MARK: UICollectionViewDataSource
 extension HomeVerticalTVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allData?.count ?? 0
+        return allData?.count ?? 6
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

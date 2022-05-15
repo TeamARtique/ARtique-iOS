@@ -13,6 +13,7 @@ class HomeListVC: BaseVC {
     @IBOutlet weak var pageTVTopAnchor: NSLayoutConstraint!
     var categoryType: CategoryType?
     var homeListData: HomeModel?
+    let refreshControl = UIRefreshControl()
     
     let exhibitionListTVCHeight = 490
     let categoryBarHeight: CGFloat = 48
@@ -47,6 +48,20 @@ extension HomeListVC{
         
         // Paging
         pageTV.decelerationRate = UIScrollView.DecelerationRate.fast
+    }
+    
+    private func bindRefreshController() {
+        refreshControl.addTarget(self, action: #selector(updateTV(refreshControl:)), for: .valueChanged)
+        pageTV.refreshControl = refreshControl
+    }
+    
+    @objc func updateTV(refreshControl: UIRefreshControl) {
+        self.getExhibitionList(categoryID: categoryType?.categoryId ?? 1)
+        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 1) { [weak self] in
+            guard let self = self else { return }
+            self.pageTV.reloadData()
+            refreshControl.endRefreshing()
+        }
     }
     
     /// 카테고리 바꿨을때 네비바 상태 공유
@@ -87,6 +102,7 @@ extension HomeListVC {
                         guard let self = self else { return }
                         self.homeListData = list
                         self.pageTV.reloadData()
+                        self.bindRefreshController()
                     }
                 }
             case .requestErr(let res):
@@ -130,6 +146,7 @@ extension HomeListVC: UITableViewDataSource {
             cell.subTitle.text = "\(tabmanBarItems![0].title!) 전시"
             cell.delegate = self
             cell.cellIdentifier = 2
+            cell.allExhibitionCV.reloadData()
             return cell
         }
     }
