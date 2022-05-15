@@ -158,8 +158,8 @@ extension AddExhibitionVC {
         switch page {
         case 1:
             artworkSelectView.configureViewTitle()
-            artworkSelectView.maxArtworkCnt = exhibitionModel.artworkCnt ?? 0
-            artworkSelectView.selectedImages = exhibitionModel.selectedArtwork ?? [UIImage]()
+            artworkSelectView.setPreviewImage([0,0])
+            artworkSelectView.selectedImages = exhibitionModel.artworks ?? [UIImage]()
         case 2:
             orderView.selectedPhotoCV.reloadData()
             orderView.selectedPhotoCV.scrollToItem(at: [0,0], at: .top, animated: false)
@@ -177,7 +177,7 @@ extension AddExhibitionVC {
     /// 순서 조정 단계에서 테마 선택 단계로 돌아갈 경우 선택된 사진을 모두 지우는 함수
     private func deletePrevData(_ page: Int) {
         if page == 1 {
-            NewExhibition.shared.selectedArtwork?.removeAll()
+            NewExhibition.shared.artworks?.removeAll()
             artworkSelectView.galleryCV.indexPathsForSelectedItems?.forEach({
                 artworkSelectView.galleryCV.deselectItem(at: $0, animated: false)
             })
@@ -198,8 +198,8 @@ extension AddExhibitionVC {
     }
     
     @objc func removeAllExhibitionData() {
-        NewExhibition.shared.artworkCnt = nil
-        NewExhibition.shared.themeId = nil
+        NewExhibition.shared.gallerySize = nil
+        NewExhibition.shared.galleryTheme = nil
         dismiss(animated: false) {
             self.dismiss(animated: true, completion: nil)
         }
@@ -216,14 +216,26 @@ extension AddExhibitionVC {
 // MARK: - Bind Button Action
 extension AddExhibitionVC {
     @objc func bindRightBarButton() {
-        if page != 4 {
-            page += 1
-            configurePageView(page)
-        } else {
+        switch page {
+        case 0:
+            if exhibitionModel.gallerySize != nil
+                && exhibitionModel.galleryTheme != nil {
+                page += 1
+                configurePageView(page)
+            }
+        case 1:
+            if exhibitionModel.artworks?.count == exhibitionModel.gallerySize {
+                page += 1
+                configurePageView(page)
+            }
+        case 4:
             popupAlert(targetView: self,
                        alertType: .registerExhibition,
                        leftBtnAction: #selector(dismissAlert),
                        rightBtnAction: #selector(registerExhibition))
+        default:
+            page += 1
+            configurePageView(page)
         }
     }
     
@@ -233,8 +245,8 @@ extension AddExhibitionVC {
             page -= 1
             configurePageView(page)
         } else {
-            if NewExhibition.shared.artworkCnt != nil
-                || NewExhibition.shared.themeId != nil {
+            if NewExhibition.shared.gallerySize != nil
+                || NewExhibition.shared.galleryTheme != nil {
                 popupAlert(targetView: self,
                            alertType: .removeAllExhibition,
                            leftBtnAction: #selector(removeAllExhibitionData),
@@ -243,28 +255,5 @@ extension AddExhibitionVC {
                 dismiss(animated: true, completion: nil)
             }
         }
-    }
-    
-    // TODO: ERROR 1) 해당 장수 넘을 경우 저장안되게 2) 네비바 타이틀
-    private func bindCrop() {
-        let rightBarButton = self.navigationItem.rightBarButtonItem!
-        let button = rightBarButton.customView as! UIButton
-        
-        button.rx.tap
-            .filter({ [weak self] _ in
-                self?.page == 2
-            })
-            .bind(to: artworkSelectView.preview.crop)
-            .disposed(by: bag)
-
-        button.rx.tap
-            .filter({ [weak self] _ in
-                self?.page == 2
-            })
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.orderView.selectedPhotoCV.reloadData()
-            })
-            .disposed(by: bag)
     }
 }

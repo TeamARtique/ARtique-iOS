@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 import RxSwift
 import RxCocoa
 
@@ -26,6 +27,7 @@ class ArtworkExplainCVC: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         configureView()
+        setNotification()
     }
     
     override func prepareForReuse() {
@@ -37,9 +39,11 @@ class ArtworkExplainCVC: UICollectionViewCell {
 extension ArtworkExplainCVC {
     private func configureView() {
         scrollView.showsVerticalScrollIndicator = false
+        scrollView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         image.backgroundColor = .black
         titleTextField.setRoundTextField(with: "제목을 입력하세요")
         contentTextView.setRoundTextView()
+        titleTextField.delegate = self
         contentTextView.delegate = self
         indexBase.backgroundColor = .white
         indexBase.layer.cornerRadius = indexBase.frame.height / 2
@@ -50,12 +54,25 @@ extension ArtworkExplainCVC {
     
     func configureCell(index: Int) {
         cellIndex = index
-        image.image = exhibitionModel.selectedArtwork?[index] ?? UIImage()
-        titleTextField.text = exhibitionModel.artworkTitle?[index] ?? ""
-        contentTextView.text = exhibitionModel.artworkExplain?[index] ?? ""
+        image.image = exhibitionModel.artworks?[index] ?? UIImage()
+        configureText(title: exhibitionModel.artworkTitle?[index] ?? "",
+                      description: exhibitionModel.artworkExplain?[index] ?? "")
         contentTextView.setTextViewPlaceholder(postContentPlaceholder)
         self.index.text = "\(index + 1)"
         bindText()
+    }
+    
+    private func configureText(title: String, description: String) {
+        titleTextField.textColor
+        = title == titleTextField.placeholder
+        ? .gray2 : .label
+        
+        contentTextView.textColor
+        = description == postContentPlaceholder
+        ? .gray2 : .label
+        
+        titleTextField.text = title
+        contentTextView.text = description
     }
     
     private func bindText() {
@@ -75,12 +92,45 @@ extension ArtworkExplainCVC {
     }
 }
 
+// MARK: - Custom Methods
+extension ArtworkExplainCVC {
+    private func setNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+           let baseVC = self.findViewController() as? AddExhibitionVC {
+            let keyboardHeight = keyboardFrame.cgRectValue.height
+            UIView.animate(withDuration: 0.3) {
+                self.scrollView.snp.remakeConstraints {
+                    $0.top.equalTo(baseVC.view.safeAreaLayoutGuide.snp.top).offset(16)
+                    $0.bottom.equalTo(baseVC.view.snp.bottom).offset(-keyboardHeight)
+                }
+                self.layoutIfNeeded()
+            }
+            scrollView.scrollToBottom(animated: true)
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        UIView.animate(withDuration: 0.3) {
+            self.scrollView.snp.remakeConstraints {
+                $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+            }
+            self.layoutIfNeeded()
+        }
+    }
+}
+
 // MARK: - UITextViewDelegate
 extension ArtworkExplainCVC: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         guard textView.textColor == .gray2 else { return }
         textView.textColor = .label
         textView.text = ""
+        NotificationCenter.default.post(name: .changeFirstResponder, object: cellIndex)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -97,5 +147,17 @@ extension ArtworkExplainCVC: UITextViewDelegate {
         guard let str = textView.text else { return true }
         let newLength = str.count + text.count - range.length
         return newLength <= textViewMaxCnt + 1
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension ArtworkExplainCVC: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        NotificationCenter.default.post(name: .changeFirstResponder, object: cellIndex)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        contentTextView.becomeFirstResponder()
+        return true
     }
 }

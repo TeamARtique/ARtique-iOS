@@ -106,7 +106,7 @@ extension ExhibitionExplainView {
         exhibitionExplainTextView.rx.text.orEmpty
             .withUnretained(self)
             .subscribe(onNext: { owner, explain in
-                owner.exhibitionModel.exhibitionExplain = explain
+                owner.exhibitionModel.description = explain
                 owner.setTextViewMaxCnt(explain.count)
             })
             .disposed(by: bag)
@@ -114,7 +114,7 @@ extension ExhibitionExplainView {
         tagCV.rx.itemDeselected
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
-                owner.exhibitionModel.tagId = owner.selectedTags()
+                owner.exhibitionModel.tag = owner.selectedTags()
             })
             .disposed(by: bag)
         
@@ -139,11 +139,11 @@ extension ExhibitionExplainView {
             .subscribe(onNext: { owner, index in
                 switch collectionView {
                 case owner.categoryCV:
-                    owner.exhibitionModel.categoryId = index.row
+                    owner.exhibitionModel.category = index.row
                 case owner.phosterCV:
-                    owner.exhibitionModel.phosterId = index.row
+                    owner.exhibitionModel.phosterTheme = index.row
                 case owner.tagCV:
-                    owner.exhibitionModel.tagId = owner.selectedTags()
+                    owner.exhibitionModel.tag = owner.selectedTags()
                 default:
                     break
                 }
@@ -190,7 +190,7 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
             roundCell.configureCell(with: CategoryType.allCases[indexPath.row].categoryTitle, fontSize: 14)
             return roundCell
         case phosterCV:
-            phosterCell.configureCell(image: NewExhibition.shared.selectedArtwork?.first ?? UIImage(),
+            phosterCell.configureCell(image: NewExhibition.shared.artworks?.first ?? UIImage(),
                                       borderWidth: 4)
             return phosterCell
         default:

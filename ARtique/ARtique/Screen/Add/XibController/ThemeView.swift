@@ -130,11 +130,11 @@ extension ThemeView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case cntCV:
-            exhibitionModel.artworkCnt = setGalleryCount(indexPath.row)
-            exhibitionModel.artworkTitle = [String](repeating: "", count: exhibitionModel.artworkCnt!)
-            exhibitionModel.artworkExplain = [String](repeating: "", count: exhibitionModel.artworkCnt!)
+            exhibitionModel.gallerySize = setGalleryCount(indexPath.row)
+            exhibitionModel.artworkTitle = [String](repeating: "", count: exhibitionModel.gallerySize!)
+            exhibitionModel.artworkExplain = [String](repeating: "", count: exhibitionModel.gallerySize!)
         default:
-            exhibitionModel.themeId = indexPath.row
+            exhibitionModel.galleryTheme = indexPath.row
         }
     }
 }

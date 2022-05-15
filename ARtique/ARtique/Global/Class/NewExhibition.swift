@@ -10,17 +10,19 @@ import UIKit
 class NewExhibition {
     static let shared = NewExhibition()
     
-    var artworkCnt: Int?
-    var themeId: Int?
-    var selectedArtwork: [UIImage]?
+    var title: String?
+    var phosterImage: UIImage?
+    var phosterTheme: Int?
+    var description: String?
+    var tag: [Int]?
+    var category: Int?
+    var gallerySize: Int?
+    var galleryTheme: Int?
+    var isPublic: Bool?
+    var artworkIndex = [Int]()
+    var artworks: [UIImage]?
     var artworkTitle: [String]?
     var artworkExplain: [String]?
-    var title: String?
-    var categoryId: Int?
-    var phosterId: Int?
-    var exhibitionExplain: String?
-    var tagId: [Int]?
-    var isPublic: Bool?
     
     private init() { }
 }
