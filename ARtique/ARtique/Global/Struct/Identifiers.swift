@@ -82,4 +82,13 @@ struct Identifiers {
     static let defaultFrame3 = "defaultFrame3"
     static let defaultFrame4 = "defaultFrame4"
     static let defaultFrame5 = "defaultFrame5"
+    
+    // frame
+    static let minimumFrame = "defaultFrame"
+    static let mediumFrame = "frame"
+    static let maximumUpFrame = "upframe"
+    static let maximumDownFrame = "downframe"
+    
+    // titleText
+    static let titleText = "frameTitleText"
 }
