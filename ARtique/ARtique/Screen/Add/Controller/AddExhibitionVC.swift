@@ -216,14 +216,26 @@ extension AddExhibitionVC {
 // MARK: - Bind Button Action
 extension AddExhibitionVC {
     @objc func bindRightBarButton() {
-        if page != 4 {
-            page += 1
-            configurePageView(page)
-        } else {
+        switch page {
+        case 0:
+            if exhibitionModel.gallerySize != nil
+                && exhibitionModel.galleryTheme != nil {
+                page += 1
+                configurePageView(page)
+            }
+        case 1:
+            if exhibitionModel.artworks?.count == exhibitionModel.gallerySize {
+                page += 1
+                configurePageView(page)
+            }
+        case 4:
             popupAlert(targetView: self,
                        alertType: .registerExhibition,
                        leftBtnAction: #selector(dismissAlert),
                        rightBtnAction: #selector(registerExhibition))
+        default:
+            page += 1
+            configurePageView(page)
         }
     }
     
