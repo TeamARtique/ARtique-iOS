@@ -90,7 +90,7 @@ extension ARGalleryVC {
     }
     
     /// 테마값에 따른 갤러리 테마 적용 메서드
-    private func setupGalleryTheme(galleryType: GalleyType, themeType: GalleryThemeType) {
+    private func setupGalleryTheme(galleryType: GalleyType, themeType: ThemeType) {
         let modelMaterial = themeType.galleryModelMaterial
         let frameIdentifier1: String = galleryType.frameIdentifier1
         let frameIdentifier2: String = galleryType.frameIdentifier2
@@ -194,7 +194,7 @@ extension ARGalleryVC {
                 if let data = res as? ARGalleryDataModel {
                     //✅ 받아온 데이터로 AR Scene 구성
                     self?.setupGallerySceneView(type: GalleyType(rawValue: data.gallery.gallerySize) ?? .medium)
-                    self?.setupGalleryTheme(galleryType: GalleyType(rawValue: data.gallery.gallerySize) ?? .medium, themeType: GalleryThemeType(rawValue: data.gallery.galleryTheme) ?? .dark)
+                    self?.setupGalleryTheme(galleryType: GalleyType(rawValue: data.gallery.gallerySize) ?? .medium, themeType: ThemeType(rawValue: data.gallery.galleryTheme) ?? .dark)
                     self?.setupTitleText(value: data.gallery.gallerySize, artwork: data.artworks)
                     // TODO: 아트웤 이미지 구성하기
                 }
