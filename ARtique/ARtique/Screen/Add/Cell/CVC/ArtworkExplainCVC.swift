@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 import RxSwift
 import RxCocoa
 
@@ -26,6 +27,7 @@ class ArtworkExplainCVC: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         configureView()
+        setNotification()
     }
     
     override func prepareForReuse() {
@@ -37,6 +39,7 @@ class ArtworkExplainCVC: UICollectionViewCell {
 extension ArtworkExplainCVC {
     private func configureView() {
         scrollView.showsVerticalScrollIndicator = false
+        scrollView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         image.backgroundColor = .black
         titleTextField.setRoundTextField(with: "제목을 입력하세요")
         contentTextView.setRoundTextView()
@@ -89,6 +92,38 @@ extension ArtworkExplainCVC {
     }
 }
 
+// MARK: - Custom Methods
+extension ArtworkExplainCVC {
+    private func setNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+           let baseVC = self.findViewController() as? AddExhibitionVC {
+            let keyboardHeight = keyboardFrame.cgRectValue.height
+            UIView.animate(withDuration: 0.3) {
+                self.scrollView.snp.remakeConstraints {
+                    $0.top.equalTo(baseVC.view.safeAreaLayoutGuide.snp.top).offset(16)
+                    $0.bottom.equalTo(baseVC.view.snp.bottom).offset(-keyboardHeight)
+                }
+                self.layoutIfNeeded()
+            }
+            scrollView.scrollToBottom(animated: true)
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        UIView.animate(withDuration: 0.3) {
+            self.scrollView.snp.remakeConstraints {
+                $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+            }
+            self.layoutIfNeeded()
+        }
+    }
+}
+
 // MARK: - UITextViewDelegate
 extension ArtworkExplainCVC: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -122,7 +157,6 @@ extension ArtworkExplainCVC: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        titleTextField.resignFirstResponder()
         contentTextView.becomeFirstResponder()
         return true
     }

@@ -38,8 +38,11 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="sL0-F2-AhQ">
-                    <rect key="frame" x="0.0" y="89" width="375" height="571"/>
+                    <rect key="frame" x="0.0" y="69" width="375" height="513"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="513" id="eeV-Lt-ze3"/>
+                    </constraints>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gwc-G9-Xqb">
                         <size key="itemSize" width="128" height="128"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -54,8 +57,7 @@
                 <constraint firstItem="t9R-oT-0Il" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="Abo-f8-5ss"/>
                 <constraint firstItem="Yvo-8q-Zba" firstAttribute="top" secondItem="t9R-oT-0Il" secondAttribute="bottom" constant="4" id="Shq-PL-JmO"/>
                 <constraint firstItem="Yvo-8q-Zba" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="dhD-Sc-EBu"/>
-                <constraint firstAttribute="bottom" secondItem="sL0-F2-AhQ" secondAttribute="bottom" id="hHo-Yu-id0"/>
-                <constraint firstItem="sL0-F2-AhQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="89" id="kVR-F8-MUP"/>
+                <constraint firstItem="sL0-F2-AhQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="69" id="kVR-F8-MUP"/>
                 <constraint firstItem="t9R-oT-0Il" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="28" id="mUT-D2-qsz"/>
                 <constraint firstItem="sL0-F2-AhQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xMW-dk-ed6"/>
             </constraints>

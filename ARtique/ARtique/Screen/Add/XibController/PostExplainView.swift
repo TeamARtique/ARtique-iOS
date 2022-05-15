@@ -67,10 +67,22 @@ extension PostExplainView {
     
     @objc func keyboardWillShow(notification: NSNotification) {
         isKeyboardVisible = true
+        UIView.animate(withDuration: 0.3) {
+            self.artworkExplainCV.snp.updateConstraints {
+                $0.top.equalToSuperview()
+            }
+            self.layoutIfNeeded()
+        }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
         isKeyboardVisible = false
+        UIView.animate(withDuration: 0.3) {
+            self.artworkExplainCV.snp.updateConstraints {
+                $0.top.equalToSuperview().offset(69)
+            }
+            self.layoutIfNeeded()
+        }
     }
     
     @objc func scrollToFirstResponder(_ notification: Notification) {

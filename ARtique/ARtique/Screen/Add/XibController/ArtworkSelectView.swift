@@ -303,7 +303,7 @@ extension ArtworkSelectView: UICollectionViewDataSource {
             
             guard let items = collectionView.indexPathsForSelectedItems else { return }
             if items.contains(indexPath) {
-                cell.setSelectedIndex((self.indexArr.firstIndex(of: indexPath.row)!) + 1)
+                cell.setSelectedIndex((self.indexArr.firstIndex(of: indexPath.row) ?? 0) + 1)
             }
         }
         
