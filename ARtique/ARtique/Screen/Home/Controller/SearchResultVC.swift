@@ -15,20 +15,7 @@ class SearchResultVC: BaseVC {
     var keyword: String?
     let minimumLineSpacing: CGFloat = 25
     
-    let exhibitionData = [
-            ExhibitionData("My Lovely Cat", "우주인", UIImage(named: "MyLovelyCat")!, [1, 2, 3], 8, 6),
-            ExhibitionData("Future Body", "cl0ud", UIImage(named: "Future_Body")!, [1, 2, 3], 10, 2),
-            ExhibitionData("The Cat", "asdf", UIImage(named: "theCat")!, [1, 2, 3], 12, 10),
-            ExhibitionData("AGITATO 고양이", "TATO", UIImage(named: "AGITATO")!, [1, 2, 3], 5, 3),
-            ExhibitionData("제주 고양이", "juJe", UIImage(named: "JejuCat")!, [1, 2, 3], 20, 15),
-            ExhibitionData("Cat and Flower", "caf", UIImage(named: "CatAndFlower")!, [1, 2, 3], 13, 9),
-            ExhibitionData("This is the Sun", "Magdiel", UIImage(named: "ThisistheSun")!, [1, 2, 3], 120, 56),
-            ExhibitionData("SAISON 17/18", "is0n", UIImage(named: "SAISON")!, [1, 2, 3], 112, 89),
-            ExhibitionData("Love Love Love", "Lx3", UIImage(named: "LoveLoveLove")!, [1, 2, 3], 212, 101),
-            ExhibitionData("PhotoClub", "toPho", UIImage(named: "PhotoClub")!, [1, 2, 3], 95, 73),
-            ExhibitionData("APOLLO", "StrongArm", UIImage(named: "APOLLO")!, [1, 2, 3], 220, 115),
-            ExhibitionData("우리 코코", "plataa", UIImage(named: "coco_phoster")!, [1, 2, 3], 312, 198)
-        ]
+    var exhibitionData: [ExhibitionModel]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,13 +65,13 @@ extension SearchResultVC {
 // MARK: - UICollectionViewDataSource
 extension SearchResultVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        exhibitionData.count
+        exhibitionData?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.exhibitionCVC, for: indexPath) as? ExhibitionCVC else { return UICollectionViewCell() }
 
-        cell.configureCell(exhibitionData[indexPath.row])
+        cell.configureCell(exhibitionData?[indexPath.row] ?? ExhibitionModel())
         return cell
     }
 }

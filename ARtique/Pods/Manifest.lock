@@ -17,6 +17,7 @@ PODS:
     - KakaoSDKCommon/Common (= 2.8.6)
   - KakaoSDKUser (2.8.6):
     - KakaoSDKAuth (= 2.8.6)
+  - Kingfisher (7.2.2)
   - Moya (15.0.0):
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
@@ -46,6 +47,7 @@ DEPENDENCIES:
   - DynamicBottomSheet
   - KakaoSDKAuth (~> 2.8.6)
   - KakaoSDKUser (~> 2.8.6)
+  - Kingfisher (~> 7.0)
   - Moya
   - PhotoCropper
   - RxCocoa (< 6.2.0)
@@ -62,6 +64,7 @@ SPEC REPOS:
     - KakaoSDKAuth
     - KakaoSDKCommon
     - KakaoSDKUser
+    - Kingfisher
     - Moya
     - Pageboy
     - PhotoCropper
@@ -79,6 +82,7 @@ SPEC CHECKSUMS:
   KakaoSDKAuth: 53e747a3bf343a3f3e87b14478d5a865d6c2acae
   KakaoSDKCommon: 7e56600ff4c1bd82bed93fea4299b5a37f47e6a5
   KakaoSDKUser: e79480355fa789f42e628dfba359fc21e9914f4c
+  Kingfisher: 184d4d1a8c36666e663caf8e08abe87898595c53
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
   PhotoCropper: f78fb08f01d35f6db83530b498a06909b381a95e
@@ -90,6 +94,6 @@ SPEC CHECKSUMS:
   Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: 30e99017eb152720c5b98f67fc163cb7099755a1
+PODFILE CHECKSUM: 0209dd90bd84ad7b14ebf3b41e71af72294839bf
 
 COCOAPODS: 1.11.2

@@ -12,6 +12,7 @@ target 'ARtique' do
   pod 'PhotoCropper'
   pod 'DynamicBottomSheet'
   pod 'Moya'
+  pod 'Kingfisher', '~> 7.0'
 
   # Rx
   pod 'RxSwift', '< 6.2.0'

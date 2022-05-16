@@ -84,18 +84,13 @@
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="3Du-KV-xR5">
                                                                         <rect key="frame" x="255" y="379.33333333333331" width="22" height="43.333333333333314"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ub-AK-eNc">
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookMark_UnSelected" translatesAutoresizingMaskIntoConstraints="NO" id="Bav-eG-owz">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
                                                                                 <constraints>
-                                                                                    <constraint firstAttribute="height" constant="22" id="UOy-DI-lny"/>
-                                                                                    <constraint firstAttribute="width" constant="22" id="m20-gB-PjO"/>
+                                                                                    <constraint firstAttribute="height" constant="22" id="jiy-zB-AWg"/>
+                                                                                    <constraint firstAttribute="width" constant="22" id="vcv-fO-jdG"/>
                                                                                 </constraints>
-                                                                                <state key="normal" title="Button"/>
-                                                                                <buttonConfiguration key="configuration" style="plain" image="BookMark_UnSelected"/>
-                                                                                <connections>
-                                                                                    <action selector="pushBookMark:" destination="Nop-M3-LKZ" eventType="touchUpInside" id="mxF-cU-TOl"/>
-                                                                                </connections>
-                                                                            </button>
+                                                                            </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ro-TM-hWw">
                                                                                 <rect key="frame" x="0.0" y="28.999999999999996" width="22" height="14.333333333333332"/>
                                                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeoL00" family="AppleSDGothicNeoL00" pointSize="12"/>
@@ -103,22 +98,18 @@
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                         </subviews>
+                                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </stackView>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="HUG-rx-RG8">
                                                                         <rect key="frame" x="222" y="379.33333333333331" width="22" height="43.333333333333314"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O15-bm-ZCb">
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Like_UnSelected" translatesAutoresizingMaskIntoConstraints="NO" id="Rrt-Lz-oma">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
                                                                                 <constraints>
-                                                                                    <constraint firstAttribute="height" constant="22" id="EH4-zA-7Yv"/>
-                                                                                    <constraint firstAttribute="width" constant="22" id="GL9-Jo-xv8"/>
+                                                                                    <constraint firstAttribute="width" constant="22" id="HMP-Nr-T3Q"/>
+                                                                                    <constraint firstAttribute="height" constant="22" id="gbl-Bi-Fhz"/>
                                                                                 </constraints>
-                                                                                <state key="normal" title="Button"/>
-                                                                                <buttonConfiguration key="configuration" style="plain" image="Like_UnSelected"/>
-                                                                                <connections>
-                                                                                    <action selector="pushLike:" destination="Nop-M3-LKZ" eventType="touchUpInside" id="IDZ-Ot-dJc"/>
-                                                                                </connections>
-                                                                            </button>
+                                                                            </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7U5-Bw-df2">
                                                                                 <rect key="frame" x="0.0" y="28.999999999999996" width="22" height="14.333333333333332"/>
                                                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeoL00" family="AppleSDGothicNeoL00" pointSize="12"/>
@@ -126,6 +117,7 @@
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                         </subviews>
+                                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </stackView>
                                                                 </subviews>
                                                                 <constraints>
@@ -145,9 +137,9 @@
                                                             <size key="customSize" width="277" height="429"/>
                                                             <connections>
                                                                 <outlet property="author" destination="J24-kK-N55" id="Qqo-Lk-sPl"/>
-                                                                <outlet property="bookMarkBtn" destination="2Ub-AK-eNc" id="Xi5-ZQ-sbg"/>
                                                                 <outlet property="bookmarkCnt" destination="4Ro-TM-hWw" id="DHf-xo-2iC"/>
-                                                                <outlet property="likeBtn" destination="O15-bm-ZCb" id="pxx-Mb-fXV"/>
+                                                                <outlet property="isBookmarked" destination="Bav-eG-owz" id="OBi-eV-5RB"/>
+                                                                <outlet property="isLiked" destination="Rrt-Lz-oma" id="RbK-5p-2gb"/>
                                                                 <outlet property="likeCnt" destination="7U5-Bw-df2" id="lPJ-0y-TuE"/>
                                                                 <outlet property="phoster" destination="TQR-Bg-wC2" id="erZ-ft-cZs"/>
                                                                 <outlet property="title" destination="wxS-kS-G45" id="W8P-CJ-WPs"/>
@@ -252,8 +244,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BookMark_UnSelected" width="13.333333015441895" height="16.666666030883789"/>
-        <image name="Like_UnSelected" width="21" height="22"/>
+        <image name="BookMark_UnSelected" width="36" height="36"/>
+        <image name="Like_UnSelected" width="36" height="36"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
