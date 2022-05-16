@@ -10,6 +10,7 @@ import Moya
 
 enum HomeListService {
     case getExhibitionList(categoryID: Int)
+    case getAllExhibitionList(categoryID: Int, sort: String)
 }
 
 extension HomeListService: TargetType {
@@ -21,12 +22,14 @@ extension HomeListService: TargetType {
         switch self {
         case .getExhibitionList(let categoryID):
             return "/exhibition/main/\(categoryID)"
+        case .getAllExhibitionList(categoryID: let categoryID, sort: _):
+            return "/exhibition/list/\(categoryID)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getExhibitionList:
+        case .getExhibitionList, .getAllExhibitionList:
             return .get
         }
     }
@@ -35,6 +38,8 @@ extension HomeListService: TargetType {
         switch self {
         case .getExhibitionList:
             return .requestPlain
+        case .getAllExhibitionList(categoryID: _, sort: let sort):
+            return .requestParameters(parameters: ["sort" : sort], encoding: URLEncoding.queryString)
         }
     }
     

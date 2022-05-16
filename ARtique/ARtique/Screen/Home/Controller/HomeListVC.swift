@@ -83,7 +83,7 @@ extension HomeListVC{
     
     @objc func showAllExhibitionList(_ notification: Notification) {
         guard let exhibitionListVC = ViewControllerFactory.viewController(for: .exhibitionList) as? ExhibitionListVC else { return }
-        exhibitionListVC.exhibitionData = homeListData?.categoryExhibition
+        exhibitionListVC.categoryID = categoryType?.categoryId ?? 1
         exhibitionListVC.hidesBottomBarWhenPushed = true
         exhibitionListVC.setNaviBarTitle(notification.object as? String ?? "")
         exhibitionListVC.isRightBarBtnExist = true
