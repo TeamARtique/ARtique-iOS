@@ -22,6 +22,8 @@ class BorderCVC: UICollectionViewCell {
             $0.layer.opacity = 0.6
         }
     
+    private var phosterOverlay = UIImageView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureContentView()
@@ -40,10 +42,12 @@ class BorderCVC: UICollectionViewCell {
         didSet{
             if isSelected {
                 imageView.layer.borderColor = UIColor.black.cgColor
+                phosterOverlay.layer.borderColor = UIColor.black.cgColor
                 selectedOverlay.isHidden = false
             }
             else {
                 imageView.layer.borderColor = UIColor.clear.cgColor
+                phosterOverlay.layer.borderColor = UIColor.clear.cgColor
                 selectedOverlay.isHidden = true
             }
         }
@@ -51,8 +55,9 @@ class BorderCVC: UICollectionViewCell {
     
     private func configureContentView() {
         contentView.addSubview(imageView)
+        contentView.addSubview(phosterOverlay)
         contentView.addSubview(selectedOverlay)
-
+        
         imageView.layer.borderColor = UIColor.clear.cgColor
         imageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -64,10 +69,21 @@ class BorderCVC: UICollectionViewCell {
     func configureCell(image: UIImage, borderWidth: CGFloat) {
         imageView.image = image
         imageView.layer.borderWidth = borderWidth
+        phosterOverlay.layer.borderWidth = borderWidth
         
         selectedOverlay.snp.makeConstraints {
             $0.top.leading.equalToSuperview().offset(borderWidth)
             $0.bottom.trailing.equalToSuperview().offset(-borderWidth)
+        }
+    }
+    
+    func configurePhosterCell(image: UIImage, overlay: UIImage, borderWidth: CGFloat) {
+        configureCell(image: image, borderWidth: borderWidth)
+        
+        phosterOverlay.image = overlay
+        phosterOverlay.layer.borderColor = UIColor.clear.cgColor
+        phosterOverlay.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
 }
