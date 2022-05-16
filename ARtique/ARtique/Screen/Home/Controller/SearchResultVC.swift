@@ -81,7 +81,7 @@ extension SearchResultVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC,
               let cell = collectionView.cellForItem(at: indexPath) as? ExhibitionCVC else { return }
-        detailVC.exhibitionData = cell.exhibitionData
+        detailVC.exhibitionID = cell.exhibitionData?.exhibitionId
         
         navigationController?.pushViewController(detailVC, animated: true)
     }

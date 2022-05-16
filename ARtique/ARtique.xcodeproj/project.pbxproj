@@ -27,6 +27,9 @@
 		235584012767A7100046C3EE /* FocusSquareSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235584002767A7100046C3EE /* FocusSquareSegment.swift */; };
 		235584042767A75F0046C3EE /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235584032767A75F0046C3EE /* Utilities.swift */; };
 		23560FFC2832B67F00176D66 /* ExhibitionSortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23560FFB2832B67F00176D66 /* ExhibitionSortType.swift */; };
+		23560FFE2832B93600176D66 /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23560FFD2832B93600176D66 /* DetailModel.swift */; };
+		235610002832B9A900176D66 /* ExhibitionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23560FFF2832B9A900176D66 /* ExhibitionService.swift */; };
+		235610022832BAB000176D66 /* ExhibitionDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235610012832BAB000176D66 /* ExhibitionDetailAPI.swift */; };
 		235650D527F9FB6F0082E048 /* AlbumListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235650D327F9FB6F0082E048 /* AlbumListTVC.swift */; };
 		235650D927F9FC870082E048 /* AlbumTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235650D727F9FC870082E048 /* AlbumTVC.swift */; };
 		235650DA27F9FC870082E048 /* AlbumTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 235650D827F9FC870082E048 /* AlbumTVC.xib */; };
@@ -164,6 +167,9 @@
 		235584002767A7100046C3EE /* FocusSquareSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquareSegment.swift; sourceTree = "<group>"; };
 		235584032767A75F0046C3EE /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		23560FFB2832B67F00176D66 /* ExhibitionSortType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionSortType.swift; sourceTree = "<group>"; };
+		23560FFD2832B93600176D66 /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
+		23560FFF2832B9A900176D66 /* ExhibitionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionService.swift; sourceTree = "<group>"; };
+		235610012832BAB000176D66 /* ExhibitionDetailAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionDetailAPI.swift; sourceTree = "<group>"; };
 		235650D327F9FB6F0082E048 /* AlbumListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListTVC.swift; sourceTree = "<group>"; };
 		235650D727F9FC870082E048 /* AlbumTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTVC.swift; sourceTree = "<group>"; };
 		235650D827F9FC870082E048 /* AlbumTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumTVC.xib; sourceTree = "<group>"; };
@@ -366,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				23D4CFBC28311EF60012765A /* HomeModel.swift */,
+				23560FFD2832B93600176D66 /* DetailModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -786,6 +793,7 @@
 				33083C252819822D0038886B /* AuthAPI.swift */,
 				33A463EB282AFF8C0049F0AF /* GalleryAPI.swift */,
 				23D4CFC02831218B0012765A /* HomeAPI.swift */,
+				235610012832BAB000176D66 /* ExhibitionDetailAPI.swift */,
 			);
 			path = APIManagers;
 			sourceTree = "<group>";
@@ -796,6 +804,7 @@
 				33083C23281981010038886B /* AuthService.swift */,
 				33A463E9282AFE6C0049F0AF /* GalleryService.swift */,
 				23D4CFBE2831205B0012765A /* HomeListService.swift */,
+				23560FFF2832B9A900176D66 /* ExhibitionService.swift */,
 			);
 			path = MoyaTarget;
 			sourceTree = "<group>";
@@ -1082,6 +1091,7 @@
 				230883832804163100620BC1 /* ProfileEditVC.swift in Sources */,
 				237B436E275CEE1E00B7FA3F /* HomeHorizontalCVC.swift in Sources */,
 				235650D927F9FC870082E048 /* AlbumTVC.swift in Sources */,
+				235610002832B9A900176D66 /* ExhibitionService.swift in Sources */,
 				237B4369275CDDD600B7FA3F /* HomeHorizontalTVC.swift in Sources */,
 				3305F7A02754E3BA00E6E08E /* d.swift in Sources */,
 				2383787F280B06A2002088E6 /* LatestSearchedCVC.swift in Sources */,
@@ -1093,6 +1103,7 @@
 				231EF8512763DCF4008218CC /* PlaneVC.swift in Sources */,
 				3305F75F2754E02A00E6E08E /* View.swift in Sources */,
 				23E1A35127EF124D009C337F /* NewExhibition.swift in Sources */,
+				23560FFE2832B93600176D66 /* DetailModel.swift in Sources */,
 				3305F78C2754E31000E6E08E /* ARtiqueTBC.swift in Sources */,
 				23C9AD692801CB2100DFF5A2 /* MypageClassificationTVC.swift in Sources */,
 				33083C2B281984210038886B /* LoginDataModel.swift in Sources */,
@@ -1135,6 +1146,7 @@
 				23C9AD6B2801CC8500DFF5A2 /* MyExhibitionTVC.swift in Sources */,
 				236FA17C281ED66500E819FE /* AlertType.swift in Sources */,
 				23D4CFC12831218B0012765A /* HomeAPI.swift in Sources */,
+				235610022832BAB000176D66 /* ExhibitionDetailAPI.swift in Sources */,
 				23071DBA27ECFBAB00949BA1 /* ExhibitionExplainView.swift in Sources */,
 				33083C35281985000038886B /* Like.swift in Sources */,
 				238BFDD12809523D0018D256 /* ReorderTVC.swift in Sources */,

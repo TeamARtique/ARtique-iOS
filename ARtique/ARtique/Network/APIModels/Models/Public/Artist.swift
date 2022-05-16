@@ -10,7 +10,7 @@ import Foundation
 struct Artist: Codable {
     let artistId: Int
     let nickname: String
-    var isWritter: Bool?
+    var isWriter: Bool?
     var profileImage: String?
 }
 

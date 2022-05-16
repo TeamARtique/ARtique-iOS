@@ -27,7 +27,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="930"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ash-Bh-EbG">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultPhoster" translatesAutoresizingMaskIntoConstraints="NO" id="ash-Bh-EbG">
                                 <rect key="frame" x="20" y="52.000000000000028" width="335" height="446.66666666666674"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ash-Bh-EbG" secondAttribute="height" multiplier="3:4" id="ETJ-uA-e2z"/>
@@ -105,7 +105,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lMF-k2-EnC" userLabel="infoTopView">
                                 <rect key="frame" x="0.0" y="498.66666666666669" width="375" height="91.666666666666686"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EeJ-nu-koL">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ARtique" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EeJ-nu-koL">
                                         <rect key="frame" x="26" y="25.999999999999943" width="264" height="21.666666666666671"/>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="18"/>
                                         <nil key="textColor"/>
@@ -130,7 +130,7 @@
                                                             <action selector="didTapLikeBtn:" destination="Kxr-2W-JvI" eventType="touchUpInside" id="ZcP-IU-jTr"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vak-ct-4C8">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vak-ct-4C8">
                                                         <rect key="frame" x="0.0" y="22" width="22" height="14.666666666666664"/>
                                                         <fontDescription key="fontDescription" name="AppleSDGothicNeoR00" family="AppleSDGothicNeoR00" pointSize="12"/>
                                                         <nil key="textColor"/>
@@ -154,7 +154,7 @@
                                                             <action selector="didTapBookMarkBtn:" destination="Kxr-2W-JvI" eventType="touchUpInside" id="YId-GQ-JbQ"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ql5-d0-AqT">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ql5-d0-AqT">
                                                         <rect key="frame" x="0.0" y="22" width="22" height="14.666666666666664"/>
                                                         <fontDescription key="fontDescription" name="AppleSDGothicNeoR00" family="AppleSDGothicNeoR00" pointSize="12"/>
                                                         <nil key="textColor"/>
@@ -165,13 +165,13 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oFG-98-7BU">
-                                        <rect key="frame" x="26" y="52.666666666666686" width="37" height="24"/>
+                                        <rect key="frame" x="26" y="52.666666666666686" width="30" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="xeB-G4-moJ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeoL00" family="AppleSDGothicNeoL00" pointSize="13"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
-                                        <state key="normal" title="Button">
+                                        <state key="normal" title="ARTI">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -214,9 +214,8 @@ c2VwZXJhdG9yEA
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0t7-Mg-PP2" userLabel="infoBottomView">
                                 <rect key="frame" x="0.0" y="714.33333333333337" width="375" height="122"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cX6-C4-TA0">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cX6-C4-TA0">
                                         <rect key="frame" x="32" y="18" width="311" height="17.333333333333329"/>
-                                        <string key="text">My lovely cat is a painting by My lovely cat is a painting by My lovely cat is a painting by My lovely cat is a painting by My lovely cat is a painting by My lovely cat is a painting by </string>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeoR00" family="AppleSDGothicNeoR00" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -291,7 +290,7 @@ c2VwZXJhdG9yEA
                         <outlet property="category" destination="hdo-26-M4r" id="xdc-dq-fnz"/>
                         <outlet property="createdAt" destination="cNy-bW-0Cg" id="fgs-N9-Diw"/>
                         <outlet property="exhiTitle" destination="EeJ-nu-koL" id="UDM-TD-6Bo"/>
-                        <outlet property="explaination" destination="cX6-C4-TA0" id="397-lY-oWF"/>
+                        <outlet property="explanation" destination="cX6-C4-TA0" id="eyq-jM-XKN"/>
                         <outlet property="gallery" destination="GuA-mA-7AM" id="QKd-Ux-ZWM"/>
                         <outlet property="gotoARBtn" destination="lth-VT-Au3" id="uHY-QH-2NE"/>
                         <outlet property="infoCenterHeight" destination="uq2-BP-3aw" id="6px-Xk-8Ps"/>
@@ -312,6 +311,7 @@ c2VwZXJhdG9yEA
     </scenes>
     <resources>
         <image name="BookMark_UnSelected" width="36" height="36"/>
+        <image name="DefaultPhoster" width="333" height="444"/>
         <image name="Like_UnSelected" width="36" height="36"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

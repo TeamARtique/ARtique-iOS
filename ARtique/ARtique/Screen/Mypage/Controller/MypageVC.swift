@@ -176,7 +176,7 @@ extension MypageVC: CVCellDelegate {
     func selectedCVC(_ index: IndexPath, _ cellIdentifier: Int, _ collectionView: UICollectionView) {
         guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC,
               let cell = collectionView.cellForItem(at: index) as? ExhibitionCVC else { return }
-        detailVC.exhibitionData = cell.exhibitionData
+        detailVC.exhibitionID = cell.exhibitionData?.exhibitionId
         
         navigationController?.pushViewController(detailVC, animated: true)
     }
