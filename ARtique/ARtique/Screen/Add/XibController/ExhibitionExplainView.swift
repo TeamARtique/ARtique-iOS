@@ -173,7 +173,7 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
         case categoryCV:
             return CategoryType.allCases.count
         case phosterCV:
-            return CategoryType.allCases.count
+            return PhosterType.allCases.count
         default:
             return 8
         }

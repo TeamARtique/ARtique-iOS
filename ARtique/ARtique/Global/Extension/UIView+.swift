@@ -69,4 +69,9 @@ extension UIView {
             return nil
         }
     }
+    
+    /// degrees 만큼 view를 회전시켜주는 함수
+    func rotate(degrees: CGFloat) {
+        self.transform = CGAffineTransform(rotationAngle: CGFloat.pi * degrees / 180.0)
+    }
 }
