@@ -27,5 +27,9 @@ extension UIFont {
     class func AppleSDGothicL(size: CGFloat) -> UIFont {
         return UIFont(name: "AppleSDGothicNeoL00", size: size)!
     }
+    
+    class func AppleSDGothicH(size: CGFloat) -> UIFont {
+        return UIFont(name: "AppleSDGothicNeoH00", size: size)!
+    }
 }
 

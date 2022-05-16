@@ -169,6 +169,7 @@ extension AddExhibitionVC {
         case 4:
             exhibitionExplainView.baseSV.scrollToTop()
             exhibitionExplainView.phosterCV.reloadData()
+            exhibitionExplainView.phosterCV.scrollToItem(at: [0,0], at: .left, animated: false)
         default:
             break
         }

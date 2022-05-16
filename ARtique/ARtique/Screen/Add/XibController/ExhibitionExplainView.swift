@@ -173,7 +173,7 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
         case categoryCV:
             return CategoryType.allCases.count
         case phosterCV:
-            return CategoryType.allCases.count
+            return PhosterType.allCases.count
         default:
             return 8
         }
@@ -190,8 +190,9 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
             roundCell.configureCell(with: CategoryType.allCases[indexPath.row].categoryTitle, fontSize: 14)
             return roundCell
         case phosterCV:
-            phosterCell.configureCell(image: NewExhibition.shared.artworks?.first ?? UIImage(),
-                                      borderWidth: 4)
+            phosterCell.configurePhosterCell(image: NewExhibition.shared.artworks?.first ?? UIImage(),
+                                             overlay: UIImage(named: "cellTemplate\(indexPath.row)") ?? UIImage(),
+                                             borderWidth: 4)
             return phosterCell
         default:
             tagCell.configureCell(with: TagType.allCases[indexPath.row].tagTitle, fontSize: 13)
@@ -208,8 +209,7 @@ extension ExhibitionExplainView: UICollectionViewDelegateFlowLayout {
             return CGSize(width: (collectionView.frame.width - 12) / 3,
                           height: 30)
         case phosterCV:
-            return CGSize(width: 98,
-                          height: collectionView.frame.height)
+            return CGSize(width: 99, height: 132)
         default:
             guard let cell = tagCV.dequeueReusableCell(withReuseIdentifier: Identifiers.roundCVC, for: indexPath) as? RoundCVC else { return .zero }
             cell.contentLabel.text = TagType.allCases[indexPath.row].tagTitle
