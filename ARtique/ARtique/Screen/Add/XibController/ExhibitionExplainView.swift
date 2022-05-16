@@ -26,6 +26,7 @@ class ExhibitionExplainView: UIView {
     let exhibitionExplainPlaceholder = "전시회에 대한 전체 설명을 입력하세요"
     let tagMaxSelectionCnt = 3
     let textViewMaxCnt = 100
+    var phosterList = [UIImage]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -129,6 +130,23 @@ extension ExhibitionExplainView {
         didSelectItem(at: phosterCV)
         didSelectItem(at: tagCV)
     }
+    
+    func configurePhosterList() {
+        phosterList.removeAll()
+        
+        let baseView = UIView()
+        insertSubview(baseView, at: 0)
+        PhosterType.allCases.forEach { themeId in
+            let phoster = PhosterTheme()
+            phoster.translatesAutoresizingMaskIntoConstraints = false
+            phoster.configurePhoster(themeId: themeId,
+                                  phoster: NewExhibition.shared.artworks?.first ?? UIImage(),
+                                  title: "Title", nickname: "ARTI", date: "2022/05/01")
+            baseView.insertSubview(phoster.contentView, at: 0)
+            phosterList.append(phoster.contentView.transfromToImage() ?? UIImage(named: "DefaultPhoster")!)
+        }
+        baseView.removeFromSuperview()
+    }
 }
 
 // MARK: - Custom Method
@@ -173,7 +191,7 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
         case categoryCV:
             return CategoryType.allCases.count
         case phosterCV:
-            return PhosterType.allCases.count
+            return phosterList.count
         default:
             return 8
         }
@@ -190,8 +208,7 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
             roundCell.configureCell(with: CategoryType.allCases[indexPath.row].categoryTitle, fontSize: 14)
             return roundCell
         case phosterCV:
-            phosterCell.configureCell(image: NewExhibition.shared.artworks?.first ?? UIImage(),
-                                      borderWidth: 4)
+            phosterCell.configureCell(image: phosterList[indexPath.row], borderWidth: 4)
             return phosterCell
         default:
             tagCell.configureCell(with: TagType.allCases[indexPath.row].tagTitle, fontSize: 13)
@@ -208,8 +225,7 @@ extension ExhibitionExplainView: UICollectionViewDelegateFlowLayout {
             return CGSize(width: (collectionView.frame.width - 12) / 3,
                           height: 30)
         case phosterCV:
-            return CGSize(width: 98,
-                          height: collectionView.frame.height)
+            return CGSize(width: 99, height: 132)
         default:
             guard let cell = tagCV.dequeueReusableCell(withReuseIdentifier: Identifiers.roundCVC, for: indexPath) as? RoundCVC else { return .zero }
             cell.contentLabel.text = TagType.allCases[indexPath.row].tagTitle

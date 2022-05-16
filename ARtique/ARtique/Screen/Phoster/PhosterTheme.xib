@@ -7,24 +7,22 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="AppleSDGothicNeoB.ttf">
-            <string>AppleSDGothicNeoB00</string>
-        </array>
         <array key="AppleSDGothicNeoH.ttf">
             <string>AppleSDGothicNeoH00</string>
         </array>
-        <array key="AppleSDGothicNeoR.ttf">
-            <string>AppleSDGothicNeoR00</string>
+        <array key="AppleSDGothicNeoM.ttf">
+            <string>AppleSDGothicNeoM00</string>
         </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PhosterTheme" customModule="ARtique" customModuleProvider="target">
             <connections>
-                <outlet property="author" destination="gVm-ha-Hse" id="H20-z8-QBV"/>
-                <outlet property="date" destination="nAP-JU-xVb" id="l4H-gS-0aM"/>
+                <outlet property="author" destination="hay-MD-Bsb" id="Slk-tb-U1y"/>
+                <outlet property="contentView" destination="Kip-MU-fuN" id="IUl-ba-7UT"/>
+                <outlet property="date" destination="Ogh-dt-Ffr" id="ZT2-Sy-aby"/>
                 <outlet property="overlay" destination="m4I-m6-nPm" id="XYh-eR-HIf"/>
                 <outlet property="phosterImage" destination="ZOw-I4-sFY" id="wov-gc-5Al"/>
-                <outlet property="title" destination="8Oh-3N-Xrf" id="eNO-Wf-S9M"/>
+                <outlet property="title" destination="civ-XT-cyW" id="gsQ-AN-PyJ"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -32,45 +30,61 @@
             <rect key="frame" x="0.0" y="0.0" width="333" height="444"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="DefaultPhoster" translatesAutoresizingMaskIntoConstraints="NO" id="ZOw-I4-sFY" userLabel="phosterImage">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kip-MU-fuN">
                     <rect key="frame" x="0.0" y="0.0" width="333" height="444"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m4I-m6-nPm" userLabel="overlay">
-                    <rect key="frame" x="0.0" y="0.0" width="333" height="444"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="DefaultPhoster" translatesAutoresizingMaskIntoConstraints="NO" id="ZOw-I4-sFY" userLabel="phosterImage">
+                            <rect key="frame" x="0.0" y="0.0" width="333" height="444"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m4I-m6-nPm" userLabel="overlay">
+                            <rect key="frame" x="0.0" y="0.0" width="333" height="444"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="333" id="AcS-cV-EzJ"/>
+                                <constraint firstAttribute="height" constant="444" id="Li1-Ao-zR5"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ARTI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hay-MD-Bsb">
+                            <rect key="frame" x="36" y="80" width="289" height="19"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="AppleSDGothicNeoM00" family="AppleSDGothicNeoM00" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2022/05/01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ogh-dt-Ffr">
+                            <rect key="frame" x="36" y="107" width="76" height="19"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="AppleSDGothicNeoM00" family="AppleSDGothicNeoM00" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="civ-XT-cyW">
+                            <rect key="frame" x="36" y="32" width="289" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <string key="text" base64-UTF8="YES">
+EFRpdGxlA
+</string>
+                            <fontDescription key="fontDescription" name="AppleSDGothicNeoH00" family="AppleSDGothicNeoH00" pointSize="40"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="333" id="AcS-cV-EzJ"/>
-                        <constraint firstAttribute="height" constant="444" id="Li1-Ao-zR5"/>
+                        <constraint firstAttribute="width" secondItem="Kip-MU-fuN" secondAttribute="height" multiplier="3:4" id="HOG-0q-Ahn"/>
+                        <constraint firstItem="m4I-m6-nPm" firstAttribute="top" secondItem="Kip-MU-fuN" secondAttribute="top" id="aMM-5r-2pt"/>
+                        <constraint firstItem="m4I-m6-nPm" firstAttribute="leading" secondItem="Kip-MU-fuN" secondAttribute="leading" id="dMm-vI-JbM"/>
+                        <constraint firstAttribute="trailing" secondItem="m4I-m6-nPm" secondAttribute="trailing" id="gMa-le-vXU"/>
+                        <constraint firstAttribute="bottom" secondItem="m4I-m6-nPm" secondAttribute="bottom" id="uZh-TK-4RB"/>
                     </constraints>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ARTI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVm-ha-Hse">
-                    <rect key="frame" x="16" y="92" width="32" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="AppleSDGothicNeoB00" family="AppleSDGothicNeoB00" pointSize="15"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2022/05/01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAP-JU-xVb">
-                    <rect key="frame" x="16" y="120" width="76" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="AppleSDGothicNeoR00" family="AppleSDGothicNeoR00" pointSize="15"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Oh-3N-Xrf">
-                    <rect key="frame" x="16" y="44" width="85" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="AppleSDGothicNeoH00" family="AppleSDGothicNeoH00" pointSize="40"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                </view>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="m4I-m6-nPm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="74Q-2g-1yJ"/>
-                <constraint firstAttribute="bottom" secondItem="m4I-m6-nPm" secondAttribute="bottom" id="8bQ-DE-Gd2"/>
-                <constraint firstItem="m4I-m6-nPm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="8eT-29-uNT"/>
-                <constraint firstAttribute="trailing" secondItem="m4I-m6-nPm" secondAttribute="trailing" id="m1d-zn-PON"/>
+                <constraint firstAttribute="bottom" secondItem="Kip-MU-fuN" secondAttribute="bottom" id="I0O-Ig-cJw"/>
+                <constraint firstItem="Kip-MU-fuN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="J8h-nq-tLp"/>
+                <constraint firstAttribute="trailing" secondItem="Kip-MU-fuN" secondAttribute="trailing" id="NM0-RY-0VT"/>
+                <constraint firstItem="Kip-MU-fuN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wWr-r8-Ebx"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

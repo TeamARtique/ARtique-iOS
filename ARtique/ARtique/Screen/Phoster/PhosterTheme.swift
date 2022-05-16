@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 class PhosterTheme: UIView {
+    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var phosterImage: UIImageView!
     @IBOutlet weak var overlay: UIImageView!
     @IBOutlet weak var title: UILabel!
@@ -159,7 +160,8 @@ extension PhosterTheme {
             self.author.text = "\(nickname) • \(date)"
             self.date.removeFromSuperview()
             let phosterImage2 = UIImageView(image: phoster)
-            insertSubview(phosterImage2, at: 0)
+            phosterImage2.contentMode = .scaleAspectFill
+            contentView.insertSubview(phosterImage2, at: 0)
             phosterImage.snp.makeConstraints {
                 $0.top.equalToSuperview().offset(60)
                 $0.leading.equalToSuperview().offset(-70)

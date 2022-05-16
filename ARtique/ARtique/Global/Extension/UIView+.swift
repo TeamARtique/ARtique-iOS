@@ -70,6 +70,19 @@ extension UIView {
         }
     }
     
+    /// view를 이미지로 전환해주는 함수
+    func transfromToImage() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0.0)
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        if let context = UIGraphicsGetCurrentContext() {
+            layer.render(in: context)
+            return UIGraphicsGetImageFromCurrentImageContext()
+        }
+        return nil
+    }
+    
     /// degrees 만큼 view를 회전시켜주는 함수
     func rotate(degrees: CGFloat) {
         self.transform = CGAffineTransform(rotationAngle: CGFloat.pi * degrees / 180.0)
