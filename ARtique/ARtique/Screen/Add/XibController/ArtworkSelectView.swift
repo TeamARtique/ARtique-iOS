@@ -230,13 +230,12 @@ extension ArtworkSelectView {
                         self.indexArr.removeLast()
                     }
                 } else {
-                    cell.setSelectedIndex((self.exhibitionModel.artworks?.count ?? 0) + 1)
+                    cell.setSelectedIndex(self.selectedImages.count + 1)
                 }
                 if self.selectedImages.count >= self.exhibitionModel.gallerySize ?? 0 { return }
                 self.configureViewTitle()
                 self.indexArr.append((selectedIndex).row)
                 self.selectedImages.append(image ?? UIImage())
-                self.exhibitionModel.artworks = self.selectedImages
             })
             .disposed(by: bag)
     }
@@ -257,7 +256,6 @@ extension ArtworkSelectView {
             albumListButton.setTitle(collection.localizedTitle ?? "", for: .normal)
             selectedImages.removeAll()
             indexArr.removeAll()
-            exhibitionModel.artworks = selectedImages
             configureViewTitle()
             galleryCV.indexPathsForSelectedItems?.forEach({ galleryCV.deselectItem(at: $0, animated: false) })
             galleryCV.reloadData()
@@ -328,7 +326,6 @@ extension ArtworkSelectView: UICollectionViewDelegate {
         
         indexArr.remove(at: index - 1)
         selectedImages.remove(at: index - 1)
-        exhibitionModel.artworks = selectedImages
         spiner.stopAnimating()
         configureViewTitle()
         

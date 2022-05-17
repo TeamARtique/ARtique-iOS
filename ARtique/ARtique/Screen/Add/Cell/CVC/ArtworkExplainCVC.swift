@@ -54,9 +54,9 @@ extension ArtworkExplainCVC {
     
     func configureCell(index: Int) {
         cellIndex = index
-        image.image = exhibitionModel.artworks?[index] ?? UIImage()
-        configureText(title: exhibitionModel.artworkTitle?[index] ?? "",
-                      description: exhibitionModel.artworkExplain?[index] ?? "")
+        image.image = exhibitionModel.artworks?[index].image ?? UIImage()
+        configureText(title: exhibitionModel.artworks?[index].title ?? "",
+                      description: exhibitionModel.artworks?[index].description ?? "")
         contentTextView.setTextViewPlaceholder(postContentPlaceholder)
         self.index.text = "\(index + 1)"
         bindText()
@@ -79,14 +79,14 @@ extension ArtworkExplainCVC {
         titleTextField.rx.text.orEmpty
             .withUnretained(self)
             .subscribe(onNext: { owner, title in
-                owner.exhibitionModel.artworkTitle?[owner.cellIndex ?? 0] = title
+                owner.exhibitionModel.artworks?[owner.cellIndex ?? 0].title = title
             })
             .disposed(by: bag)
         
         contentTextView.rx.text.orEmpty
             .withUnretained(self)
-            .subscribe(onNext: { owner, content in
-                owner.exhibitionModel.artworkExplain?[owner.cellIndex ?? 0] = content
+            .subscribe(onNext: { owner, description in
+                owner.exhibitionModel.artworks?[owner.cellIndex ?? 0].description = description
             })
             .disposed(by: bag)
     }

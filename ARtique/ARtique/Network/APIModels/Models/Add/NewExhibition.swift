@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class NewExhibition {
     static let shared = NewExhibition()
@@ -19,10 +20,21 @@ class NewExhibition {
     var gallerySize: Int?
     var galleryTheme: Int?
     var isPublic: Bool?
-    var artworkIndex = [Int]()
-    var artworks: [UIImage]?
-    var artworkTitle: [String]?
-    var artworkExplain: [String]?
+    var artworks: [ArtworkData]?
     
     private init() { }
+}
+
+extension NewExhibition {
+    var exhibitionParam: Parameters {
+        return [
+            "gallerySize": gallerySize!,
+            "galleryTheme": galleryTheme!,
+            "title": title!,
+            "category": category!,
+            "description": description!,
+            "tag": tag!,
+            "isPublic": isPublic!
+        ]
+    }
 }

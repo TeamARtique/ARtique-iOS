@@ -190,7 +190,7 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
             roundCell.configureCell(with: CategoryType.allCases[indexPath.row].categoryTitle, fontSize: 14)
             return roundCell
         case posterCV:
-            posterCell.configurePosterCell(image: NewExhibition.shared.artworks?.first ?? UIImage(),
+            posterCell.configurePosterCell(image: exhibitionModel.artworks?.first?.image ?? UIImage(),
                                              overlay: UIImage(named: "cellTemplate\(indexPath.row)") ?? UIImage(),
                                              borderWidth: 4)
             return posterCell

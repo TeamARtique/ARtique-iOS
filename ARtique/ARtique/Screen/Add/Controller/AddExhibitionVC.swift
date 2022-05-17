@@ -159,7 +159,6 @@ extension AddExhibitionVC {
         case 1:
             artworkSelectView.configureViewTitle()
             artworkSelectView.setPreviewImage([0,0])
-            artworkSelectView.selectedImages = exhibitionModel.artworks ?? [UIImage]()
         case 2:
             orderView.selectedPhotoCV.reloadData()
             orderView.selectedPhotoCV.scrollToItem(at: [0,0], at: .top, animated: false)
@@ -228,6 +227,11 @@ extension AddExhibitionVC {
             if exhibitionModel.artworks?.count == exhibitionModel.gallerySize {
                 page += 1
                 configurePageView(page)
+                for i in 0..<artworkSelectView.selectedImages.count {
+                    let tmp = ArtworkData()
+                    tmp.image = artworkSelectView.selectedImages[i]
+                    exhibitionModel.artworks?[i] = tmp
+                }
             }
         case 4:
             popupAlert(targetView: self,
