@@ -11,8 +11,8 @@ class ExhibitionListVC: BaseVC {
     @IBOutlet weak var exhibitionListCV: UICollectionView!
     
     var exhibitionData: [ExhibitionModel]?
-    
     var isRightBarBtnExist = false
+    var categoryID: Int?
     var isOrderChanged = false
     var checkedOrder = 0
     let minimumLineSpacing: CGFloat = 25
@@ -21,6 +21,11 @@ class ExhibitionListVC: BaseVC {
         super.viewDidLoad()
         configureNavigationBar()
         configureCV()
+        
+        // TODO: - 마이페이지도 연결
+        isRightBarBtnExist
+        ? getExhibitionList(categoryID: categoryID ?? 0, sort: .like)
+        : nil
     }
 }
 
@@ -85,6 +90,29 @@ extension ExhibitionListVC {
     }
 }
 
+// MARK: - Network
+extension ExhibitionListVC {
+    private func getExhibitionList(categoryID: Int, sort: ExhibitionSortType) {
+        HomeAPI.shared.getAllExhibitionList(categoryID: categoryID, sort: sort.rawValue) { [weak self] networkResult in
+            switch networkResult {
+            case .success(let list):
+                if let list = list as? [ExhibitionModel] {
+                    self?.exhibitionData = list
+                    self?.exhibitionListCV.reloadData()
+                }
+            case .requestErr(let res):
+                self?.getExhibitionList(categoryID: categoryID, sort: sort)
+                if let message = res as? String {
+                    print(message)
+                    self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
+    }
+}
+
 // MARK: - UICollectionViewDataSource
 extension ExhibitionListVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -104,7 +132,7 @@ extension ExhibitionListVC: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) as? ExhibitionCVC,
               let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
         
-        detailVC.exhibitionData = cell.exhibitionData
+        detailVC.exhibitionID = cell.exhibitionData?.exhibitionId
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }
@@ -134,14 +162,14 @@ extension ExhibitionListVC: TVCellDelegate {
         
         if index == 0 {
             button.setTitle("인기순 ", for: .normal)
-            // TODO: - 데이터 순서 정렬
+            getExhibitionList(categoryID: categoryID ?? 1, sort: .like)
         } else {
             button.setTitle("최신순 ", for: .normal)
-            // TODO: - 데이터 순서 정렬
+            getExhibitionList(categoryID: categoryID ?? 1, sort: .recent)
         }
         
         exhibitionListCV.reloadData()
-//        exhibitionListCV.scrollToItem(at: [0,0], at: .top, animated: true)
+        exhibitionListCV.scrollToItem(at: [0,0], at: .top, animated: true)
         checkedOrder = index
     }
 }

@@ -25,21 +25,21 @@ class DetailVC: BaseVC {
     @IBOutlet weak var createdAt: UILabel!
     @IBOutlet weak var category: UILabel!
     @IBOutlet weak var gallery: UILabel!
-    @IBOutlet weak var explaination: UILabel!
+    @IBOutlet weak var explanation: UILabel!
     @IBOutlet weak var gotoARBtn: UIButton!
     @IBOutlet weak var scrollBar: UIView!
     
-    var isAuthor: Bool?
-    var exhibitionData: ExhibitionModel?
+    var exhibitionID: Int?
+    var exhibitionData: DetailModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
         configureLayout(isScrolled: false)
-        configureExhibitionData()
         configureNaviBar()
         configureARBtn()
         addScrollGesture()
+        getExhibitionData(exhibitionID: exhibitionID ?? -1)
     }
     
     // MARK: Btn Action
@@ -70,8 +70,8 @@ extension DetailVC {
         exhiTitle.font = .AppleSDGothicB(size: 18)
         exhiTitle.setLineBreakMode()
         phoster.contentMode = .scaleAspectFill
-        explaination.font = .AppleSDGothicL(size: 14)
-        explaination.setLineBreakMode()
+        explanation.font = .AppleSDGothicL(size: 14)
+        explanation.setLineBreakMode()
         author.titleLabel?.font = .AppleSDGothicL(size: 13)
         author.imageView?.layer.cornerRadius = 12
         [createdAt, category, gallery].forEach {
@@ -85,12 +85,14 @@ extension DetailVC {
     private func configureNaviBar() {
         navigationController?.additionalSafeAreaInsets.top = 8
         navigationController?.navigationBar.tintColor = .black
-        navigationItem.title = exhibitionData?.title
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBtn"),
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(popVC))
-        
+    }
+    
+    private func configureNaviData() {
+        navigationItem.title = exhibitionData?.exhibition.title
         let share = UIAction(title: "공유",
                              image: UIImage(named: "Share")) { _ in
             self.didTapShareBtn()
@@ -118,7 +120,7 @@ extension DetailVC {
                                    children: [share, edit, delete])
         
         navigationItem.rightBarButtonItem
-        = isAuthor ?? false
+        = exhibitionData?.artist.isWriter ?? false
         ? naviRightBtn
         : UIBarButtonItem(image: UIImage(named: "Share"),
                           style: .plain,
@@ -138,7 +140,7 @@ extension DetailVC {
             infoCenterHeight.constant = 125
             infoTopViewTopAnchor.constant = screenHeight - (phoster.frame.height + infoTopView.frame.height + 123 + 122 + 89)
         } else {
-            navigationItem.title = exhibitionData?.title
+            navigationItem.title = exhibitionData?.exhibition.title
             phosterOverlay.layer.opacity = 0
             phoster.snp.remakeConstraints {
                 $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
@@ -159,36 +161,47 @@ extension DetailVC {
     }
     
     private func configureExhibitionData() {
-        phoster.kf.setImage(with: exhibitionData?.phosterImgURL,
+        phoster.kf.setImage(with: exhibitionData?.exhibition.phosterImgURL,
                             placeholder: UIImage(named: "DefaultPhoster"),
                             options: [
                               .scaleFactor(UIScreen.main.scale),
                               .cacheOriginalImage
                             ])
-        isAuthor = exhibitionData?.artist?.isWritter ?? false
-        exhiTitle.text = exhibitionData?.title
-        author.setTitle("  " + (exhibitionData?.artist?.nickname ?? ""), for: .normal)
-        author.setImage(UIImage(named: "DefaultProfile")?.resized(to: CGSize(width: 24, height: 24)), for: .normal)
-        likeBtn.isSelected = exhibitionData?.like?.isLiked ?? false
-        likeBtn.setImage((exhibitionData?.like?.isLiked ?? false)
+        exhiTitle.text = exhibitionData?.exhibition.title
+        explanation.text = exhibitionData?.exhibition.description
+        author.setTitle("  " + (exhibitionData?.artist.nickname ?? ""), for: .normal)
+        let processor = ResizingImageProcessor(referenceSize: CGSize(width: 24, height: 24))
+        let modifier = AnyImageModifier { return $0.withRenderingMode(.alwaysOriginal) }
+        author.kf.setImage(with: exhibitionData?.artist.profileImgURL,
+                           for: .normal,
+                           placeholder: UIImage(named: "DefaultProfile")?
+                            .resized(to: CGSize(width: 24, height: 24)),
+                           options: [
+                            .scaleFactor(UIScreen.main.scale),
+                            .processor(processor),
+                            .imageModifier(modifier),
+                            .cacheOriginalImage
+                           ])
+        likeBtn.isSelected = exhibitionData?.like.isLiked ?? false
+        likeBtn.setImage((exhibitionData?.like.isLiked ?? false)
                          ? UIImage(named: "Like_Selected")
                          : UIImage(named: "Like_UnSelected"),
                          for: .normal)
-        likeCnt.text = "\(exhibitionData?.like?.likeCount ?? 0)"
-        bookMarkBtn.isSelected = exhibitionData?.bookmark?.isBookmarked ?? false
-        bookMarkBtn.setImage((exhibitionData?.bookmark?.isBookmarked ?? false)
+        likeCnt.text = "\(exhibitionData?.like.likeCount ?? 0)"
+        bookMarkBtn.isSelected = exhibitionData?.bookmark.isBookmarked ?? false
+        bookMarkBtn.setImage((exhibitionData?.bookmark.isBookmarked ?? false)
                          ? UIImage(named: "BookMark_Selected")
                          : UIImage(named: "BookMark_UnSelected"),
                          for: .normal)
-        bookmarkCnt.text = "\(exhibitionData?.bookmark?.bookmarkCount ?? 0)"
-        createdAt.text = exhibitionData?.date ?? "Date"
+        bookmarkCnt.text = "\(exhibitionData?.bookmark.bookmarkCount ?? 0)"
+        createdAt.text = exhibitionData?.exhibition.date ?? "Date"
         category.text = CategoryType.allCases[0].categoryTitle
-        gallery.text = "\(ThemeType.init(rawValue: exhibitionData?.galleryTheme ?? 1)?.themeTitle ?? "테마") / \(exhibitionData?.gallerySize ?? 0)개"
+        gallery.text = "\(ThemeType.init(rawValue: exhibitionData?.exhibition.galleryTheme ?? 1)?.themeTitle ?? "테마") / \(exhibitionData?.exhibition.gallerySize ?? 0)개"
         configureTagStackView()
     }
     
     private func configureTagStackView() {
-        exhibitionData?.tag?.forEach { tagId in
+        exhibitionData?.exhibition.tag?.forEach { tagId in
             let tag = UIView()
             tag.layer.cornerRadius = 10
             tag.layer.borderColor = UIColor.black.cgColor
@@ -235,5 +248,29 @@ extension DetailVC {
         activityVC.popoverPresentationController?.sourceView = self.view
         
         self.present(activityVC, animated: true, completion: nil)
+    }
+}
+
+// MARK: - Network
+extension DetailVC {
+    private func getExhibitionData(exhibitionID: Int) {
+        ExhibitionDetailAPI.shared.getExhibitionData(exhibitionID: exhibitionID) { [weak self] networkResult in
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? DetailModel {
+                    self?.exhibitionData = data
+                    self?.configureNaviData()
+                    self?.configureExhibitionData()
+                }
+            case .requestErr(let res):
+                self?.getExhibitionData(exhibitionID: exhibitionID)
+                if let message = res as? String {
+                    print(message)
+                    self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
     }
 }

@@ -83,7 +83,7 @@ extension HomeListVC{
     
     @objc func showAllExhibitionList(_ notification: Notification) {
         guard let exhibitionListVC = ViewControllerFactory.viewController(for: .exhibitionList) as? ExhibitionListVC else { return }
-        exhibitionListVC.exhibitionData = homeListData?.categoryExhibition
+        exhibitionListVC.categoryID = categoryType?.categoryId ?? 1
         exhibitionListVC.hidesBottomBarWhenPushed = true
         exhibitionListVC.setNaviBarTitle(notification.object as? String ?? "")
         exhibitionListVC.isRightBarBtnExist = true
@@ -204,10 +204,10 @@ extension HomeListVC: CVCellDelegate {
         
         if cellIdentifier == 2 {
             guard let cell = collectionView.cellForItem(at: index) as? ExhibitionCVC else { return }
-            detailVC.exhibitionData = cell.exhibitionData
+            detailVC.exhibitionID = cell.exhibitionData?.exhibitionId
         } else {
             guard let cell = collectionView.cellForItem(at: index) as? HomeHorizontalCVC else { return }
-            detailVC.exhibitionData = cell.exhibitionData
+            detailVC.exhibitionID = cell.exhibitionData?.exhibitionId
         }
         
         navigationController?.pushViewController(detailVC, animated: true)

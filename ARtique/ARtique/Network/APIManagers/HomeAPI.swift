@@ -29,4 +29,18 @@ extension HomeAPI {
             }
         }
     }
+    
+    func getAllExhibitionList(categoryID: Int, sort: String, completion: @escaping(NetworkResult<Any>) -> (Void)) {
+        provider.request(.getAllExhibitionList(categoryID: categoryID, sort: sort)) { result in
+            switch result {
+            case .success(let response):
+                let statusCode = response.statusCode
+                let data = response.data
+                
+                completion(self.judgeStatus(type: [ExhibitionModel].self, by: statusCode, data))
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
