@@ -9,6 +9,7 @@ import UIKit
 import ARKit
 import SceneKit
 import AVFoundation
+import Kingfisher
 
 class ARGalleryVC: BaseVC {
     
@@ -28,7 +29,7 @@ class ARGalleryVC: BaseVC {
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        getARGalleryInfo(exhibitionID: 36)
+        getARGalleryInfo(exhibitionID: 107)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,10 +91,8 @@ extension ARGalleryVC {
     }
     
     /// 테마값에 따른 갤러리 테마 적용 메서드
-    private func setupGalleryTheme(galleryType: GalleyType, themeType: ThemeType) {
+    private func setupGalleryTheme(maxValue: Int, frameIdentifier1: String, frameIdentifier2: String, galleryType: GalleyType, themeType: ThemeType) {
         let modelMaterial = themeType.galleryModelMaterial
-        let frameIdentifier1: String = galleryType.frameIdentifier1
-        let frameIdentifier2: String = galleryType.frameIdentifier2
         let frameColor: UIColor = themeType.frameColor
         let lightColor: UIColor = themeType.lightColor
         let textColor: UIColor = themeType.textColor
@@ -102,32 +101,32 @@ extension ARGalleryVC {
         gallerySceneView.scene.rootNode.childNode(withName: galleryType.galleryModelIdentifier, recursively: true)?.geometry?.material(named: "galleryTheme")?.diffuse.contents = modelMaterial
         
         // 프레임 색 구성
-        setupFrameColorByTheme(value: galleryType.rawValue, frameIdentifier: frameIdentifier1, frameColor: frameColor)
-        galleryType == .maximum ? setupFrameColorByTheme(value: galleryType.rawValue, frameIdentifier: frameIdentifier2, frameColor: frameColor) : nil
+        setupFrameColorByTheme(maxValue: galleryType.rawValue, frameIdentifier: frameIdentifier1, frameColor: frameColor)
+        galleryType == .maximum ? setupFrameColorByTheme(maxValue: galleryType.rawValue, frameIdentifier: frameIdentifier2, frameColor: frameColor) : nil
         
         // 조명 색 구성
-        setupLightColorByTheme(value: galleryType.rawValue, lightColor: lightColor)
+        setupLightColorByTheme(maxValue: galleryType.rawValue, lightColor: lightColor)
         
         // 타이틀 텍스트 색 구성
-        setupTextNodeByTheme(value: galleryType.rawValue, textColor: textColor)
+        setupTextNodeByTheme(maxValue: maxValue, textColor: textColor)
     }
     
     /// 갤러리 모델 내 frame -> 테마값에 따른 색 구성 메서드
-    private func setupFrameColorByTheme(value: Int, frameIdentifier: String, frameColor: UIColor) {
-        let maxValue = value == 30 ? 15 : value
+    private func setupFrameColorByTheme(maxValue: Int, frameIdentifier: String, frameColor: UIColor) {
         for i in 1...maxValue {
             gallerySceneView.scene.rootNode.childNode(withName: frameIdentifier + "\(i)", recursively: true)?.geometry?.material(named: "frameColor")?.diffuse.contents = frameColor
         }
     }
     
     /// 갤러리 모델 내 조명 -> 테마값에 따른 색 구성 메서드
-    private func setupLightColorByTheme(value: Int, lightColor: UIColor) {
-        gallerySceneView.scene.rootNode.childNode(withName: "spot", recursively: true)?.geometry?.material(named: "spot")?.diffuse.contents = lightColor
+    private func setupLightColorByTheme(maxValue: Int, lightColor: UIColor) {
+        for i in 1...maxValue {
+            gallerySceneView.scene.rootNode.childNode(withName: "spot\(i)", recursively: true)?.geometry?.material(named: "spot")?.diffuse.contents = lightColor
+        }
     }
     
     /// 갤러리 모델 내 title text -> 테마값에 따른 색, 폰트 구성 메서드
-    private func setupTextNodeByTheme(value: Int, textColor: UIColor) {
-        let maxValue = value == 30 ? 15 : value
+    private func setupTextNodeByTheme(maxValue: Int, textColor: UIColor) {
         for i in 1...maxValue {
             // textColor
             gallerySceneView.scene.rootNode.childNode(withName: Identifiers.titleText + "\(i)", recursively: true)?.geometry?.material(named: "textColor")?.diffuse.contents = textColor
@@ -140,8 +139,7 @@ extension ARGalleryVC {
     }
     
     /// 갤러리 모델 내 title text -> string 구성 메서드
-    private func setupTitleText(value: Int, artwork: [Artwork]) {
-        let maxValue = value == 30 ? 15 : value
+    private func setupTitleText(maxValue: Int, artwork: [Artwork]) {
         for i in 1...maxValue {
             if let textGeometry = gallerySceneView.scene.rootNode.childNode(withName: Identifiers.titleText + "\(i)", recursively: true)?.geometry as? SCNText {
                 textGeometry.string = artwork[i - 1].title
@@ -163,12 +161,42 @@ extension ARGalleryVC {
     }
     
     /// 갤러리 모델 내 frame artwork -> content UIImage 구성 메서드
-    private func setupArtworkImage(value: Int, frameIdentifier: String, artwork: [Artwork]) {
-        // TODO: image URL parsing
-//        let maxValue = value == 30 ? 15 : value
-//        for i in 1...maxValue {
-//            gallerySceneView.scene.rootNode.childNode(withName: frameIdentifier1 + "\(i)", recursively: true)?.geometry?.material(named: "content")?.diffuse.contents = artwork[i].image
-//        }
+    private func setupArtworkImage(frameIdentifier: String, artworkImage: UIImage, index: Int) {
+        gallerySceneView.scene.rootNode.childNode(withName: frameIdentifier + "\(index)", recursively: true)?.geometry?.material(named: "content")?.diffuse.contents = artworkImage
+    }
+    
+    /// image URL을 UIImage로 다운로드하여 artwork에 이미지를 구성하는 메서드
+    private func downloadImage(with urlString: String, frameIdentifier: String, index: Int) {
+        guard let url = URL(string: urlString) else { return }
+        let resource = ImageResource(downloadURL: url)
+        
+        DispatchQueue.global().async {
+            KingfisherManager.shared.retrieveImage(with: resource,
+                                                   options: nil,
+                                                   progressBlock: nil) { result in
+                switch result {
+                case .success(let value):
+                    self.setupArtworkImage(frameIdentifier: frameIdentifier, artworkImage: value.image, index: index)
+                case .failure(let error):
+                    print("Error: \(error)")
+                }
+            }
+        }
+    }
+    
+    /// 네트워크 통신으로 받아온 실제 URL을 UIImage로 다운로드할 수 있도록 downloadImage 메서드를 호출하는 메서드
+    private func downloadImageByRealData(maxValue: Int, artwork: [Artwork], frameIdentifier1: String, frameIdentifier2: String) {
+        for i in 0...maxValue - 1 {
+            if maxValue == 30 {
+                if i % 2 == 0 {
+                    downloadImage(with: artwork[i].image, frameIdentifier: frameIdentifier1, index: i / 2 + 1)
+                } else {
+                    downloadImage(with: artwork[i].image, frameIdentifier: frameIdentifier2, index: (i + 1) / 2)
+                }
+            } else {
+                downloadImage(with: artwork[i].image, frameIdentifier: frameIdentifier1, index: i + 1)
+            }
+        }
     }
 }
 
@@ -211,10 +239,14 @@ extension ARGalleryVC {
                 if let data = res as? ARGalleryDataModel {
                     //✅ 받아온 데이터로 AR Scene 구성
                     self?.galleryType = GalleyType(rawValue: data.gallery.gallerySize) ?? .medium
+                    let maxValue = data.gallery.gallerySize
+                    let frameIdentifier1: String = self?.galleryType.frameIdentifier1 ?? ""
+                    let frameIdentifier2: String = self?.galleryType.frameIdentifier2 ?? ""
+                    
                     self?.setupGallerySceneView(type: GalleyType(rawValue: data.gallery.gallerySize) ?? .medium)
-                    self?.setupGalleryTheme(galleryType: GalleyType(rawValue: data.gallery.gallerySize) ?? .medium, themeType: ThemeType(rawValue: data.gallery.galleryTheme) ?? .dark)
-                    self?.setupTitleText(value: data.gallery.gallerySize, artwork: data.artworks)
-                    // TODO: 아트웤 이미지 구성하기
+                    self?.setupGalleryTheme(maxValue: maxValue, frameIdentifier1: frameIdentifier1, frameIdentifier2: frameIdentifier2, galleryType: GalleyType(rawValue: data.gallery.gallerySize) ?? .medium, themeType: ThemeType(rawValue: data.gallery.galleryTheme) ?? .dark)
+                    self?.setupTitleText(maxValue: maxValue, artwork: data.artworks)
+                    self?.downloadImageByRealData(maxValue: maxValue, artwork: data.artworks, frameIdentifier1: frameIdentifier1, frameIdentifier2: frameIdentifier2)
                 }
             case .requestErr(let res):
                 if let message = res as? String {
