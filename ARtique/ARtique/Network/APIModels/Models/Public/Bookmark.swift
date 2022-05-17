@@ -12,3 +12,9 @@ struct Bookmark: Codable {
     let isBookmarked: Bool
     let bookmarkCount: Int
 }
+
+extension Bookmark {
+    var bookmarkCnt: String {
+        return bookmarkCount > 99 ? "99+" : "\(bookmarkCount)"
+    }
+}

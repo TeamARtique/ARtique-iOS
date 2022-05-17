@@ -49,11 +49,11 @@ extension ExhibitionCVC {
         title.text = exhibition.title ?? "ARtique"
         author.text = exhibition.artist?.nickname ?? "ARTI"
         date.text = exhibition.date ?? "Date"
-        likeCnt.text = "\(exhibition.like?.likeCount ?? 0)"
+        likeCnt.text = exhibition.like?.likeCnt
         isLiked.image = (exhibition.like?.isLiked ?? false)
         ? UIImage(named: "Like_Selected")!
         : UIImage(named: "Like_UnSelected")!
-        bookmarkCnt.text = "\(exhibition.bookmark?.bookmarkCount ?? 0)"
+        bookmarkCnt.text = exhibition.bookmark?.bookmarkCnt
         isBookmarked.image = (exhibition.bookmark?.isBookmarked ?? false)
         ? UIImage(named: "BookMark_Selected")!
         : UIImage(named: "BookMark_UnSelected")!

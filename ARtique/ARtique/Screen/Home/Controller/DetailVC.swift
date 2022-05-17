@@ -187,13 +187,13 @@ extension DetailVC {
                          ? UIImage(named: "Like_Selected")
                          : UIImage(named: "Like_UnSelected"),
                          for: .normal)
-        likeCnt.text = "\(exhibitionData?.like.likeCount ?? 0)"
+        likeCnt.text = exhibitionData?.like.likeCnt
         bookMarkBtn.isSelected = exhibitionData?.bookmark.isBookmarked ?? false
         bookMarkBtn.setImage((exhibitionData?.bookmark.isBookmarked ?? false)
                          ? UIImage(named: "BookMark_Selected")
                          : UIImage(named: "BookMark_UnSelected"),
                          for: .normal)
-        bookmarkCnt.text = "\(exhibitionData?.bookmark.bookmarkCount ?? 0)"
+        bookmarkCnt.text = exhibitionData?.bookmark.bookmarkCnt
         createdAt.text = exhibitionData?.exhibition.date ?? "Date"
         category.text = CategoryType.allCases[0].categoryTitle
         gallery.text = "\(ThemeType.init(rawValue: exhibitionData?.exhibition.galleryTheme ?? 1)?.themeTitle ?? "테마") / \(exhibitionData?.exhibition.gallerySize ?? 0)개"
