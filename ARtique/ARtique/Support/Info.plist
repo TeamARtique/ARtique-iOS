@@ -20,6 +20,7 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
+		<string>AppleSDGothicNeoH.ttf</string>
 		<string>AppleSDGothicNeoB.ttf</string>
 		<string>AppleSDGothicNeoL.ttf</string>
 		<string>AppleSDGothicNeoR.ttf</string>

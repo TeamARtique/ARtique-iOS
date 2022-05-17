@@ -66,6 +66,7 @@ struct Identifiers {
     static let postExplainView = "PostExplainView"
     static let exhibitionExplainView = "ExhibitionExplainView"
     static let artworkSelectView = "ArtworkSelectView"
+    static let phosterTheme = "PhosterTheme"
     
     //MARK: - Node
     static let minimumGalleryScenePath = "art.scnassets/GalleryModel/minimumGallery.scn"
