@@ -139,7 +139,7 @@ extension ExhibitionExplainView {
             .subscribe(onNext: { owner, index in
                 switch collectionView {
                 case owner.categoryCV:
-                    owner.exhibitionModel.category = index.row
+                    owner.exhibitionModel.category = index.row + 1
                 case owner.posterCV:
                     owner.exhibitionModel.posterTheme = index.row
                 case owner.tagCV:

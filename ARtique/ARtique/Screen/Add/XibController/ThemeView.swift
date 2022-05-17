@@ -133,7 +133,7 @@ extension ThemeView: UICollectionViewDelegate {
             exhibitionModel.gallerySize = setGalleryCount(indexPath.row)
             exhibitionModel.artworks = [ArtworkData](repeating: ArtworkData(), count: exhibitionModel.gallerySize!)
         default:
-            exhibitionModel.galleryTheme = indexPath.row
+            exhibitionModel.galleryTheme = indexPath.row + 1
         }
     }
 }

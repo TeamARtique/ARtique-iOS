@@ -86,6 +86,10 @@
 		23D4CFC32831839B0012765A /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D4CFC22831839B0012765A /* Date+.swift */; };
 		23E1A35127EF124D009C337F /* NewExhibition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1A35027EF124D009C337F /* NewExhibition.swift */; };
 		23E5A1392833CE2400DDD328 /* ArtworkData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E5A1382833CE2400DDD328 /* ArtworkData.swift */; };
+		23E5A13B2833D7BD00DDD328 /* RegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E5A13A2833D7BD00DDD328 /* RegisterService.swift */; };
+		23E5A13D2833D87600DDD328 /* RegisterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E5A13C2833D87600DDD328 /* RegisterAPI.swift */; };
+		23E5A13F2833D8CD00DDD328 /* ArtworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E5A13E2833D8CD00DDD328 /* ArtworkModel.swift */; };
+		23E5A1412833D90400DDD328 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E5A1402833D90400DDD328 /* RegisterModel.swift */; };
 		23E734EE27E99CC8000315E6 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E734EC27E99CC8000315E6 /* OrderView.swift */; };
 		23E734EF27E99CC8000315E6 /* OrderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23E734ED27E99CC8000315E6 /* OrderView.xib */; };
 		23E734F627E9A016000315E6 /* GalleryCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E734F427E9A016000315E6 /* GalleryCVC.swift */; };
@@ -232,6 +236,10 @@
 		23D4CFC22831839B0012765A /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		23E1A35027EF124D009C337F /* NewExhibition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExhibition.swift; sourceTree = "<group>"; };
 		23E5A1382833CE2400DDD328 /* ArtworkData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkData.swift; sourceTree = "<group>"; };
+		23E5A13A2833D7BD00DDD328 /* RegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterService.swift; sourceTree = "<group>"; };
+		23E5A13C2833D87600DDD328 /* RegisterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAPI.swift; sourceTree = "<group>"; };
+		23E5A13E2833D8CD00DDD328 /* ArtworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkModel.swift; sourceTree = "<group>"; };
+		23E5A1402833D90400DDD328 /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
 		23E734EC27E99CC8000315E6 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		23E734ED27E99CC8000315E6 /* OrderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderView.xib; sourceTree = "<group>"; };
 		23E734F427E9A016000315E6 /* GalleryCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCVC.swift; sourceTree = "<group>"; };
@@ -402,6 +410,8 @@
 			children = (
 				23E1A35027EF124D009C337F /* NewExhibition.swift */,
 				23E5A1382833CE2400DDD328 /* ArtworkData.swift */,
+				23E5A13E2833D8CD00DDD328 /* ArtworkModel.swift */,
+				23E5A1402833D90400DDD328 /* RegisterModel.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -825,6 +835,7 @@
 				33A463EB282AFF8C0049F0AF /* GalleryAPI.swift */,
 				23D4CFC02831218B0012765A /* HomeAPI.swift */,
 				235610012832BAB000176D66 /* ExhibitionDetailAPI.swift */,
+				23E5A13C2833D87600DDD328 /* RegisterAPI.swift */,
 			);
 			path = APIManagers;
 			sourceTree = "<group>";
@@ -836,6 +847,7 @@
 				33A463E9282AFE6C0049F0AF /* GalleryService.swift */,
 				23D4CFBE2831205B0012765A /* HomeListService.swift */,
 				23560FFF2832B9A900176D66 /* ExhibitionService.swift */,
+				23E5A13A2833D7BD00DDD328 /* RegisterService.swift */,
 			);
 			path = MoyaTarget;
 			sourceTree = "<group>";
@@ -1121,6 +1133,7 @@
 				23B52A8B27E0FED600D6C339 /* ThemeView.swift in Sources */,
 				3305F7592754DFD700E6E08E /* UIView+.swift in Sources */,
 				3305F77D2754E20800E6E08E /* UserDefaults+.swift in Sources */,
+				23E5A13F2833D8CD00DDD328 /* ArtworkModel.swift in Sources */,
 				23D4CFBA283118B20012765A /* Artist.swift in Sources */,
 				230883832804163100620BC1 /* ProfileEditVC.swift in Sources */,
 				237B436E275CEE1E00B7FA3F /* HomeHorizontalCVC.swift in Sources */,
@@ -1145,6 +1158,7 @@
 				33083C4328199B560038886B /* String+.swift in Sources */,
 				238BFDCE280947950018D256 /* ReorderBottomSheetVC.swift in Sources */,
 				23E7350727EA4D1B000315E6 /* UIScrollView+.swift in Sources */,
+				23E5A13D2833D87600DDD328 /* RegisterAPI.swift in Sources */,
 				233DA02D28104AC300696487 /* CollectionViewLeftAlignFlowLayout.swift in Sources */,
 				23E734F627E9A016000315E6 /* GalleryCVC.swift in Sources */,
 				33A463EC282AFF8C0049F0AF /* GalleryAPI.swift in Sources */,
@@ -1165,6 +1179,7 @@
 				235650D527F9FB6F0082E048 /* AlbumListTVC.swift in Sources */,
 				3305F7632754E07B00E6E08E /* BaseCell.swift in Sources */,
 				235584042767A75F0046C3EE /* Utilities.swift in Sources */,
+				23E5A13B2833D7BD00DDD328 /* RegisterService.swift in Sources */,
 				236FA178281EB33B00E819FE /* AlertVC.swift in Sources */,
 				238C65762756606100EADA93 /* HomeNC.swift in Sources */,
 				3305F7A82754E45800E6E08E /* HomeVC.swift in Sources */,
@@ -1191,6 +1206,7 @@
 				3305F76B2754E10300E6E08E /* NetworkResult.swift in Sources */,
 				231435702822D66E00E41D7F /* ThemeType.swift in Sources */,
 				23B52A7F27E0A73800D6C339 /* UIViewController+.swift in Sources */,
+				23E5A1412833D90400DDD328 /* RegisterModel.swift in Sources */,
 				3305F77F2754E22800E6E08E /* UITextField+.swift in Sources */,
 				23B52A9327E1131C00D6C339 /* ThemeCVC.swift in Sources */,
 				33083C37281985060038886B /* Bookmark.swift in Sources */,

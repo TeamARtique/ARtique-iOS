@@ -28,13 +28,13 @@ class NewExhibition {
 extension NewExhibition {
     var exhibitionParam: Parameters {
         return [
-            "gallerySize": gallerySize!,
-            "galleryTheme": galleryTheme!,
-            "title": title!,
-            "category": category!,
-            "description": description!,
-            "tag": tag!,
-            "isPublic": isPublic!
+            "gallerySize": gallerySize ?? 5,
+            "galleryTheme": galleryTheme ?? 1,
+            "title": title ?? "",
+            "category": category ?? 1,
+            "description": description ?? "",
+            "tag": tag ?? [0],
+            "isPublic": isPublic ?? false
         ]
     }
 }

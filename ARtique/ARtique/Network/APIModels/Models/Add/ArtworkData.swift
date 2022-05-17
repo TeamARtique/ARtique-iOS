@@ -6,10 +6,21 @@
 //
 
 import UIKit
+import Alamofire
 
 class ArtworkData {
-    var image: UIImage = UIImage(named: "DefaultPoster")!
-    var title: String = ""
-    var description: String = ""
-    var index: Int = 0
+    var image: UIImage?
+    var title: String?
+    var description: String?
+    var index: Int?
+}
+
+extension ArtworkData {
+    var artworkParam: Parameters {
+        return [
+            "title": title ?? "",
+            "description": description ?? "",
+            "index": index ?? 0
+        ]
+    }
 }

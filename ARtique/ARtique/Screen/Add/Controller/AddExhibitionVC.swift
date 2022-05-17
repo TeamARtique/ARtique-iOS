@@ -198,17 +198,78 @@ extension AddExhibitionVC {
     }
     
     @objc func removeAllExhibitionData() {
-        NewExhibition.shared.gallerySize = nil
-        NewExhibition.shared.galleryTheme = nil
+        exhibitionModel.gallerySize = nil
+        exhibitionModel.galleryTheme = nil
         dismiss(animated: false) {
             self.dismiss(animated: true, completion: nil)
         }
     }
     
     @objc func registerExhibition() {
-        // TODO: - 게시글 등록 완료
+        postExhibition(exhibitionData: NewExhibition.shared)
         dismiss(animated: false) {
             self.dismiss(animated: true, completion: nil)
+        }
+    }
+}
+
+// MARK: - Network
+extension AddExhibitionVC {
+    private func postExhibition(exhibitionData: NewExhibition) {
+        RegisterAPI.shared.postExhibitionData(exhibitionData: exhibitionData) { networkResult in
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? RegisterModel {
+                    exhibitionData.artworks?.forEach({ artworkData in
+                        self.postArtworks(exhibitionId: data.exhibition.exhibitionId ?? 0,
+                                          artwork: artworkData)
+                    })
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
+    }
+    
+    private func postArtworks(exhibitionId: Int, artwork: ArtworkData) {
+        RegisterAPI.shared.postArtworkData(exhibitionID: exhibitionId, artwork: artwork) { networkResult in
+            switch networkResult {
+            case .success(let exhibitionData):
+                if let exhibitionData = exhibitionData as? ArtworkModel {
+                    // TODO: - 모두 완료 후 전시 상세 뷰 띄우기
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
+    }
+    
+    private func getRegisterStatus(exhibitionID: Int) {
+        RegisterAPI.shared.getRegisterStatus(exhibitionID: exhibitionID) { [weak self] networkResult in
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? RegisterStatusModel {
+                    dump(data)
+                }
+            case .requestErr(let res):
+                self?.getRegisterStatus(exhibitionID: exhibitionID)
+                if let message = res as? String {
+                    print(message)
+                    self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
         }
     }
 }
@@ -230,6 +291,7 @@ extension AddExhibitionVC {
                 for i in 0..<artworkSelectView.selectedImages.count {
                     let tmp = ArtworkData()
                     tmp.image = artworkSelectView.selectedImages[i]
+                    tmp.index = i + 1
                     exhibitionModel.artworks?[i] = tmp
                 }
             }
