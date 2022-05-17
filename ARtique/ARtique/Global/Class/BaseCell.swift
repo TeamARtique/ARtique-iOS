@@ -24,3 +24,12 @@ class BaseCell: UICollectionViewCell {
         
     }
 }
+
+// MARK: - CVRegisterable
+extension BaseCell: CVRegisterable {
+    static var isFromNib: Bool {
+        get {
+            return true
+        }
+    }
+}

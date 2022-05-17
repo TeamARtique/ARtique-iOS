@@ -146,6 +146,12 @@
 		33083C4328199B560038886B /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C4228199B560038886B /* String+.swift */; };
 		33083C452819B07F0038886B /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C442819B07F0038886B /* Token.swift */; };
 		334E737127FB66B5001BAF25 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E737027FB66B5001BAF25 /* LoginVC.swift */; };
+		3366F455283445120020C468 /* TIcketBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3366F454283445120020C468 /* TIcketBookVC.swift */; };
+		3366F4572834453E0020C468 /* TicketCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3366F4562834453E0020C468 /* TicketCVC.swift */; };
+		3366F4592834455C0020C468 /* TicketHeaderCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3366F4582834455C0020C468 /* TicketHeaderCVC.swift */; };
+		3366F45B2834464E0020C468 /* KoPubWorld Batang Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3366F45A2834464E0020C468 /* KoPubWorld Batang Medium.ttf */; };
+		3366F45D283447150020C468 /* UIImageViewWithMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3366F45C283447150020C468 /* UIImageViewWithMask.swift */; };
+		3366F460283448020020C468 /* CVRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3366F45F283448020020C468 /* CVRegisterable.swift */; };
 		33A463EA282AFE6C0049F0AF /* GalleryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A463E9282AFE6C0049F0AF /* GalleryService.swift */; };
 		33A463EC282AFF8C0049F0AF /* GalleryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A463EB282AFF8C0049F0AF /* GalleryAPI.swift */; };
 		33A463EE282B00220049F0AF /* Gallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A463ED282B00220049F0AF /* Gallery.swift */; };
@@ -301,6 +307,12 @@
 		33083C442819B07F0038886B /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		334E737027FB66B5001BAF25 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		3350596D27E5CC8C0088B708 /* GalleryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryType.swift; sourceTree = "<group>"; };
+		3366F454283445120020C468 /* TIcketBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIcketBookVC.swift; sourceTree = "<group>"; };
+		3366F4562834453E0020C468 /* TicketCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketCVC.swift; sourceTree = "<group>"; };
+		3366F4582834455C0020C468 /* TicketHeaderCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketHeaderCVC.swift; sourceTree = "<group>"; };
+		3366F45A2834464E0020C468 /* KoPubWorld Batang Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoPubWorld Batang Medium.ttf"; sourceTree = "<group>"; };
+		3366F45C283447150020C468 /* UIImageViewWithMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewWithMask.swift; sourceTree = "<group>"; };
+		3366F45F283448020020C468 /* CVRegisterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVRegisterable.swift; sourceTree = "<group>"; };
 		33A463E9282AFE6C0049F0AF /* GalleryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryService.swift; sourceTree = "<group>"; };
 		33A463EB282AFF8C0049F0AF /* GalleryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryAPI.swift; sourceTree = "<group>"; };
 		33A463ED282B00220049F0AF /* Gallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gallery.swift; sourceTree = "<group>"; };
@@ -483,6 +495,7 @@
 				33AC27842763D1CD00E0765A /* ARGallery */,
 				3305F76F2754E14500E6E08E /* Add */,
 				3305F7702754E14A00E6E08E /* Mypage */,
+				3366F451283444820020C468 /* TicketBook */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -500,6 +513,7 @@
 		3305F7452754DB4E00E6E08E /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				3366F45E283447F40020C468 /* Protocol */,
 				3305F77B2754E1E300E6E08E /* Factory */,
 				3305F74B2754DF0900E6E08E /* Class */,
 				3305F74C2754DF0E00E6E08E /* Struct */,
@@ -531,6 +545,7 @@
 				3305F7622754E07B00E6E08E /* BaseCell.swift */,
 				33083C392819893D0038886B /* TokenInfo.swift */,
 				33083C3D28198B4E0038886B /* CollectionView */,
+				3366F45C283447150020C468 /* UIImageViewWithMask.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -584,6 +599,7 @@
 				3305F75C2754E00500E6E08E /* AppleSDGothicNeoM.ttf */,
 				3305F75A2754E00500E6E08E /* AppleSDGothicNeoR.ttf */,
 				3305F75B2754E00500E6E08E /* AppleSDGothicNeoSB.ttf */,
+				3366F45A2834464E0020C468 /* KoPubWorld Batang Medium.ttf */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -904,6 +920,40 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		3366F451283444820020C468 /* TicketBook */ = {
+			isa = PBXGroup;
+			children = (
+				3366F452283444F50020C468 /* Controller */,
+				3366F453283444FB0020C468 /* Cell */,
+			);
+			path = TicketBook;
+			sourceTree = "<group>";
+		};
+		3366F452283444F50020C468 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3366F454283445120020C468 /* TIcketBookVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3366F453283444FB0020C468 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				3366F4562834453E0020C468 /* TicketCVC.swift */,
+				3366F4582834455C0020C468 /* TicketHeaderCVC.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		3366F45E283447F40020C468 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3366F45F283448020020C468 /* CVRegisterable.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		33A463F1282B01620049F0AF /* ARGallery */ = {
 			isa = PBXGroup;
 			children = (
@@ -1033,6 +1083,7 @@
 				23E734EF27E99CC8000315E6 /* OrderView.xib in Resources */,
 				230883812804162200620BC1 /* ProfileEdit.storyboard in Resources */,
 				235650DA27F9FC870082E048 /* AlbumTVC.xib in Resources */,
+				3366F45B2834464E0020C468 /* KoPubWorld Batang Medium.ttf in Resources */,
 				23144217280C4040007DB53C /* SearchResult.storyboard in Resources */,
 				23C8C26D2832163F00251417 /* AppleSDGothicNeoH.ttf in Resources */,
 				3305F7AC2754E66700E6E08E /* AppleSDGothicNeoR.ttf in Resources */,
@@ -1105,6 +1156,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3366F45D283447150020C468 /* UIImageViewWithMask.swift in Sources */,
 				23FE54D727EB086400FF0DF9 /* GalleryType.swift in Sources */,
 				23B52A8F27E1013E00D6C339 /* RoundCVC.swift in Sources */,
 				239C5D4F27F2327900D8A3D2 /* PHFetchOptions+.swift in Sources */,
@@ -1125,11 +1177,13 @@
 				2383787B280AFB9B002088E6 /* SearchVC.swift in Sources */,
 				33A463F0282B01090049F0AF /* Artwork.swift in Sources */,
 				3305F7692754E0EA00E6E08E /* APIConstants.swift in Sources */,
+				3366F460283448020020C468 /* CVRegisterable.swift in Sources */,
 				23D4CFBF2831205B0012765A /* HomeListService.swift in Sources */,
 				334E737127FB66B5001BAF25 /* LoginVC.swift in Sources */,
 				23D4CFC32831839B0012765A /* Date+.swift in Sources */,
 				3305F7812754E23F00E6E08E /* UIButton+.swift in Sources */,
 				23D4CFB8283117FE0012765A /* ExhibitionModel.swift in Sources */,
+				3366F4592834455C0020C468 /* TicketHeaderCVC.swift in Sources */,
 				3305F7512754DF3E00E6E08E /* UIColor+Additions.swift in Sources */,
 				33083C24281981010038886B /* AuthService.swift in Sources */,
 				23E734EE27E99CC8000315E6 /* OrderView.swift in Sources */,
@@ -1155,6 +1209,7 @@
 				238BFDC8280859820018D256 /* ExhibitionListVC.swift in Sources */,
 				33A463EE282B00220049F0AF /* Gallery.swift in Sources */,
 				231EF8512763DCF4008218CC /* PlaneVC.swift in Sources */,
+				3366F455283445120020C468 /* TIcketBookVC.swift in Sources */,
 				3305F75F2754E02A00E6E08E /* View.swift in Sources */,
 				23E1A35127EF124D009C337F /* NewExhibition.swift in Sources */,
 				23560FFE2832B93600176D66 /* DetailModel.swift in Sources */,
@@ -1212,6 +1267,7 @@
 				33083C3F28198F430038886B /* Navigator.swift in Sources */,
 				33083C3A2819893D0038886B /* TokenInfo.swift in Sources */,
 				3305F76B2754E10300E6E08E /* NetworkResult.swift in Sources */,
+				3366F4572834453E0020C468 /* TicketCVC.swift in Sources */,
 				231435702822D66E00E41D7F /* ThemeType.swift in Sources */,
 				23B52A7F27E0A73800D6C339 /* UIViewController+.swift in Sources */,
 				23E5A1412833D90400DDD328 /* RegisterModel.swift in Sources */,
@@ -1363,7 +1419,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U2Z5Z44P4R;
+				DEVELOPMENT_TEAM = 2ZS26WP93H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARtique/Support/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근 허용";
@@ -1399,7 +1455,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U2Z5Z44P4R;
+				DEVELOPMENT_TEAM = 2ZS26WP93H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARtique/Support/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근 허용";

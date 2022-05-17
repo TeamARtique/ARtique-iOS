@@ -31,5 +31,9 @@ extension UIFont {
     class func AppleSDGothicH(size: CGFloat) -> UIFont {
         return UIFont(name: "AppleSDGothicNeoH00", size: size)!
     }
+    
+    class func KoPubWorldBatangM(size: CGFloat) -> UIFont {
+        return UIFont(name: "KoPubWorld바탕체 Medium", size: size)!
+    }
 }
 
