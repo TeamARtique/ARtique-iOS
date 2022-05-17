@@ -10,8 +10,3 @@ import Foundation
 struct RegisterModel: Codable {
     let exhibition: ExhibitionModel
 }
-
-struct RegisterStatusModel: Codable {
-    let exhibition: ExhibitionModel
-    let artworks: [ArtworkModel]
-}

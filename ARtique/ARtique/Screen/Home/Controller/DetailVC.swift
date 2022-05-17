@@ -31,6 +31,7 @@ class DetailVC: BaseVC {
     
     var exhibitionID: Int?
     var exhibitionData: DetailModel?
+    var isModal: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +86,13 @@ extension DetailVC {
     private func configureNaviBar() {
         navigationController?.additionalSafeAreaInsets.top = 8
         navigationController?.navigationBar.tintColor = .black
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBtn"),
+        navigationItem.leftBarButtonItem
+        = isModal ?? false
+        ? UIBarButtonItem(image: UIImage(named: "dismissBtn"),
+                          style: .plain,
+                          target: self,
+                          action: #selector(homeToRoot))
+        : UIBarButtonItem(image: UIImage(named: "BackBtn"),
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(popVC))

@@ -51,7 +51,7 @@ extension RegisterAPI {
                 let statusCode = response.statusCode
                 let data = response.data
                 
-                completion(self.judgeStatus(type: RegisterStatusModel.self, by: statusCode, data))
+                completion(self.judgeStatus(type: String.self, by: statusCode, data))
             case .failure(let error):
                 print(error.localizedDescription)
             }

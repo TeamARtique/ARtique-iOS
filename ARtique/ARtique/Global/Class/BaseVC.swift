@@ -42,6 +42,13 @@ extension BaseVC {
     @objc func popVC() {
         navigationController?.popViewController(animated: true)
     }
+    
+    /// 홈을 rootViewController로 만들어주는 함수
+    @objc func homeToRoot() {
+        guard let tabBar = UIStoryboard(name: Identifiers.tabBarSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.artiqueTBC) as? ARtiqueTBC else { return }
+        let ad = UIApplication.shared.delegate as! AppDelegate
+        ad.window?.rootViewController = tabBar
+    }
 }
 
 // MARK: - Network

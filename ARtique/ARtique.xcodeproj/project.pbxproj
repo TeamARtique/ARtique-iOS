@@ -34,8 +34,8 @@
 		235650D927F9FC870082E048 /* AlbumTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235650D727F9FC870082E048 /* AlbumTVC.swift */; };
 		235650DA27F9FC870082E048 /* AlbumTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 235650D827F9FC870082E048 /* AlbumTVC.xib */; };
 		235650DE27FA031F0082E048 /* AlbumListTVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 235650DD27FA031F0082E048 /* AlbumListTVC.storyboard */; };
-		23612897283219320097896B /* PhosterTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23612895283219320097896B /* PhosterTheme.swift */; };
-		23612898283219320097896B /* PhosterTheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23612896283219320097896B /* PhosterTheme.xib */; };
+		23612897283219320097896B /* PosterTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23612895283219320097896B /* PosterTheme.swift */; };
+		23612898283219320097896B /* PosterTheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23612896283219320097896B /* PosterTheme.xib */; };
 		2361289A2832196D0097896B /* PosterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236128992832196D0097896B /* PosterType.swift */; };
 		236FA178281EB33B00E819FE /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236FA177281EB33B00E819FE /* AlertVC.swift */; };
 		236FA17A281EB35F00E819FE /* Alert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 236FA179281EB35F00E819FE /* Alert.storyboard */; };
@@ -58,6 +58,8 @@
 		239C5D4D27F224A300D8A3D2 /* ArtworkSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 239C5D4B27F224A300D8A3D2 /* ArtworkSelectView.xib */; };
 		239C5D4F27F2327900D8A3D2 /* PHFetchOptions+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239C5D4E27F2327900D8A3D2 /* PHFetchOptions+.swift */; };
 		23A852C72806B1A600406A3C /* AppleSDGothicNeoL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23A852C62806B1A600406A3C /* AppleSDGothicNeoL.ttf */; };
+		23A8D33328344DFC00E4A9D4 /* DetailNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A8D33228344DFC00E4A9D4 /* DetailNC.swift */; };
+		23A8D3352834560100E4A9D4 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A8D3342834560100E4A9D4 /* LoadingIndicator.swift */; };
 		23B2E5D42758F7F300FA8CC2 /* HomeList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23B2E5D32758F7F300FA8CC2 /* HomeList.storyboard */; };
 		23B2E5D62758F9D700FA8CC2 /* HomeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B2E5D52758F9D700FA8CC2 /* HomeListVC.swift */; };
 		23B52A7927E0A54D00D6C339 /* AddExhibition.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23B52A7827E0A54D00D6C339 /* AddExhibition.storyboard */; };
@@ -184,8 +186,8 @@
 		235650D827F9FC870082E048 /* AlbumTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumTVC.xib; sourceTree = "<group>"; };
 		235650DD27FA031F0082E048 /* AlbumListTVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlbumListTVC.storyboard; sourceTree = "<group>"; };
 		235650E027FA195C0082E048 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		23612895283219320097896B /* PhosterTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhosterTheme.swift; sourceTree = "<group>"; };
-		23612896283219320097896B /* PhosterTheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhosterTheme.xib; sourceTree = "<group>"; };
+		23612895283219320097896B /* PosterTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterTheme.swift; sourceTree = "<group>"; };
+		23612896283219320097896B /* PosterTheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PosterTheme.xib; sourceTree = "<group>"; };
 		236128992832196D0097896B /* PosterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterType.swift; sourceTree = "<group>"; };
 		236FA177281EB33B00E819FE /* AlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
 		236FA179281EB35F00E819FE /* Alert.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Alert.storyboard; sourceTree = "<group>"; };
@@ -208,6 +210,8 @@
 		239C5D4B27F224A300D8A3D2 /* ArtworkSelectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtworkSelectView.xib; sourceTree = "<group>"; };
 		239C5D4E27F2327900D8A3D2 /* PHFetchOptions+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHFetchOptions+.swift"; sourceTree = "<group>"; };
 		23A852C62806B1A600406A3C /* AppleSDGothicNeoL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoL.ttf; sourceTree = "<group>"; };
+		23A8D33228344DFC00E4A9D4 /* DetailNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNC.swift; sourceTree = "<group>"; };
+		23A8D3342834560100E4A9D4 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		23B2E5D32758F7F300FA8CC2 /* HomeList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeList.storyboard; sourceTree = "<group>"; };
 		23B2E5D52758F9D700FA8CC2 /* HomeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListVC.swift; sourceTree = "<group>"; };
 		23B52A7827E0A54D00D6C339 /* AddExhibition.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddExhibition.storyboard; sourceTree = "<group>"; };
@@ -350,8 +354,8 @@
 		23612894283216DD0097896B /* Phoster */ = {
 			isa = PBXGroup;
 			children = (
-				23612895283219320097896B /* PhosterTheme.swift */,
-				23612896283219320097896B /* PhosterTheme.xib */,
+				23612895283219320097896B /* PosterTheme.swift */,
+				23612896283219320097896B /* PosterTheme.xib */,
 			);
 			path = Phoster;
 			sourceTree = "<group>";
@@ -392,6 +396,7 @@
 				238BFDC9280859C50018D256 /* ExhibitionList.storyboard */,
 				236FA177281EB33B00E819FE /* AlertVC.swift */,
 				236FA179281EB35F00E819FE /* Alert.storyboard */,
+				23A8D3342834560100E4A9D4 /* LoadingIndicator.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -670,6 +675,7 @@
 				2383787A280AFB9B002088E6 /* SearchVC.swift */,
 				23144218280C4053007DB53C /* SearchResultVC.swift */,
 				238BFDCD280947950018D256 /* ReorderBottomSheetVC.swift */,
+				23A8D33228344DFC00E4A9D4 /* DetailNC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1035,7 +1041,7 @@
 				3305F73A2754DABD00E6E08E /* Assets.xcassets in Resources */,
 				3305F7AB2754E66500E6E08E /* AppleSDGothicNeoB.ttf in Resources */,
 				3305F78A2754E2FE00E6E08E /* TabBar.storyboard in Resources */,
-				23612898283219320097896B /* PhosterTheme.xib in Resources */,
+				23612898283219320097896B /* PosterTheme.xib in Resources */,
 				239C5D4D27F224A300D8A3D2 /* ArtworkSelectView.xib in Resources */,
 				3305F7AD2754E66900E6E08E /* AppleSDGothicNeoSB.ttf in Resources */,
 				236FA17A281EB35F00E819FE /* Alert.storyboard in Resources */,
@@ -1114,6 +1120,7 @@
 				23E7350527EA24A1000315E6 /* UITextView+.swift in Sources */,
 				3305F7552754DF5B00E6E08E /* UILabel+.swift in Sources */,
 				23071DB427ECB47600949BA1 /* ArtworkExplainCVC.swift in Sources */,
+				23A8D3352834560100E4A9D4 /* LoadingIndicator.swift in Sources */,
 				23B52A7D27E0A5A500D6C339 /* AddExhibitionNC.swift in Sources */,
 				2383787B280AFB9B002088E6 /* SearchVC.swift in Sources */,
 				33A463F0282B01090049F0AF /* Artwork.swift in Sources */,
@@ -1160,6 +1167,7 @@
 				23E7350727EA4D1B000315E6 /* UIScrollView+.swift in Sources */,
 				23E5A13D2833D87600DDD328 /* RegisterAPI.swift in Sources */,
 				233DA02D28104AC300696487 /* CollectionViewLeftAlignFlowLayout.swift in Sources */,
+				23A8D33328344DFC00E4A9D4 /* DetailNC.swift in Sources */,
 				23E734F627E9A016000315E6 /* GalleryCVC.swift in Sources */,
 				33A463EC282AFF8C0049F0AF /* GalleryAPI.swift in Sources */,
 				23E734F627E9A016000315E6 /* GalleryCVC.swift in Sources */,
@@ -1193,7 +1201,7 @@
 				23C9AD6228019FDA00DFF5A2 /* MypageNC.swift in Sources */,
 				231435732822F3B900E41D7F /* BorderCVC.swift in Sources */,
 				23C9AD6B2801CC8500DFF5A2 /* MyExhibitionTVC.swift in Sources */,
-				23612897283219320097896B /* PhosterTheme.swift in Sources */,
+				23612897283219320097896B /* PosterTheme.swift in Sources */,
 				236FA17C281ED66500E819FE /* AlertType.swift in Sources */,
 				23D4CFC12831218B0012765A /* HomeAPI.swift in Sources */,
 				235610022832BAB000176D66 /* ExhibitionDetailAPI.swift in Sources */,

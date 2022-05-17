@@ -40,6 +40,7 @@ class HomeVC: TabmanViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: true)
+        tabBarController?.tabBar.isHidden = false
     }
     
     override func viewDidLoad() {
