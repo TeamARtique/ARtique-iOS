@@ -27,13 +27,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="930"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultPhoster" translatesAutoresizingMaskIntoConstraints="NO" id="ash-Bh-EbG">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultPoster" translatesAutoresizingMaskIntoConstraints="NO" id="ash-Bh-EbG" userLabel="Poster">
                                 <rect key="frame" x="20" y="52.000000000000028" width="335" height="446.66666666666674"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ash-Bh-EbG" secondAttribute="height" multiplier="3:4" id="ETJ-uA-e2z"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="64p-Ej-zKm">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="64p-Ej-zKm" userLabel="Poster Overlay">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="548.66666666666663"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -298,8 +298,8 @@ c2VwZXJhdG9yEA
                         <outlet property="infoTopViewTopAnchor" destination="LgM-Hd-HEW" id="b7Z-nT-VmI"/>
                         <outlet property="likeBtn" destination="Uxw-00-wC4" id="Hqb-Ov-pVl"/>
                         <outlet property="likeCnt" destination="vak-ct-4C8" id="Qwe-cG-W8b"/>
-                        <outlet property="phoster" destination="ash-Bh-EbG" id="R9B-ck-U1h"/>
-                        <outlet property="phosterOverlay" destination="64p-Ej-zKm" id="LPr-Mz-Z89"/>
+                        <outlet property="poster" destination="ash-Bh-EbG" id="R9B-ck-U1h"/>
+                        <outlet property="posterOverlay" destination="64p-Ej-zKm" id="LPr-Mz-Z89"/>
                         <outlet property="scrollBar" destination="N5b-63-qyu" id="f9W-be-HXv"/>
                         <outlet property="tagStackView" destination="7Ce-Jz-njR" id="602-nJ-IVz"/>
                     </connections>
@@ -311,7 +311,7 @@ c2VwZXJhdG9yEA
     </scenes>
     <resources>
         <image name="BookMark_UnSelected" width="36" height="36"/>
-        <image name="DefaultPhoster" width="333" height="444"/>
+        <image name="DefaultPoster" width="333" height="444"/>
         <image name="Like_UnSelected" width="36" height="36"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

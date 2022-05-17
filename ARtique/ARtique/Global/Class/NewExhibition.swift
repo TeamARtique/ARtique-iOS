@@ -11,8 +11,8 @@ class NewExhibition {
     static let shared = NewExhibition()
     
     var title: String?
-    var phosterImage: UIImage?
-    var phosterTheme: Int?
+    var posterImage: UIImage?
+    var posterTheme: Int?
     var description: String?
     var tag: [Int]?
     var category: Int?

@@ -14,8 +14,8 @@ class ExhibitionExplainView: UIView {
     @IBOutlet weak var baseSV: UIScrollView!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var categoryCV: UICollectionView!
-    @IBOutlet weak var phosterChangeBtn: UIButton!
-    @IBOutlet weak var phosterCV: UICollectionView!
+    @IBOutlet weak var posterChangeBtn: UIButton!
+    @IBOutlet weak var posterCV: UICollectionView!
     @IBOutlet weak var exhibitionExplainTextCnt: UILabel!
     @IBOutlet weak var exhibitionExplainTextView: UITextView!
     @IBOutlet weak var tagCV: UICollectionView!
@@ -61,10 +61,10 @@ extension ExhibitionExplainView {
         
         configureCV()
         
-        phosterChangeBtn.tintColor = .black
-        phosterChangeBtn.setTitle("  대표사진 변경하기", for: .normal)
-        phosterChangeBtn.titleLabel?.font = .AppleSDGothicSB(size: 12)
-        phosterChangeBtn.setImage(UIImage(named: "Change"), for: .normal)
+        posterChangeBtn.tintColor = .black
+        posterChangeBtn.setTitle("  대표사진 변경하기", for: .normal)
+        posterChangeBtn.titleLabel?.font = .AppleSDGothicSB(size: 12)
+        posterChangeBtn.setImage(UIImage(named: "Change"), for: .normal)
         
         exhibitionExplainTextView.setRoundTextView()
         exhibitionExplainTextView.setTextViewPlaceholder(exhibitionExplainPlaceholder)
@@ -80,12 +80,12 @@ extension ExhibitionExplainView {
         categoryCV.delegate = self
         categoryCV.isScrollEnabled = false
         
-        phosterCV.register(BorderCVC.self, forCellWithReuseIdentifier: Identifiers.borderCVC)
-        phosterCV.dataSource = self
-        phosterCV.delegate = self
-        phosterCV.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        phosterCV.showsHorizontalScrollIndicator = false
-        if let layout = phosterCV.collectionViewLayout as? UICollectionViewFlowLayout {
+        posterCV.register(BorderCVC.self, forCellWithReuseIdentifier: Identifiers.borderCVC)
+        posterCV.dataSource = self
+        posterCV.delegate = self
+        posterCV.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        posterCV.showsHorizontalScrollIndicator = false
+        if let layout = posterCV.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
         
@@ -126,7 +126,7 @@ extension ExhibitionExplainView {
             .disposed(by: bag)
         
         didSelectItem(at: categoryCV)
-        didSelectItem(at: phosterCV)
+        didSelectItem(at: posterCV)
         didSelectItem(at: tagCV)
     }
 }
@@ -140,8 +140,8 @@ extension ExhibitionExplainView {
                 switch collectionView {
                 case owner.categoryCV:
                     owner.exhibitionModel.category = index.row
-                case owner.phosterCV:
-                    owner.exhibitionModel.phosterTheme = index.row
+                case owner.posterCV:
+                    owner.exhibitionModel.posterTheme = index.row
                 case owner.tagCV:
                     owner.exhibitionModel.tag = owner.selectedTags()
                 default:
@@ -172,8 +172,8 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
         switch collectionView {
         case categoryCV:
             return CategoryType.allCases.count
-        case phosterCV:
-            return PhosterType.allCases.count
+        case posterCV:
+            return PosterType.allCases.count
         default:
             return 8
         }
@@ -181,7 +181,7 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let roundCell = categoryCV.dequeueReusableCell(withReuseIdentifier: Identifiers.roundCVC, for: indexPath) as? RoundCVC,
-              let phosterCell = phosterCV.dequeueReusableCell(withReuseIdentifier: Identifiers.borderCVC, for: indexPath) as? BorderCVC,
+              let posterCell = posterCV.dequeueReusableCell(withReuseIdentifier: Identifiers.borderCVC, for: indexPath) as? BorderCVC,
               let tagCell = tagCV.dequeueReusableCell(withReuseIdentifier: Identifiers.roundCVC, for: indexPath) as? RoundCVC
         else { return UICollectionViewCell() }
                 
@@ -189,11 +189,11 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
         case categoryCV:
             roundCell.configureCell(with: CategoryType.allCases[indexPath.row].categoryTitle, fontSize: 14)
             return roundCell
-        case phosterCV:
-            phosterCell.configurePhosterCell(image: NewExhibition.shared.artworks?.first ?? UIImage(),
+        case posterCV:
+            posterCell.configurePosterCell(image: NewExhibition.shared.artworks?.first ?? UIImage(),
                                              overlay: UIImage(named: "cellTemplate\(indexPath.row)") ?? UIImage(),
                                              borderWidth: 4)
-            return phosterCell
+            return posterCell
         default:
             tagCell.configureCell(with: TagType.allCases[indexPath.row].tagTitle, fontSize: 13)
             return tagCell
@@ -208,7 +208,7 @@ extension ExhibitionExplainView: UICollectionViewDelegateFlowLayout {
         case categoryCV:
             return CGSize(width: (collectionView.frame.width - 12) / 3,
                           height: 30)
-        case phosterCV:
+        case posterCV:
             return CGSize(width: 99, height: 132)
         default:
             guard let cell = tagCV.dequeueReusableCell(withReuseIdentifier: Identifiers.roundCVC, for: indexPath) as? RoundCVC else { return .zero }

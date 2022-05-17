@@ -22,7 +22,7 @@ class BorderCVC: UICollectionViewCell {
             $0.layer.opacity = 0.6
         }
     
-    private var phosterOverlay = UIImageView()
+    private var posterOverlay = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,12 +42,12 @@ class BorderCVC: UICollectionViewCell {
         didSet{
             if isSelected {
                 imageView.layer.borderColor = UIColor.black.cgColor
-                phosterOverlay.layer.borderColor = UIColor.black.cgColor
+                posterOverlay.layer.borderColor = UIColor.black.cgColor
                 selectedOverlay.isHidden = false
             }
             else {
                 imageView.layer.borderColor = UIColor.clear.cgColor
-                phosterOverlay.layer.borderColor = UIColor.clear.cgColor
+                posterOverlay.layer.borderColor = UIColor.clear.cgColor
                 selectedOverlay.isHidden = true
             }
         }
@@ -55,7 +55,7 @@ class BorderCVC: UICollectionViewCell {
     
     private func configureContentView() {
         contentView.addSubview(imageView)
-        contentView.addSubview(phosterOverlay)
+        contentView.addSubview(posterOverlay)
         contentView.addSubview(selectedOverlay)
         
         imageView.layer.borderColor = UIColor.clear.cgColor
@@ -69,7 +69,7 @@ class BorderCVC: UICollectionViewCell {
     func configureCell(image: UIImage, borderWidth: CGFloat) {
         imageView.image = image
         imageView.layer.borderWidth = borderWidth
-        phosterOverlay.layer.borderWidth = borderWidth
+        posterOverlay.layer.borderWidth = borderWidth
         
         selectedOverlay.snp.makeConstraints {
             $0.top.leading.equalToSuperview().offset(borderWidth)
@@ -77,12 +77,12 @@ class BorderCVC: UICollectionViewCell {
         }
     }
     
-    func configurePhosterCell(image: UIImage, overlay: UIImage, borderWidth: CGFloat) {
+    func configurePosterCell(image: UIImage, overlay: UIImage, borderWidth: CGFloat) {
         configureCell(image: image, borderWidth: borderWidth)
         
-        phosterOverlay.image = overlay
-        phosterOverlay.layer.borderColor = UIColor.clear.cgColor
-        phosterOverlay.snp.makeConstraints {
+        posterOverlay.image = overlay
+        posterOverlay.layer.borderColor = UIColor.clear.cgColor
+        posterOverlay.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }

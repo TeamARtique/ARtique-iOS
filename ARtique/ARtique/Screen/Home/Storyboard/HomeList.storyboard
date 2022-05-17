@@ -62,7 +62,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="277" height="429"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TQR-Bg-wC2">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TQR-Bg-wC2" userLabel="Poster">
                                                                         <rect key="frame" x="0.0" y="0.0" width="277" height="369.33333333333331"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="TQR-Bg-wC2" secondAttribute="height" multiplier="3:4" id="ZBp-vm-Lhh"/>
@@ -141,7 +141,7 @@
                                                                 <outlet property="isBookmarked" destination="Bav-eG-owz" id="OBi-eV-5RB"/>
                                                                 <outlet property="isLiked" destination="Rrt-Lz-oma" id="RbK-5p-2gb"/>
                                                                 <outlet property="likeCnt" destination="7U5-Bw-df2" id="lPJ-0y-TuE"/>
-                                                                <outlet property="phoster" destination="TQR-Bg-wC2" id="erZ-ft-cZs"/>
+                                                                <outlet property="poster" destination="TQR-Bg-wC2" id="erZ-ft-cZs"/>
                                                                 <outlet property="title" destination="wxS-kS-G45" id="W8P-CJ-WPs"/>
                                                             </connections>
                                                         </collectionViewCell>

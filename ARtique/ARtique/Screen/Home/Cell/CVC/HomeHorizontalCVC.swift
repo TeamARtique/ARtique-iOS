@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 class HomeHorizontalCVC: UICollectionViewCell {
-    @IBOutlet weak var phoster: UIImageView!
+    @IBOutlet weak var poster: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var author: UILabel!
     @IBOutlet weak var isLiked: UIImageView!
@@ -22,8 +22,8 @@ class HomeHorizontalCVC: UICollectionViewCell {
 
 extension HomeHorizontalCVC {
     func configureCell(_ exhibition: ExhibitionModel) {
-        phoster.kf.setImage(with: exhibition.phosterImgURL,
-                            placeholder: UIImage(named: "DefaultPhoster"),
+        poster.kf.setImage(with: exhibition.posterImgURL,
+                            placeholder: UIImage(named: "DefaultPoster"),
                             options: [
                               .scaleFactor(UIScreen.main.scale),
                               .cacheOriginalImage

@@ -36,7 +36,7 @@
 		235650DE27FA031F0082E048 /* AlbumListTVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 235650DD27FA031F0082E048 /* AlbumListTVC.storyboard */; };
 		23612897283219320097896B /* PhosterTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23612895283219320097896B /* PhosterTheme.swift */; };
 		23612898283219320097896B /* PhosterTheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23612896283219320097896B /* PhosterTheme.xib */; };
-		2361289A2832196D0097896B /* PhosterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236128992832196D0097896B /* PhosterType.swift */; };
+		2361289A2832196D0097896B /* PosterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236128992832196D0097896B /* PosterType.swift */; };
 		236FA178281EB33B00E819FE /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236FA177281EB33B00E819FE /* AlertVC.swift */; };
 		236FA17A281EB35F00E819FE /* Alert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 236FA179281EB35F00E819FE /* Alert.storyboard */; };
 		236FA17C281ED66500E819FE /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236FA17B281ED66500E819FE /* AlertType.swift */; };
@@ -181,7 +181,7 @@
 		235650E027FA195C0082E048 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		23612895283219320097896B /* PhosterTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhosterTheme.swift; sourceTree = "<group>"; };
 		23612896283219320097896B /* PhosterTheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhosterTheme.xib; sourceTree = "<group>"; };
-		236128992832196D0097896B /* PhosterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhosterType.swift; sourceTree = "<group>"; };
+		236128992832196D0097896B /* PosterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterType.swift; sourceTree = "<group>"; };
 		236FA177281EB33B00E819FE /* AlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
 		236FA179281EB35F00E819FE /* Alert.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Alert.storyboard; sourceTree = "<group>"; };
 		236FA17B281ED66500E819FE /* AlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
@@ -356,7 +356,7 @@
 				236FA17B281ED66500E819FE /* AlertType.swift */,
 				2314356F2822D66E00E41D7F /* ThemeType.swift */,
 				23560FFB2832B67F00176D66 /* ExhibitionSortType.swift */,
-				236128992832196D0097896B /* PhosterType.swift */,
+				236128992832196D0097896B /* PosterType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -1087,7 +1087,7 @@
 				3305F7872754E28B00E6E08E /* ViewControllerFactory.swift in Sources */,
 				23B52A7B27E0A56900D6C339 /* AddExhibitionVC.swift in Sources */,
 				33A463EA282AFE6C0049F0AF /* GalleryService.swift in Sources */,
-				2361289A2832196D0097896B /* PhosterType.swift in Sources */,
+				2361289A2832196D0097896B /* PosterType.swift in Sources */,
 				23E7350527EA24A1000315E6 /* UITextView+.swift in Sources */,
 				3305F7552754DF5B00E6E08E /* UILabel+.swift in Sources */,
 				23071DB427ECB47600949BA1 /* ArtworkExplainCVC.swift in Sources */,

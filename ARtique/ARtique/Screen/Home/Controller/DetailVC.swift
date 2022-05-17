@@ -10,8 +10,8 @@ import SnapKit
 import Kingfisher
 
 class DetailVC: BaseVC {
-    @IBOutlet weak var phoster: UIImageView!
-    @IBOutlet weak var phosterOverlay: UIView!
+    @IBOutlet weak var poster: UIImageView!
+    @IBOutlet weak var posterOverlay: UIView!
     @IBOutlet weak var infoTopView: UIView!
     @IBOutlet weak var infoTopViewTopAnchor: NSLayoutConstraint!
     @IBOutlet weak var infoCenterHeight: NSLayoutConstraint!
@@ -69,7 +69,7 @@ extension DetailVC {
     private func configureView() {
         exhiTitle.font = .AppleSDGothicB(size: 18)
         exhiTitle.setLineBreakMode()
-        phoster.contentMode = .scaleAspectFill
+        poster.contentMode = .scaleAspectFill
         explanation.font = .AppleSDGothicL(size: 14)
         explanation.setLineBreakMode()
         author.titleLabel?.font = .AppleSDGothicL(size: 13)
@@ -131,18 +131,18 @@ extension DetailVC {
     private func configureLayout(isScrolled: Bool) {
         if isScrolled {
             navigationItem.title = ""
-            phosterOverlay.layer.opacity = 0.3
-            phoster.snp.remakeConstraints {
+            posterOverlay.layer.opacity = 0.3
+            poster.snp.remakeConstraints {
                 $0.top.equalToSuperview()
                 $0.leading.equalToSuperview()
                 $0.trailing.equalToSuperview()
             }
             infoCenterHeight.constant = 125
-            infoTopViewTopAnchor.constant = screenHeight - (phoster.frame.height + infoTopView.frame.height + 123 + 122 + 89)
+            infoTopViewTopAnchor.constant = screenHeight - (poster.frame.height + infoTopView.frame.height + 123 + 122 + 89)
         } else {
             navigationItem.title = exhibitionData?.exhibition.title
-            phosterOverlay.layer.opacity = 0
-            phoster.snp.remakeConstraints {
+            posterOverlay.layer.opacity = 0
+            poster.snp.remakeConstraints {
                 $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
                 $0.leading.equalToSuperview().offset(20)
                 $0.trailing.equalToSuperview().offset(-20)
@@ -161,8 +161,8 @@ extension DetailVC {
     }
     
     private func configureExhibitionData() {
-        phoster.kf.setImage(with: exhibitionData?.exhibition.phosterImgURL,
-                            placeholder: UIImage(named: "DefaultPhoster"),
+        poster.kf.setImage(with: exhibitionData?.exhibition.posterImgURL,
+                            placeholder: UIImage(named: "DefaultPoster"),
                             options: [
                               .scaleFactor(UIScreen.main.scale),
                               .cacheOriginalImage
@@ -244,7 +244,7 @@ extension DetailVC {
     @objc func didTapShareBtn() {
         // TODO: - Firebase 연동 후 동적 URL 생성
         let url = "Exhibition URL"
-        let activityVC = UIActivityViewController(activityItems: [url, phoster.image ?? UIImage()], applicationActivities: nil)
+        let activityVC = UIActivityViewController(activityItems: [url, poster.image ?? UIImage()], applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = self.view
         
         self.present(activityVC, animated: true, completion: nil)

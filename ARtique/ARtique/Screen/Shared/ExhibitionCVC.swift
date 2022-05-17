@@ -10,7 +10,7 @@ import SnapKit
 import Kingfisher
 
 class ExhibitionCVC: UICollectionViewCell {
-    @IBOutlet weak var phoster: UIImageView!
+    @IBOutlet weak var poster: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var author: UILabel!
     @IBOutlet weak var date: UILabel!
@@ -29,7 +29,7 @@ class ExhibitionCVC: UICollectionViewCell {
 
 extension ExhibitionCVC {
     private func configureFont() {
-        phoster.contentMode = .scaleAspectFill
+        poster.contentMode = .scaleAspectFill
         title.font = .AppleSDGothicB(size: 15)
         author.font = .AppleSDGothicSB(size: 12)
         date.font = .AppleSDGothicL(size: 12)
@@ -40,8 +40,8 @@ extension ExhibitionCVC {
     
     func configureCell(_ exhibition: ExhibitionModel) {
         exhibitionData = exhibition
-        phoster.kf.setImage(with: exhibition.phosterImgURL,
-                            placeholder: UIImage(named: "DefaultPhoster"),
+        poster.kf.setImage(with: exhibition.posterImgURL,
+                            placeholder: UIImage(named: "DefaultPoster"),
                             options: [
                               .scaleFactor(UIScreen.main.scale),
                               .cacheOriginalImage

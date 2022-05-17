@@ -1,5 +1,5 @@
 //
-//  PhosterTheme.swift
+//  PosterTheme.swift
 //  ARtique
 //
 //  Created by 황윤경 on 2022/05/16.
@@ -8,9 +8,9 @@
 import UIKit
 import SnapKit
 
-class PhosterTheme: UIView {
+class PosterTheme: UIView {
     @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var phosterImage: UIImageView!
+    @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var overlay: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var author: UILabel!
@@ -28,9 +28,9 @@ class PhosterTheme: UIView {
 }
 
 // MARK: - Configure
-extension PhosterTheme {
+extension PosterTheme {
     private func setContentView() {
-        guard let view = loadXibView(with: Identifiers.phosterTheme) else { return }
+        guard let view = loadXibView(with: Identifiers.posterTheme) else { return }
         view.backgroundColor = .clear
         self.addSubview(view)
         
@@ -39,9 +39,9 @@ extension PhosterTheme {
         }
     }
     
-    func configurePhoster(themeId: PhosterType, phoster: UIImage, title: String, nickname: String, date: String) {
-        phosterImage.image = phoster
-        phosterImage.contentMode = .scaleAspectFill
+    func configurePoster(themeId: PosterType, poster: UIImage, title: String, nickname: String, date: String) {
+        posterImage.image = poster
+        posterImage.contentMode = .scaleAspectFill
         overlay.image = themeId.overlay
         self.title.setLineBreakMode()
         self.title.text = title
@@ -63,14 +63,14 @@ extension PhosterTheme {
             self.title.removeFromSuperview()
             self.author.removeFromSuperview()
             self.date.removeFromSuperview()
-            phosterImage.snp.makeConstraints {
+            posterImage.snp.makeConstraints {
                 $0.edges.equalToSuperview()
             }
             
         case .theme1, .theme2:
             self.author.removeFromSuperview()
             self.date.removeFromSuperview()
-            phosterImage.snp.makeConstraints {
+            posterImage.snp.makeConstraints {
                 $0.edges.equalToSuperview()
             }
             self.title.snp.makeConstraints {
@@ -81,7 +81,7 @@ extension PhosterTheme {
             
         case .theme3, .theme4:
             self.date.removeFromSuperview()
-            phosterImage.snp.makeConstraints {
+            posterImage.snp.makeConstraints {
                 $0.edges.equalToSuperview()
             }
             self.title.snp.makeConstraints {
@@ -97,7 +97,7 @@ extension PhosterTheme {
         case .theme5, .theme6:
             self.author.rotate(degrees: -90)
             self.date.rotate(degrees: 90)
-            phosterImage.snp.makeConstraints {
+            posterImage.snp.makeConstraints {
                 $0.top.equalToSuperview().offset(67)
                 $0.leading.equalToSuperview().offset(69)
                 $0.trailing.equalToSuperview().offset(-69)
@@ -121,7 +121,7 @@ extension PhosterTheme {
             self.author.text = "\(nickname) - \(date)"
             self.author.rotate(degrees: 90)
             self.date.removeFromSuperview()
-            phosterImage.snp.makeConstraints {
+            posterImage.snp.makeConstraints {
                 $0.top.equalToSuperview().offset(60)
                 $0.leading.equalToSuperview().offset(45)
                 $0.trailing.equalToSuperview().offset(-45)
@@ -139,7 +139,7 @@ extension PhosterTheme {
         case .theme9, .theme10:
             self.author.text = "\(nickname)\n-\n\(date)"
             self.date.removeFromSuperview()
-            phosterImage.snp.makeConstraints {
+            posterImage.snp.makeConstraints {
                 $0.top.equalToSuperview().offset(42)
                 $0.leading.equalToSuperview().offset(57)
                 $0.trailing.equalToSuperview().offset(-57)
@@ -159,16 +159,16 @@ extension PhosterTheme {
         case .theme11, .theme12:
             self.author.text = "\(nickname) • \(date)"
             self.date.removeFromSuperview()
-            let phosterImage2 = UIImageView(image: phoster)
-            phosterImage2.contentMode = .scaleAspectFill
-            contentView.insertSubview(phosterImage2, at: 0)
-            phosterImage.snp.makeConstraints {
+            let posterImage2 = UIImageView(image: poster)
+            posterImage2.contentMode = .scaleAspectFill
+            contentView.insertSubview(posterImage2, at: 0)
+            posterImage.snp.makeConstraints {
                 $0.top.equalToSuperview().offset(60)
                 $0.leading.equalToSuperview().offset(-70)
                 $0.trailing.equalToSuperview().offset(-175)
                 $0.bottom.equalToSuperview().offset(-80)
             }
-            phosterImage2.snp.makeConstraints {
+            posterImage2.snp.makeConstraints {
                 $0.top.equalToSuperview().offset(60)
                 $0.leading.equalToSuperview().offset(175)
                 $0.trailing.equalToSuperview().offset(70)
