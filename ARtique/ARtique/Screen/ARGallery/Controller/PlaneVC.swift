@@ -27,6 +27,7 @@ class PlaneVC: UIViewController {
     /// 바닥 인식 사각형
     var focusSquare = FocusSquare()
     var isExhibitionStart = false
+    var exhibitionId: Int?
     
     // MARK: Life Cycles
     override func viewDidLoad() {
@@ -67,6 +68,7 @@ class PlaneVC: UIViewController {
         }
         galleryVC.modalTransitionStyle = .crossDissolve
         galleryVC.modalPresentationStyle = .fullScreen
+        galleryVC.exhibitionId = exhibitionId
         present(galleryVC, animated: true, completion: nil)
     }
 }

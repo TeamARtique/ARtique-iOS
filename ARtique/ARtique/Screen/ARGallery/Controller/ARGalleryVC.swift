@@ -25,11 +25,12 @@ class ARGalleryVC: BaseVC {
     var defaultGalleryNode: SCNNode!
     var planeRecognizedPosition: SCNVector3?
     var galleryType: GalleyType = .minimum
+    var exhibitionId: Int?
     
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        getARGalleryInfo(exhibitionID: 107)
+        getARGalleryInfo(exhibitionID: exhibitionId ?? 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {

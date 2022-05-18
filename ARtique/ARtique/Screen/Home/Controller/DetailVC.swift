@@ -55,7 +55,8 @@ class DetailVC: BaseVC {
     }
     
     @IBAction func goToARGalleryBtnDidTap(_ sender: UIButton) {
-        let galleryVC = ViewControllerFactory.viewController(for: .arGallery)
+        guard let galleryVC = UIStoryboard(name: Identifiers.arGallerySB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.planeRecognitionVC) as? PlaneVC else { return }
+        galleryVC.exhibitionId = exhibitionID
         galleryVC.modalPresentationStyle = .fullScreen
         present(galleryVC, animated: true, completion: nil)
     }
