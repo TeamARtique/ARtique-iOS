@@ -10,8 +10,8 @@ import SnapKit
 import Kingfisher
 
 class DetailVC: BaseVC {
-    @IBOutlet weak var phoster: UIImageView!
-    @IBOutlet weak var phosterOverlay: UIView!
+    @IBOutlet weak var poster: UIImageView!
+    @IBOutlet weak var posterOverlay: UIView!
     @IBOutlet weak var infoTopView: UIView!
     @IBOutlet weak var infoTopViewTopAnchor: NSLayoutConstraint!
     @IBOutlet weak var infoCenterHeight: NSLayoutConstraint!
@@ -31,6 +31,7 @@ class DetailVC: BaseVC {
     
     var exhibitionID: Int?
     var exhibitionData: DetailModel?
+    var isModal: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +55,8 @@ class DetailVC: BaseVC {
     }
     
     @IBAction func goToARGalleryBtnDidTap(_ sender: UIButton) {
-        let galleryVC = ViewControllerFactory.viewController(for: .arGallery)
+        guard let galleryVC = UIStoryboard(name: Identifiers.arGallerySB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.planeRecognitionVC) as? PlaneVC else { return }
+        galleryVC.exhibitionId = exhibitionID
         galleryVC.modalPresentationStyle = .fullScreen
         present(galleryVC, animated: true, completion: nil)
     }
@@ -69,7 +71,7 @@ extension DetailVC {
     private func configureView() {
         exhiTitle.font = .AppleSDGothicB(size: 18)
         exhiTitle.setLineBreakMode()
-        phoster.contentMode = .scaleAspectFill
+        poster.contentMode = .scaleAspectFill
         explanation.font = .AppleSDGothicL(size: 14)
         explanation.setLineBreakMode()
         author.titleLabel?.font = .AppleSDGothicL(size: 13)
@@ -85,7 +87,13 @@ extension DetailVC {
     private func configureNaviBar() {
         navigationController?.additionalSafeAreaInsets.top = 8
         navigationController?.navigationBar.tintColor = .black
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBtn"),
+        navigationItem.leftBarButtonItem
+        = isModal ?? false
+        ? UIBarButtonItem(image: UIImage(named: "dismissBtn"),
+                          style: .plain,
+                          target: self,
+                          action: #selector(homeToRoot))
+        : UIBarButtonItem(image: UIImage(named: "BackBtn"),
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(popVC))
@@ -131,18 +139,18 @@ extension DetailVC {
     private func configureLayout(isScrolled: Bool) {
         if isScrolled {
             navigationItem.title = ""
-            phosterOverlay.layer.opacity = 0.3
-            phoster.snp.remakeConstraints {
+            posterOverlay.layer.opacity = 0.3
+            poster.snp.remakeConstraints {
                 $0.top.equalToSuperview()
                 $0.leading.equalToSuperview()
                 $0.trailing.equalToSuperview()
             }
             infoCenterHeight.constant = 125
-            infoTopViewTopAnchor.constant = screenHeight - (phoster.frame.height + infoTopView.frame.height + 123 + 122 + 89)
+            infoTopViewTopAnchor.constant = screenHeight - (poster.frame.height + infoTopView.frame.height + 123 + 122 + 89)
         } else {
             navigationItem.title = exhibitionData?.exhibition.title
-            phosterOverlay.layer.opacity = 0
-            phoster.snp.remakeConstraints {
+            posterOverlay.layer.opacity = 0
+            poster.snp.remakeConstraints {
                 $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
                 $0.leading.equalToSuperview().offset(20)
                 $0.trailing.equalToSuperview().offset(-20)
@@ -161,8 +169,8 @@ extension DetailVC {
     }
     
     private func configureExhibitionData() {
-        phoster.kf.setImage(with: exhibitionData?.exhibition.phosterImgURL,
-                            placeholder: UIImage(named: "DefaultPhoster"),
+        poster.kf.setImage(with: exhibitionData?.exhibition.posterImgURL,
+                            placeholder: UIImage(named: "DefaultPoster"),
                             options: [
                               .scaleFactor(UIScreen.main.scale),
                               .cacheOriginalImage
@@ -187,13 +195,13 @@ extension DetailVC {
                          ? UIImage(named: "Like_Selected")
                          : UIImage(named: "Like_UnSelected"),
                          for: .normal)
-        likeCnt.text = "\(exhibitionData?.like.likeCount ?? 0)"
+        likeCnt.text = exhibitionData?.like.likeCnt
         bookMarkBtn.isSelected = exhibitionData?.bookmark.isBookmarked ?? false
         bookMarkBtn.setImage((exhibitionData?.bookmark.isBookmarked ?? false)
                          ? UIImage(named: "BookMark_Selected")
                          : UIImage(named: "BookMark_UnSelected"),
                          for: .normal)
-        bookmarkCnt.text = "\(exhibitionData?.bookmark.bookmarkCount ?? 0)"
+        bookmarkCnt.text = exhibitionData?.bookmark.bookmarkCnt
         createdAt.text = exhibitionData?.exhibition.date ?? "Date"
         category.text = CategoryType.allCases[0].categoryTitle
         gallery.text = "\(ThemeType.init(rawValue: exhibitionData?.exhibition.galleryTheme ?? 1)?.themeTitle ?? "테마") / \(exhibitionData?.exhibition.gallerySize ?? 0)개"
@@ -244,7 +252,7 @@ extension DetailVC {
     @objc func didTapShareBtn() {
         // TODO: - Firebase 연동 후 동적 URL 생성
         let url = "Exhibition URL"
-        let activityVC = UIActivityViewController(activityItems: [url, phoster.image ?? UIImage()], applicationActivities: nil)
+        let activityVC = UIActivityViewController(activityItems: [url, poster.image ?? UIImage()], applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = self.view
         
         self.present(activityVC, animated: true, completion: nil)

@@ -12,3 +12,9 @@ struct Like: Codable {
     let isLiked: Bool
     let likeCount: Int
 }
+
+extension Like {
+    var likeCnt: String {
+        return likeCount > 99 ? "99+" : "\(likeCount)"
+    }
+}

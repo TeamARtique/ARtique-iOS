@@ -24,6 +24,7 @@ class AddExhibitionVC: BaseVC {
     let postExplainView = PostExplainView()
     let exhibitionExplainView = ExhibitionExplainView()
     let bag = DisposeBag()
+    let postArtworkGroup = DispatchGroup()
     
     var page: Int = 0
     
@@ -159,7 +160,6 @@ extension AddExhibitionVC {
         case 1:
             artworkSelectView.configureViewTitle()
             artworkSelectView.setPreviewImage([0,0])
-            artworkSelectView.selectedImages = exhibitionModel.artworks ?? [UIImage]()
         case 2:
             orderView.selectedPhotoCV.reloadData()
             orderView.selectedPhotoCV.scrollToItem(at: [0,0], at: .top, animated: false)
@@ -168,8 +168,8 @@ extension AddExhibitionVC {
             postExplainView.artworkExplainCV.scrollToItem(at: [0,0], at: .left, animated: false)
         case 4:
             exhibitionExplainView.baseSV.scrollToTop()
-            exhibitionExplainView.phosterCV.reloadData()
-            exhibitionExplainView.phosterCV.scrollToItem(at: [0,0], at: .left, animated: false)
+            exhibitionExplainView.posterCV.reloadData()
+            exhibitionExplainView.posterCV.scrollToItem(at: [0,0], at: .left, animated: false)
         default:
             break
         }
@@ -199,17 +199,107 @@ extension AddExhibitionVC {
     }
     
     @objc func removeAllExhibitionData() {
-        NewExhibition.shared.gallerySize = nil
-        NewExhibition.shared.galleryTheme = nil
+        exhibitionModel.gallerySize = nil
+        exhibitionModel.galleryTheme = nil
         dismiss(animated: false) {
             self.dismiss(animated: true, completion: nil)
         }
     }
     
     @objc func registerExhibition() {
-        // TODO: - 게시글 등록 완료
-        dismiss(animated: false) {
-            self.dismiss(animated: true, completion: nil)
+        LoadingIndicator.showLoading()
+        makePoster()
+        self.dismiss(animated: false)
+        postExhibition(exhibitionData: NewExhibition.shared)
+    }
+    
+    private func makePoster() {
+        let baseView = UIView()
+        view.insertSubview(baseView, at: 0)
+        
+        let posterImage = PosterTheme()
+        posterImage.translatesAutoresizingMaskIntoConstraints = false
+        posterImage.configurePoster(themeId: PosterType.allCases[exhibitionModel.posterTheme ?? 0],
+                                    poster: exhibitionModel.artworks?.first?.image ?? UIImage(named: "DefaultPoster")!,
+                                    title: exhibitionModel.title ?? "",
+                                    nickname: UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) ?? "ARTI",
+                                    date: Date().toString())
+        baseView.insertSubview(posterImage.contentView, at: 0)
+        exhibitionModel.posterImage = posterImage.contentView.transfromToImage() ?? UIImage(named: "DefaultPoster")!
+        baseView.removeFromSuperview()
+    }
+    
+    private func showDetail(with exhibitionId: Int) {
+        guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
+        
+        detailVC.exhibitionID = exhibitionId
+        detailVC.isModal = true
+        let navi = UINavigationController(rootViewController: detailVC)
+        navi.modalPresentationStyle = .fullScreen
+        self.present(navi, animated: true)
+    }
+}
+
+// MARK: - Network
+extension AddExhibitionVC {
+    private func postExhibition(exhibitionData: NewExhibition) {
+        RegisterAPI.shared.postExhibitionData(exhibitionData: exhibitionData) { networkResult in
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? RegisterModel {
+                    exhibitionData.artworks?.forEach({ artworkData in
+                        self.postArtworkGroup.enter()
+                        self.postArtworks(exhibitionId: data.exhibition.exhibitionId ?? 0,
+                                          artwork: artworkData)
+                    })
+                    
+                    self.postArtworkGroup.notify(queue: .main) {
+                        self.getRegisterStatus(exhibitionID: data.exhibition.exhibitionId ?? 0)
+                    }
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
+    }
+    
+    private func postArtworks(exhibitionId: Int, artwork: ArtworkData) {
+        RegisterAPI.shared.postArtworkData(exhibitionID: exhibitionId, artwork: artwork) { networkResult in
+            switch networkResult {
+            case .success(let exhibitionData):
+                if exhibitionData is ArtworkModel {
+                    self.postArtworkGroup.leave()
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
+    }
+    
+    private func getRegisterStatus(exhibitionID: Int) {
+        RegisterAPI.shared.getRegisterStatus(exhibitionID: exhibitionID) { networkResult in
+            switch networkResult {
+            case .success(_):
+                self.showDetail(with: exhibitionID)
+                LoadingIndicator.hideLoading()
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
         }
     }
 }
@@ -228,6 +318,12 @@ extension AddExhibitionVC {
             if exhibitionModel.artworks?.count == exhibitionModel.gallerySize {
                 page += 1
                 configurePageView(page)
+                for i in 0..<artworkSelectView.selectedImages.count {
+                    let tmp = ArtworkData()
+                    tmp.image = artworkSelectView.selectedImages[i]
+                    tmp.index = i + 1
+                    exhibitionModel.artworks?[i] = tmp
+                }
             }
         case 4:
             popupAlert(targetView: self,

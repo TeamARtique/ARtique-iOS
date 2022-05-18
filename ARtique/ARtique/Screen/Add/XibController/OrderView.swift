@@ -58,14 +58,8 @@ extension OrderView {
     private func reorderItems(coordinator : UICollectionViewDropCoordinator, destinationIndexPath : IndexPath, collectionView : UICollectionView) {
         if let item = coordinator.items.first, let sourceIndexPath = item.sourceIndexPath {
             collectionView.performBatchUpdates({
-                let item = exhibitionModel.artworks?.remove(at: sourceIndexPath.row) ?? UIImage()
+                guard let item = exhibitionModel.artworks?.remove(at: sourceIndexPath.row) else { return }
                 exhibitionModel.artworks?.insert(item, at: destinationIndexPath.row)
-                
-                guard let title = exhibitionModel.artworkTitle?.remove(at: sourceIndexPath.row) else { return }
-                exhibitionModel.artworkTitle?.insert(title, at: destinationIndexPath.row)
-                
-                guard let explain = exhibitionModel.artworkExplain?.remove(at: sourceIndexPath.row) else { return }
-                exhibitionModel.artworkExplain?.insert(explain, at: destinationIndexPath.row)
                 
                 collectionView.deleteItems(at: [sourceIndexPath])
                 collectionView.insertItems(at: [destinationIndexPath])
@@ -81,12 +75,12 @@ extension OrderView {
 // MARK: - UICollectionViewDataSource
 extension OrderView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        NewExhibition.shared.artworks?.count ?? 0
+        exhibitionModel.artworks?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.galleryCVC, for: indexPath) as? GalleryCVC else { return UICollectionViewCell() }
-        cell.configureCell(with: exhibitionModel.artworks?[indexPath.row] ?? UIImage())
+        cell.configureCell(with: exhibitionModel.artworks?[indexPath.row].image ?? UIImage())
         cell.setSelectedIndex(indexPath.row + 1)
         return cell
     }

@@ -62,7 +62,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="277" height="429"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TQR-Bg-wC2">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TQR-Bg-wC2" userLabel="Poster">
                                                                         <rect key="frame" x="0.0" y="0.0" width="277" height="369.33333333333331"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="TQR-Bg-wC2" secondAttribute="height" multiplier="3:4" id="ZBp-vm-Lhh"/>
@@ -131,6 +131,7 @@
                                                                     <constraint firstItem="wxS-kS-G45" firstAttribute="top" secondItem="TQR-Bg-wC2" secondAttribute="bottom" constant="10" id="gNJ-Vu-ph1"/>
                                                                     <constraint firstItem="wxS-kS-G45" firstAttribute="leading" secondItem="oRg-8i-CjA" secondAttribute="leading" id="hyq-sZ-kdx"/>
                                                                     <constraint firstItem="J24-kK-N55" firstAttribute="leading" secondItem="oRg-8i-CjA" secondAttribute="leading" id="wOt-vb-fVZ"/>
+                                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wxS-kS-G45" secondAttribute="trailing" constant="55" id="xLt-32-7lY"/>
                                                                     <constraint firstItem="TQR-Bg-wC2" firstAttribute="leading" secondItem="oRg-8i-CjA" secondAttribute="leading" id="zeY-FG-JeH"/>
                                                                 </constraints>
                                                             </collectionViewCellContentView>
@@ -141,7 +142,7 @@
                                                                 <outlet property="isBookmarked" destination="Bav-eG-owz" id="OBi-eV-5RB"/>
                                                                 <outlet property="isLiked" destination="Rrt-Lz-oma" id="RbK-5p-2gb"/>
                                                                 <outlet property="likeCnt" destination="7U5-Bw-df2" id="lPJ-0y-TuE"/>
-                                                                <outlet property="phoster" destination="TQR-Bg-wC2" id="erZ-ft-cZs"/>
+                                                                <outlet property="poster" destination="TQR-Bg-wC2" id="erZ-ft-cZs"/>
                                                                 <outlet property="title" destination="wxS-kS-G45" id="W8P-CJ-WPs"/>
                                                             </connections>
                                                         </collectionViewCell>

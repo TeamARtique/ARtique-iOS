@@ -1,5 +1,5 @@
 //
-//  PhosterType.swift
+//  PosterType.swift
 //  ARtique
 //
 //  Created by 황윤경 on 2022/05/16.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum PhosterType: CaseIterable {
+enum PosterType: CaseIterable {
     case theme0
     case theme1
     case theme2
@@ -23,7 +23,7 @@ enum PhosterType: CaseIterable {
     case theme12
 }
 
-extension PhosterType {
+extension PosterType {
     var overlay: UIImage {
         switch self {
         case .theme0:

@@ -26,7 +26,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="132" height="241"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultPhoster" translatesAutoresizingMaskIntoConstraints="NO" id="wob-Nt-BhP">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultPoster" translatesAutoresizingMaskIntoConstraints="NO" id="wob-Nt-BhP">
                         <rect key="frame" x="0.0" y="0.0" width="132" height="176"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="wob-Nt-BhP" secondAttribute="height" multiplier="3:4" id="mME-B2-coO"/>
@@ -102,6 +102,7 @@
                 <constraint firstItem="YGI-OX-2EF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="WHZ-kr-KhL"/>
                 <constraint firstItem="0d9-e0-G7J" firstAttribute="centerY" secondItem="xnT-Mc-l6k" secondAttribute="centerY" id="ZxF-Ed-V3Q"/>
                 <constraint firstItem="wob-Nt-BhP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ahq-Ls-cIz"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xnT-Mc-l6k" secondAttribute="trailing" constant="66" id="esO-Jm-gU1"/>
                 <constraint firstItem="YGI-OX-2EF" firstAttribute="top" secondItem="wob-Nt-BhP" secondAttribute="bottom" constant="10" id="gic-mf-2vh"/>
                 <constraint firstItem="0d9-e0-G7J" firstAttribute="leading" secondItem="LlO-9K-RYy" secondAttribute="trailing" constant="5" id="o4S-3H-CPn"/>
                 <constraint firstItem="Smb-hY-wgE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="swG-BZ-gDg"/>
@@ -115,7 +116,7 @@
                 <outlet property="isBookmarked" destination="wQg-4y-pNO" id="hqH-T1-cnK"/>
                 <outlet property="isLiked" destination="gKf-fs-bap" id="Juq-EF-T0f"/>
                 <outlet property="likeCnt" destination="x0M-2x-T83" id="6kz-jM-KAy"/>
-                <outlet property="phoster" destination="wob-Nt-BhP" id="9oH-Ji-bzg"/>
+                <outlet property="poster" destination="wob-Nt-BhP" id="9oH-Ji-bzg"/>
                 <outlet property="title" destination="YGI-OX-2EF" id="Vg0-kI-5bH"/>
             </connections>
             <point key="canvasLocation" x="246.37681159420291" y="192.52232142857142"/>
@@ -123,7 +124,7 @@
     </objects>
     <resources>
         <image name="BookMark_UnSelected" width="36" height="36"/>
-        <image name="DefaultPhoster" width="333" height="444"/>
+        <image name="DefaultPoster" width="333" height="444"/>
         <image name="Like_UnSelected" width="36" height="36"/>
     </resources>
 </document>

@@ -10,7 +10,7 @@ import UIKit
 struct ExhibitionModel: Codable {
     var exhibitionId: Int?
     var title: String?
-    var phosterImage: String?
+    var posterImage: String?
     var artist: Artist?
     var like: Like?
     var bookmark: Bookmark?
@@ -24,9 +24,9 @@ struct ExhibitionModel: Codable {
 }
 
 extension ExhibitionModel {
-    var phosterImgURL: URL? {
-        guard let phosterImgURL = phosterImage else { return nil }
-        let encodedStr = phosterImgURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+    var posterImgURL: URL? {
+        guard let posterImgURL = posterImage else { return nil }
+        let encodedStr = posterImgURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: encodedStr)!
         return url
     }
