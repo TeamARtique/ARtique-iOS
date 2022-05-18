@@ -131,6 +131,7 @@
                                                                     <constraint firstItem="wxS-kS-G45" firstAttribute="top" secondItem="TQR-Bg-wC2" secondAttribute="bottom" constant="10" id="gNJ-Vu-ph1"/>
                                                                     <constraint firstItem="wxS-kS-G45" firstAttribute="leading" secondItem="oRg-8i-CjA" secondAttribute="leading" id="hyq-sZ-kdx"/>
                                                                     <constraint firstItem="J24-kK-N55" firstAttribute="leading" secondItem="oRg-8i-CjA" secondAttribute="leading" id="wOt-vb-fVZ"/>
+                                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wxS-kS-G45" secondAttribute="trailing" constant="55" id="xLt-32-7lY"/>
                                                                     <constraint firstItem="TQR-Bg-wC2" firstAttribute="leading" secondItem="oRg-8i-CjA" secondAttribute="leading" id="zeY-FG-JeH"/>
                                                                 </constraints>
                                                             </collectionViewCellContentView>
