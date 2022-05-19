@@ -307,6 +307,7 @@ extension AddExhibitionVC {
 // MARK: - Bind Button Action
 extension AddExhibitionVC {
     @objc func bindRightBarButton() {
+        view.endEditing(true)
         switch page {
         case 0:
             if exhibitionModel.gallerySize != nil
@@ -337,6 +338,7 @@ extension AddExhibitionVC {
     }
     
     @objc func bindLeftBarButton() {
+        view.endEditing(true)
         if page != 0 {
             deletePrevData(page)
             page -= 1

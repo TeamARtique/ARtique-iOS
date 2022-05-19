@@ -32,6 +32,7 @@ class ExhibitionExplainView: UIView {
         setContentView()
         configureView()
         bindUI()
+        setNotification()
     }
     
     required init?(coder: NSCoder) {
@@ -39,6 +40,7 @@ class ExhibitionExplainView: UIView {
         setContentView()
         configureView()
         bindUI()
+        setNotification()
     }
 }
 
@@ -58,6 +60,7 @@ extension ExhibitionExplainView {
         baseSV.showsVerticalScrollIndicator = false
         
         titleTextField.setRoundTextField(with: "전시회의 제목을 입력하세요")
+        titleTextField.delegate = self
         
         configureCV()
         
@@ -69,6 +72,8 @@ extension ExhibitionExplainView {
         exhibitionExplainTextView.setRoundTextView()
         exhibitionExplainTextView.setTextViewPlaceholder(exhibitionExplainPlaceholder)
         exhibitionExplainTextView.delegate = self
+        exhibitionExplainTextView.isScrollEnabled = false
+        exhibitionExplainTextView.textContainer.maximumNumberOfLines = 4
         
         isPublic.onTintColor = .black
     }
@@ -162,6 +167,43 @@ extension ExhibitionExplainView {
     private func setTextViewMaxCnt(_ cnt: Int) {
         if exhibitionExplainTextView.textColor != .gray2 {
             exhibitionExplainTextCnt.text = "(\(cnt)/\(textViewMaxCnt))"
+        }
+    }
+    
+    private func setNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if titleTextField.isFirstResponder || exhibitionExplainTextView.isFirstResponder {
+            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+            if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+               let baseVC = self.findViewController() as? AddExhibitionVC {
+                let keyboardHeight = keyboardFrame.cgRectValue.height
+                UIView.animate(withDuration: duration) {
+                    self.baseSV.snp.remakeConstraints {
+                        $0.top.equalTo(baseVC.view.safeAreaLayoutGuide.snp.top).offset(16)
+                        $0.bottom.equalTo(baseVC.view.snp.bottom).offset(-keyboardHeight)
+                    }
+                    self.layoutIfNeeded()
+                }
+                let yOffset = baseSV.bottomOffset < 450 ? baseSV.bottomOffset : 450
+                let bottomOffset = CGPoint(x: 0, y: yOffset)
+                baseSV.setContentOffset(bottomOffset, animated: true)
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if titleTextField.isFirstResponder || exhibitionExplainTextView.isFirstResponder {
+            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+            UIView.animate(withDuration: duration) {
+                self.baseSV.snp.remakeConstraints {
+                    $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+                }
+                self.layoutIfNeeded()
+            }
         }
     }
 }
@@ -266,8 +308,21 @@ extension ExhibitionExplainView: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard let str = textView.text else { return true }
-        let newLength = str.count + text.count - range.length
-        return newLength <= textViewMaxCnt + 1
+        let existingLines = textView.text.components(separatedBy: CharacterSet.newlines)
+        let newLines = text.components(separatedBy: CharacterSet.newlines)
+        let linesAfterChange = existingLines.count + newLines.count - 1
+        let newLength = textView.text.count + text.count - range.length
+        
+        return text == "\n"
+        ? linesAfterChange <= textView.textContainer.maximumNumberOfLines
+        : newLength <= textViewMaxCnt + 1
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension ExhibitionExplainView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.becomeFirstResponder()
+        return true
     }
 }
