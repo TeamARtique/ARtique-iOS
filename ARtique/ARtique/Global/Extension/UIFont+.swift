@@ -33,7 +33,7 @@ extension UIFont {
     }
     
     class func KoPubWorldBatangM(size: CGFloat) -> UIFont {
-        return UIFont(name: "KoPubWorld바탕체 Medium", size: size)!
+        return UIFont(name: "KoPubWorldBatangMedium", size: size)!
     }
 }
 
