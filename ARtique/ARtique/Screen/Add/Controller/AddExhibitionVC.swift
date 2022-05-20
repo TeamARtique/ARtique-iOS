@@ -178,7 +178,7 @@ extension AddExhibitionVC {
     /// 순서 조정 단계에서 테마 선택 단계로 돌아갈 경우 선택된 사진을 모두 지우는 함수
     private func deletePrevData(_ page: Int) {
         if page == 1 {
-            NewExhibition.shared.artworks?.removeAll()
+            artworkSelectView.selectedImages.removeAll()
             artworkSelectView.galleryCV.indexPathsForSelectedItems?.forEach({
                 artworkSelectView.galleryCV.deselectItem(at: $0, animated: false)
             })
@@ -243,7 +243,8 @@ extension AddExhibitionVC {
 // MARK: - Network
 extension AddExhibitionVC {
     private func postExhibition(exhibitionData: NewExhibition) {
-        RegisterAPI.shared.postExhibitionData(exhibitionData: exhibitionData) { networkResult in
+        RegisterAPI.shared.postExhibitionData(exhibitionData: exhibitionData) {[weak self] networkResult in
+            guard let self = self else { return }
             switch networkResult {
             case .success(let data):
                 if let data = data as? RegisterModel {
@@ -269,7 +270,8 @@ extension AddExhibitionVC {
     }
     
     private func postArtworks(exhibitionId: Int, artwork: ArtworkData) {
-        RegisterAPI.shared.postArtworkData(exhibitionID: exhibitionId, artwork: artwork) { networkResult in
+        RegisterAPI.shared.postArtworkData(exhibitionID: exhibitionId, artwork: artwork) {[weak self] networkResult in
+            guard let self = self else { return }
             switch networkResult {
             case .success(let exhibitionData):
                 if exhibitionData is ArtworkModel {
@@ -287,7 +289,8 @@ extension AddExhibitionVC {
     }
     
     private func getRegisterStatus(exhibitionID: Int) {
-        RegisterAPI.shared.getRegisterStatus(exhibitionID: exhibitionID) { networkResult in
+        RegisterAPI.shared.getRegisterStatus(exhibitionID: exhibitionID) { [weak self] networkResult in
+            guard let self = self else { return }
             switch networkResult {
             case .success(_):
                 self.showDetail(with: exhibitionID)
@@ -314,9 +317,11 @@ extension AddExhibitionVC {
                 && exhibitionModel.galleryTheme != nil {
                 page += 1
                 configurePageView(page)
+            } else {
+                popupToast(toastType: .chooseAll)
             }
         case 1:
-            if exhibitionModel.artworks?.count == exhibitionModel.gallerySize {
+            if artworkSelectView.selectedImages.count == exhibitionModel.gallerySize {
                 page += 1
                 configurePageView(page)
                 for i in 0..<artworkSelectView.selectedImages.count {
@@ -325,6 +330,8 @@ extension AddExhibitionVC {
                     tmp.index = i + 1
                     exhibitionModel.artworks?[i] = tmp
                 }
+            } else {
+                popupToast(toastType: .chooseAll)
             }
         case 4:
             popupAlert(targetView: self,
