@@ -24,7 +24,7 @@ class ExhibitionListVC: BaseVC {
         
         // TODO: - 마이페이지도 연결
         isRightBarBtnExist
-        ? getExhibitionList(categoryID: categoryID ?? 0, sort: .like)
+        ? getExhibitionList(categoryID: categoryID ?? 0, sort: .recent)
         : nil
     }
 }
@@ -67,7 +67,7 @@ extension ExhibitionListVC {
             let button = UIButton(frame: CGRect(x: 0, y: 0, width: buttonWidth, height: buttonHeight))
             
             button.backgroundColor = .clear
-            button.setTitle("인기순 ", for: .normal)
+            button.setTitle("최신순 ", for: .normal)
             button.setTitleColor(.black, for: .normal)
             button.setImage(UIImage(named: "Reorder"), for: .normal)
             button.titleLabel?.font = .AppleSDGothicB(size: 12)
@@ -161,11 +161,11 @@ extension ExhibitionListVC: TVCellDelegate {
         let button = rightBarButton.customView as! UIButton
         
         if index == 0 {
-            button.setTitle("인기순 ", for: .normal)
-            getExhibitionList(categoryID: categoryID ?? 1, sort: .like)
-        } else {
             button.setTitle("최신순 ", for: .normal)
             getExhibitionList(categoryID: categoryID ?? 1, sort: .recent)
+        } else {
+            button.setTitle("인기순 ", for: .normal)
+            getExhibitionList(categoryID: categoryID ?? 1, sort: .like)
         }
         
         exhibitionListCV.reloadData()

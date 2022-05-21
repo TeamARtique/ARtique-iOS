@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 class ReorderBottomSheetVC: DynamicBottomSheetViewController {
-    let orderList = ["인기순 ", "최신순 "]
+    let orderList = ["최신순 ", "인기순 "]
     var checkedOrder = 0
     var delegate: TVCellDelegate?
     
