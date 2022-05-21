@@ -12,6 +12,7 @@ import RxCocoa
 
 class ExhibitionExplainView: UIView {
     @IBOutlet weak var baseSV: UIScrollView!
+    @IBOutlet weak var titleTextCnt: UILabel!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var categoryCV: UICollectionView!
     @IBOutlet weak var posterChangeBtn: UIButton!
@@ -25,6 +26,7 @@ class ExhibitionExplainView: UIView {
     let exhibitionModel = NewExhibition.shared
     let exhibitionExplainPlaceholder = "전시회에 대한 전체 설명을 입력하세요"
     let tagMaxSelectionCnt = 3
+    let titleMaxCnt = 25
     let textViewMaxCnt = 100
     
     override init(frame: CGRect) {
@@ -32,7 +34,7 @@ class ExhibitionExplainView: UIView {
         setContentView()
         configureView()
         bindUI()
-        setNotification()
+        bindNotificationCenter()
     }
     
     required init?(coder: NSCoder) {
@@ -40,7 +42,7 @@ class ExhibitionExplainView: UIView {
         setContentView()
         configureView()
         bindUI()
-        setNotification()
+        bindNotificationCenter()
     }
 }
 
@@ -105,6 +107,7 @@ extension ExhibitionExplainView {
             .withUnretained(self)
             .subscribe(onNext: { owner, title in
                 owner.exhibitionModel.title = title
+                owner.setTitleMaxCnt(title.count)
             })
             .disposed(by: bag)
         
@@ -164,47 +167,49 @@ extension ExhibitionExplainView {
         return selectedIndexRow
     }
     
+    private func setTitleMaxCnt(_ cnt: Int) {
+        if titleTextField.textColor != .gray2 {
+            titleTextCnt.text = "(\(cnt)/\(titleMaxCnt))"
+        }
+    }
+    
     private func setTextViewMaxCnt(_ cnt: Int) {
         if exhibitionExplainTextView.textColor != .gray2 {
             exhibitionExplainTextCnt.text = "(\(cnt)/\(textViewMaxCnt))"
         }
     }
     
-    private func setNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if titleTextField.isFirstResponder || exhibitionExplainTextView.isFirstResponder {
-            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
-            if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-               let baseVC = self.findViewController() as? AddExhibitionVC {
-                let keyboardHeight = keyboardFrame.cgRectValue.height
-                UIView.animate(withDuration: duration) {
-                    self.baseSV.snp.remakeConstraints {
-                        $0.top.equalTo(baseVC.view.safeAreaLayoutGuide.snp.top).offset(16)
-                        $0.bottom.equalTo(baseVC.view.snp.bottom).offset(-keyboardHeight)
+    private func bindNotificationCenter() {
+        NotificationCenter.default.keyboardWillChangeFrame()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, info in
+                if self.exhibitionExplainTextView.isFirstResponder,
+                   let baseVC = self.findViewController() as? AddExhibitionVC {
+                    UIView.animate(withDuration: info.duration) {
+                        self.baseSV.snp.remakeConstraints {
+                            $0.top.equalTo(baseVC.view.safeAreaLayoutGuide.snp.top).offset(16)
+                            $0.bottom.equalTo(baseVC.view.snp.bottom).offset(-info.height)
+                        }
+                        self.layoutIfNeeded()
                     }
-                    self.layoutIfNeeded()
+                    self.baseSV.scrollToOffset(offset: info.height, animated: true)
                 }
-                let yOffset = baseSV.bottomOffset < 450 ? baseSV.bottomOffset : 450
-                let bottomOffset = CGPoint(x: 0, y: yOffset)
-                baseSV.setContentOffset(bottomOffset, animated: true)
-            }
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if titleTextField.isFirstResponder || exhibitionExplainTextView.isFirstResponder {
-            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
-            UIView.animate(withDuration: duration) {
-                self.baseSV.snp.remakeConstraints {
-                    $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+            })
+            .disposed(by: bag)
+        
+        NotificationCenter.default.keyboardWillHideObservable()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, info in
+                if self.exhibitionExplainTextView.isFirstResponder {
+                    UIView.animate(withDuration: info.duration) {
+                        self.baseSV.snp.remakeConstraints {
+                            $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+                        }
+                        self.layoutIfNeeded()
+                    }
                 }
-                self.layoutIfNeeded()
-            }
-        }
+            })
+            .disposed(by: bag)
     }
 }
 
@@ -303,19 +308,15 @@ extension ExhibitionExplainView: UITextViewDelegate {
         
         if textView.text.count > textViewMaxCnt {
             textView.text.removeLast()
-            exhibitionExplainTextCnt.text = "\(textViewMaxCnt)"
         }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let existingLines = textView.text.components(separatedBy: CharacterSet.newlines)
-        let newLines = text.components(separatedBy: CharacterSet.newlines)
-        let linesAfterChange = existingLines.count + newLines.count - 1
+        if text == "\n" {
+            textView.resignFirstResponder()
+        }
         let newLength = textView.text.count + text.count - range.length
-        
-        return text == "\n"
-        ? linesAfterChange <= textView.textContainer.maximumNumberOfLines
-        : newLength <= textViewMaxCnt + 1
+        return newLength <= textViewMaxCnt + 1
     }
 }
 
@@ -324,5 +325,17 @@ extension ExhibitionExplainView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.becomeFirstResponder()
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if (textField.text?.count ?? 0) > titleMaxCnt {
+            textField.text?.removeLast()
+            titleTextCnt.text = "(25/\(titleMaxCnt))"
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let newLength = (textField.text?.count ?? 0) + string.count - range.length
+        return newLength <= titleMaxCnt + 1
     }
 }

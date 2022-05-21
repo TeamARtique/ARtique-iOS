@@ -27,7 +27,7 @@ class ArtworkExplainCVC: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         configureView()
-        setNotification()
+        bindNotificationCenter()
     }
     
     override func prepareForReuse() {
@@ -94,33 +94,34 @@ extension ArtworkExplainCVC {
 
 // MARK: - Custom Methods
 extension ArtworkExplainCVC {
-    private func setNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-           let baseVC = self.findViewController() as? AddExhibitionVC {
-            let keyboardHeight = keyboardFrame.cgRectValue.height
-            UIView.animate(withDuration: 0.3) {
-                self.scrollView.snp.remakeConstraints {
-                    $0.top.equalTo(baseVC.view.safeAreaLayoutGuide.snp.top).offset(16)
-                    $0.bottom.equalTo(baseVC.view.snp.bottom).offset(-keyboardHeight)
+    private func bindNotificationCenter() {
+        NotificationCenter.default.keyboardWillChangeFrame()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, info in
+                if let baseVC = self.findViewController() as? AddExhibitionVC {
+                    UIView.animate(withDuration: info.duration) {
+                        self.scrollView.snp.remakeConstraints {
+                            $0.top.equalTo(baseVC.view.safeAreaLayoutGuide.snp.top).offset(16)
+                            $0.bottom.equalTo(baseVC.view.snp.bottom).offset(-info.height)
+                        }
+                        self.layoutIfNeeded()
+                    }
+                    self.scrollView.scrollToBottom(animated: true)
                 }
-                self.layoutIfNeeded()
-            }
-            scrollView.scrollToBottom(animated: true)
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        UIView.animate(withDuration: 0.3) {
-            self.scrollView.snp.remakeConstraints {
-                $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
-            }
-            self.layoutIfNeeded()
-        }
+            })
+            .disposed(by: bag)
+        
+        NotificationCenter.default.keyboardWillHideObservable()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, info in
+                UIView.animate(withDuration: info.duration) {
+                    self.scrollView.snp.remakeConstraints {
+                        $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+                    }
+                    self.layoutIfNeeded()
+                }
+            })
+            .disposed(by: bag)
     }
 }
 

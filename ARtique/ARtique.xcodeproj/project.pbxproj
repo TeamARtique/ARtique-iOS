@@ -569,6 +569,7 @@
 				3305F7502754DF3E00E6E08E /* UIColor+Additions.swift */,
 				3305F7522754DF4C00E6E08E /* UIFont+.swift */,
 				3305F7542754DF5B00E6E08E /* UILabel+.swift */,
+				23A1B2CC283752570089B63E /* NotificationCenter+.swift */,
 				3305F7562754DF6500E6E08E /* Notification+Name.swift */,
 				3305F7582754DFD700E6E08E /* UIView+.swift */,
 				3305F77C2754E20800E6E08E /* UserDefaults+.swift */,
@@ -582,7 +583,6 @@
 				33083C4228199B560038886B /* String+.swift */,
 				33BA558228310C3B00BC1658 /* UIIImage+.swift */,
 				23D4CFC22831839B0012765A /* Date+.swift */,
-				23A1B2CC283752570089B63E /* NotificationCenter+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
