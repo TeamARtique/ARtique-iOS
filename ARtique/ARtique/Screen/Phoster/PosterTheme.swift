@@ -68,30 +68,39 @@ extension PosterTheme {
             }
             
         case .theme1, .theme2:
-            self.author.removeFromSuperview()
             self.date.removeFromSuperview()
             posterImage.snp.makeConstraints {
                 $0.edges.equalToSuperview()
             }
             self.title.snp.makeConstraints {
-                $0.leading.equalToSuperview().offset(47)
-                $0.bottom.equalToSuperview().offset(-43)
-                $0.height.equalTo(40)
+                $0.top.equalToSuperview().offset(60)
+                $0.leading.equalToSuperview().offset(15)
+                $0.trailing.equalToSuperview().offset(-15)
+            }
+            self.author.snp.makeConstraints {
+                $0.top.equalTo(self.title.snp.bottom).offset(15)
+                $0.leading.equalToSuperview().offset(15)
+                $0.trailing.equalToSuperview().offset(-15)
+                $0.height.equalTo(18)
             }
             
         case .theme3, .theme4:
+            self.title.textAlignment = .left
+            self.author.textAlignment = .left
             self.date.removeFromSuperview()
             posterImage.snp.makeConstraints {
                 $0.edges.equalToSuperview()
             }
             self.title.snp.makeConstraints {
-                $0.top.equalToSuperview().offset(40)
-                $0.leading.equalToSuperview().offset(35)
-                $0.height.equalTo(40)
+                $0.leading.equalToSuperview().offset(80)
+                $0.trailing.equalToSuperview().offset(-15)
+                $0.bottom.equalToSuperview().offset(-75)
             }
             self.author.snp.makeConstraints {
-                $0.top.equalToSuperview().offset(100)
-                $0.leading.equalToSuperview().offset(36)
+                $0.leading.equalToSuperview().offset(81)
+                $0.trailing.equalToSuperview().offset(-15)
+                $0.bottom.equalToSuperview().offset(-37)
+                $0.height.equalTo(18)
             }
             
         case .theme5, .theme6:
@@ -104,9 +113,10 @@ extension PosterTheme {
                 $0.bottom.equalToSuperview().offset(-117)
             }
             self.title.snp.makeConstraints {
-                $0.bottom.equalToSuperview().offset(-42)
-                $0.centerX.equalToSuperview()
-                $0.height.equalTo(40)
+                $0.top.equalTo(posterImage.snp.bottom).offset(15)
+                $0.leading.equalToSuperview().offset(15)
+                $0.trailing.equalToSuperview().offset(-15)
+                $0.bottom.equalToSuperview().offset(-15)
             }
             self.author.snp.makeConstraints {
                 $0.centerX.equalToSuperview().offset(-128)
@@ -128,8 +138,9 @@ extension PosterTheme {
                 $0.bottom.equalToSuperview().offset(-60)
             }
             self.title.snp.makeConstraints {
-                $0.center.equalToSuperview()
-                $0.height.equalTo(40)
+                $0.leading.equalToSuperview().offset(60)
+                $0.trailing.equalToSuperview().offset(-60)
+                $0.centerY.equalToSuperview()
             }
             self.author.snp.makeConstraints {
                 $0.centerX.equalToSuperview().offset(138)
@@ -146,13 +157,14 @@ extension PosterTheme {
                 $0.bottom.equalToSuperview().offset(-110)
             }
             self.title.snp.makeConstraints {
-                $0.bottom.equalToSuperview().offset(-84)
-                $0.centerX.equalToSuperview()
-                $0.height.equalTo(40)
+                $0.bottom.equalToSuperview().offset(-92)
+                $0.leading.equalToSuperview().offset(20)
+                $0.trailing.equalToSuperview().offset(-20)
             }
             self.author.snp.makeConstraints {
                 $0.bottom.equalToSuperview().offset(-10)
-                $0.centerX.equalToSuperview()
+                $0.leading.equalToSuperview().offset(20)
+                $0.trailing.equalToSuperview().offset(-20)
                 $0.height.equalTo(75)
             }
             
@@ -175,12 +187,14 @@ extension PosterTheme {
                 $0.bottom.equalToSuperview().offset(-80)
             }
             self.title.snp.makeConstraints {
-                $0.center.equalToSuperview()
-                $0.height.equalTo(40)
+                $0.leading.equalToSuperview().offset(15)
+                $0.trailing.equalToSuperview().offset(-15)
+                $0.centerY.equalToSuperview()
             }
             self.author.snp.makeConstraints {
                 $0.bottom.equalToSuperview().offset(-37)
-                $0.centerX.equalToSuperview()
+                $0.leading.equalToSuperview().offset(15)
+                $0.trailing.equalToSuperview().offset(-15)
             }
         }
     }
