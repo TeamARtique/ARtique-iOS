@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 class TicketBookVC: BaseVC {
-
+    
     // MARK: Properties
     private let ticketCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         let layout = UICollectionViewFlowLayout()
@@ -35,6 +35,7 @@ class TicketBookVC: BaseVC {
         configureUI()
         getTicketbookList()
         navigationController?.additionalSafeAreaInsets.top = 0
+        NotificationCenter.default.addObserver(self, selector: #selector(shareToInstagramStory(_:)), name: .whenTicketShareBtnDidTap, object: nil)
     }
 }
 
@@ -44,6 +45,11 @@ extension TicketBookVC {
     /// 네비게이션 바를 구성하는 메서드
     private func configureNaviBar() {
         navigationItem.title = "티켓북"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBtn"),
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(popVC))
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_delete"),
                                                             style: .plain,
                                                             target: self,
@@ -80,6 +86,43 @@ extension TicketBookVC {
     @objc
     private func didTapTrashBtn() {
         print("삭제 버튼 클릭")
+    }
+    
+    /// 티켓북 Cell을 이미지로 렌더링하여 인스타그램 스토리로 공유하는 메서드
+    @objc
+    private func shareToInstagramStory(_ notification: NSNotification) {
+        var index: IndexPath = []
+        if let indexPath = notification.userInfo?["indexPath"] as? IndexPath {
+            index = indexPath
+        }
+        
+        if let instagramStoryURL = URL(string: "instagram-stories://share") {
+            if UIApplication.shared.canOpenURL(instagramStoryURL) {
+                let cell = ticketCV.cellForItem(at: index)
+                let renderer = UIGraphicsImageRenderer(size: cell?.layer.bounds.size ?? CGSize.zero)
+                
+                let renderImage = renderer.image { _ in
+                    cell?.drawHierarchy(in: cell?.bounds ?? CGRect.zero, afterScreenUpdates: true)
+                }
+                
+                guard let imageData = renderImage.pngData() else { return }
+                
+                let pasteboardItems : [String: Any] = [
+                    "com.instagram.sharedSticker.stickerImage": imageData,
+                    "com.instagram.sharedSticker.backgroundTopColor" : "#636e72",
+                    "com.instagram.sharedSticker.backgroundBottomColor" : "#b2bec3",
+                ]
+                
+                let pasteboardOptions = [
+                    UIPasteboard.OptionsKey.expirationDate : Date().addingTimeInterval(300)
+                ]
+                
+                UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
+                UIApplication.shared.open(instagramStoryURL, options: [:], completionHandler: nil)
+            } else {
+                makeAlert(title: "알림", message: "인스타그램이 필요합니다", okTitle: "확인")
+            }
+        }
     }
 }
 

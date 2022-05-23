@@ -42,7 +42,7 @@ class TicketBookDimmedVC: UIViewController {
     var selectedIndex: Int?
     var ticketImageString: String?
     var exhibitionID: Int?
-
+    
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +64,7 @@ extension TicketBookDimmedVC {
         dimmedView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
         }
-       
+        
         ticketView.snp.makeConstraints {
             $0.top.equalTo(Int(ticketFrame?.minY ?? 0) + 120)
             $0.leading.equalTo(Int(ticketFrame?.minX ?? 0) + 20)
@@ -130,9 +130,9 @@ extension TicketBookDimmedVC {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         var touch: UITouch? = touches.first
         // TODO: 티켓북 뷰가 아니고, 옵션들 stackView가 아닐 경우 처리
-//        if touch?.view != self.yourView {
-//            self.yourView.isHidden = true
-//        }
+        //        if touch?.view != self.yourView {
+        //            self.yourView.isHidden = true
+        //        }
         self.dismiss(animated: false)
     }
     
@@ -146,7 +146,7 @@ extension TicketBookDimmedVC {
         navi.modalPresentationStyle = .fullScreen
         
         guard let pvc = self.presentingViewController else { return }
-
+        
         self.dismiss(animated: false) {
             pvc.present(navi, animated: true, completion: nil)
         }
@@ -154,7 +154,9 @@ extension TicketBookDimmedVC {
     
     /// 공유하기 버튼을 클릭했을 때 실행되는 메서드
     private func shareBtnDidTap() {
-        print("공유하기")
+        let index: IndexPath = [1, selectedIndex ?? 0]
+        NotificationCenter.default.post(name: .whenTicketShareBtnDidTap, object: nil, userInfo: ["indexPath": index])
+        self.dismiss(animated: false)
     }
     
     /// 버튼을 클릭했을 때 실행되는 액션들을 맵핑하는 메서드
