@@ -39,6 +39,8 @@ struct Navigator {
             completion(destinationVC as! T)
             destinationVC.modalPresentationStyle = style
             viewController.present(destinationVC, animated: true, completion: nil)
+        default:
+            print("default")
         }
     }
 }
