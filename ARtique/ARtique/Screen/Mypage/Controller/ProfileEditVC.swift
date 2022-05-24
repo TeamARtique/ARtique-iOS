@@ -16,12 +16,13 @@ class ProfileEditVC: BaseVC {
     @IBOutlet weak var profileImg: UIButton!
     @IBOutlet weak var nicknameTextField: UITextField!
     @IBOutlet weak var explanationTextView: UITextView!
+    @IBOutlet weak var explanationCnt: UILabel!
     @IBOutlet weak var snsTextField: UITextField!
     var imagePicker: UIImagePickerController!
     
     let bag = DisposeBag()
     let textViewMaxCnt = 100
-    var explanationPlaceholder = "ARTI들에게 자신을 소개해보세요!"
+    var explanationPlaceholder = "ARTI를 소개할 수 있는 말을 적어주세요"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,7 @@ class ProfileEditVC: BaseVC {
         configureSV()
         configureContentView()
         bindUI()
+        bindNotificationCenter()
         hideKeyboard()
     }
     
@@ -69,7 +71,8 @@ extension ProfileEditVC {
     private func configureSV() {
         baseSV.showsVerticalScrollIndicator = false
         baseSV.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.keyboardLayoutGuide.snp.top)
         }
     }
@@ -78,10 +81,12 @@ extension ProfileEditVC {
         profileImg.layer.cornerRadius = profileImg.frame.height / 2
         profileImg.layer.masksToBounds = true
         nicknameTextField.setRoundTextField(with: "ARTI")
+        nicknameTextField.delegate = self
         explanationTextView.setRoundTextView()
         explanationTextView.setTextViewPlaceholder(explanationPlaceholder)
         explanationTextView.delegate = self
-        snsTextField.setRoundTextField(with: "www.instagram.com")
+        snsTextField.setRoundTextField(with: "ARTI의 작품을 소개할 수 있는 웹사이트 링크를 등록해주세요")
+        snsTextField.delegate = self
     }
     
     private func bindUI() {
@@ -93,14 +98,45 @@ extension ProfileEditVC {
                 self.navigationItem.rightBarButtonItem?.isEnabled = text.isEmpty ? false : true
             })
             .disposed(by: bag)
+        
+        explanationTextView.rx.text.orEmpty
+            .withUnretained(self)
+            .subscribe(onNext: { owner, explain in
+                owner.setTextViewMaxCnt(explain.count)
+            })
+            .disposed(by: bag)
+    }
+    
+    private func bindNotificationCenter() {
+        NotificationCenter.default.keyboardWillShowObservable()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, info in
+                if owner.explanationTextView.isFirstResponder {
+                    owner.baseSV.scrollToOffset(offset: 100, animated: true)
+                } else if owner.snsTextField.isFirstResponder {
+                    owner.baseSV.scrollToBottom(animated: true)
+                }
+            })
+            .disposed(by: bag)
+        
+        NotificationCenter.default.keyboardWillHideObservable()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, info in
+                owner.baseSV.scrollToTop()
+            })
+            .disposed(by: bag)
     }
 }
 
 // MARK: - Custom Methods
 extension ProfileEditVC {
     @objc func bindRightBarButton() {
-        // TODO: - post server
-        navigationController?.popViewController(animated: true)
+        dismissKeyboard()
+        let artist = ArtistModel(nickname: nicknameTextField.text ?? "",
+                                 profileImage: profileImg.backgroundImage(for: .normal) ?? UIImage(),
+                                 introduction: explanationTextView.textColor == .label ? explanationTextView.text : "",
+                                 website: snsTextField.text ?? "")
+        editProfile(artist: artist)
     }
     
     private func openGallery() {
@@ -109,6 +145,35 @@ extension ProfileEditVC {
         imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = true
         present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func setTextViewMaxCnt(_ cnt: Int) {
+        if explanationTextView.textColor != .gray2 {
+            explanationCnt.text = "(\(cnt)/\(textViewMaxCnt))"
+        }
+    }
+}
+
+// MARK: - Network
+extension ProfileEditVC {
+    private func editProfile(artist: ArtistModel) {
+        MypageAPI.shared.editArtistProfile(artist: artist) { [weak self] networkResult in
+            guard let self = self else { return }
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? ArtistProfileModel {
+                    UserDefaults.standard.set(data.user.nickname, forKey: UserDefaults.Keys.nickname)
+                    self.navigationController?.popViewController(animated: true)
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
     }
 }
 
@@ -150,8 +215,22 @@ extension ProfileEditVC: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard let str = textView.text else { return true }
-        let newLength = str.count + text.count - range.length
+        if text == "\n" {
+            snsTextField.becomeFirstResponder()
+        }
+        
+        let newLength = textView.text.count + text.count - range.length
         return newLength <= textViewMaxCnt + 1
+    }
+}
+
+extension ProfileEditVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == nicknameTextField {
+            explanationTextView.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        return true
     }
 }
