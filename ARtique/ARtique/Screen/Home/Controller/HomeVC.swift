@@ -59,6 +59,7 @@ class HomeVC: TabmanViewController {
     @IBAction func showTicketbookVC(_ sender: UIButton) {
         let ticketbookVC = TicketBookVC()
         ticketbookVC.hidesBottomBarWhenPushed = true
+        ticketbookVC.naviType = .push
         navigationController?.pushViewController(ticketbookVC, animated: true)
     }
 }

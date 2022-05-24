@@ -31,6 +31,7 @@ class ARGalleryVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         getARGalleryInfo(exhibitionID: exhibitionId ?? 0)
+        createTicketBook(exhibitionID: exhibitionId ?? 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,7 +66,7 @@ class ARGalleryVC: BaseVC {
     }
     
     @IBAction func dismissBtnDidTap(_ sender: UIButton) {
-        self.presentingViewController?.presentingViewController!.dismiss(animated: true, completion: nil)
+        popupAlert(targetView: ARGalleryVC(), alertType: .seeTicketbook, leftBtnAction: #selector(dismissToRoot), rightBtnAction: #selector(goToTicketbookVC))
     }
 }
 
@@ -199,6 +200,24 @@ extension ARGalleryVC {
             }
         }
     }
+    
+    /// RootVC로 dismiss하는 메서드
+    @objc func dismissToRoot() {
+        self.presentingViewController?.presentingViewController!.dismiss(animated: true, completion: nil)
+    }
+    
+    /// TicketBookVC로 화면전환하는 메서드
+    @objc func goToTicketbookVC() {
+        let ticketbookVC = TicketBookVC()
+        ticketbookVC.naviType = .dismissToRoot
+        
+        let navi = UINavigationController(rootViewController: ticketbookVC)
+        navi.modalPresentationStyle = .fullScreen
+        
+        self.dismiss(animated: true, completion: {
+            self.present(navi, animated: true, completion: nil)
+        })
+    }
 }
 
 //MARK: - AR Functions
@@ -233,6 +252,8 @@ extension ARGalleryVC: ARSCNViewDelegate {
 
 // MARK: - Network
 extension ARGalleryVC {
+    
+    /// Network 통신을 통해 AR 갤러리 정보를 받아오는 메서드
     private func getARGalleryInfo(exhibitionID: Int) {
         GalleryAPI.shared.getARGalleryInfo(exhibitionID: exhibitionID, completion: { [weak self] networkResult in
             switch networkResult {
@@ -248,6 +269,25 @@ extension ARGalleryVC {
                     self?.setupGalleryTheme(maxValue: maxValue, frameIdentifier1: frameIdentifier1, frameIdentifier2: frameIdentifier2, galleryType: GalleyType(rawValue: data.gallery.gallerySize) ?? .medium, themeType: ThemeType(rawValue: data.gallery.galleryTheme) ?? .dark)
                     self?.setupTitleText(maxValue: maxValue, artwork: data.artworks)
                     self?.downloadImageByRealData(maxValue: maxValue, artwork: data.artworks, frameIdentifier1: frameIdentifier1, frameIdentifier2: frameIdentifier2)
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        })
+    }
+    
+    /// Network 통신을 통해 티켓북을 생성하는 메서드
+    private func createTicketBook(exhibitionID: Int) {
+        TicketAPI.shared.requestCreateTicketbook(exhibitionID: exhibitionID, completion: { [weak self] networkResult in
+            switch networkResult {
+            case .success(let res):
+                if let data = res as? CreateTicketModel {
+                    print(data.exhibitionID)
                 }
             case .requestErr(let res):
                 if let message = res as? String {

@@ -106,6 +106,7 @@ extension TicketCVC {
             $0.top.equalTo(highlightView.snp.bottom).offset(8)
             $0.leading.equalTo(squareBorderView.snp.leading).offset(13)
             $0.trailing.equalTo(squareBorderView.snp.trailing).inset(13)
+            $0.bottom.lessThanOrEqualTo(squareBorderView.snp.bottom).inset(4)
         }
         
         instaBtn.snp.makeConstraints {
@@ -126,7 +127,7 @@ extension TicketCVC {
         let tintView = UIView()
         tintView.backgroundColor = UIColor(white: 0, alpha: 0.5)
         tintView.frame = CGRect(x: 0, y: 0, width: maskedImageView.frame.width, height: maskedImageView.frame.height)
-
+        
         maskedImageView.addSubview(tintView)
     }
 }
