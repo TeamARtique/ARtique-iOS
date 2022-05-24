@@ -16,12 +16,13 @@ class ProfileEditVC: BaseVC {
     @IBOutlet weak var profileImg: UIButton!
     @IBOutlet weak var nicknameTextField: UITextField!
     @IBOutlet weak var explanationTextView: UITextView!
+    @IBOutlet weak var explanationCnt: UILabel!
     @IBOutlet weak var snsTextField: UITextField!
     var imagePicker: UIImagePickerController!
     
     let bag = DisposeBag()
     let textViewMaxCnt = 100
-    var explanationPlaceholder = "ARTI들에게 자신을 소개해보세요!"
+    var explanationPlaceholder = "ARTI를 소개할 수 있는 말을 적어주세요"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,7 @@ class ProfileEditVC: BaseVC {
         configureSV()
         configureContentView()
         bindUI()
+        bindNotificationCenter()
         hideKeyboard()
     }
     
@@ -69,7 +71,8 @@ extension ProfileEditVC {
     private func configureSV() {
         baseSV.showsVerticalScrollIndicator = false
         baseSV.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.keyboardLayoutGuide.snp.top)
         }
     }
@@ -78,10 +81,12 @@ extension ProfileEditVC {
         profileImg.layer.cornerRadius = profileImg.frame.height / 2
         profileImg.layer.masksToBounds = true
         nicknameTextField.setRoundTextField(with: "ARTI")
+        nicknameTextField.delegate = self
         explanationTextView.setRoundTextView()
         explanationTextView.setTextViewPlaceholder(explanationPlaceholder)
         explanationTextView.delegate = self
-        snsTextField.setRoundTextField(with: "www.instagram.com")
+        snsTextField.setRoundTextField(with: "ARTI의 작품을 소개할 수 있는 웹사이트 링크를 등록해주세요")
+        snsTextField.delegate = self
     }
     
     private func bindUI() {
@@ -91,6 +96,33 @@ extension ProfileEditVC {
                 guard let self = self else { return }
                 self.navigationItem.rightBarButtonItem?.customView?.backgroundColor = text.isEmpty ? .gray1 : .black
                 self.navigationItem.rightBarButtonItem?.isEnabled = text.isEmpty ? false : true
+            })
+            .disposed(by: bag)
+        
+        explanationTextView.rx.text.orEmpty
+            .withUnretained(self)
+            .subscribe(onNext: { owner, explain in
+                owner.setTextViewMaxCnt(explain.count)
+            })
+            .disposed(by: bag)
+    }
+    
+    private func bindNotificationCenter() {
+        NotificationCenter.default.keyboardWillShowObservable()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, info in
+                if owner.explanationTextView.isFirstResponder {
+                    owner.baseSV.scrollToOffset(offset: 100, animated: true)
+                } else if owner.snsTextField.isFirstResponder {
+                    owner.baseSV.scrollToBottom(animated: true)
+                }
+            })
+            .disposed(by: bag)
+        
+        NotificationCenter.default.keyboardWillHideObservable()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, info in
+                owner.baseSV.scrollToTop()
             })
             .disposed(by: bag)
     }
@@ -113,6 +145,12 @@ extension ProfileEditVC {
         imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = true
         present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func setTextViewMaxCnt(_ cnt: Int) {
+        if explanationTextView.textColor != .gray2 {
+            explanationCnt.text = "(\(cnt)/\(textViewMaxCnt))"
+        }
     }
 }
 
@@ -177,8 +215,22 @@ extension ProfileEditVC: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard let str = textView.text else { return true }
-        let newLength = str.count + text.count - range.length
+        if text == "\n" {
+            snsTextField.becomeFirstResponder()
+        }
+        
+        let newLength = textView.text.count + text.count - range.length
         return newLength <= textViewMaxCnt + 1
+    }
+}
+
+extension ProfileEditVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == nicknameTextField {
+            explanationTextView.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        return true
     }
 }
