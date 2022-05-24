@@ -68,7 +68,7 @@ class PlaneVC: UIViewController {
         }
         galleryVC.modalTransitionStyle = .crossDissolve
         galleryVC.modalPresentationStyle = .fullScreen
-        galleryVC.exhibitionId = exhibitionId
+        galleryVC.exhibitionID = exhibitionId
         present(galleryVC, animated: true, completion: nil)
     }
 }

@@ -145,6 +145,10 @@
 		33083C4128198F640038886B /* NaviType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C4028198F640038886B /* NaviType.swift */; };
 		33083C4328199B560038886B /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C4228199B560038886B /* String+.swift */; };
 		33083C452819B07F0038886B /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33083C442819B07F0038886B /* Token.swift */; };
+		331C8E38283CE20E00764BB9 /* PublicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C8E37283CE20E00764BB9 /* PublicService.swift */; };
+		331C8E3A283CE2BE00764BB9 /* PublicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C8E39283CE2BE00764BB9 /* PublicAPI.swift */; };
+		331C8E3C283CE50700764BB9 /* Liked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C8E3B283CE50700764BB9 /* Liked.swift */; };
+		331C8E3E283CE52800764BB9 /* Bookmarked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C8E3D283CE52800764BB9 /* Bookmarked.swift */; };
 		331EEB05283499FB00A726AF /* TicketBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331EEB04283499FB00A726AF /* TicketBookVC.swift */; };
 		331EEB072834C43300A726AF /* TicketAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331EEB062834C43300A726AF /* TicketAPI.swift */; };
 		331EEB092834C45200A726AF /* TicketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331EEB082834C45200A726AF /* TicketService.swift */; };
@@ -310,6 +314,10 @@
 		33083C4028198F640038886B /* NaviType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaviType.swift; sourceTree = "<group>"; };
 		33083C4228199B560038886B /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		33083C442819B07F0038886B /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		331C8E37283CE20E00764BB9 /* PublicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicService.swift; sourceTree = "<group>"; };
+		331C8E39283CE2BE00764BB9 /* PublicAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicAPI.swift; sourceTree = "<group>"; };
+		331C8E3B283CE50700764BB9 /* Liked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Liked.swift; sourceTree = "<group>"; };
+		331C8E3D283CE52800764BB9 /* Bookmarked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmarked.swift; sourceTree = "<group>"; };
 		331EEB04283499FB00A726AF /* TicketBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookVC.swift; sourceTree = "<group>"; };
 		331EEB062834C43300A726AF /* TicketAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketAPI.swift; sourceTree = "<group>"; };
 		331EEB082834C45200A726AF /* TicketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketService.swift; sourceTree = "<group>"; };
@@ -870,6 +878,7 @@
 				235610012832BAB000176D66 /* ExhibitionDetailAPI.swift */,
 				23E5A13C2833D87600DDD328 /* RegisterAPI.swift */,
 				331EEB062834C43300A726AF /* TicketAPI.swift */,
+				331C8E39283CE2BE00764BB9 /* PublicAPI.swift */,
 			);
 			path = APIManagers;
 			sourceTree = "<group>";
@@ -883,6 +892,7 @@
 				23560FFF2832B9A900176D66 /* ExhibitionService.swift */,
 				23E5A13A2833D7BD00DDD328 /* RegisterService.swift */,
 				331EEB082834C45200A726AF /* TicketService.swift */,
+				331C8E37283CE20E00764BB9 /* PublicService.swift */,
 			);
 			path = MoyaTarget;
 			sourceTree = "<group>";
@@ -905,6 +915,8 @@
 				33A463EF282B01090049F0AF /* Artwork.swift */,
 				23D4CFB7283117FE0012765A /* ExhibitionModel.swift */,
 				23D4CFB9283118B20012765A /* Artist.swift */,
+				331C8E3B283CE50700764BB9 /* Liked.swift */,
+				331C8E3D283CE52800764BB9 /* Bookmarked.swift */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -1189,6 +1201,7 @@
 				33083C4128198F640038886B /* NaviType.swift in Sources */,
 				235584012767A7100046C3EE /* FocusSquareSegment.swift in Sources */,
 				3305F7872754E28B00E6E08E /* ViewControllerFactory.swift in Sources */,
+				331C8E38283CE20E00764BB9 /* PublicService.swift in Sources */,
 				23B52A7B27E0A56900D6C339 /* AddExhibitionVC.swift in Sources */,
 				33A463EA282AFE6C0049F0AF /* GalleryService.swift in Sources */,
 				2361289A2832196D0097896B /* PosterType.swift in Sources */,
@@ -1207,6 +1220,7 @@
 				23D4CFC32831839B0012765A /* Date+.swift in Sources */,
 				3305F7812754E23F00E6E08E /* UIButton+.swift in Sources */,
 				23D4CFB8283117FE0012765A /* ExhibitionModel.swift in Sources */,
+				331C8E3E283CE52800764BB9 /* Bookmarked.swift in Sources */,
 				3366F4592834455C0020C468 /* TicketHeaderCVC.swift in Sources */,
 				3305F7512754DF3E00E6E08E /* UIColor+Additions.swift in Sources */,
 				33083C24281981010038886B /* AuthService.swift in Sources */,
@@ -1238,6 +1252,7 @@
 				23560FFE2832B93600176D66 /* DetailModel.swift in Sources */,
 				3305F78C2754E31000E6E08E /* ARtiqueTBC.swift in Sources */,
 				23C9AD692801CB2100DFF5A2 /* MypageClassificationTVC.swift in Sources */,
+				331C8E3A283CE2BE00764BB9 /* PublicAPI.swift in Sources */,
 				33083C2B281984210038886B /* LoginDataModel.swift in Sources */,
 				2395FBA427563AA500D3DB77 /* DetailVC.swift in Sources */,
 				33083C4328199B560038886B /* String+.swift in Sources */,
@@ -1278,6 +1293,7 @@
 				23B52A8127E0A7B900D6C339 /* UINavigationController+.swift in Sources */,
 				33083C452819B07F0038886B /* Token.swift in Sources */,
 				33AC278A2763D27200E0765A /* ARGalleryVC.swift in Sources */,
+				331C8E3C283CE50700764BB9 /* Liked.swift in Sources */,
 				3358C55F2837985800A46D61 /* TicketBookDimmedVC.swift in Sources */,
 				23C9AD6228019FDA00DFF5A2 /* MypageNC.swift in Sources */,
 				231435732822F3B900E41D7F /* BorderCVC.swift in Sources */,

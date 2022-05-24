@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="w28-RH-cEq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="w28-RH-cEq">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,6 +21,7 @@
                             </arscnView>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="912-0h-gwp">
                                 <rect key="frame" x="346" y="58" width="51" height="31"/>
+                                <color key="onTintColor" systemColor="labelColor"/>
                                 <connections>
                                     <action selector="switchOnOffDidTap:" destination="Y6W-OH-hqX" eventType="valueChanged" id="Ku6-6v-Rck"/>
                                 </connections>
@@ -44,9 +45,24 @@
                                     <constraint firstAttribute="height" constant="22" id="ysi-CO-5AL"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="dismissBtn"/>
                                 <connections>
                                     <action selector="dismissBtnDidTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="JzX-eo-qVd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcs-pU-SNf">
+                                <rect key="frame" x="349.5" y="785.5" width="34.5" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="70b-WJ-0aR"/>
+                                    <constraint firstAttribute="width" secondItem="tcs-pU-SNf" secondAttribute="height" multiplier="30:26" id="S4f-eP-Swb"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <state key="selected" backgroundImage="white_heart_selected"/>
+                                <connections>
+                                    <action selector="likeBtnDidTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ByK-XR-zOQ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -59,8 +75,10 @@
                             <constraint firstAttribute="bottom" secondItem="ZQI-Jt-GQE" secondAttribute="bottom" id="GYe-wa-7uM"/>
                             <constraint firstItem="MJJ-NF-Z6b" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="19" id="Im7-Xb-fiG"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="hJV-9q-8Vb" secondAttribute="bottom" constant="34" id="M3e-Uz-JH1"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="tcs-pU-SNf" secondAttribute="trailing" constant="30" id="Nox-kh-7Pf"/>
                             <constraint firstItem="ZQI-Jt-GQE" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="Q4r-lu-R8q"/>
                             <constraint firstItem="912-0h-gwp" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="14" id="UI2-hJ-Pjf"/>
+                            <constraint firstItem="tcs-pU-SNf" firstAttribute="centerY" secondItem="hJV-9q-8Vb" secondAttribute="centerY" id="WWs-Nw-tyy"/>
                             <constraint firstItem="ZQI-Jt-GQE" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="bgG-8J-G33"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="912-0h-gwp" secondAttribute="trailing" constant="19" id="kbU-pb-Eqz"/>
                         </constraints>
@@ -68,12 +86,14 @@
                     <connections>
                         <outlet property="backgroundRemoveSwitch" destination="912-0h-gwp" id="K10-iT-7Tc"/>
                         <outlet property="captureBtn" destination="hJV-9q-8Vb" id="wf1-pD-0XU"/>
+                        <outlet property="dismissBtn" destination="MJJ-NF-Z6b" id="Zpt-t4-hxB"/>
                         <outlet property="gallerySceneView" destination="ZQI-Jt-GQE" id="3vH-Yb-kaa"/>
+                        <outlet property="likeBtn" destination="tcs-pU-SNf" id="SLy-A0-b4E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="113"/>
+            <point key="canvasLocation" x="137.68115942028987" y="112.5"/>
         </scene>
         <!--PlaneVC-->
         <scene sceneID="byh-7f-cut">
@@ -118,8 +138,11 @@
     </scenes>
     <resources>
         <image name="captureBtn" width="55" height="55"/>
-        <image name="dismissBtn" width="16" height="16"/>
         <image name="goToExhibitionBtn" width="157" height="48"/>
+        <image name="white_heart_selected" width="30" height="26"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
