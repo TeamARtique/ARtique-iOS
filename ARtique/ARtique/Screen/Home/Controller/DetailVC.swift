@@ -40,6 +40,7 @@ class DetailVC: BaseVC {
         configureNaviBar()
         configureARBtn()
         addScrollGesture()
+        addTapGesture()
         getExhibitionData(exhibitionID: exhibitionID ?? -1)
     }
     
@@ -237,12 +238,27 @@ extension DetailVC {
 extension DetailVC {
     private func addScrollGesture() {
         let scrollGesture = UIPanGestureRecognizer(target: self, action: #selector(viewVerticalScroll))
+        scrollGesture.delegate = self
         view.addGestureRecognizer(scrollGesture)
+    }
+    
+    private func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapScroll))
+        tapGesture.delegate = self
+        view.addGestureRecognizer(tapGesture)
     }
     
     @objc func viewVerticalScroll(sender: UIPanGestureRecognizer) {
         let dragPosition = sender.translation(in: self.view)
         let isScrolled = dragPosition.y < 0 ? true : false
+        UIView.animate(withDuration: 0.3) {
+            self.configureLayout(isScrolled: isScrolled)
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc func viewTapScroll(sender: UITapGestureRecognizer) {
+        let isScrolled = navigationItem.title == "" ? false : true
         UIView.animate(withDuration: 0.3) {
             self.configureLayout(isScrolled: isScrolled)
             self.view.layoutIfNeeded()
@@ -280,5 +296,11 @@ extension DetailVC {
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         }
+    }
+}
+
+extension DetailVC: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        true
     }
 }
