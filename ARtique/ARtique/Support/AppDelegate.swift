@@ -17,18 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        // SplashView 1초동안 보이게
-        Thread.sleep(forTimeInterval: 1.0)
+        // SplashView 0.3초동안 보이게
+        Thread.sleep(forTimeInterval: 0.3)
         KakaoSDK.initSDK(appKey: "af3f7053ff24fb9670107358290a4365")
         
         let window = UIWindow(frame: UIScreen.main.bounds)
-        
-        if UserDefaults.standard.string(forKey: UserDefaults.Keys.refreshToken) != nil {
-            window.rootViewController = ARtiqueTBC()
-        } else {
-            window.rootViewController = LoginVC()
-        }
-        
+        window.rootViewController = SplashVC()
         self.window = window
         window.makeKeyAndVisible()
         
