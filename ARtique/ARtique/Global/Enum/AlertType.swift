@@ -54,7 +54,7 @@ extension AlertType {
         case .registerExhibition:
             return "취소"
         case .seeTicketbook:
-            return "취소"
+            return "나가기"
         }
     }
     
