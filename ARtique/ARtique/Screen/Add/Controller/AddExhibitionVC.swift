@@ -175,18 +175,6 @@ extension AddExhibitionVC {
         }
     }
     
-    /// 순서 조정 단계에서 테마 선택 단계로 돌아갈 경우 선택된 사진을 모두 지우는 함수
-    private func deletePrevData(_ page: Int) {
-        if page == 1 {
-            artworkSelectView.selectedImages.removeAll()
-            artworkSelectView.galleryCV.indexPathsForSelectedItems?.forEach({
-                artworkSelectView.galleryCV.deselectItem(at: $0, animated: false)
-            })
-            artworkSelectView.galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
-            NotificationCenter.default.post(name: .whenAlbumChanged, object: 0)
-        }
-    }
-    
     @objc func presentAlbumList(_ notification: Notification) {
         let albumListVC = UIStoryboard(name: Identifiers.albumListTVC, bundle: nil).instantiateViewController(withIdentifier: Identifiers.albumListTVC) as! AlbumListTVC
         albumListVC.albumList = notification.object as! [PHAssetCollection]
@@ -203,6 +191,21 @@ extension AddExhibitionVC {
         exhibitionModel.galleryTheme = nil
         dismiss(animated: false) {
             self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    /// 순서 조정 단계에서 테마 선택 단계로 돌아갈 경우 선택된 사진을 모두 지우는 함수
+    @objc func removeAllPhotos() {
+        artworkSelectView.selectedImages.removeAll()
+        artworkSelectView.indexArr.removeAll()
+        artworkSelectView.galleryCV.indexPathsForSelectedItems?.forEach({
+            artworkSelectView.galleryCV.deselectItem(at: $0, animated: false)
+        })
+        artworkSelectView.galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
+        NotificationCenter.default.post(name: .whenAlbumChanged, object: 0)
+        dismiss(animated: false) {
+            self.page -= 1
+            self.configurePageView(self.page)
         }
     }
     
@@ -356,13 +359,10 @@ extension AddExhibitionVC {
     
     @objc func bindLeftBarButton() {
         view.endEditing(true)
-        if page != 0 {
-            deletePrevData(page)
-            page -= 1
-            configurePageView(page)
-        } else {
-            if NewExhibition.shared.gallerySize != nil
-                || NewExhibition.shared.galleryTheme != nil {
+        switch page {
+        case 0:
+            if exhibitionModel.gallerySize != nil
+                || exhibitionModel.galleryTheme != nil {
                 popupAlert(targetView: self,
                            alertType: .removeAllExhibition,
                            image: nil,
@@ -371,6 +371,20 @@ extension AddExhibitionVC {
             } else {
                 dismiss(animated: true, completion: nil)
             }
+        case 1:
+            if !artworkSelectView.selectedImages.isEmpty {
+                popupAlert(targetView: self,
+                           alertType: .removeAllPhotos,
+                           image: nil,
+                           leftBtnAction: #selector(removeAllPhotos),
+                           rightBtnAction: #selector(dismissAlert))
+            } else {
+                page -= 1
+                configurePageView(page)
+            }
+        default:
+            page -= 1
+            configurePageView(page)
         }
     }
 }

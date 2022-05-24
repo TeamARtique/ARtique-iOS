@@ -37,10 +37,15 @@ extension AlertVC {
         leftBtn.titleLabel?.font = .AppleSDGothicR(size: 15)
         
         rightBtn.layer.cornerRadius = rightBtn.frame.height / 2
-        rightBtn.backgroundColor = .black
-        rightBtn.titleLabel?.textColor = .white
-        rightBtn.setTitleColor(.white, for: .normal)
+        rightBtn.layer.borderColor = UIColor.black.cgColor
+        rightBtn.layer.borderWidth = 1
+        rightBtn.setTitleColor(.black, for: .normal)
         rightBtn.titleLabel?.font = .AppleSDGothicR(size: 15)
+    }
+    
+    private func highlightBtn(button: UIButton) {
+        button.backgroundColor = .black
+        button.setTitleColor(.white, for: .normal)
     }
     
     func configureAlert(targetView: UIViewController, alertType: AlertType, image: UIImage?, leftBtnAction: Selector?, rightBtnAction: Selector) {
@@ -63,6 +68,7 @@ extension AlertVC {
                 }
             }
             
+            self.highlightBtn(button: alertType.highlight == "left" ? self.leftBtn : self.rightBtn)
             self.message.attributedText = alertType.message
             self.leftBtn.setTitle(alertType.leftBtnLabel, for: .normal)
             self.rightBtn.setTitle(alertType.rightBtnLabel, for: .normal)
