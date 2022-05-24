@@ -90,6 +90,8 @@
 		23D4CFBF2831205B0012765A /* HomeListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D4CFBE2831205B0012765A /* HomeListService.swift */; };
 		23D4CFC12831218B0012765A /* HomeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D4CFC02831218B0012765A /* HomeAPI.swift */; };
 		23D4CFC32831839B0012765A /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D4CFC22831839B0012765A /* Date+.swift */; };
+		23DD9E7D283D240A0041928D /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD9E7C283D240A0041928D /* SplashVC.swift */; };
+		23DD9E7F283D24280041928D /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = 23DD9E7E283D24280041928D /* splash.json */; };
 		23DD9E6D283CF0520041928D /* ArtistProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD9E6C283CF0520041928D /* ArtistProfileModel.swift */; };
 		23DD9E6F283CF0F10041928D /* MypageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD9E6E283CF0F10041928D /* MypageAPI.swift */; };
 		23DD9E71283CF1330041928D /* MypageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DD9E70283CF1330041928D /* MypageService.swift */; };
@@ -265,6 +267,8 @@
 		23D4CFBE2831205B0012765A /* HomeListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListService.swift; sourceTree = "<group>"; };
 		23D4CFC02831218B0012765A /* HomeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAPI.swift; sourceTree = "<group>"; };
 		23D4CFC22831839B0012765A /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		23DD9E7C283D240A0041928D /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
+		23DD9E7E283D24280041928D /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
 		23DD9E6C283CF0520041928D /* ArtistProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistProfileModel.swift; sourceTree = "<group>"; };
 		23DD9E6E283CF0F10041928D /* MypageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageAPI.swift; sourceTree = "<group>"; };
 		23DD9E70283CF1330041928D /* MypageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageService.swift; sourceTree = "<group>"; };
@@ -459,6 +463,16 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		23DD9E7B283D23F10041928D /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				3305F73B2754DABD00E6E08E /* LaunchScreen.storyboard */,
+				23DD9E7C283D240A0041928D /* SplashVC.swift */,
+				23DD9E7E283D24280041928D /* splash.json */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
 		23DD9E6B283CF01C0041928D /* Mypage */ = {
 			isa = PBXGroup;
 			children = (
@@ -533,6 +547,7 @@
 		3305F7432754DB4000E6E08E /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				23DD9E7B283D23F10041928D /* Splash */,
 				23C9AD632801C85B00DFF5A2 /* Shared */,
 				334E736E27FB6675001BAF25 /* Login */,
 				3305F76C2754E13400E6E08E /* TabBar */,
@@ -567,7 +582,6 @@
 				3305F74D2754DF1300E6E08E /* View */,
 				3305F74E2754DF1800E6E08E /* Extension */,
 				3305F74F2754DF1E00E6E08E /* Font */,
-				3305F73B2754DABD00E6E08E /* LaunchScreen.storyboard */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -1163,6 +1177,7 @@
 				23A1B2C928367FA00089B63E /* ToastView.xib in Resources */,
 				239C5D4D27F224A300D8A3D2 /* ArtworkSelectView.xib in Resources */,
 				3305F7AD2754E66900E6E08E /* AppleSDGothicNeoSB.ttf in Resources */,
+				23DD9E7F283D24280041928D /* splash.json in Resources */,
 				236FA17A281EB35F00E819FE /* Alert.storyboard in Resources */,
 				3305F7AA2754E66200E6E08E /* AppleSDGothicNeoM.ttf in Resources */,
 				238BFDD22809523D0018D256 /* ReorderTVC.xib in Resources */,
@@ -1324,6 +1339,7 @@
 				23E5A13B2833D7BD00DDD328 /* RegisterService.swift in Sources */,
 				236FA178281EB33B00E819FE /* AlertVC.swift in Sources */,
 				238C65762756606100EADA93 /* HomeNC.swift in Sources */,
+				23DD9E7D283D240A0041928D /* SplashVC.swift in Sources */,
 				3305F7A82754E45800E6E08E /* HomeVC.swift in Sources */,
 				23144219280C4053007DB53C /* SearchResultVC.swift in Sources */,
 				23BB927027F0EB9100D91354 /* TagType.swift in Sources */,
