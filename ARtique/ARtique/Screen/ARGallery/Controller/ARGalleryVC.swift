@@ -13,7 +13,7 @@ import Kingfisher
 
 class ARGalleryVC: BaseVC {
     
-    // MARK: Properties
+    // MARK: IBOutlets
     @IBOutlet var gallerySceneView: ARSCNView!
     @IBOutlet var backgroundRemoveSwitch: UISwitch!
     @IBOutlet var captureBtn: UIButton! {
@@ -21,17 +21,21 @@ class ARGalleryVC: BaseVC {
             captureBtn.isHidden = true
         }
     }
+    @IBOutlet var dismissBtn: UIButton!
+    @IBOutlet var likeBtn: UIButton!
+    
+    // MARK: Variables
     var galleryScene: SCNScene!
     var defaultGalleryNode: SCNNode!
     var planeRecognizedPosition: SCNVector3?
     var galleryType: GalleyType = .minimum
-    var exhibitionId: Int?
+    var exhibitionID: Int?
     
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        getARGalleryInfo(exhibitionID: exhibitionId ?? 0)
-        createTicketBook(exhibitionID: exhibitionId ?? 0)
+        getARGalleryInfo(exhibitionID: exhibitionID ?? 0)
+        createTicketBook(exhibitionID: exhibitionID ?? 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,10 +56,12 @@ class ARGalleryVC: BaseVC {
         if !sender.isOn {
             gallerySceneView.scene.rootNode.childNodes.filter({ $0.name == galleryModel }).forEach({ $0.isHidden = true })
             captureBtn.isHidden = false
+            likeBtn.isHidden = true
         }
         else {
             gallerySceneView.scene.rootNode.childNodes.filter({ $0.name == galleryModel }).forEach({ $0.isHidden = false })
             captureBtn.isHidden = true
+            likeBtn.isHidden = false
         }
     }
     
@@ -67,6 +73,11 @@ class ARGalleryVC: BaseVC {
     
     @IBAction func dismissBtnDidTap(_ sender: UIButton) {
         popupAlert(targetView: ARGalleryVC(), alertType: .seeTicketbook, image: nil, leftBtnAction: #selector(dismissToRoot), rightBtnAction: #selector(goToTicketbookVC))
+    }
+    
+    @IBAction func likeBtnDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        likeExhibition(exhibitionID: exhibitionID ?? 0)
     }
 }
 
@@ -218,6 +229,13 @@ extension ARGalleryVC {
             self.present(navi, animated: true, completion: nil)
         })
     }
+    
+    /// 갤러리 테마타입에 따라 좋아요, 나가기 버튼의 이미지를 설정하는 메서드
+    private func setBtnImageByTheme(theme: ThemeType) {
+        dismissBtn.setImage(UIImage(named: theme == .white ? "dismissBtn" : "dismiss_white"), for: .normal)
+        likeBtn.setBackgroundImage(UIImage(named: theme == .white ? "black_heart" : "white_heart"), for: .normal)
+        likeBtn.setBackgroundImage(UIImage(named: theme == .white ? "black_heart_selected" : "white_heart_selected"), for: .selected)
+    }
 }
 
 //MARK: - AR Functions
@@ -264,11 +282,12 @@ extension ARGalleryVC {
                     let maxValue = data.gallery.gallerySize
                     let frameIdentifier1: String = self?.galleryType.frameIdentifier1 ?? ""
                     let frameIdentifier2: String = self?.galleryType.frameIdentifier2 ?? ""
-                    
+                    self?.setBtnImageByTheme(theme: ThemeType(rawValue: data.gallery.galleryTheme) ?? .dark)
                     self?.setupGallerySceneView(type: GalleyType(rawValue: data.gallery.gallerySize) ?? .medium)
                     self?.setupGalleryTheme(maxValue: maxValue, frameIdentifier1: frameIdentifier1, frameIdentifier2: frameIdentifier2, galleryType: GalleyType(rawValue: data.gallery.gallerySize) ?? .medium, themeType: ThemeType(rawValue: data.gallery.galleryTheme) ?? .dark)
                     self?.setupTitleText(maxValue: maxValue, artwork: data.artworks)
                     self?.downloadImageByRealData(maxValue: maxValue, artwork: data.artworks, frameIdentifier1: frameIdentifier1, frameIdentifier2: frameIdentifier2)
+                    self?.likeBtn.isSelected = data.like.isLiked ? true : false
                 }
             case .requestErr(let res):
                 if let message = res as? String {
@@ -288,6 +307,25 @@ extension ARGalleryVC {
             case .success(let res):
                 if let data = res as? CreateTicketModel {
                     print(data.exhibitionID)
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        })
+    }
+    
+    /// Network 통신을 통해 게시글을 좋아요/좋아요 취소하는 메서드
+    private func likeExhibition(exhibitionID: Int) {
+        PublicAPI.shared.requestLikeExhibition(exhibitionID: exhibitionID, completion: { [weak self] networkResult in
+            switch networkResult {
+            case .success(let res):
+                if let data = res as? Liked {
+                    self?.likeBtn.isSelected = data.isLiked ? true : false
                 }
             case .requestErr(let res):
                 if let message = res as? String {
