@@ -87,4 +87,12 @@ extension UIView {
     func rotate(degrees: CGFloat) {
         self.transform = CGAffineTransform(rotationAngle: CGFloat.pi * degrees / 180.0)
     }
+    
+    static var className: String {
+        NSStringFromClass(self.classForCoder()).components(separatedBy: ".").last!
+    }
+    
+    var className: String {
+        NSStringFromClass(self.classForCoder).components(separatedBy: ".").last!
+    }
 }

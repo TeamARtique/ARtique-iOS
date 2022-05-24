@@ -12,6 +12,7 @@ enum AlertType: CaseIterable {
     case removeAllExhibition
     case removeAllPhotos
     case registerExhibition
+    case seeTicketbook
 }
 
 extension AlertType {
@@ -20,6 +21,8 @@ extension AlertType {
         case .removeAllExhibition, .removeAllPhotos:
             return UIImage(named: "WarningAlert") ?? UIImage()
         case .registerExhibition:
+            return UIImage(named: "ConfirmAlert") ?? UIImage()
+        case .seeTicketbook:
             return UIImage(named: "ConfirmAlert") ?? UIImage()
         }
     }
@@ -42,6 +45,11 @@ extension AlertType {
             let attributedStr = NSMutableAttributedString(string: text)
             attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "지금 바로 등록"))
             return attributedStr
+        case .seeTicketbook:
+            let text = "등록된 티켓북을 확인하시겠습니까?\n티켓북은 홈>티켓 아이콘을 통해서도 \n확인 가능합니다."
+            let attributedStr = NSMutableAttributedString(string: text)
+            attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "지금 바로 확인"))
+            return attributedStr
         }
     }
     
@@ -53,6 +61,8 @@ extension AlertType {
             return "이전 단계"
         case .registerExhibition:
             return "취소"
+        case .seeTicketbook:
+            return "나가기"
         }
     }
     
@@ -62,6 +72,8 @@ extension AlertType {
             return "취소"
         case .registerExhibition:
             return "등록하기"
+        case .seeTicketbook:
+            return "확인하기"
         }
     }
     

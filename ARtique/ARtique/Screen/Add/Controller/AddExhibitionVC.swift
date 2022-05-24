@@ -237,7 +237,7 @@ extension AddExhibitionVC {
         guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
         
         detailVC.exhibitionID = exhibitionId
-        detailVC.isModal = true
+        detailVC.naviType = .dismissToRoot
         let navi = UINavigationController(rootViewController: detailVC)
         navi.modalPresentationStyle = .fullScreen
         self.present(navi, animated: true)

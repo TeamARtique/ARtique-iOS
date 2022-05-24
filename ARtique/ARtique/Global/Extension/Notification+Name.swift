@@ -15,4 +15,5 @@ extension Notification.Name {
     static let whenAlbumChanged = Notification.Name("whenAlbumChanged")
     static let whenAllExhibitionBtnSelected = Notification.Name("whenAllExhibitionBtnSelected")
     static let changeFirstResponder = Notification.Name("changeFirstResponder")
+    static let whenTicketShareBtnDidTap = Notification.Name("whenTicketShareBtnDidTap")
 }

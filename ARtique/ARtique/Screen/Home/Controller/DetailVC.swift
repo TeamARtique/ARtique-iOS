@@ -31,13 +31,13 @@ class DetailVC: BaseVC {
     
     var exhibitionID: Int?
     var exhibitionData: DetailModel?
-    var isModal: Bool?
+    var naviType: NaviType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setOptionalData()
         configureView()
         configureLayout(isScrolled: false)
-        configureNaviBar()
         configureARBtn()
         addScrollGesture()
         addTapGesture()
@@ -85,19 +85,27 @@ extension DetailVC {
         scrollBar.layer.cornerRadius = scrollBar.frame.height
     }
     
-    private func configureNaviBar() {
+    private func configureNaviBar(navi: NaviType) {
         navigationController?.additionalSafeAreaInsets.top = 8
         navigationController?.navigationBar.tintColor = .black
-        navigationItem.leftBarButtonItem
-        = isModal ?? false
-        ? UIBarButtonItem(image: UIImage(named: "dismissBtn"),
-                          style: .plain,
-                          target: self,
-                          action: #selector(homeToRoot))
-        : UIBarButtonItem(image: UIImage(named: "BackBtn"),
-                                                           style: .plain,
-                                                           target: self,
-                                                           action: #selector(popVC))
+        
+        switch navi {
+        case .push:
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBtn"),
+                                                               style: .plain,
+                                                               target: self,
+                                                               action: #selector(popVC))
+        case .present:
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "dismissBtn"),
+                                                               style: .plain,
+                                                               target: self,
+                                                               action: #selector(dismissVC))
+        case .dismissToRoot:
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "dismissBtn"),
+                                                               style: .plain,
+                                                               target: self,
+                                                               action: #selector(homeToRoot))
+        }
     }
     
     private func configureNaviData() {
@@ -272,6 +280,13 @@ extension DetailVC {
         activityVC.popoverPresentationController?.sourceView = self.view
         
         self.present(activityVC, animated: true, completion: nil)
+    }
+    
+    private func setOptionalData() {
+        if let navi = naviType {
+            naviType = navi
+            configureNaviBar(navi: navi)
+        }
     }
 }
 
