@@ -70,10 +70,11 @@ extension UIViewController {
     }
     
     /// ARtique 커스텀 Alert 메서드
-    func popupAlert(targetView: UIViewController, alertType: AlertType, leftBtnAction: Selector?, rightBtnAction: Selector) {
+    func popupAlert(targetView: UIViewController, alertType: AlertType, image: UIImage?,  leftBtnAction: Selector?, rightBtnAction: Selector) {
         guard let alert = UIStoryboard(name: Identifiers.alertSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.alertVC) as? AlertVC else { return }
         alert.configureAlert(targetView: targetView,
                              alertType: alertType,
+                             image: image,
                              leftBtnAction: leftBtnAction,
                              rightBtnAction: rightBtnAction)
         alert.modalPresentationStyle = .overFullScreen

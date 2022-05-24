@@ -208,14 +208,13 @@ extension AddExhibitionVC {
     
     @objc func registerExhibition() {
         LoadingIndicator.showLoading()
-        makePoster()
         self.dismiss(animated: false)
         postExhibition(exhibitionData: NewExhibition.shared)
     }
     
-    private func makePoster() {
-        let baseView = UIView()
-        view.insertSubview(baseView, at: 0)
+    private func makePoster() -> UIImage {
+        let posterView = UIView()
+        view.insertSubview(posterView, at: 0)
         
         let posterImage = PosterTheme()
         posterImage.translatesAutoresizingMaskIntoConstraints = false
@@ -224,9 +223,11 @@ extension AddExhibitionVC {
                                     title: exhibitionModel.title ?? "",
                                     nickname: UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) ?? "ARTI",
                                     date: Date().toString())
-        baseView.insertSubview(posterImage.contentView, at: 0)
+        posterView.insertSubview(posterImage.contentView, at: 0)
         exhibitionModel.posterImage = posterImage.contentView.transfromToImage() ?? UIImage(named: "DefaultPoster")!
-        baseView.removeFromSuperview()
+        posterView.removeFromSuperview()
+        
+        return exhibitionModel.posterImage ?? UIImage()
     }
     
     private func showDetail(with exhibitionId: Int) {
@@ -336,6 +337,7 @@ extension AddExhibitionVC {
         case 4:
             popupAlert(targetView: self,
                        alertType: .registerExhibition,
+                       image: makePoster(),
                        leftBtnAction: #selector(dismissAlert),
                        rightBtnAction: #selector(registerExhibition))
         default:
@@ -355,6 +357,7 @@ extension AddExhibitionVC {
                 || NewExhibition.shared.galleryTheme != nil {
                 popupAlert(targetView: self,
                            alertType: .removeAllExhibition,
+                           image: nil,
                            leftBtnAction: #selector(removeAllExhibitionData),
                            rightBtnAction: #selector(dismissAlert))
             } else {

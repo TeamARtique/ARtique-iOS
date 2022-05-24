@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class AlertVC: UIViewController {
     @IBOutlet weak var alertBaseView: UIView!
@@ -42,10 +43,26 @@ extension AlertVC {
         rightBtn.titleLabel?.font = .AppleSDGothicR(size: 15)
     }
     
-    func configureAlert(targetView: UIViewController, alertType: AlertType, leftBtnAction: Selector?, rightBtnAction: Selector) {
+    func configureAlert(targetView: UIViewController, alertType: AlertType, image: UIImage?, leftBtnAction: Selector?, rightBtnAction: Selector) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.alertImage.image = alertType.alertImage
+            if image != nil {
+                self.alertImage.image = image
+                self.alertImage.snp.updateConstraints {
+                    $0.top.equalToSuperview().offset(30)
+                    $0.leading.equalToSuperview().offset(50)
+                    $0.trailing.equalToSuperview().offset(-50)
+                    $0.bottom.equalTo(self.message.snp.top).offset(-18)
+                    $0.height.equalTo(self.alertImage.snp.width).multipliedBy(4.0/3.0)
+                }
+            } else {
+                self.alertImage.image = alertType.alertImage
+                self.alertImage.snp.updateConstraints {
+                    $0.height.equalTo(63)
+                    $0.width.equalTo(72)
+                }
+            }
+            
             self.message.attributedText = alertType.message
             self.leftBtn.setTitle(alertType.leftBtnLabel, for: .normal)
             self.rightBtn.setTitle(alertType.rightBtnLabel, for: .normal)
