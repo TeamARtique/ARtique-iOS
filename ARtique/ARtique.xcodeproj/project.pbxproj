@@ -57,6 +57,10 @@
 		239C5D4C27F224A300D8A3D2 /* ArtworkSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239C5D4A27F224A300D8A3D2 /* ArtworkSelectView.swift */; };
 		239C5D4D27F224A300D8A3D2 /* ArtworkSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 239C5D4B27F224A300D8A3D2 /* ArtworkSelectView.xib */; };
 		239C5D4F27F2327900D8A3D2 /* PHFetchOptions+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239C5D4E27F2327900D8A3D2 /* PHFetchOptions+.swift */; };
+		23A1B2C828367FA00089B63E /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A1B2C628367FA00089B63E /* ToastView.swift */; };
+		23A1B2C928367FA00089B63E /* ToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23A1B2C728367FA00089B63E /* ToastView.xib */; };
+		23A1B2CB2836A6150089B63E /* ToastType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A1B2CA2836A6150089B63E /* ToastType.swift */; };
+		23A1B2CD283752570089B63E /* NotificationCenter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A1B2CC283752570089B63E /* NotificationCenter+.swift */; };
 		23A852C72806B1A600406A3C /* AppleSDGothicNeoL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23A852C62806B1A600406A3C /* AppleSDGothicNeoL.ttf */; };
 		23A8D33328344DFC00E4A9D4 /* DetailNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A8D33228344DFC00E4A9D4 /* DetailNC.swift */; };
 		23A8D3352834560100E4A9D4 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A8D3342834560100E4A9D4 /* LoadingIndicator.swift */; };
@@ -224,6 +228,10 @@
 		239C5D4A27F224A300D8A3D2 /* ArtworkSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkSelectView.swift; sourceTree = "<group>"; };
 		239C5D4B27F224A300D8A3D2 /* ArtworkSelectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtworkSelectView.xib; sourceTree = "<group>"; };
 		239C5D4E27F2327900D8A3D2 /* PHFetchOptions+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHFetchOptions+.swift"; sourceTree = "<group>"; };
+		23A1B2C628367FA00089B63E /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		23A1B2C728367FA00089B63E /* ToastView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToastView.xib; sourceTree = "<group>"; };
+		23A1B2CA2836A6150089B63E /* ToastType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastType.swift; sourceTree = "<group>"; };
+		23A1B2CC283752570089B63E /* NotificationCenter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+.swift"; sourceTree = "<group>"; };
 		23A852C62806B1A600406A3C /* AppleSDGothicNeoL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoL.ttf; sourceTree = "<group>"; };
 		23A8D33228344DFC00E4A9D4 /* DetailNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNC.swift; sourceTree = "<group>"; };
 		23A8D3342834560100E4A9D4 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
@@ -401,6 +409,7 @@
 				2314356F2822D66E00E41D7F /* ThemeType.swift */,
 				23560FFB2832B67F00176D66 /* ExhibitionSortType.swift */,
 				236128992832196D0097896B /* PosterType.swift */,
+				23A1B2CA2836A6150089B63E /* ToastType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -427,6 +436,8 @@
 				236FA177281EB33B00E819FE /* AlertVC.swift */,
 				236FA179281EB35F00E819FE /* Alert.storyboard */,
 				23A8D3342834560100E4A9D4 /* LoadingIndicator.swift */,
+				23A1B2C628367FA00089B63E /* ToastView.swift */,
+				23A1B2C728367FA00089B63E /* ToastView.xib */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -591,6 +602,7 @@
 				3305F7502754DF3E00E6E08E /* UIColor+Additions.swift */,
 				3305F7522754DF4C00E6E08E /* UIFont+.swift */,
 				3305F7542754DF5B00E6E08E /* UILabel+.swift */,
+				23A1B2CC283752570089B63E /* NotificationCenter+.swift */,
 				3305F7562754DF6500E6E08E /* Notification+Name.swift */,
 				3305F7582754DFD700E6E08E /* UIView+.swift */,
 				3305F77C2754E20800E6E08E /* UserDefaults+.swift */,
@@ -1128,6 +1140,7 @@
 				3305F7AB2754E66500E6E08E /* AppleSDGothicNeoB.ttf in Resources */,
 				3305F78A2754E2FE00E6E08E /* TabBar.storyboard in Resources */,
 				23612898283219320097896B /* PosterTheme.xib in Resources */,
+				23A1B2C928367FA00089B63E /* ToastView.xib in Resources */,
 				239C5D4D27F224A300D8A3D2 /* ArtworkSelectView.xib in Resources */,
 				3305F7AD2754E66900E6E08E /* AppleSDGothicNeoSB.ttf in Resources */,
 				236FA17A281EB35F00E819FE /* Alert.storyboard in Resources */,
@@ -1225,8 +1238,10 @@
 				3305F7512754DF3E00E6E08E /* UIColor+Additions.swift in Sources */,
 				33083C24281981010038886B /* AuthService.swift in Sources */,
 				23E734EE27E99CC8000315E6 /* OrderView.swift in Sources */,
+				23A1B2C828367FA00089B63E /* ToastView.swift in Sources */,
 				3305F7532754DF4C00E6E08E /* UIFont+.swift in Sources */,
 				239C5D4C27F224A300D8A3D2 /* ArtworkSelectView.swift in Sources */,
+				23A1B2CB2836A6150089B63E /* ToastType.swift in Sources */,
 				33083C262819822D0038886B /* AuthAPI.swift in Sources */,
 				3305F7A62754E44B00E6E08E /* MypageVC.swift in Sources */,
 				23B52A8B27E0FED600D6C339 /* ThemeView.swift in Sources */,
@@ -1263,6 +1278,7 @@
 				23A8D33328344DFC00E4A9D4 /* DetailNC.swift in Sources */,
 				23E734F627E9A016000315E6 /* GalleryCVC.swift in Sources */,
 				33A463EC282AFF8C0049F0AF /* GalleryAPI.swift in Sources */,
+				23A1B2CD283752570089B63E /* NotificationCenter+.swift in Sources */,
 				23E734F627E9A016000315E6 /* GalleryCVC.swift in Sources */,
 				23560FFC2832B67F00176D66 /* ExhibitionSortType.swift in Sources */,
 				23B2E5D62758F9D700FA8CC2 /* HomeListVC.swift in Sources */,
@@ -1463,7 +1479,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2ZS26WP93H;
+				DEVELOPMENT_TEAM = U2Z5Z44P4R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARtique/Support/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근 허용";
@@ -1499,7 +1515,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2ZS26WP93H;
+				DEVELOPMENT_TEAM = U2Z5Z44P4R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARtique/Support/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근 허용";

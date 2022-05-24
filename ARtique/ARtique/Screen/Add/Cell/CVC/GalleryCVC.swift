@@ -35,6 +35,7 @@ class GalleryCVC: BorderCVC {
     override func prepareForReuse() {
         super.prepareForReuse()
         indexBase.isHidden = true
+        selectedIndex.text = ""
     }
     
     override var isSelected: Bool {

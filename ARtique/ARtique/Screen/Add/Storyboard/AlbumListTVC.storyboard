@@ -3,40 +3,59 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Album ListTVC-->
-        <scene sceneID="084-PY-H4C">
+        <scene sceneID="dQk-07-inz">
             <objects>
-                <tableViewController storyboardIdentifier="AlbumListTVC" id="ej3-6R-55e" customClass="AlbumListTVC" customModule="ARtique" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="urm-9H-PLT">
+                <viewController storyboardIdentifier="AlbumListTVC" id="XAZ-8s-Xan" customClass="AlbumListTVC" customModule="ARtique" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dGY-UG-Uqq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJJ-xF-3Qb">
+                                <rect key="frame" x="15" y="61" width="26" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="26" id="WLL-8v-tqW"/>
+                                    <constraint firstAttribute="height" constant="26" id="gtS-Je-gyw"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="dismissBtn"/>
+                                <connections>
+                                    <action selector="dismissAlbumList:" destination="XAZ-8s-Xan" eventType="touchUpInside" id="G5f-LP-EKw"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jdZ-Qh-z9a">
+                                <rect key="frame" x="0.0" y="91" width="414" height="805"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="kye-Fe-eR4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="MU6-uq-l0O">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MU6-uq-l0O" id="Ww6-KS-GvL">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="ej3-6R-55e" id="b8S-xo-ryg"/>
-                            <outlet property="delegate" destination="ej3-6R-55e" id="Dr1-OY-ko6"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="goq-Ns-1o6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                        <constraints>
+                            <constraint firstItem="jdZ-Qh-z9a" firstAttribute="leading" secondItem="kye-Fe-eR4" secondAttribute="leading" id="6LO-9t-XPD"/>
+                            <constraint firstItem="HJJ-xF-3Qb" firstAttribute="top" secondItem="kye-Fe-eR4" secondAttribute="top" constant="17" id="VvD-4M-lRu"/>
+                            <constraint firstItem="kye-Fe-eR4" firstAttribute="trailing" secondItem="jdZ-Qh-z9a" secondAttribute="trailing" id="X6e-El-lNA"/>
+                            <constraint firstAttribute="bottom" secondItem="jdZ-Qh-z9a" secondAttribute="bottom" id="bgH-JJ-KqQ"/>
+                            <constraint firstItem="HJJ-xF-3Qb" firstAttribute="leading" secondItem="kye-Fe-eR4" secondAttribute="leading" constant="15" id="yX3-Pq-fNg"/>
+                            <constraint firstItem="jdZ-Qh-z9a" firstAttribute="top" secondItem="HJJ-xF-3Qb" secondAttribute="bottom" constant="4" id="zJZ-Po-bxy"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="albumListTV" destination="jdZ-Qh-z9a" id="ayV-da-yaG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Whe-6C-ajR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="21" y="195"/>
+            <point key="canvasLocation" x="774" y="195"/>
         </scene>
     </scenes>
     <resources>
+        <image name="dismissBtn" width="16" height="16"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

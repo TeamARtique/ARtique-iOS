@@ -7,6 +7,8 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class PostExplainView: UIView {
     @IBOutlet weak var artworkExplainCV: UICollectionView!
@@ -14,19 +16,20 @@ class PostExplainView: UIView {
     var isKeyboardVisible = false
     var currentIndex:CGFloat = 0
     let cellWidth: CGFloat = 300
+    let bag = DisposeBag()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setContentView()
         configureCV()
-        setNotification()
+        bindNotificationCenter()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setContentView()
         configureCV()
-        setNotification()
+        bindNotificationCenter()
     }
 }
 
@@ -59,30 +62,33 @@ extension PostExplainView {
 }
 // MARK: - Custom Methods
 extension PostExplainView {
-    private func setNotification() {
+    private func bindNotificationCenter() {
         NotificationCenter.default.addObserver(self, selector: #selector(scrollToFirstResponder), name: .changeFirstResponder, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        isKeyboardVisible = true
-        UIView.animate(withDuration: 0.3) {
-            self.artworkExplainCV.snp.updateConstraints {
-                $0.top.equalToSuperview()
-            }
-            self.layoutIfNeeded()
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        isKeyboardVisible = false
-        UIView.animate(withDuration: 0.3) {
-            self.artworkExplainCV.snp.updateConstraints {
-                $0.top.equalToSuperview().offset(69)
-            }
-            self.layoutIfNeeded()
-        }
+        
+        NotificationCenter.default.keyboardWillChangeFrame()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, info in
+                self.isKeyboardVisible = true
+                UIView.animate(withDuration: info.duration) {
+                    self.artworkExplainCV.snp.updateConstraints {
+                        $0.top.equalToSuperview()
+                    }
+                    self.layoutIfNeeded()
+                }
+            })
+            .disposed(by: bag)
+        
+        NotificationCenter.default.keyboardWillHideObservable()
+            .subscribe(onNext: { info in
+                self.isKeyboardVisible = false
+                UIView.animate(withDuration: info.duration) {
+                    self.artworkExplainCV.snp.updateConstraints {
+                        $0.top.equalToSuperview().offset(69)
+                    }
+                    self.layoutIfNeeded()
+                }
+            })
+            .disposed(by: bag)
     }
     
     @objc func scrollToFirstResponder(_ notification: Notification) {

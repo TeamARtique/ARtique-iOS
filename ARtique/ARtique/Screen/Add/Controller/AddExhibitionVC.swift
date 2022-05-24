@@ -175,18 +175,6 @@ extension AddExhibitionVC {
         }
     }
     
-    /// 순서 조정 단계에서 테마 선택 단계로 돌아갈 경우 선택된 사진을 모두 지우는 함수
-    private func deletePrevData(_ page: Int) {
-        if page == 1 {
-            NewExhibition.shared.artworks?.removeAll()
-            artworkSelectView.galleryCV.indexPathsForSelectedItems?.forEach({
-                artworkSelectView.galleryCV.deselectItem(at: $0, animated: false)
-            })
-            artworkSelectView.galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
-            NotificationCenter.default.post(name: .whenAlbumChanged, object: 0)
-        }
-    }
-    
     @objc func presentAlbumList(_ notification: Notification) {
         let albumListVC = UIStoryboard(name: Identifiers.albumListTVC, bundle: nil).instantiateViewController(withIdentifier: Identifiers.albumListTVC) as! AlbumListTVC
         albumListVC.albumList = notification.object as! [PHAssetCollection]
@@ -206,16 +194,30 @@ extension AddExhibitionVC {
         }
     }
     
+    /// 순서 조정 단계에서 테마 선택 단계로 돌아갈 경우 선택된 사진을 모두 지우는 함수
+    @objc func removeAllPhotos() {
+        artworkSelectView.selectedImages.removeAll()
+        artworkSelectView.indexArr.removeAll()
+        artworkSelectView.galleryCV.indexPathsForSelectedItems?.forEach({
+            artworkSelectView.galleryCV.deselectItem(at: $0, animated: false)
+        })
+        artworkSelectView.galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
+        NotificationCenter.default.post(name: .whenAlbumChanged, object: 0)
+        dismiss(animated: false) {
+            self.page -= 1
+            self.configurePageView(self.page)
+        }
+    }
+    
     @objc func registerExhibition() {
         LoadingIndicator.showLoading()
-        makePoster()
         self.dismiss(animated: false)
         postExhibition(exhibitionData: NewExhibition.shared)
     }
     
-    private func makePoster() {
-        let baseView = UIView()
-        view.insertSubview(baseView, at: 0)
+    private func makePoster() -> UIImage {
+        let posterView = UIView()
+        view.insertSubview(posterView, at: 0)
         
         let posterImage = PosterTheme()
         posterImage.translatesAutoresizingMaskIntoConstraints = false
@@ -224,9 +226,11 @@ extension AddExhibitionVC {
                                     title: exhibitionModel.title ?? "",
                                     nickname: UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) ?? "ARTI",
                                     date: Date().toString())
-        baseView.insertSubview(posterImage.contentView, at: 0)
+        posterView.insertSubview(posterImage.contentView, at: 0)
         exhibitionModel.posterImage = posterImage.contentView.transfromToImage() ?? UIImage(named: "DefaultPoster")!
-        baseView.removeFromSuperview()
+        posterView.removeFromSuperview()
+        
+        return exhibitionModel.posterImage ?? UIImage()
     }
     
     private func showDetail(with exhibitionId: Int) {
@@ -243,7 +247,8 @@ extension AddExhibitionVC {
 // MARK: - Network
 extension AddExhibitionVC {
     private func postExhibition(exhibitionData: NewExhibition) {
-        RegisterAPI.shared.postExhibitionData(exhibitionData: exhibitionData) { networkResult in
+        RegisterAPI.shared.postExhibitionData(exhibitionData: exhibitionData) {[weak self] networkResult in
+            guard let self = self else { return }
             switch networkResult {
             case .success(let data):
                 if let data = data as? RegisterModel {
@@ -269,7 +274,8 @@ extension AddExhibitionVC {
     }
     
     private func postArtworks(exhibitionId: Int, artwork: ArtworkData) {
-        RegisterAPI.shared.postArtworkData(exhibitionID: exhibitionId, artwork: artwork) { networkResult in
+        RegisterAPI.shared.postArtworkData(exhibitionID: exhibitionId, artwork: artwork) {[weak self] networkResult in
+            guard let self = self else { return }
             switch networkResult {
             case .success(let exhibitionData):
                 if exhibitionData is ArtworkModel {
@@ -287,7 +293,8 @@ extension AddExhibitionVC {
     }
     
     private func getRegisterStatus(exhibitionID: Int) {
-        RegisterAPI.shared.getRegisterStatus(exhibitionID: exhibitionID) { networkResult in
+        RegisterAPI.shared.getRegisterStatus(exhibitionID: exhibitionID) { [weak self] networkResult in
+            guard let self = self else { return }
             switch networkResult {
             case .success(_):
                 self.showDetail(with: exhibitionID)
@@ -307,15 +314,18 @@ extension AddExhibitionVC {
 // MARK: - Bind Button Action
 extension AddExhibitionVC {
     @objc func bindRightBarButton() {
+        view.endEditing(true)
         switch page {
         case 0:
             if exhibitionModel.gallerySize != nil
                 && exhibitionModel.galleryTheme != nil {
                 page += 1
                 configurePageView(page)
+            } else {
+                popupToast(toastType: .chooseAll)
             }
         case 1:
-            if exhibitionModel.artworks?.count == exhibitionModel.gallerySize {
+            if artworkSelectView.selectedImages.count == exhibitionModel.gallerySize {
                 page += 1
                 configurePageView(page)
                 for i in 0..<artworkSelectView.selectedImages.count {
@@ -324,12 +334,23 @@ extension AddExhibitionVC {
                     tmp.index = i + 1
                     exhibitionModel.artworks?[i] = tmp
                 }
+            } else {
+                popupToast(toastType: .chooseAll)
             }
         case 4:
-            popupAlert(targetView: self,
-                       alertType: .registerExhibition,
-                       leftBtnAction: #selector(dismissAlert),
-                       rightBtnAction: #selector(registerExhibition))
+            if exhibitionModel.title != ""
+                && exhibitionModel.category != nil
+                && exhibitionModel.posterTheme != nil
+                && exhibitionModel.description != exhibitionExplainView.exhibitionExplainPlaceholder
+                && exhibitionModel.tag != nil {
+                popupAlert(targetView: self,
+                           alertType: .registerExhibition,
+                           image: makePoster(),
+                           leftBtnAction: #selector(dismissAlert),
+                           rightBtnAction: #selector(registerExhibition))
+            } else {
+                popupToast(toastType: .chooseAll)
+            }
         default:
             page += 1
             configurePageView(page)
@@ -337,20 +358,33 @@ extension AddExhibitionVC {
     }
     
     @objc func bindLeftBarButton() {
-        if page != 0 {
-            deletePrevData(page)
-            page -= 1
-            configurePageView(page)
-        } else {
-            if NewExhibition.shared.gallerySize != nil
-                || NewExhibition.shared.galleryTheme != nil {
+        view.endEditing(true)
+        switch page {
+        case 0:
+            if exhibitionModel.gallerySize != nil
+                || exhibitionModel.galleryTheme != nil {
                 popupAlert(targetView: self,
                            alertType: .removeAllExhibition,
+                           image: nil,
                            leftBtnAction: #selector(removeAllExhibitionData),
                            rightBtnAction: #selector(dismissAlert))
             } else {
                 dismiss(animated: true, completion: nil)
             }
+        case 1:
+            if !artworkSelectView.selectedImages.isEmpty {
+                popupAlert(targetView: self,
+                           alertType: .removeAllPhotos,
+                           image: nil,
+                           leftBtnAction: #selector(removeAllPhotos),
+                           rightBtnAction: #selector(dismissAlert))
+            } else {
+                page -= 1
+                configurePageView(page)
+            }
+        default:
+            page -= 1
+            configurePageView(page)
         }
     }
 }

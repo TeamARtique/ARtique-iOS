@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -27,6 +28,7 @@
                 <outlet property="posterCV" destination="Gsr-Yu-Pb1" id="gCg-bI-urV"/>
                 <outlet property="posterChangeBtn" destination="MxR-33-7XB" id="6ER-rY-yng"/>
                 <outlet property="tagCV" destination="kmU-Zb-3hD" id="cbY-16-LpO"/>
+                <outlet property="titleTextCnt" destination="tor-og-qc7" id="oMM-6u-eQs"/>
                 <outlet property="titleTextField" destination="VMe-md-J9v" id="XQz-5B-71R"/>
             </connections>
         </placeholder>
@@ -114,7 +116,7 @@
                                     </constraints>
                                     <color key="textColor" systemColor="labelColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                 </textView>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="43V-Jt-XNM">
                                     <rect key="frame" x="20" y="168" width="335" height="68"/>
@@ -164,7 +166,7 @@
                                     </collectionViewFlowLayout>
                                 </collectionView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(0/100)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FsO-En-gpE">
-                                    <rect key="frame" x="105" y="476" width="37" height="14"/>
+                                    <rect key="frame" x="105" y="476" width="39" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="14" id="X4v-c6-d87"/>
                                     </constraints>
@@ -173,8 +175,17 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전시회의 분위기를 3개까지 선택할 수 있습니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9e-q7-SYB">
-                                    <rect key="frame" x="20" y="674" width="202.5" height="13"/>
+                                    <rect key="frame" x="20" y="674" width="201.5" height="13"/>
                                     <fontDescription key="fontDescription" name="AppleSDGothicNeoL00" family="AppleSDGothicNeoL00" pointSize="11"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(0/25)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tor-og-qc7">
+                                    <rect key="frame" x="57" y="36" width="32" height="14"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="14" id="tL9-Nz-rhj"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="AppleSDGothicNeoR00" family="AppleSDGothicNeoR00" pointSize="12"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -184,6 +195,7 @@
                                 <constraint firstItem="60W-cp-knJ" firstAttribute="top" secondItem="43V-Jt-XNM" secondAttribute="bottom" constant="36" id="2F8-cM-9vW"/>
                                 <constraint firstItem="Gsr-Yu-Pb1" firstAttribute="top" secondItem="60W-cp-knJ" secondAttribute="bottom" constant="11" id="3JT-rW-hEY"/>
                                 <constraint firstItem="L9e-q7-SYB" firstAttribute="top" secondItem="vaY-Fa-e3U" secondAttribute="bottom" constant="4" id="747-hE-vnB"/>
+                                <constraint firstItem="tor-og-qc7" firstAttribute="leading" secondItem="J6d-zJ-nzJ" secondAttribute="trailing" constant="7" id="AR5-Kt-qjs"/>
                                 <constraint firstAttribute="trailing" secondItem="i3T-JN-Bh2" secondAttribute="trailing" constant="20" id="Asi-zM-swu"/>
                                 <constraint firstItem="i3T-JN-Bh2" firstAttribute="centerY" secondItem="Pkf-As-gEa" secondAttribute="centerY" id="C7E-Dr-lph"/>
                                 <constraint firstItem="60W-cp-knJ" firstAttribute="leading" secondItem="onc-Jl-LKk" secondAttribute="leading" constant="20" id="E5V-Mw-lt2"/>
@@ -215,6 +227,7 @@
                                 <constraint firstItem="GtC-je-V2B" firstAttribute="leading" secondItem="onc-Jl-LKk" secondAttribute="leading" constant="20" id="vPZ-JF-72y"/>
                                 <constraint firstItem="Pkf-As-gEa" firstAttribute="leading" secondItem="onc-Jl-LKk" secondAttribute="leading" constant="20" id="vxk-nz-Cjh"/>
                                 <constraint firstItem="J6d-zJ-nzJ" firstAttribute="top" secondItem="onc-Jl-LKk" secondAttribute="top" constant="30" id="w5g-lH-4Sz"/>
+                                <constraint firstItem="tor-og-qc7" firstAttribute="bottom" secondItem="J6d-zJ-nzJ" secondAttribute="bottom" id="xxH-XZ-CLz"/>
                                 <constraint firstItem="VMe-md-J9v" firstAttribute="leading" secondItem="onc-Jl-LKk" secondAttribute="leading" constant="20" id="z3p-3s-ry5"/>
                                 <constraint firstItem="Uhs-iC-3mT" firstAttribute="top" secondItem="VMe-md-J9v" secondAttribute="bottom" constant="36" id="z7Y-8v-kaA"/>
                             </constraints>

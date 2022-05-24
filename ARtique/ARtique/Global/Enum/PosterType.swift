@@ -26,12 +26,8 @@ enum PosterType: CaseIterable {
 extension PosterType {
     var overlay: UIImage {
         switch self {
-        case .theme0:
+        case .theme0, .theme1, .theme2:
             return UIImage()
-        case .theme1:
-            return UIImage(named: "template1") ?? UIImage()
-        case .theme2:
-            return UIImage(named: "template2") ?? UIImage()
         case .theme3:
             return UIImage(named: "template3") ?? UIImage()
         case .theme4:
@@ -60,20 +56,16 @@ extension PosterType {
         case .theme0:
             return .AppleSDGothicH(size: 0)
         default:
-            return .AppleSDGothicH(size: 40)
+            return .AppleSDGothicH(size: 30)
         }
     }
     
     var contentFont: UIFont {
         switch self {
-        case .theme3, .theme4:
-            return .AppleSDGothicB(size: 15)
-        case .theme5,  .theme6:
-            return .AppleSDGothicR(size: 16)
-        case .theme7, .theme8:
-            return .AppleSDGothicSB(size: 12)
-        case .theme9, .theme10, .theme11, .theme12:
-            return .AppleSDGothicSB(size: 14)
+        case .theme1, .theme2,.theme3, .theme4:
+            return .AppleSDGothicSB(size: 15)
+        case .theme5, .theme6, .theme7, .theme8,.theme9, .theme10, .theme11, .theme12:
+            return .AppleSDGothicSB(size: 13)
         default:
             return .AppleSDGothicR(size: 0)
         }
@@ -82,18 +74,18 @@ extension PosterType {
     var titleColor: UIColor {
         switch self {
         case .theme1, .theme3, .theme5, .theme8, .theme9, .theme11:
-            return .white
-        default:
             return .black
+        default:
+            return .white
         }
     }
     
     var contentColor: UIColor {
         switch self {
-        case .theme3, .theme5, .theme7, .theme9, .theme11:
-            return .white
-        default:
+        case .theme1, .theme3, .theme5, .theme7, .theme9, .theme11:
             return .black
+        default:
+            return .white
         }
     }
 }

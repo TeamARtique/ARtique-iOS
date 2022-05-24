@@ -72,7 +72,7 @@ class ARGalleryVC: BaseVC {
     }
     
     @IBAction func dismissBtnDidTap(_ sender: UIButton) {
-        popupAlert(targetView: ARGalleryVC(), alertType: .seeTicketbook, leftBtnAction: #selector(dismissToRoot), rightBtnAction: #selector(goToTicketbookVC))
+        popupAlert(targetView: ARGalleryVC(), alertType: .seeTicketbook, image: nil, leftBtnAction: #selector(dismissToRoot), rightBtnAction: #selector(goToTicketbookVC))
     }
     
     @IBAction func likeBtnDidTap(_ sender: UIButton) {
@@ -225,7 +225,7 @@ extension ARGalleryVC {
         let navi = UINavigationController(rootViewController: ticketbookVC)
         navi.modalPresentationStyle = .fullScreen
         
-        self.dismiss(animated: true, completion: {
+        self.dismiss(animated: false, completion: {
             self.present(navi, animated: true, completion: nil)
         })
     }

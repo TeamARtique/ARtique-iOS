@@ -10,6 +10,7 @@ import UIKit
 
 enum AlertType: CaseIterable {
     case removeAllExhibition
+    case removeAllPhotos
     case registerExhibition
     case seeTicketbook
 }
@@ -17,11 +18,9 @@ enum AlertType: CaseIterable {
 extension AlertType {
     var alertImage: UIImage {
         switch self {
-        case .removeAllExhibition:
+        case .removeAllExhibition, .removeAllPhotos:
             return UIImage(named: "WarningAlert") ?? UIImage()
-        case .registerExhibition:
-            return UIImage(named: "ConfirmAlert") ?? UIImage()
-        case .seeTicketbook:
+        case .registerExhibition, .seeTicketbook:
             return UIImage(named: "ConfirmAlert") ?? UIImage()
         }
     }
@@ -31,6 +30,11 @@ extension AlertType {
         switch self {
         case .removeAllExhibition:
             let text = "지금까지 등록한 전시 내용이\n모두 삭제됩니다.\n정말 나가시겠습니까?"
+            let attributedStr = NSMutableAttributedString(string: text)
+            attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "모두 삭제"))
+            return attributedStr
+        case .removeAllPhotos:
+            let text = "지금까지 등록한 사진에 대한\n내용이 모두 삭제됩니다.\n정말 이전 단계로 이동하겠습니까?"
             let attributedStr = NSMutableAttributedString(string: text)
             attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "모두 삭제"))
             return attributedStr
@@ -49,23 +53,32 @@ extension AlertType {
     
     var leftBtnLabel: String {
         switch self {
-        case .removeAllExhibition:
+        case .removeAllExhibition, .seeTicketbook:
             return "나가기"
+        case .removeAllPhotos:
+            return "이전 단계"
         case .registerExhibition:
             return "취소"
-        case .seeTicketbook:
-            return "나가기"
         }
     }
     
     var rightBtnLabel: String {
         switch self {
-        case .removeAllExhibition:
-            return "계속하기"
+        case .removeAllExhibition, .removeAllPhotos:
+            return "취소"
         case .registerExhibition:
             return "등록하기"
         case .seeTicketbook:
             return "확인하기"
+        }
+    }
+    
+    var highlight: String {
+        switch self {
+        case .removeAllExhibition, .removeAllPhotos:
+            return "left"
+        case .registerExhibition, .seeTicketbook:
+            return "right"
         }
     }
 }

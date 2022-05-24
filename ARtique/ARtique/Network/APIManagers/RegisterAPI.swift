@@ -17,7 +17,8 @@ class RegisterAPI: BaseAPI {
 
 extension RegisterAPI {
     func postExhibitionData(exhibitionData: NewExhibition, completion: @escaping(NetworkResult<Any>) -> (Void)) {
-        provider.request(.postExhibitionData(exhibitionData: exhibitionData)) { result in
+        provider.request(.postExhibitionData(exhibitionData: exhibitionData)) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let response):
                 let statusCode = response.statusCode
@@ -31,7 +32,8 @@ extension RegisterAPI {
     }
     
     func postArtworkData(exhibitionID: Int, artwork: ArtworkData, completion: @escaping(NetworkResult<Any>) -> (Void)) {
-        provider.request(.postArtworkData(exhibitionID: exhibitionID, artwork: artwork)) { result in
+        provider.request(.postArtworkData(exhibitionID: exhibitionID, artwork: artwork)) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let response):
                 let statusCode = response.statusCode
@@ -45,7 +47,8 @@ extension RegisterAPI {
     }
     
     func getRegisterStatus(exhibitionID: Int, completion: @escaping(NetworkResult<Any>) -> (Void)) {
-        provider.request(.getRegisterStatus(exhibitionID: exhibitionID)) { result in
+        provider.request(.getRegisterStatus(exhibitionID: exhibitionID)) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let response):
                 let statusCode = response.statusCode

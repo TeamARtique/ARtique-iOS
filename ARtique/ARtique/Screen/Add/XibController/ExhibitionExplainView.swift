@@ -12,6 +12,7 @@ import RxCocoa
 
 class ExhibitionExplainView: UIView {
     @IBOutlet weak var baseSV: UIScrollView!
+    @IBOutlet weak var titleTextCnt: UILabel!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var categoryCV: UICollectionView!
     @IBOutlet weak var posterChangeBtn: UIButton!
@@ -25,6 +26,7 @@ class ExhibitionExplainView: UIView {
     let exhibitionModel = NewExhibition.shared
     let exhibitionExplainPlaceholder = "전시회에 대한 전체 설명을 입력하세요"
     let tagMaxSelectionCnt = 3
+    let titleMaxCnt = 25
     let textViewMaxCnt = 100
     
     override init(frame: CGRect) {
@@ -32,6 +34,7 @@ class ExhibitionExplainView: UIView {
         setContentView()
         configureView()
         bindUI()
+        bindNotificationCenter()
     }
     
     required init?(coder: NSCoder) {
@@ -39,6 +42,7 @@ class ExhibitionExplainView: UIView {
         setContentView()
         configureView()
         bindUI()
+        bindNotificationCenter()
     }
 }
 
@@ -58,6 +62,7 @@ extension ExhibitionExplainView {
         baseSV.showsVerticalScrollIndicator = false
         
         titleTextField.setRoundTextField(with: "전시회의 제목을 입력하세요")
+        titleTextField.delegate = self
         
         configureCV()
         
@@ -69,6 +74,8 @@ extension ExhibitionExplainView {
         exhibitionExplainTextView.setRoundTextView()
         exhibitionExplainTextView.setTextViewPlaceholder(exhibitionExplainPlaceholder)
         exhibitionExplainTextView.delegate = self
+        exhibitionExplainTextView.isScrollEnabled = false
+        exhibitionExplainTextView.textContainer.maximumNumberOfLines = 4
         
         isPublic.onTintColor = .black
     }
@@ -100,6 +107,7 @@ extension ExhibitionExplainView {
             .withUnretained(self)
             .subscribe(onNext: { owner, title in
                 owner.exhibitionModel.title = title
+                owner.setTitleMaxCnt(title.count)
             })
             .disposed(by: bag)
         
@@ -159,10 +167,49 @@ extension ExhibitionExplainView {
         return selectedIndexRow
     }
     
+    private func setTitleMaxCnt(_ cnt: Int) {
+        if titleTextField.textColor != .gray2 {
+            titleTextCnt.text = "(\(cnt)/\(titleMaxCnt))"
+        }
+    }
+    
     private func setTextViewMaxCnt(_ cnt: Int) {
         if exhibitionExplainTextView.textColor != .gray2 {
             exhibitionExplainTextCnt.text = "(\(cnt)/\(textViewMaxCnt))"
         }
+    }
+    
+    private func bindNotificationCenter() {
+        NotificationCenter.default.keyboardWillChangeFrame()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, info in
+                if self.exhibitionExplainTextView.isFirstResponder,
+                   let baseVC = self.findViewController() as? AddExhibitionVC {
+                    UIView.animate(withDuration: info.duration) {
+                        self.baseSV.snp.remakeConstraints {
+                            $0.top.equalTo(baseVC.view.safeAreaLayoutGuide.snp.top).offset(16)
+                            $0.bottom.equalTo(baseVC.view.snp.bottom).offset(-info.height)
+                        }
+                        self.layoutIfNeeded()
+                    }
+                    self.baseSV.scrollToOffset(offset: info.height, animated: true)
+                }
+            })
+            .disposed(by: bag)
+        
+        NotificationCenter.default.keyboardWillHideObservable()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, info in
+                if self.exhibitionExplainTextView.isFirstResponder {
+                    UIView.animate(withDuration: info.duration) {
+                        self.baseSV.snp.remakeConstraints {
+                            $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+                        }
+                        self.layoutIfNeeded()
+                    }
+                }
+            })
+            .disposed(by: bag)
     }
 }
 
@@ -261,13 +308,34 @@ extension ExhibitionExplainView: UITextViewDelegate {
         
         if textView.text.count > textViewMaxCnt {
             textView.text.removeLast()
-            exhibitionExplainTextCnt.text = "\(textViewMaxCnt)"
         }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard let str = textView.text else { return true }
-        let newLength = str.count + text.count - range.length
+        if text == "\n" {
+            textView.resignFirstResponder()
+        }
+        let newLength = textView.text.count + text.count - range.length
         return newLength <= textViewMaxCnt + 1
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension ExhibitionExplainView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.becomeFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if (textField.text?.count ?? 0) > titleMaxCnt {
+            textField.text?.removeLast()
+            titleTextCnt.text = "(25/\(titleMaxCnt))"
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let newLength = (textField.text?.count ?? 0) + string.count - range.length
+        return newLength <= titleMaxCnt + 1
     }
 }
