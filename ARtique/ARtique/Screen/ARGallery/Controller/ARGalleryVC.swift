@@ -66,7 +66,7 @@ class ARGalleryVC: BaseVC {
     }
     
     @IBAction func dismissBtnDidTap(_ sender: UIButton) {
-        self.presentingViewController?.presentingViewController!.dismiss(animated: true, completion: nil)
+        popupAlert(targetView: ARGalleryVC(), alertType: .seeTicketbook, leftBtnAction: #selector(dismissToRoot), rightBtnAction: #selector(goToTicketbookVC))
     }
 }
 
@@ -199,6 +199,24 @@ extension ARGalleryVC {
                 downloadImage(with: artwork[i].image, frameIdentifier: frameIdentifier1, index: i + 1)
             }
         }
+    }
+    
+    /// RootVC로 dismiss하는 메서드
+    @objc func dismissToRoot() {
+        self.presentingViewController?.presentingViewController!.dismiss(animated: true, completion: nil)
+    }
+    
+    /// TicketBookVC로 화면전환하는 메서드
+    @objc func goToTicketbookVC() {
+        let ticketbookVC = TicketBookVC()
+        ticketbookVC.naviType = .dismissToRoot
+        
+        let navi = UINavigationController(rootViewController: ticketbookVC)
+        navi.modalPresentationStyle = .fullScreen
+        
+        self.dismiss(animated: true, completion: {
+            self.present(navi, animated: true, completion: nil)
+        })
     }
 }
 
