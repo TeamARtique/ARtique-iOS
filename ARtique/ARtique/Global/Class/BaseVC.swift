@@ -43,6 +43,10 @@ extension BaseVC {
         navigationController?.popViewController(animated: true)
     }
     
+    @objc func dismissVC() {
+        self.dismiss(animated: true)
+    }
+    
     /// 홈을 rootViewController로 만들어주는 함수
     @objc func homeToRoot() {
         guard let tabBar = UIStoryboard(name: Identifiers.tabBarSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.artiqueTBC) as? ARtiqueTBC else { return }

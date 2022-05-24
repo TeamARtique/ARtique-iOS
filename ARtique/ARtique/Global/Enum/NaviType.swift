@@ -10,4 +10,5 @@ import Foundation
 enum NaviType {
     case push
     case present
+    case dismissToRoot
 }

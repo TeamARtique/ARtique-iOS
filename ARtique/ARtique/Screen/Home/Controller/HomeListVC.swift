@@ -201,6 +201,7 @@ extension HomeListVC: UITableViewDelegate {
 extension HomeListVC: CVCellDelegate {
     func selectedCVC(_ index: IndexPath, _ cellIdentifier: Int, _ collectionView: UICollectionView) {
         guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
+        detailVC.naviType = .push
         
         if cellIdentifier == 2 {
             guard let cell = collectionView.cellForItem(at: index) as? ExhibitionCVC else { return }
