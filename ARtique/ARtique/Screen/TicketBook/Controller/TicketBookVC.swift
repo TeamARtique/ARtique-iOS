@@ -25,13 +25,14 @@ class TicketBookVC: BaseVC {
     
     // MARK: Variables
     private var ticketData: [TicketListModel] = []
+    var naviType: NaviType?
     
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpDelegate()
         registerCell()
-        configureNaviBar()
+        setOptionalData()
         configureUI()
         getTicketbookList()
         navigationController?.additionalSafeAreaInsets.top = 0
@@ -43,17 +44,29 @@ class TicketBookVC: BaseVC {
 extension TicketBookVC {
     
     /// 네비게이션 바를 구성하는 메서드
-    private func configureNaviBar() {
+    private func configureNaviBar(naviType: NaviType) {
+        navigationController?.navigationBar.tintColor = .black
         navigationItem.title = "티켓북"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBtn"),
-                                                           style: .plain,
-                                                           target: self,
-                                                           action: #selector(popVC))
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_delete"),
                                                             style: .plain,
                                                             target: self,
                                                             action: #selector(didTapTrashBtn))
+        
+        switch naviType {
+        case .push:
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBtn"),
+                                                               style: .plain,
+                                                               target: self,
+                                                               action: #selector(popVC))
+        case .dismissToRoot:
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "dismissBtn"),
+                                                               style: .plain,
+                                                               target: self,
+                                                               action: #selector(homeToRoot))
+            
+        default:
+            print("default")
+        }
     }
     
     /// 전체 UI를 구성하는 메서드
@@ -122,6 +135,13 @@ extension TicketBookVC {
             } else {
                 makeAlert(title: "알림", message: "인스타그램이 필요합니다", okTitle: "확인")
             }
+        }
+    }
+    
+    private func setOptionalData() {
+        if let navi = naviType {
+            naviType = navi
+            configureNaviBar(naviType: navi)
         }
     }
 }
