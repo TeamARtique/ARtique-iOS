@@ -221,6 +221,7 @@ extension ArtworkSelectView {
                 guard let self = self,
                       let selectedIndex = self.selectedIndex,
                       let cell = self.galleryCV.cellForItem(at: selectedIndex) as? GalleryCVC else { return }
+                if self.indexArr.contains(selectedIndex.row) { return }
                 if self.isEdited {
                     if self.selectedImages.isEmpty {
                         self.galleryCV.selectItem(at: selectedIndex, animated: true, scrollPosition: .top)

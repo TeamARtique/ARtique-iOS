@@ -335,11 +335,19 @@ extension AddExhibitionVC {
                 popupToast(toastType: .chooseAll)
             }
         case 4:
-            popupAlert(targetView: self,
-                       alertType: .registerExhibition,
-                       image: makePoster(),
-                       leftBtnAction: #selector(dismissAlert),
-                       rightBtnAction: #selector(registerExhibition))
+            if exhibitionModel.title != ""
+                && exhibitionModel.category != nil
+                && exhibitionModel.posterTheme != nil
+                && exhibitionModel.description != exhibitionExplainView.exhibitionExplainPlaceholder
+                && exhibitionModel.tag != nil {
+                popupAlert(targetView: self,
+                           alertType: .registerExhibition,
+                           image: makePoster(),
+                           leftBtnAction: #selector(dismissAlert),
+                           rightBtnAction: #selector(registerExhibition))
+            } else {
+                popupToast(toastType: .chooseAll)
+            }
         default:
             page += 1
             configurePageView(page)

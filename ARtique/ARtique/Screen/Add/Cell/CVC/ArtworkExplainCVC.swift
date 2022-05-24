@@ -32,6 +32,8 @@ class ArtworkExplainCVC: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        titleTextField.text = ""
+        contentTextView.text = ""
     }
 }
 
@@ -86,7 +88,9 @@ extension ArtworkExplainCVC {
         contentTextView.rx.text.orEmpty
             .withUnretained(self)
             .subscribe(onNext: { owner, description in
-                owner.exhibitionModel.artworks?[owner.cellIndex ?? 0].description = description
+                owner.exhibitionModel.artworks?[owner.cellIndex ?? 0].description
+                = description == owner.postContentPlaceholder
+                ? "" : description
             })
             .disposed(by: bag)
     }
