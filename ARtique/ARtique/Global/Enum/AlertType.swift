@@ -20,9 +20,7 @@ extension AlertType {
         switch self {
         case .removeAllExhibition, .removeAllPhotos:
             return UIImage(named: "WarningAlert") ?? UIImage()
-        case .registerExhibition:
-            return UIImage(named: "ConfirmAlert") ?? UIImage()
-        case .seeTicketbook:
+        case .registerExhibition, .seeTicketbook:
             return UIImage(named: "ConfirmAlert") ?? UIImage()
         }
     }
@@ -55,14 +53,12 @@ extension AlertType {
     
     var leftBtnLabel: String {
         switch self {
-        case .removeAllExhibition:
+        case .removeAllExhibition, .seeTicketbook:
             return "나가기"
         case .removeAllPhotos:
             return "이전 단계"
         case .registerExhibition:
             return "취소"
-        case .seeTicketbook:
-            return "나가기"
         }
     }
     
@@ -81,7 +77,7 @@ extension AlertType {
         switch self {
         case .removeAllExhibition, .removeAllPhotos:
             return "left"
-        case .registerExhibition:
+        case .registerExhibition, .seeTicketbook:
             return "right"
         }
     }

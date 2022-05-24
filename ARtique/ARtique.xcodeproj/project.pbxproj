@@ -1463,7 +1463,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2ZS26WP93H;
+				DEVELOPMENT_TEAM = U2Z5Z44P4R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARtique/Support/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근 허용";
@@ -1499,7 +1499,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2ZS26WP93H;
+				DEVELOPMENT_TEAM = U2Z5Z44P4R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ARtique/Support/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근 허용";
