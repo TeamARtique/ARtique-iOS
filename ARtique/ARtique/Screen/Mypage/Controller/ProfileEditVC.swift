@@ -99,8 +99,12 @@ extension ProfileEditVC {
 // MARK: - Custom Methods
 extension ProfileEditVC {
     @objc func bindRightBarButton() {
-        // TODO: - post server
-        navigationController?.popViewController(animated: true)
+        dismissKeyboard()
+        let artist = ArtistModel(nickname: nicknameTextField.text ?? "",
+                                 profileImage: profileImg.backgroundImage(for: .normal) ?? UIImage(),
+                                 introduction: explanationTextView.textColor == .label ? explanationTextView.text : "",
+                                 website: snsTextField.text ?? "")
+        editProfile(artist: artist)
     }
     
     private func openGallery() {
@@ -109,6 +113,29 @@ extension ProfileEditVC {
         imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = true
         present(imagePicker, animated: true, completion: nil)
+    }
+}
+
+// MARK: - Network
+extension ProfileEditVC {
+    private func editProfile(artist: ArtistModel) {
+        MypageAPI.shared.editArtistProfile(artist: artist) { [weak self] networkResult in
+            guard let self = self else { return }
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? ArtistProfileModel {
+                    UserDefaults.standard.set(data.user.nickname, forKey: UserDefaults.Keys.nickname)
+                    self.navigationController?.popViewController(animated: true)
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
     }
 }
 
