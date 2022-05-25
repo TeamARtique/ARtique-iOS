@@ -347,8 +347,7 @@ extension ArtworkSelectView: UICollectionViewDelegate {
             return false
         } else {
             setPreviewImage(indexPath)
-            previewStatus(isHidden: false)
-            galleryCV.scrollToItem(at: indexPath, at: .top, animated: true)
+            previewStatus(isHidden: self.topConstraint.constant == 0 ? false : true)
             return true
         }
     }
