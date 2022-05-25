@@ -131,7 +131,7 @@ extension ExhibitionListVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? ExhibitionCVC,
               let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
-        
+        detailVC.naviType = .push
         detailVC.exhibitionID = cell.exhibitionData?.exhibitionId
         navigationController?.pushViewController(detailVC, animated: true)
     }
