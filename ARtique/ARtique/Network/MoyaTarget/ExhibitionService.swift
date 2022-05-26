@@ -10,6 +10,7 @@ import Moya
 
 enum ExhibitionService {
     case getExhibitionData(exhibitionID: Int)
+    case deleteExhibition(exhibitionID: Int)
 }
 
 extension ExhibitionService: TargetType {
@@ -19,7 +20,7 @@ extension ExhibitionService: TargetType {
     
     var path: String {
         switch self {
-        case .getExhibitionData(exhibitionID: let exhibitionID):
+        case .getExhibitionData(exhibitionID: let exhibitionID), .deleteExhibition(let exhibitionID):
             return "/exhibition/\(exhibitionID)"
         }
     }
@@ -28,12 +29,14 @@ extension ExhibitionService: TargetType {
         switch self {
         case .getExhibitionData:
             return .get
+        case .deleteExhibition:
+            return .delete
         }
     }
     
     var task: Task {
         switch self {
-        case .getExhibitionData:
+        case .getExhibitionData, .deleteExhibition:
             return .requestPlain
         }
     }

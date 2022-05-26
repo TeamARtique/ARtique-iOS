@@ -137,8 +137,11 @@ extension DetailVC {
         let delete = UIAction(title: "삭제",
                               image: UIImage(named: "Delete"),
                               handler: { _ in
-            // TODO: - 전시 삭제
-            print("삭제")
+            self.popupAlertWithTitle(targetView: self,
+                                     alertType: .deleteExhibition,
+                                     title: "'\(self.exhibitionData?.exhibition.title ?? "")' ",
+                                     leftBtnAction: #selector(self.removeExhibition),
+                                     rightBtnAction: #selector(self.dismissAlert))
         })
         let naviRightBtn = UIBarButtonItem(image: UIImage(systemName: "ellipsis"),
                                            style: .plain,
@@ -288,6 +291,17 @@ extension DetailVC {
         self.present(activityVC, animated: true, completion: nil)
     }
     
+    @objc func dismissAlert() {
+        dismiss(animated: false, completion: nil)
+    }
+    
+    @objc func removeExhibition() {
+        dismiss(animated: false) {
+            guard let exhibitionID = self.exhibitionID else { return }
+            self.deleteExhibition(exhibitionID: exhibitionID)
+        }
+    }
+    
     private func setOptionalData() {
         if let navi = naviType {
             naviType = navi
@@ -353,6 +367,29 @@ extension DetailVC {
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         })
+    }
+    
+    private func deleteExhibition(exhibitionID: Int) {
+        ExhibitionDetailAPI.shared.deleteExhibition(exhibitionID: exhibitionID) { [weak self] networkResult in
+            switch networkResult {
+            case .success(let res):
+                if let data = res as? Deleted {
+                    if data.isDeleted {
+                        switch self?.naviType {
+                        case .push:
+                            self?.popVC()
+                        case .present:
+                            self?.dismissVC()
+                        default:
+                            self?.homeToRoot()
+                        }
+                    }
+                }
+                
+            default:
+                self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
     }
 }
 

@@ -81,6 +81,18 @@ extension UIViewController {
         present(alert, animated: false, completion: nil)
     }
     
+    /// 전시 타이틀 추가 가능한 전시, 전시 티켓 삭제 확인용 Alert
+    func popupAlertWithTitle(targetView: UIViewController, alertType: AlertType, title: String, leftBtnAction: Selector?, rightBtnAction: Selector) {
+        guard let alert = UIStoryboard(name: Identifiers.alertSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.alertVC) as? AlertVC else { return }
+        alert.configureAlertWithTitle(targetView: targetView,
+                                      alertType: alertType,
+                                      title: title,
+                                      leftBtnAction: leftBtnAction,
+                                      rightBtnAction: rightBtnAction)
+        alert.modalPresentationStyle = .overFullScreen
+        present(alert, animated: false, completion: nil)
+    }
+    
     func popupToast(toastType: ToastType) {
         let toastView = ToastView()
         toastView.message.text = toastType.message

@@ -29,4 +29,18 @@ extension ExhibitionDetailAPI {
             }
         }
     }
+    
+    func deleteExhibition(exhibitionID: Int, completion: @escaping(NetworkResult<Any>) -> (Void)) {
+        provider.request(.deleteExhibition(exhibitionID: exhibitionID)) { result in
+            switch result {
+            case .success(let response):
+                let statusCode = response.statusCode
+                let data = response.data
+                
+                completion(self.judgeStatus(type: Deleted.self, by: statusCode, data))
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
