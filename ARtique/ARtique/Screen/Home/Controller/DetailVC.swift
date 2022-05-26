@@ -52,12 +52,14 @@ class DetailVC: BaseVC {
     // MARK: Btn Action
     @IBAction func didTapLikeBtn(_ sender: Any) {
         likeBtn.isSelected.toggle()
-        likeBtn.toggleButtonImage(likeBtn.isSelected, UIImage(named: "Like_UnSelected")!, UIImage(named: "Like_Selected")!)
+        let count = Int(likeCnt.text ?? "0")!
+        likeCnt.text = likeBtn.isSelected ? "\(count + 1)" : "\(count - 1)"
+        guard let exhibitionID = exhibitionID else { return }
+        likeExhibition(exhibitionID: exhibitionID)
     }
     
     @IBAction func didTapBookMarkBtn(_ sender: Any) {
-        bookMarkBtn.isSelected.toggle()
-        bookMarkBtn.toggleButtonImage(bookMarkBtn.isSelected, UIImage(named: "BookMark_UnSelected")!, UIImage(named: "BookMark_Selected")!)
+        
     }
     
     @IBAction func goToARGalleryBtnDidTap(_ sender: UIButton) {
@@ -88,6 +90,11 @@ extension DetailVC {
         infoTopView.layer.cornerRadius = 15
         infoTopView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         scrollBar.layer.cornerRadius = scrollBar.frame.height
+        
+        likeBtn.toggleButtonImage(defaultImage: UIImage(named: "Like_UnSelected")!,
+                                  selectedImage: UIImage(named: "Like_Selected")!)
+        bookMarkBtn.toggleButtonImage(defaultImage: UIImage(named: "BookMark_UnSelected")!,
+                                      selectedImage: UIImage(named: "BookMark_Selected")!)
     }
     
     private func configureNaviBar(navi: NaviType) {
@@ -205,16 +212,8 @@ extension DetailVC {
                             .cacheOriginalImage
                            ])
         likeBtn.isSelected = exhibitionData?.like.isLiked ?? false
-        likeBtn.setImage((exhibitionData?.like.isLiked ?? false)
-                         ? UIImage(named: "Like_Selected")
-                         : UIImage(named: "Like_UnSelected"),
-                         for: .normal)
         likeCnt.text = exhibitionData?.like.likeCnt
         bookMarkBtn.isSelected = exhibitionData?.bookmark.isBookmarked ?? false
-        bookMarkBtn.setImage((exhibitionData?.bookmark.isBookmarked ?? false)
-                         ? UIImage(named: "BookMark_Selected")
-                         : UIImage(named: "BookMark_UnSelected"),
-                         for: .normal)
         bookmarkCnt.text = exhibitionData?.bookmark.bookmarkCnt
         createdAt.text = exhibitionData?.exhibition.date ?? "Date"
         category.text = CategoryType.allCases[(exhibitionData?.exhibition.category ?? 0) - 1].categoryTitle
@@ -316,6 +315,24 @@ extension DetailVC {
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         }
+    }
+    
+    private func likeExhibition(exhibitionID: Int) {
+        PublicAPI.shared.requestLikeExhibition(exhibitionID: exhibitionID, completion: { [weak self] networkResult in
+            switch networkResult {
+            case .success(let res):
+                if let data = res as? Liked {
+                    self?.likeBtn.isSelected = data.isLiked ? true : false
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        })
     }
 }
 
