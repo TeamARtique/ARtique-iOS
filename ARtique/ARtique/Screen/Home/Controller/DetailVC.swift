@@ -51,15 +51,17 @@ class DetailVC: BaseVC {
     
     // MARK: Btn Action
     @IBAction func didTapLikeBtn(_ sender: Any) {
+        guard let count = Int(likeCnt.text ?? "0"), let exhibitionID = exhibitionID else { return }
         likeBtn.isSelected.toggle()
-        let count = Int(likeCnt.text ?? "0")!
         likeCnt.text = likeBtn.isSelected ? "\(count + 1)" : "\(count - 1)"
-        guard let exhibitionID = exhibitionID else { return }
         likeExhibition(exhibitionID: exhibitionID)
     }
     
     @IBAction func didTapBookMarkBtn(_ sender: Any) {
-        
+        guard let count = Int(bookmarkCnt.text ?? "0"), let exhibitionID = exhibitionID else { return }
+        bookMarkBtn.isSelected.toggle()
+        bookmarkCnt.text = bookMarkBtn.isSelected ? "\(count + 1)" : "\(count - 1)"
+        bookmarkExhibition(exhibitionID: exhibitionID)
     }
     
     @IBAction func goToARGalleryBtnDidTap(_ sender: UIButton) {
@@ -323,6 +325,24 @@ extension DetailVC {
             case .success(let res):
                 if let data = res as? Liked {
                     self?.likeBtn.isSelected = data.isLiked ? true : false
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        })
+    }
+    
+    private func bookmarkExhibition(exhibitionID: Int) {
+        PublicAPI.shared.requestBookmarkExhibition(exhibitionID: exhibitionID, completion: { [weak self] networkResult in
+            switch networkResult {
+            case .success(let res):
+                if let data = res as? Bookmarked {
+                    self?.bookMarkBtn.isSelected = data.isBookmarked ? true : false
                 }
             case .requestErr(let res):
                 if let message = res as? String {
