@@ -21,7 +21,10 @@ class ExhibitionListVC: BaseVC {
         super.viewDidLoad()
         configureNavigationBar()
         configureCV()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         // TODO: - 마이페이지도 연결
         isRightBarBtnExist
         ? getExhibitionList(categoryID: categoryID ?? 0, sort: .recent)

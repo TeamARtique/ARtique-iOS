@@ -25,13 +25,13 @@ class HomeListVC: BaseVC {
         // 자동로그인
         requestRenewalToken(refreshToken: UserDefaults.standard.string(forKey: UserDefaults.Keys.refreshToken) ?? "")
         setUpTV()
-        getExhibitionList(categoryID: categoryType?.categoryId ?? 1)
         setNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        getExhibitionList(categoryID: categoryType?.categoryId ?? 1)
         configureTopLayout()
     }
 }
@@ -101,7 +101,7 @@ extension HomeListVC {
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
                         self.homeListData = list
-                        self.pageTV.reloadData()
+                        self.reloadWithoutScroll(tableView: self.pageTV)
                         self.bindRefreshController()
                     }
                 }
