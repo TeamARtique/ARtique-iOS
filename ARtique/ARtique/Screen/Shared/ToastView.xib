@@ -18,8 +18,8 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="46"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xdr-6G-IuL">
-                    <rect key="frame" x="186" y="12.5" width="42" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xdr-6G-IuL">
+                    <rect key="frame" x="10" y="12.5" width="394" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -28,8 +28,9 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Xdr-6G-IuL" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="8y5-Om-gr2"/>
                 <constraint firstItem="Xdr-6G-IuL" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="BXG-eR-6za"/>
+                <constraint firstItem="Xdr-6G-IuL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="DMi-cM-u2m"/>
+                <constraint firstAttribute="trailing" secondItem="Xdr-6G-IuL" secondAttribute="trailing" constant="10" id="TEU-qP-Xka"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

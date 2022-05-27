@@ -383,6 +383,7 @@ extension DetailVC {
                         default:
                             self?.homeToRoot()
                         }
+                        UIApplication.shared.windows.first!.rootViewController?.popupToast(toastType: .deleteExhibition)
                     }
                 }
                 

@@ -11,16 +11,10 @@ enum ToastType: String {
     case chooseAll
     case photoLimit
     case textLimit
+    case deleteExhibition
 }
 
 extension ToastType {
-    var position: String {
-        switch self {
-        case .chooseAll, .photoLimit, .textLimit:
-            return "top"
-        }
-    }
-    
     var message: String {
         switch self {
         case .chooseAll:
@@ -29,6 +23,8 @@ extension ToastType {
             return "사진은 N개까지 선택할 수 있습니다."
         case .textLimit:
             return "전시회 설명은 100자까지 입력할 수 있습니다."
+        case .deleteExhibition:
+            return "전시가 삭제되었습니다."
         }
     }
 }

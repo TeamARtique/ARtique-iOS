@@ -43,8 +43,4 @@ extension ToastView {
         message.font = .AppleSDGothicSB(size: 13)
         message.textColor = .white
     }
-    
-    func setMessage(message: String) {
-        self.message.text = message
-    }
 }
