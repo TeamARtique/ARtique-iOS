@@ -193,10 +193,18 @@ extension TicketBookVC: UICollectionViewDelegateFlowLayout {
         case 0:
             return CGSize(width: screenWidth, height: 100.0)
         case 1:
-            return CGSize(width: 106.0, height: 163.0)
+            return CGSize(width: (screenWidth - 40) / 3.2, height: 163.0)
         default:
             return CGSize.zero
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        28
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        0
     }
     
     /// didSelectItemAt

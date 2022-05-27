@@ -35,7 +35,7 @@ class AlbumTVC: UITableViewCell {
         let options = PHImageRequestOptions()
         options.deliveryMode = .highQualityFormat
         options.resizeMode = .exact
-        PHImageManager.default().requestImage(for: assetsFetchResult.object(at: 0) ,
+        PHImageManager.default().requestImage(for: assetsFetchResult.object(at: assetsFetchResult.count - 1) ,
                                                  targetSize: CGSize(width: 80,
                                                                     height: 80),
                                                  contentMode: .aspectFill,

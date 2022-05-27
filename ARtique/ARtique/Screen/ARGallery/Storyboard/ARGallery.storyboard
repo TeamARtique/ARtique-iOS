@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="w28-RH-cEq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="w28-RH-cEq">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -106,10 +106,14 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qcy-T7-kPR" customClass="VirtualObjectARView" customModule="ARtique" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </arscnView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRB-gv-nlF">
-                                <rect key="frame" x="116.5" y="750" width="181" height="62"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRB-gv-nlF">
+                                <rect key="frame" x="20" y="784" width="374" height="43"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="vcV-Xc-MiZ"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="goToExhibitionBtn"/>
                                 <connections>
                                     <action selector="createExhibition:" destination="w28-RH-cEq" eventType="touchUpInside" id="E5j-vY-if7"/>
                                 </connections>
@@ -118,9 +122,11 @@
                         <viewLayoutGuide key="safeArea" id="lZT-uD-fu0"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="PRB-gv-nlF" firstAttribute="leading" secondItem="lZT-uD-fu0" secondAttribute="leading" constant="20" id="85Y-8X-xLV"/>
                             <constraint firstItem="lZT-uD-fu0" firstAttribute="trailing" secondItem="qcy-T7-kPR" secondAttribute="trailing" id="8iQ-v8-GNs"/>
                             <constraint firstItem="qcy-T7-kPR" firstAttribute="top" secondItem="cwg-Tz-Dyo" secondAttribute="top" id="UpO-8Z-gJA"/>
-                            <constraint firstItem="lZT-uD-fu0" firstAttribute="bottom" secondItem="PRB-gv-nlF" secondAttribute="bottom" constant="50" id="XdC-NY-cBG"/>
+                            <constraint firstItem="lZT-uD-fu0" firstAttribute="bottom" secondItem="PRB-gv-nlF" secondAttribute="bottom" constant="35" id="XdC-NY-cBG"/>
+                            <constraint firstItem="lZT-uD-fu0" firstAttribute="trailing" secondItem="PRB-gv-nlF" secondAttribute="trailing" constant="20" id="Zft-BP-ffB"/>
                             <constraint firstAttribute="bottom" secondItem="qcy-T7-kPR" secondAttribute="bottom" id="up8-Hm-cRg"/>
                             <constraint firstItem="PRB-gv-nlF" firstAttribute="centerX" secondItem="qcy-T7-kPR" secondAttribute="centerX" id="xJd-GY-4lg"/>
                             <constraint firstItem="qcy-T7-kPR" firstAttribute="leading" secondItem="lZT-uD-fu0" secondAttribute="leading" id="zNr-7j-CPp"/>
@@ -138,7 +144,6 @@
     </scenes>
     <resources>
         <image name="captureBtn" width="55" height="55"/>
-        <image name="goToExhibitionBtn" width="157" height="48"/>
         <image name="white_heart_selected" width="30" height="26"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

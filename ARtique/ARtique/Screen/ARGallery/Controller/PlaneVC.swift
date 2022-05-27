@@ -35,6 +35,9 @@ class PlaneVC: UIViewController {
         sceneView.delegate = self
         sceneView.session.delegate = self
         
+        // Set up ARBtn
+        configureGoToARBtn()
+        
         // Set up coaching overlay.
         setupCoachingOverlay()
         
@@ -75,6 +78,13 @@ class PlaneVC: UIViewController {
 
 //MARK: - Custom Method
 extension PlaneVC {
+    func configureGoToARBtn() {
+        createExhibitionBtn.layer.cornerRadius = createExhibitionBtn.frame.height / 2
+        createExhibitionBtn.backgroundColor = .black
+        createExhibitionBtn.setTitleColor(.white, for: .normal)
+        createExhibitionBtn.setTitle("AR 전시 감상하기", for: .normal)
+        createExhibitionBtn.titleLabel?.font = .AppleSDGothicB(size: 16)
+    }
     
     func resetTracking() {
         let configuration = ARWorldTrackingConfiguration()

@@ -41,7 +41,12 @@ class DetailVC: BaseVC {
         configureARBtn()
         addScrollGesture()
         addTapGesture()
-        getExhibitionData(exhibitionID: exhibitionID ?? -1)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let exhibitionID = exhibitionID else { return }
+        getExhibitionData(exhibitionID: exhibitionID)
     }
     
     // MARK: Btn Action
@@ -155,7 +160,7 @@ extension DetailVC {
                 $0.trailing.equalToSuperview()
             }
             infoCenterHeight.constant = 125
-            infoTopViewTopAnchor.constant = screenHeight - (poster.frame.height + infoTopView.frame.height + 123 + 122 + 89)
+            infoTopViewTopAnchor.constant = screenHeight - (screenWidth / 3 * 4 + infoTopView.frame.height + 123 + 122 + 89)
         } else {
             navigationItem.title = exhibitionData?.exhibition.title
             posterOverlay.layer.opacity = 0
@@ -212,7 +217,7 @@ extension DetailVC {
                          for: .normal)
         bookmarkCnt.text = exhibitionData?.bookmark.bookmarkCnt
         createdAt.text = exhibitionData?.exhibition.date ?? "Date"
-        category.text = CategoryType.allCases[0].categoryTitle
+        category.text = CategoryType.allCases[(exhibitionData?.exhibition.category ?? 0) - 1].categoryTitle
         gallery.text = "\(ThemeType.init(rawValue: exhibitionData?.exhibition.galleryTheme ?? 1)?.themeTitle ?? "테마") / \(exhibitionData?.exhibition.gallerySize ?? 0)개"
         configureTagStackView()
     }
