@@ -81,31 +81,40 @@ extension UIViewController {
         present(alert, animated: false, completion: nil)
     }
     
+    /// 전시 타이틀 추가 가능한 전시, 전시 티켓 삭제 확인용 Alert
+    func popupAlertWithTitle(targetView: UIViewController, alertType: AlertType, title: String, leftBtnAction: Selector?, rightBtnAction: Selector) {
+        guard let alert = UIStoryboard(name: Identifiers.alertSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.alertVC) as? AlertVC else { return }
+        alert.configureAlertWithTitle(targetView: targetView,
+                                      alertType: alertType,
+                                      title: title,
+                                      leftBtnAction: leftBtnAction,
+                                      rightBtnAction: rightBtnAction)
+        alert.modalPresentationStyle = .overFullScreen
+        present(alert, animated: false, completion: nil)
+    }
+    
     func popupToast(toastType: ToastType) {
-        let toastView = ToastView()
+        let toastView = ToastView(frame: CGRect(x: 20, y: -46, width: UIScreen.main.bounds.size.width - 40, height: 46))
         toastView.message.text = toastType.message
         view.addSubview(toastView)
         
-        if toastType.position == "top" {
-            toastView.snp.makeConstraints {
-                $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
+        UIView.animate(withDuration: 0.2) {
+            toastView.snp.updateConstraints {
+                $0.top.equalToSuperview().offset(106)
                 $0.leading.equalToSuperview().offset(20)
                 $0.trailing.equalToSuperview().offset(-20)
                 $0.height.equalTo(46)
             }
-        } else {
-            toastView.snp.makeConstraints {
-                $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
-                $0.leading.equalToSuperview().offset(20)
-                $0.trailing.equalToSuperview().offset(-20)
-                $0.height.equalTo(46)
-            }
+            self.view.layoutIfNeeded()
+        } completion: { Bool in
+            UIView.animate(withDuration: 0.2, delay: 1, options: .curveEaseOut, animations: {
+                toastView.snp.updateConstraints {
+                    $0.top.equalToSuperview().offset(-46)
+                }
+                self.view.layoutIfNeeded()
+            }, completion: {(isCompleted) in
+                toastView.removeFromSuperview()
+            })
         }
-        
-        UIView.animate(withDuration: 1.0, delay: 0.5, options: .curveEaseOut, animations: {
-            toastView.alpha = 0.0
-        }, completion: {(isCompleted) in
-            toastView.removeFromSuperview()
-        })
     }
 }

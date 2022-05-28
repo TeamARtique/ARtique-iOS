@@ -80,4 +80,33 @@ extension AlertVC {
             self.leftBtn.addTarget(targetView, action: leftBtnAction, for: .touchUpInside)
         }
     }
+    
+    func configureAlertWithTitle(targetView: UIViewController, alertType: AlertType, title: String, leftBtnAction: Selector?, rightBtnAction: Selector) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.alertImage.image = alertType.alertImage
+            self.alertImage.snp.updateConstraints {
+                $0.height.equalTo(63)
+                $0.width.equalTo(72)
+            }
+            
+            self.highlightBtn(button: alertType.highlight == "left" ? self.leftBtn : self.rightBtn)
+            
+            let combination = NSMutableAttributedString()
+            let attributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.AppleSDGothicL(size: 16)]
+            let attributedStr = NSMutableAttributedString(string: title, attributes: attributes)
+            combination.append(attributedStr)
+            combination.append(alertType.message)
+            self.message.attributedText = combination
+            
+            self.leftBtn.setTitle(alertType.leftBtnLabel, for: .normal)
+            self.rightBtn.setTitle(alertType.rightBtnLabel, for: .normal)
+            self.rightBtn.addTarget(targetView, action: rightBtnAction, for: .touchUpInside)
+            guard let leftBtnAction = leftBtnAction else {
+                self.leftBtn.isHidden = true
+                return
+            }
+            self.leftBtn.addTarget(targetView, action: leftBtnAction, for: .touchUpInside)
+        }
+    }
 }

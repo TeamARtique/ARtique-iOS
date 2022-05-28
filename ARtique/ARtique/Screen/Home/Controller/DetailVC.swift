@@ -51,13 +51,17 @@ class DetailVC: BaseVC {
     
     // MARK: Btn Action
     @IBAction func didTapLikeBtn(_ sender: Any) {
+        guard let count = Int(likeCnt.text ?? "0"), let exhibitionID = exhibitionID else { return }
         likeBtn.isSelected.toggle()
-        likeBtn.toggleButtonImage(likeBtn.isSelected, UIImage(named: "Like_UnSelected")!, UIImage(named: "Like_Selected")!)
+        likeCnt.text = likeBtn.isSelected ? "\(count + 1)" : "\(count - 1)"
+        likeExhibition(exhibitionID: exhibitionID)
     }
     
     @IBAction func didTapBookMarkBtn(_ sender: Any) {
+        guard let count = Int(bookmarkCnt.text ?? "0"), let exhibitionID = exhibitionID else { return }
         bookMarkBtn.isSelected.toggle()
-        bookMarkBtn.toggleButtonImage(bookMarkBtn.isSelected, UIImage(named: "BookMark_UnSelected")!, UIImage(named: "BookMark_Selected")!)
+        bookmarkCnt.text = bookMarkBtn.isSelected ? "\(count + 1)" : "\(count - 1)"
+        bookmarkExhibition(exhibitionID: exhibitionID)
     }
     
     @IBAction func goToARGalleryBtnDidTap(_ sender: UIButton) {
@@ -88,6 +92,11 @@ extension DetailVC {
         infoTopView.layer.cornerRadius = 15
         infoTopView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         scrollBar.layer.cornerRadius = scrollBar.frame.height
+        
+        likeBtn.toggleButtonImage(defaultImage: UIImage(named: "Like_UnSelected")!,
+                                  selectedImage: UIImage(named: "Like_Selected")!)
+        bookMarkBtn.toggleButtonImage(defaultImage: UIImage(named: "BookMark_UnSelected")!,
+                                      selectedImage: UIImage(named: "BookMark_Selected")!)
     }
     
     private func configureNaviBar(navi: NaviType) {
@@ -128,8 +137,11 @@ extension DetailVC {
         let delete = UIAction(title: "삭제",
                               image: UIImage(named: "Delete"),
                               handler: { _ in
-            // TODO: - 전시 삭제
-            print("삭제")
+            self.popupAlertWithTitle(targetView: self,
+                                     alertType: .deleteExhibition,
+                                     title: "'\(self.exhibitionData?.exhibition.title ?? "")' ",
+                                     leftBtnAction: #selector(self.removeExhibition),
+                                     rightBtnAction: #selector(self.dismissAlert))
         })
         let naviRightBtn = UIBarButtonItem(image: UIImage(systemName: "ellipsis"),
                                            style: .plain,
@@ -205,16 +217,8 @@ extension DetailVC {
                             .cacheOriginalImage
                            ])
         likeBtn.isSelected = exhibitionData?.like.isLiked ?? false
-        likeBtn.setImage((exhibitionData?.like.isLiked ?? false)
-                         ? UIImage(named: "Like_Selected")
-                         : UIImage(named: "Like_UnSelected"),
-                         for: .normal)
         likeCnt.text = exhibitionData?.like.likeCnt
         bookMarkBtn.isSelected = exhibitionData?.bookmark.isBookmarked ?? false
-        bookMarkBtn.setImage((exhibitionData?.bookmark.isBookmarked ?? false)
-                         ? UIImage(named: "BookMark_Selected")
-                         : UIImage(named: "BookMark_UnSelected"),
-                         for: .normal)
         bookmarkCnt.text = exhibitionData?.bookmark.bookmarkCnt
         createdAt.text = exhibitionData?.exhibition.date ?? "Date"
         category.text = CategoryType.allCases[(exhibitionData?.exhibition.category ?? 0) - 1].categoryTitle
@@ -287,6 +291,17 @@ extension DetailVC {
         self.present(activityVC, animated: true, completion: nil)
     }
     
+    @objc func dismissAlert() {
+        dismiss(animated: false, completion: nil)
+    }
+    
+    @objc func removeExhibition() {
+        dismiss(animated: false) {
+            guard let exhibitionID = self.exhibitionID else { return }
+            self.deleteExhibition(exhibitionID: exhibitionID)
+        }
+    }
+    
     private func setOptionalData() {
         if let navi = naviType {
             naviType = navi
@@ -312,6 +327,66 @@ extension DetailVC {
                     print(message)
                     self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
                 }
+            default:
+                self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
+    }
+    
+    private func likeExhibition(exhibitionID: Int) {
+        PublicAPI.shared.requestLikeExhibition(exhibitionID: exhibitionID, completion: { [weak self] networkResult in
+            switch networkResult {
+            case .success(let res):
+                if let data = res as? Liked {
+                    self?.likeBtn.isSelected = data.isLiked ? true : false
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        })
+    }
+    
+    private func bookmarkExhibition(exhibitionID: Int) {
+        PublicAPI.shared.requestBookmarkExhibition(exhibitionID: exhibitionID, completion: { [weak self] networkResult in
+            switch networkResult {
+            case .success(let res):
+                if let data = res as? Bookmarked {
+                    self?.bookMarkBtn.isSelected = data.isBookmarked ? true : false
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        })
+    }
+    
+    private func deleteExhibition(exhibitionID: Int) {
+        ExhibitionDetailAPI.shared.deleteExhibition(exhibitionID: exhibitionID) { [weak self] networkResult in
+            switch networkResult {
+            case .success(let res):
+                if let data = res as? Deleted {
+                    if data.isDeleted {
+                        switch self?.naviType {
+                        case .push:
+                            self?.popVC()
+                        case .present:
+                            self?.dismissVC()
+                        default:
+                            self?.homeToRoot()
+                        }
+                        UIApplication.shared.windows.first!.rootViewController?.popupToast(toastType: .deleteExhibition)
+                    }
+                }
+                
             default:
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }

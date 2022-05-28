@@ -186,9 +186,8 @@ extension AddExhibitionVC {
         dismiss(animated: false, completion: nil)
     }
     
-    @objc func removeAllExhibitionData() {
-        exhibitionModel.gallerySize = nil
-        exhibitionModel.galleryTheme = nil
+    @objc func registerCancel() {
+        removeAllExhibitionData()
         dismiss(animated: false) {
             self.dismiss(animated: true, completion: nil)
         }
@@ -241,6 +240,18 @@ extension AddExhibitionVC {
         let navi = UINavigationController(rootViewController: detailVC)
         navi.modalPresentationStyle = .fullScreen
         self.present(navi, animated: true)
+    }
+    
+    private func removeAllExhibitionData() {
+        NewExhibition.shared.title = nil
+        NewExhibition.shared.category = nil
+        NewExhibition.shared.artworks = nil
+        NewExhibition.shared.gallerySize = nil
+        NewExhibition.shared.galleryTheme = nil
+        NewExhibition.shared.posterImage = nil
+        NewExhibition.shared.posterTheme = nil
+        NewExhibition.shared.tag = nil
+        NewExhibition.shared.description = nil
     }
 }
 
@@ -297,6 +308,7 @@ extension AddExhibitionVC {
             guard let self = self else { return }
             switch networkResult {
             case .success(_):
+                self.removeAllExhibitionData()
                 self.showDetail(with: exhibitionID)
                 LoadingIndicator.hideLoading()
             case .requestErr(let res):
@@ -366,7 +378,7 @@ extension AddExhibitionVC {
                 popupAlert(targetView: self,
                            alertType: .removeAllExhibition,
                            image: nil,
-                           leftBtnAction: #selector(removeAllExhibitionData),
+                           leftBtnAction: #selector(registerCancel),
                            rightBtnAction: #selector(dismissAlert))
             } else {
                 dismiss(animated: true, completion: nil)

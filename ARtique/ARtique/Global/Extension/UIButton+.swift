@@ -74,12 +74,8 @@ extension UIButton {
     }
     
     /// selected 상태에 따라 버튼 이미지를 바꿔주는 함수
-    func toggleButtonImage(_ isBtnSelected: Bool, _ defaultImage: UIImage, _ selectedImage: UIImage) {
-        tintColor = .clear
-        if isBtnSelected {
-            self.setImage(selectedImage, for: .normal)
-        } else {
-            self.setImage(defaultImage, for: .normal)
-        }
+    func toggleButtonImage(defaultImage: UIImage, selectedImage: UIImage) {
+        self.setImage(defaultImage, for: .normal)
+        self.setImage(selectedImage, for: .selected)
     }
 }
