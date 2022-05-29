@@ -20,6 +20,7 @@ class MypageVC: BaseVC {
     @IBOutlet weak var registeredExhibitionBtn: ExhibitionCntBtn!
     @IBOutlet weak var ticketBtn: ExhibitionCntBtn!
     
+    var artistData: ArtistProfile?
     var registerData: [ExhibitionModel]?
     var bookmarkData: [ExhibitionModel]?
     var ticketCnt: Int?
@@ -39,7 +40,9 @@ class MypageVC: BaseVC {
     }
     
     @IBAction func pushEditView(_ sender: Any) {
-        guard let profileEditVC = UIStoryboard(name: Identifiers.profileEditSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.profileEditVC) as? ProfileEditVC else { return }
+        guard let profileEditVC = UIStoryboard(name: Identifiers.profileEditSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.profileEditVC) as? ProfileEditVC,
+              let artistData = artistData else { return }
+        profileEditVC.artistData = artistData
         profileEditVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(profileEditVC, animated: true)
     }
@@ -155,6 +158,7 @@ extension MypageVC {
                     self.registerData = data.myExhibition
                     self.bookmarkData = data.myBookmarkedData
                     self.ticketCnt = data.user.ticketCount
+                    self.artistData = data.user
                     self.setUserData(artist: data.user)
                     self.configureExhibitionCntBtn()
                     self.setTVHidden(myData: data)
