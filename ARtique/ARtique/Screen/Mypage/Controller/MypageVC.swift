@@ -85,6 +85,10 @@ extension MypageVC {
     }
     
     private func configureProfile() {
+        let profileTapGesture = UITapGestureRecognizer(target: self, action: #selector(showProfile))
+        profileImg.addGestureRecognizer(profileTapGesture)
+        profileImg.isUserInteractionEnabled = true
+        
         profileImg.layer.cornerRadius = profileImg.frame.height / 2
         nickname.font = .AppleSDGothicR(size: 17)
         explanation.font = .AppleSDGothicR(size: 12)
@@ -144,6 +148,10 @@ extension MypageVC {
         exhibitionListVC.exhibitionData = data
         exhibitionListVC.setNaviBarTitle(title)
         navigationController?.pushViewController(exhibitionListVC, animated: true)
+    }
+    
+    @objc func showProfile() {
+        showProfileImage(with: profileImg.image ?? UIImage(named: "DefaultProfile")!)
     }
 }
 
