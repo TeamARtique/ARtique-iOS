@@ -17,11 +17,17 @@ class BaseVC: UIViewController {
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNaviBar()
     }
 }
 
 // MARK: - Custom Methods
 extension BaseVC {
+    func setNaviBar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
     func hideTabbar() {
         self.tabBarController?.tabBar.isHidden = true
     }
