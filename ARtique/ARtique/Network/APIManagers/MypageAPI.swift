@@ -16,6 +16,20 @@ class MypageAPI: BaseAPI {
 }
 
 extension MypageAPI {
+    func getMypageData(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        provider.request(.getMypageData) { result in
+            switch result {
+            case .success(let response):
+                let statusCode = response.statusCode
+                let data = response.data
+                
+                completion(self.judgeStatus(type: MypageModel.self, by: statusCode, data))
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
     func editArtistProfile(artist: ArtistModel, completion: @escaping (NetworkResult<Any>) -> (Void)) {
         provider.request(.editProfile(artist: artist)) { result in
             switch result {

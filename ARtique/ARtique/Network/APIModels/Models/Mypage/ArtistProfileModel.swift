@@ -16,4 +16,6 @@ struct ArtistProfile: Codable {
     let profileImage: String
     let introduction: String
     let website: String
+    let exhibitionCount: Int?
+    let ticketCount: Int?
 }
