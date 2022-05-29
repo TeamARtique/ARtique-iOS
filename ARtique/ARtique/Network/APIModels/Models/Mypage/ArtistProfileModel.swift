@@ -9,6 +9,7 @@ import Foundation
 
 struct ArtistProfileModel: Codable {
     let user: ArtistProfile
+    let exhibition: [ExhibitionModel]?
 }
 
 struct ArtistProfile: Codable {

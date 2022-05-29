@@ -73,6 +73,7 @@ class DetailVC: BaseVC {
     
     @IBAction func didTapAuthorBtn(_ sender: Any) {
         guard let artistProfileVC = UIStoryboard(name: Identifiers.artistProfileSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.artistProfileVC) as? ArtistProfileVC else { return }
+        artistProfileVC.artistID = exhibitionData?.artist.artistId
         navigationController?.pushViewController(artistProfileVC, animated: true)
     }
 }

@@ -25,14 +25,19 @@ class ArtistProfileHeaderView: UICollectionReusableView {
 
 // MARK: - Configure
 extension ArtistProfileHeaderView {
-    private func configureFont() {
+    private func configureContentView() {
+        let profileTapGesture = UITapGestureRecognizer(target: self, action: #selector(showProfile))
+        profileImg.addGestureRecognizer(profileTapGesture)
+        profileImg.isUserInteractionEnabled = true
+        
+        profileImg.layer.cornerRadius = profileImg.frame.height / 2
         nickname.font = .AppleSDGothicSB(size: 17)
-        explanation.font = .AppleSDGothicL(size: 12)
-        snsUrl.font = .AppleSDGothicL(size: 12)
+        explanation.font = .AppleSDGothicR(size: 12)
+        snsUrl.font = .AppleSDGothicR(size: 12)
     }
     
     func configureArtistData(artist: ArtistProfile) {
-        configureFont()
+        configureContentView()
         profileImg.kf.setImage(with: URL(string: artist.profileImage),
                                placeholder: UIImage(named: "DefaultProfile"),
                                options: [
@@ -42,5 +47,10 @@ extension ArtistProfileHeaderView {
         nickname.text = artist.nickname
         explanation.text = artist.introduction
         snsUrl.text = artist.website
+    }
+    
+    @objc func showProfile() {
+        let baseVC = self.findViewController() as! ArtistProfileVC
+        baseVC.showProfileImage(with: profileImg.image ?? UIImage(named: "DefaultProfile")!)
     }
 }

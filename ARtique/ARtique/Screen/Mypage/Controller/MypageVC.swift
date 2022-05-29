@@ -90,7 +90,7 @@ extension MypageVC {
         profileImg.isUserInteractionEnabled = true
         
         profileImg.layer.cornerRadius = profileImg.frame.height / 2
-        nickname.font = .AppleSDGothicR(size: 17)
+        nickname.font = .AppleSDGothicSB(size: 17)
         explanation.font = .AppleSDGothicR(size: 12)
         snsUrl.font = .AppleSDGothicR(size: 12)
     }

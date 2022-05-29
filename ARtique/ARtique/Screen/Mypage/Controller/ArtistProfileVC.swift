@@ -10,13 +10,19 @@ import UIKit
 class ArtistProfileVC: BaseVC {
     @IBOutlet weak var exhibitionListCV: UICollectionView!
     
-    var exhibitionData: [ExhibitionModel]?
+    var artistID: Int?
+    var artistData: ArtistProfileModel?
     let minimumLineSpacing: CGFloat = 25
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
-        configureCV()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let artistID = artistID else { return }
+        getArtistProfile(artistID: artistID)
     }
 }
 
@@ -36,31 +42,49 @@ extension ArtistProfileVC {
         exhibitionListCV.dataSource = self
         exhibitionListCV.delegate = self
         exhibitionListCV.register(UINib(nibName: Identifiers.exhibitionCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.exhibitionCVC)
-        exhibitionListCV.isScrollEnabled = false
+        exhibitionListCV.showsVerticalScrollIndicator = false
         if let layout = exhibitionListCV.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.estimatedItemSize = .zero
         }
     }
 }
 
+// MARK: - Network
+extension ArtistProfileVC {
+    private func getArtistProfile(artistID: Int) {
+        MypageAPI.shared.getArtistProfile(artistID: artistID, completion: { [weak self] networkResult in
+            guard let self = self else { return }
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? ArtistProfileModel {
+                    self.artistData = data
+                    self.configureCV()
+                }
+            default:
+                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        })
+    }
+}
 
 // MARK: - UICollectionViewDataSource
 extension ArtistProfileVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        exhibitionData?.count ?? 0
+        artistData?.exhibition?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.exhibitionCVC, for: indexPath) as? ExhibitionCVC else { return UICollectionViewCell() }
-        cell.configureCell(exhibitionData?[indexPath.row] ?? ExhibitionModel())
+        cell.configureCell(artistData?.exhibition?[indexPath.row] ?? ExhibitionModel())
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Identifiers.artistProfileHeaderView, for: indexPath) as? ArtistProfileHeaderView else { return UICollectionReusableView() }
-//            headerView.configureArtistData(artist: <#T##ArtistProfile#>)
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Identifiers.artistProfileHeaderView, for: indexPath) as? ArtistProfileHeaderView,
+                  let artist = artistData?.user else { return UICollectionReusableView() }
+            headerView.configureArtistData(artist: artist)
             return headerView
         default:
             assert(false)
@@ -84,10 +108,10 @@ extension ArtistProfileVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
         let widthPadding: CGFloat = 15
-
+        
         let cellWidth = (width - widthPadding) / 2
         let cellHeight = 4 * cellWidth / 3 + 64
-
+        
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
