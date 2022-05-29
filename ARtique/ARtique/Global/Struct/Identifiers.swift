@@ -21,6 +21,7 @@ struct Identifiers {
     static let exhibitionListSB = "ExhibitionList"
     static let noneExhibitionSB = "NoneExhibition"
     static let alertSB = "Alert"
+    static let artistProfileSB = "ArtistProfile"
     
     //MARK: - Controller
     static let artiqueTBC = "ARtiqueTBC"
@@ -41,6 +42,7 @@ struct Identifiers {
     static let exhibitionListVC = "ExhibitionListVC"
     static let noneExhibitionVC = "NoneExhibitionVC"
     static let alertVC = "AlertVC"
+    static let artistProfileVC = "ArtistProfileVC"
     
     //MARK: - TVC
     static let homeHorizontalTVC = "HomeHorizontalTVC"
@@ -68,6 +70,7 @@ struct Identifiers {
     static let artworkSelectView = "ArtworkSelectView"
     static let posterTheme = "PosterTheme"
     static let toastView = "ToastView"
+    static let artistProfileHeaderView = "ArtistProfileHeaderView"
     
     //MARK: - Node
     static let minimumGalleryScenePath = "art.scnassets/GalleryModel/minimumGallery.scn"
