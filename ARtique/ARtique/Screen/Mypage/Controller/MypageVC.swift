@@ -53,6 +53,13 @@ class MypageVC: BaseVC {
             navigationController?.pushViewController(noneExhibitionVC, animated: true)
         }
     }
+    
+    @IBAction func showTicketBook(_ sender: Any) {
+        let ticketbookVC = TicketBookVC()
+        ticketbookVC.hidesBottomBarWhenPushed = true
+        ticketbookVC.naviType = .push
+        navigationController?.pushViewController(ticketbookVC, animated: true)
+    }
 }
 
 // MARK: - Configure
