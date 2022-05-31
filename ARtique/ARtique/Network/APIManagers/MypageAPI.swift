@@ -43,4 +43,18 @@ extension MypageAPI {
             }
         }
     }
+    
+    func getArtistProfile(artistID: Int, completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        provider.request(.getArtistProfile(artistID: artistID)) { result in
+            switch result {
+            case .success(let response):
+                let statusCode = response.statusCode
+                let data = response.data
+                
+                completion(self.judgeStatus(type: ArtistProfileModel.self, by: statusCode, data))
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }

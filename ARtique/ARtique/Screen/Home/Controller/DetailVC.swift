@@ -72,7 +72,9 @@ class DetailVC: BaseVC {
     }
     
     @IBAction func didTapAuthorBtn(_ sender: Any) {
-        //TODO: - 작가 프로필 화면 연결
+        guard let artistProfileVC = UIStoryboard(name: Identifiers.artistProfileSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.artistProfileVC) as? ArtistProfileVC else { return }
+        artistProfileVC.artistID = exhibitionData?.artist.artistId
+        navigationController?.pushViewController(artistProfileVC, animated: true)
     }
 }
 

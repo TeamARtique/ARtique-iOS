@@ -54,6 +54,8 @@
 		238C65762756606100EADA93 /* HomeNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238C65752756606100EADA93 /* HomeNC.swift */; };
 		239360FD2843A1F5009FD193 /* MypageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239360FC2843A1F5009FD193 /* MypageModel.swift */; };
 		239360FF2843E980009FD193 /* ProfileImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239360FE2843E980009FD193 /* ProfileImageVC.swift */; };
+		239361012844067E009FD193 /* ArtistProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 239361002844067E009FD193 /* ArtistProfile.storyboard */; };
+		2393610328440693009FD193 /* ArtistProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2393610228440693009FD193 /* ArtistProfileVC.swift */; };
 		2395FBA227563A9700D3DB77 /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2395FBA127563A9700D3DB77 /* Detail.storyboard */; };
 		2395FBA427563AA500D3DB77 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2395FBA327563AA500D3DB77 /* DetailVC.swift */; };
 		239C5D4C27F224A300D8A3D2 /* ArtworkSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239C5D4A27F224A300D8A3D2 /* ArtworkSelectView.swift */; };
@@ -112,6 +114,7 @@
 		23E734FF27EA1528000315E6 /* PostExplainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23E734FD27EA1528000315E6 /* PostExplainView.xib */; };
 		23E7350527EA24A1000315E6 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7350427EA24A1000315E6 /* UITextView+.swift */; };
 		23E7350727EA4D1B000315E6 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7350627EA4D1B000315E6 /* UIScrollView+.swift */; };
+		23F88CDA284418DF006AD868 /* ArtistProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F88CD9284418DF006AD868 /* ArtistProfileHeaderView.swift */; };
 		23FE54D727EB086400FF0DF9 /* GalleryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FE54D627EB086400FF0DF9 /* GalleryType.swift */; };
 		3305F7312754DABA00E6E08E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3305F7302754DABA00E6E08E /* AppDelegate.swift */; };
 		3305F7332754DABA00E6E08E /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3305F7322754DABA00E6E08E /* art.scnassets */; };
@@ -234,6 +237,8 @@
 		238C65752756606100EADA93 /* HomeNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNC.swift; sourceTree = "<group>"; };
 		239360FC2843A1F5009FD193 /* MypageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageModel.swift; sourceTree = "<group>"; };
 		239360FE2843E980009FD193 /* ProfileImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageVC.swift; sourceTree = "<group>"; };
+		239361002844067E009FD193 /* ArtistProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ArtistProfile.storyboard; sourceTree = "<group>"; };
+		2393610228440693009FD193 /* ArtistProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistProfileVC.swift; sourceTree = "<group>"; };
 		2395FBA127563A9700D3DB77 /* Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
 		2395FBA327563AA500D3DB77 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		239C5D4A27F224A300D8A3D2 /* ArtworkSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkSelectView.swift; sourceTree = "<group>"; };
@@ -292,6 +297,7 @@
 		23E734FD27EA1528000315E6 /* PostExplainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostExplainView.xib; sourceTree = "<group>"; };
 		23E7350427EA24A1000315E6 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		23E7350627EA4D1B000315E6 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
+		23F88CD9284418DF006AD868 /* ArtistProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistProfileHeaderView.swift; sourceTree = "<group>"; };
 		23FE54D627EB086400FF0DF9 /* GalleryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryType.swift; sourceTree = "<group>"; };
 		3305F72D2754DABA00E6E08E /* ARtique.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARtique.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3305F7302754DABA00E6E08E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -386,6 +392,7 @@
 			isa = PBXGroup;
 			children = (
 				232E76D72813F91200E7CF39 /* ExhibitionCntBtn.swift */,
+				23F88CD9284418DF006AD868 /* ArtistProfileHeaderView.swift */,
 			);
 			path = Xib;
 			sourceTree = "<group>";
@@ -820,6 +827,7 @@
 				23C9AD6128019FDA00DFF5A2 /* MypageNC.swift */,
 				230883822804163100620BC1 /* ProfileEditVC.swift */,
 				232E76DD281406F500E7CF39 /* NoneExhibitionVC.swift */,
+				2393610228440693009FD193 /* ArtistProfileVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -830,6 +838,7 @@
 				3305F7912754E35900E6E08E /* Mypage.storyboard */,
 				230883802804162200620BC1 /* ProfileEdit.storyboard */,
 				232E76DB281406E700E7CF39 /* NoneExhibition.storyboard */,
+				239361002844067E009FD193 /* ArtistProfile.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -1186,6 +1195,7 @@
 				23A1B2C928367FA00089B63E /* ToastView.xib in Resources */,
 				239C5D4D27F224A300D8A3D2 /* ArtworkSelectView.xib in Resources */,
 				3305F7AD2754E66900E6E08E /* AppleSDGothicNeoSB.ttf in Resources */,
+				239361012844067E009FD193 /* ArtistProfile.storyboard in Resources */,
 				23DD9E7F283D24280041928D /* splash.json in Resources */,
 				236FA17A281EB35F00E819FE /* Alert.storyboard in Resources */,
 				3305F7AA2754E66200E6E08E /* AppleSDGothicNeoM.ttf in Resources */,
@@ -1300,6 +1310,7 @@
 				237B436E275CEE1E00B7FA3F /* HomeHorizontalCVC.swift in Sources */,
 				235650D927F9FC870082E048 /* AlbumTVC.swift in Sources */,
 				235610002832B9A900176D66 /* ExhibitionService.swift in Sources */,
+				23F88CDA284418DF006AD868 /* ArtistProfileHeaderView.swift in Sources */,
 				237B4369275CDDD600B7FA3F /* HomeHorizontalTVC.swift in Sources */,
 				3305F7A02754E3BA00E6E08E /* d.swift in Sources */,
 				2383787F280B06A2002088E6 /* LatestSearchedCVC.swift in Sources */,
@@ -1362,6 +1373,7 @@
 				331C8E3C283CE50700764BB9 /* Liked.swift in Sources */,
 				3358C55F2837985800A46D61 /* TicketBookDimmedVC.swift in Sources */,
 				23C9AD6228019FDA00DFF5A2 /* MypageNC.swift in Sources */,
+				2393610328440693009FD193 /* ArtistProfileVC.swift in Sources */,
 				231435732822F3B900E41D7F /* BorderCVC.swift in Sources */,
 				331EEB092834C45200A726AF /* TicketService.swift in Sources */,
 				23C9AD6B2801CC8500DFF5A2 /* MyExhibitionTVC.swift in Sources */,
