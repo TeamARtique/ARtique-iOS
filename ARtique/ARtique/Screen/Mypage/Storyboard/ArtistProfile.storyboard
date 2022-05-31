@@ -46,19 +46,19 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author explanation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2dQ-r1-9JP">
-                                            <rect key="frame" x="135" y="55" width="96.5" height="15"/>
+                                            <rect key="frame" x="135" y="55" width="239" height="15"/>
                                             <fontDescription key="fontDescription" name="AppleSDGothicNeoR00" family="AppleSDGothicNeoR00" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SNS URL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLE-t6-8fY">
-                                            <rect key="frame" x="135" y="82" width="44.5" height="15"/>
+                                            <rect key="frame" x="135" y="82" width="239" height="15"/>
                                             <fontDescription key="fontDescription" name="AppleSDGothicNeoR00" family="AppleSDGothicNeoR00" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ARTI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IXo-wA-cIf" userLabel="nickname">
-                                            <rect key="frame" x="135" y="18" width="34" height="21"/>
+                                            <rect key="frame" x="135" y="18" width="239" height="21"/>
                                             <fontDescription key="fontDescription" name="AppleSDGothicNeoR00" family="AppleSDGothicNeoR00" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -85,7 +85,10 @@
                                         <constraint firstItem="oLE-t6-8fY" firstAttribute="leading" secondItem="IXo-wA-cIf" secondAttribute="leading" id="Cpy-9n-SB0"/>
                                         <constraint firstItem="8ab-uc-bT5" firstAttribute="top" secondItem="17b-Uv-4L1" secondAttribute="bottom" constant="21" id="OPq-Wa-S6J"/>
                                         <constraint firstItem="2dQ-r1-9JP" firstAttribute="leading" secondItem="IXo-wA-cIf" secondAttribute="leading" id="RBt-J5-yxU"/>
+                                        <constraint firstAttribute="trailing" secondItem="oLE-t6-8fY" secondAttribute="trailing" id="RvA-CY-J8l"/>
+                                        <constraint firstAttribute="trailing" secondItem="IXo-wA-cIf" secondAttribute="trailing" id="XAk-Fc-1oe"/>
                                         <constraint firstItem="IXo-wA-cIf" firstAttribute="top" secondItem="utj-El-woU" secondAttribute="top" constant="18" id="Zl2-e6-8FT"/>
+                                        <constraint firstAttribute="right" secondItem="2dQ-r1-9JP" secondAttribute="right" id="c28-Vw-zg4"/>
                                         <constraint firstItem="17b-Uv-4L1" firstAttribute="leading" secondItem="utj-El-woU" secondAttribute="leading" id="j9z-ce-OWw"/>
                                         <constraint firstItem="8ab-uc-bT5" firstAttribute="left" secondItem="utj-El-woU" secondAttribute="left" id="k9B-2i-iMa"/>
                                         <constraint firstItem="17b-Uv-4L1" firstAttribute="top" secondItem="utj-El-woU" secondAttribute="top" constant="16" id="kfP-J4-5YK"/>
