@@ -17,11 +17,17 @@ class BaseVC: UIViewController {
     // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNaviBar()
     }
 }
 
 // MARK: - Custom Methods
 extension BaseVC {
+    func setNaviBar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
     func hideTabbar() {
         self.tabBarController?.tabBar.isHidden = true
     }
@@ -60,6 +66,26 @@ extension BaseVC {
         tableView.reloadData()
         tableView.layoutIfNeeded()
         tableView.setContentOffset(contentOffset, animated: false)
+    }
+    
+    /// 프로필 사진 상세보기 뷰를 띄워주는 함수
+    func showProfileImage(with image: UIImage) {
+        let profileImageVC = ProfileImageVC()
+        profileImageVC.profileImage.image = image
+        profileImageVC.modalPresentationStyle = .overFullScreen
+        present(profileImageVC, animated: true, completion: nil)
+    }
+    
+    /// safeArea top영역 높이를 반환하는 함수
+    func safeAreaTopInset() -> CGFloat {
+        let height = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        if #available(iOS 13.0, *) {
+            let scenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            let topPadding = scenes?.windows.first?.safeAreaInsets.top
+            return topPadding ?? height
+        } else {
+            return height
+        }
     }
 }
 

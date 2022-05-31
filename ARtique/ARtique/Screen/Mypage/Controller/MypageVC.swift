@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MypageVC: BaseVC {
     @IBOutlet weak var baseSV: UIScrollView!
@@ -19,7 +20,7 @@ class MypageVC: BaseVC {
     @IBOutlet weak var registeredExhibitionBtn: ExhibitionCntBtn!
     @IBOutlet weak var ticketBtn: ExhibitionCntBtn!
     
-    // dummyData
+    var artistData: ArtistProfile?
     var registerData: [ExhibitionModel]?
     var bookmarkData: [ExhibitionModel]?
     var ticketCnt: Int?
@@ -33,20 +34,34 @@ class MypageVC: BaseVC {
         configureTV()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getMypageData()
+    }
+    
     @IBAction func pushEditView(_ sender: Any) {
-        guard let profileEditVC = UIStoryboard(name: Identifiers.profileEditSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.profileEditVC) as? ProfileEditVC else { return }
+        guard let profileEditVC = UIStoryboard(name: Identifiers.profileEditSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.profileEditVC) as? ProfileEditVC,
+              let artistData = artistData else { return }
+        profileEditVC.artistData = artistData
         profileEditVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(profileEditVC, animated: true)
     }
     
     @IBAction func showRegisteredExhibition(_ sender: Any) {
         if !(registerData?.isEmpty ?? true) {
-            showExhibitionListVC(title: "등록한 전시 \(registerData?.count)", data: registerData!)
+            showExhibitionListVC(title: "등록한 전시 \(registerData?.count ?? 0)", data: registerData!)
         } else {
             guard let noneExhibitionVC = UIStoryboard(name: Identifiers.noneExhibitionSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.noneExhibitionVC) as? NoneExhibitionVC else { return }
             noneExhibitionVC.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(noneExhibitionVC, animated: true)
         }
+    }
+    
+    @IBAction func showTicketBook(_ sender: Any) {
+        let ticketbookVC = TicketBookVC()
+        ticketbookVC.hidesBottomBarWhenPushed = true
+        ticketbookVC.naviType = .push
+        navigationController?.pushViewController(ticketbookVC, animated: true)
     }
 }
 
@@ -70,6 +85,10 @@ extension MypageVC {
     }
     
     private func configureProfile() {
+        let profileTapGesture = UITapGestureRecognizer(target: self, action: #selector(showProfile))
+        profileImg.addGestureRecognizer(profileTapGesture)
+        profileImg.isUserInteractionEnabled = true
+        
         profileImg.layer.cornerRadius = profileImg.frame.height / 2
         nickname.font = .AppleSDGothicR(size: 17)
         explanation.font = .AppleSDGothicR(size: 12)
@@ -90,16 +109,29 @@ extension MypageVC {
         exhibitionTV.separatorStyle = .none
         exhibitionTV.isScrollEnabled = false
         exhibitionTV.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
+        exhibitionTV.isHidden = true
+    }
+    
+    private func setUserData(artist: ArtistProfile) {
+        profileImg.kf.setImage(with: URL(string: artist.profileImage),
+                               placeholder: UIImage(named: "DefaultProfile"),
+                               options: [
+                                .scaleFactor(UIScreen.main.scale),
+                                .cacheOriginalImage
+                               ])
+        nickname.text = artist.nickname
+        explanation.text = artist.introduction
+        snsUrl.text = artist.website
+    }
+    
+    private func setTVHidden(myData: MypageModel) {
+        exhibitionTV.isHidden
+        = myData.myExhibition.isEmpty && myData.myBookmarkedData.isEmpty
+        ? true : false
         
-        let isRegisterData = registerData?.isEmpty ?? true
-        let isBookmarkData = bookmarkData?.isEmpty ?? true
-        if isRegisterData && isBookmarkData {
-            exhibitionTV.isHidden = true
-        } else if !isRegisterData && !isBookmarkData {
-            exhibitionTVHeight.constant = 652
-        } else {
-            exhibitionTVHeight.constant = 326
-        }
+        exhibitionTVHeight.constant
+        = !myData.myExhibition.isEmpty && !myData.myBookmarkedData.isEmpty
+        ? 652 : 326
     }
 }
 
@@ -116,6 +148,34 @@ extension MypageVC {
         exhibitionListVC.exhibitionData = data
         exhibitionListVC.setNaviBarTitle(title)
         navigationController?.pushViewController(exhibitionListVC, animated: true)
+    }
+    
+    @objc func showProfile() {
+        showProfileImage(with: profileImg.image ?? UIImage(named: "DefaultProfile")!)
+    }
+}
+
+// MARK: - Network
+extension MypageVC {
+    private func getMypageData() {
+        MypageAPI.shared.getMypageData { [weak self] networkResult in
+            guard let self = self else { return }
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? MypageModel {
+                    self.registerData = data.myExhibition
+                    self.bookmarkData = data.myBookmarkedData
+                    self.ticketCnt = data.user.ticketCount
+                    self.artistData = data.user
+                    self.setUserData(artist: data.user)
+                    self.configureExhibitionCntBtn()
+                    self.setTVHidden(myData: data)
+                    self.exhibitionTV.reloadData()
+                }
+            default:
+                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
     }
 }
 
@@ -177,6 +237,7 @@ extension MypageVC: CVCellDelegate {
         guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC,
               let cell = collectionView.cellForItem(at: index) as? ExhibitionCVC else { return }
         detailVC.exhibitionID = cell.exhibitionData?.exhibitionId
+        detailVC.naviType = .push
         
         navigationController?.pushViewController(detailVC, animated: true)
     }

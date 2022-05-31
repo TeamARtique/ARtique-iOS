@@ -10,6 +10,7 @@ import Photos
 import SnapKit
 import RxSwift
 import RxCocoa
+import Kingfisher
 
 class ProfileEditVC: BaseVC {
     @IBOutlet weak var baseSV: UIScrollView!
@@ -18,8 +19,9 @@ class ProfileEditVC: BaseVC {
     @IBOutlet weak var explanationTextView: UITextView!
     @IBOutlet weak var explanationCnt: UILabel!
     @IBOutlet weak var snsTextField: UITextField!
-    var imagePicker: UIImagePickerController!
     
+    var imagePicker: UIImagePickerController!
+    var artistData: ArtistProfile?
     let bag = DisposeBag()
     let textViewMaxCnt = 100
     var explanationPlaceholder = "ARTI를 소개할 수 있는 말을 적어주세요"
@@ -28,7 +30,7 @@ class ProfileEditVC: BaseVC {
         super.viewDidLoad()
         configureNaviBar()
         configureSV()
-        configureContentView()
+        bindUserData()
         bindUI()
         bindNotificationCenter()
         hideKeyboard()
@@ -125,6 +127,25 @@ extension ProfileEditVC {
                 owner.baseSV.scrollToTop()
             })
             .disposed(by: bag)
+    }
+    
+    private func bindUserData() {
+        let processor = ResizingImageProcessor(referenceSize: CGSize(width: 120, height: 120))
+        let modifier = AnyImageModifier { return $0.withRenderingMode(.alwaysOriginal) }
+        profileImg.kf.setBackgroundImage(with: URL(string: artistData?.profileImage ?? ""),
+                           for: .normal,
+                           placeholder: UIImage(named: "DefaultProfile")?
+                            .resized(to: CGSize(width: 120, height: 120)),
+                           options: [
+                            .scaleFactor(UIScreen.main.scale),
+                            .processor(processor),
+                            .imageModifier(modifier),
+                            .cacheOriginalImage
+                           ])
+        nicknameTextField.text = artistData?.nickname ?? ""
+        explanationTextView.text = artistData?.introduction ?? ""
+        snsTextField.text = artistData?.website ?? ""
+        configureContentView()
     }
 }
 

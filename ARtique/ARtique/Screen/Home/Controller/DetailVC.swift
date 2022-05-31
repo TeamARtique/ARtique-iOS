@@ -35,7 +35,7 @@ class DetailVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setOptionalData()
+        configureNaviBar(navi: naviType ?? .push)
         configureView()
         configureLayout(isScrolled: false)
         configureARBtn()
@@ -299,13 +299,6 @@ extension DetailVC {
         dismiss(animated: false) {
             guard let exhibitionID = self.exhibitionID else { return }
             self.deleteExhibition(exhibitionID: exhibitionID)
-        }
-    }
-    
-    private func setOptionalData() {
-        if let navi = naviType {
-            naviType = navi
-            configureNaviBar(navi: navi)
         }
     }
 }

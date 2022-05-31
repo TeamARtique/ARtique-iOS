@@ -9,6 +9,7 @@ import Foundation
 import Moya
 
 enum MypageService {
+    case getMypageData
     case editProfile(artist: ArtistModel)
 }
 
@@ -19,6 +20,8 @@ extension MypageService: TargetType {
     
     var path: String {
         switch self {
+        case .getMypageData:
+            return "/mypage"
         case .editProfile:
             return "/mypage/profile"
         }
@@ -26,6 +29,8 @@ extension MypageService: TargetType {
     
     var method: Moya.Method {
         switch self {
+        case .getMypageData:
+            return .get
         case .editProfile:
             return .put
         }
@@ -33,6 +38,8 @@ extension MypageService: TargetType {
     
     var task: Task {
         switch self {
+        case .getMypageData:
+            return .requestPlain
         case .editProfile(let artist):
             var multipartData = [MultipartFormData]()
             
