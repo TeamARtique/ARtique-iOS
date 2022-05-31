@@ -229,6 +229,11 @@ extension DetailVC {
     }
     
     private func configureTagStackView() {
+        tagStackView.arrangedSubviews
+            .forEach({
+                $0.removeFromSuperview()
+            })
+        
         exhibitionData?.exhibition.tag?.forEach { tagId in
             let tag = UIView()
             tag.layer.cornerRadius = 10
