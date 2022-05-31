@@ -70,6 +70,7 @@ extension ExhibitionExplainView {
         posterChangeBtn.setTitle("  대표사진 변경하기", for: .normal)
         posterChangeBtn.titleLabel?.font = .AppleSDGothicSB(size: 12)
         posterChangeBtn.setImage(UIImage(named: "Change"), for: .normal)
+        posterChangeBtn.addTarget(self, action: #selector(showPosterSelectVC), for: .touchUpInside)
         
         exhibitionExplainTextView.setRoundTextView()
         exhibitionExplainTextView.setTextViewPlaceholder(exhibitionExplainPlaceholder)
@@ -78,6 +79,12 @@ extension ExhibitionExplainView {
         exhibitionExplainTextView.textContainer.maximumNumberOfLines = 4
         
         isPublic.onTintColor = .black
+    }
+    
+    @objc func showPosterSelectVC() {
+        guard let baseVC = findViewController() as? AddExhibitionVC,
+              let posterSelectVC = UIStoryboard(name: Identifiers.posterSelectSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.posterSelectVC) as? PosterSelectVC else { return }
+        baseVC.present(posterSelectVC, animated: true, completion: nil)
     }
     
     private func configureCV() {

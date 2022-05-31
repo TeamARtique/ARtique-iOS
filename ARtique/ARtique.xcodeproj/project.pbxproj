@@ -37,6 +37,8 @@
 		23612897283219320097896B /* PosterTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23612895283219320097896B /* PosterTheme.swift */; };
 		23612898283219320097896B /* PosterTheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23612896283219320097896B /* PosterTheme.xib */; };
 		2361289A2832196D0097896B /* PosterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236128992832196D0097896B /* PosterType.swift */; };
+		236C66A8284603D900EB21E9 /* PosterSelect.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 236C66A7284603D900EB21E9 /* PosterSelect.storyboard */; };
+		236C66AA284603E000EB21E9 /* PosterSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236C66A9284603E000EB21E9 /* PosterSelectVC.swift */; };
 		236FA178281EB33B00E819FE /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236FA177281EB33B00E819FE /* AlertVC.swift */; };
 		236FA17A281EB35F00E819FE /* Alert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 236FA179281EB35F00E819FE /* Alert.storyboard */; };
 		236FA17C281ED66500E819FE /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236FA17B281ED66500E819FE /* AlertType.swift */; };
@@ -220,6 +222,8 @@
 		23612895283219320097896B /* PosterTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterTheme.swift; sourceTree = "<group>"; };
 		23612896283219320097896B /* PosterTheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PosterTheme.xib; sourceTree = "<group>"; };
 		236128992832196D0097896B /* PosterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterType.swift; sourceTree = "<group>"; };
+		236C66A7284603D900EB21E9 /* PosterSelect.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PosterSelect.storyboard; sourceTree = "<group>"; };
+		236C66A9284603E000EB21E9 /* PosterSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterSelectVC.swift; sourceTree = "<group>"; };
 		236FA177281EB33B00E819FE /* AlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
 		236FA179281EB35F00E819FE /* Alert.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Alert.storyboard; sourceTree = "<group>"; };
 		236FA17B281ED66500E819FE /* AlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
@@ -799,6 +803,7 @@
 				23B52A7A27E0A56900D6C339 /* AddExhibitionVC.swift */,
 				23B52A7C27E0A5A500D6C339 /* AddExhibitionNC.swift */,
 				235650D327F9FB6F0082E048 /* AlbumListTVC.swift */,
+				236C66A9284603E000EB21E9 /* PosterSelectVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -808,6 +813,7 @@
 			children = (
 				23B52A7827E0A54D00D6C339 /* AddExhibition.storyboard */,
 				235650DD27FA031F0082E048 /* AlbumListTVC.storyboard */,
+				236C66A7284603D900EB21E9 /* PosterSelect.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -1178,6 +1184,7 @@
 				23C9AD672801C8BB00DFF5A2 /* ExhibitionCVC.xib in Resources */,
 				23071DB527ECB47600949BA1 /* ArtworkExplainCVC.xib in Resources */,
 				23071DBB27ECFBAB00949BA1 /* ExhibitionExplainView.xib in Resources */,
+				236C66A8284603D900EB21E9 /* PosterSelect.storyboard in Resources */,
 				23E734FF27EA1528000315E6 /* PostExplainView.xib in Resources */,
 				23E734EF27E99CC8000315E6 /* OrderView.xib in Resources */,
 				230883812804162200620BC1 /* ProfileEdit.storyboard in Resources */,
@@ -1365,6 +1372,7 @@
 				23144219280C4053007DB53C /* SearchResultVC.swift in Sources */,
 				23BB927027F0EB9100D91354 /* TagType.swift in Sources */,
 				3305F7612754E03600E6E08E /* Identifiers.swift in Sources */,
+				236C66AA284603E000EB21E9 /* PosterSelectVC.swift in Sources */,
 				331EEB0C2834C5D400A726AF /* CreateTicketModel.swift in Sources */,
 				3305F7312754DABA00E6E08E /* AppDelegate.swift in Sources */,
 				23B52A8127E0A7B900D6C339 /* UINavigationController+.swift in Sources */,
