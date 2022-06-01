@@ -338,7 +338,7 @@ extension AddExhibitionVC {
                 configurePageView(page)
                 for i in 0..<artworkSelectView.selectedImages.count {
                     let tmp = ArtworkData()
-                    tmp.image = artworkSelectView.selectedImages[i]
+                    tmp.image = artworkSelectView.selectedImages[i].image
                     tmp.index = i + 1
                     exhibitionModel.artworks?[i] = tmp
                 }

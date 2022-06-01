@@ -31,9 +31,9 @@ class ArtworkSelectVC: BaseVC {
     
     let bag = DisposeBag()
     let exhibitionModel = NewExhibition.shared
-    var selectedImages = [UIImage]()
     var selectedIndex: IndexPath?
     var indexArr = [Int]()
+    var selectedImages = [SelectedImage]()
     var isEdited: Bool = false
     
     override func viewDidLoad() {
@@ -165,7 +165,14 @@ extension ArtworkSelectVC {
                     DispatchQueue.main.async {
                         isDegraded ? self.spiner.startAnimating() : self.spiner.stopAnimating()
                         self.preview.imageView.image = image
-                        self.preview.scrollView.zoomScale = self.preview.scrollView.minimumZoomScale
+                        
+                        if let index = self.indexArr.firstIndex(of: indexPath.row) {
+                            self.preview.scrollView.zoomScale = self.selectedImages[index].zoomScale
+                            self.preview.scrollView.contentOffset = self.selectedImages[index].scrollOffset
+                        } else {
+                            self.preview.scrollView.zoomScale = self.preview.scrollView.minimumZoomScale
+                        }
+                        
                         self.preview.updateZoomScale()
                         self.selectedIndex = indexPath
                         
@@ -173,8 +180,6 @@ extension ArtworkSelectVC {
                         guard let cell = self.galleryCV.cellForItem(at: indexPath) as? GalleryCVC else { return }
                         if !isDegraded && (self.galleryCV.indexPathsForSelectedItems?.count ?? 0) != 0
                             && !self.spiner.isAnimating && cell.isSelected {
-                            self.preview.crop.onNext(())
-                            self.isEdited = false
                             self.preview.crop.onNext(())
                         }
                     }
@@ -186,6 +191,15 @@ extension ArtworkSelectVC {
     /// 선택된 작품을 수정했을때 preview.crop 이벤트를 발생시키도록 bind
     private func bindArtworkEdit() {
         preview.scrollView.rx.didEndDecelerating
+            .withUnretained(self)
+            .map { _ in
+                self.isEdited = true
+            }
+            .bind(to: preview.crop)
+            .disposed(by: bag)
+        
+        preview.rx.panGesture()
+            .when(.ended)
             .withUnretained(self)
             .map { _ in
                 self.isEdited = true
@@ -216,8 +230,15 @@ extension ArtworkSelectVC {
                         self.galleryCV.selectItem(at: selectedIndex, animated: true, scrollPosition: .top)
                         cell.setSelectedIndex(1)
                     } else {
-                        self.selectedImages.removeLast()
-                        self.indexArr.removeLast()
+                        let index = self.indexArr.firstIndex(of: selectedIndex.row)
+                        self.indexArr.remove(at: index!)
+                        self.indexArr.insert(selectedIndex.row, at: index!)
+                        self.selectedImages.remove(at: index!)
+                        self.selectedImages.insert(SelectedImage(image: image ?? UIImage(),
+                                                                 zoomScale: self.preview.scrollView.zoomScale,
+                                                                 scrollOffset: self.preview.scrollView.contentOffset),
+                                                   at: index!)
+                        return
                     }
                 } else {
                     cell.setSelectedIndex(self.selectedImages.count + 1)
@@ -225,7 +246,9 @@ extension ArtworkSelectVC {
                 if self.selectedImages.count >= self.exhibitionModel.gallerySize ?? 0 { return }
                 self.configureViewTitle()
                 self.indexArr.append((selectedIndex).row)
-                self.selectedImages.append(image ?? UIImage())
+                self.selectedImages.append(SelectedImage(image: image ?? UIImage(),
+                                                         zoomScale: self.preview.scrollView.zoomScale,
+                                                         scrollOffset: self.preview.scrollView.contentOffset))
             })
             .disposed(by: bag)
     }
@@ -331,7 +354,7 @@ extension ArtworkSelectVC: UICollectionViewDelegate {
                   return
               }
         
-        if spiner.isAnimating {
+        if !indexArr.contains(indexPath.row) && spiner.isAnimating {
             spiner.stopAnimating()
             return
         }
@@ -357,6 +380,7 @@ extension ArtworkSelectVC: UICollectionViewDelegate {
             || preview.scrollView.isDecelerating {
             return false
         } else {
+            isEdited = false
             setPreviewImage(indexPath)
             previewStatus(isHidden: self.topConstraint.constant == 0 ? false : true)
             return true
@@ -367,8 +391,12 @@ extension ArtworkSelectVC: UICollectionViewDelegate {
         guard let isContains = collectionView.indexPathsForSelectedItems?.contains(indexPath) else { return true }
         if spiner.isAnimating && isContains && indexPath != selectedIndex {
             return false
-        } else {
+        } else if selectedIndex == indexPath {
             return true
+        } else {
+            isEdited = true
+            setPreviewImage(indexPath)
+            return false
         }
     }
 }
