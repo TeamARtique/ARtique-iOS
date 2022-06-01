@@ -158,6 +158,7 @@ extension AddExhibitionVC {
     private func reloadPage(_ page: Int) {
         switch page {
         case 1:
+            artworkSelectView.reloadContentView()
             artworkSelectView.configureViewTitle()
             artworkSelectView.setPreviewImage([0,0])
         case 2:
@@ -218,10 +219,11 @@ extension AddExhibitionVC {
         let posterView = UIView()
         view.insertSubview(posterView, at: 0)
         
+        let posterBase = exhibitionExplainView.posterBase ?? exhibitionModel.artworks?.first?.image
         let posterImage = PosterTheme()
         posterImage.translatesAutoresizingMaskIntoConstraints = false
         posterImage.configurePoster(themeId: PosterType.allCases[exhibitionModel.posterTheme ?? 0],
-                                    poster: exhibitionModel.artworks?.first?.image ?? UIImage(named: "DefaultPoster")!,
+                                    poster: posterBase ?? UIImage(named: "DefaultPoster")!,
                                     title: exhibitionModel.title ?? "",
                                     nickname: UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) ?? "ARTI",
                                     date: Date().toString())

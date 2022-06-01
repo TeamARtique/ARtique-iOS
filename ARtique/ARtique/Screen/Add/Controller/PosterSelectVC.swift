@@ -10,6 +10,7 @@ import PhotoCropper
 import Photos
 import RxSwift
 import RxCocoa
+import RxGesture
 
 class PosterSelectVC: BaseVC {
     @IBOutlet weak var dismissBtn: UIButton!
@@ -22,6 +23,7 @@ class PosterSelectVC: BaseVC {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     private var preview = PhotoCropperView()
     private var spiner = UIActivityIndicatorView()
+    var delegate: SelectPoster?
     let imageManager = PHCachingImageManager()
     var devicePhotos: PHFetchResult<PHAsset>!
     var albumList = [PHAssetCollection]()
@@ -30,6 +32,8 @@ class PosterSelectVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavibar()
+        bindDoneButton()
+        bindOutput()
         getAlbums()
         configurePreview()
         configureLoading()
@@ -47,16 +51,19 @@ class PosterSelectVC: BaseVC {
     }
 }
 
+// MARK: - Protocol
+protocol SelectPoster {
+    func selectPoster(with image: UIImage)
+}
+
 // MARK: - Configure
 extension PosterSelectVC {
     private func configureNavibar() {
-        savePosterBtn.isUserInteractionEnabled = false
-        savePosterBtn.backgroundColor = .gray1
+        savePosterBtn.backgroundColor = .black
         savePosterBtn.setTitle("완료", for: .normal)
         savePosterBtn.setTitleColor(.white, for: .normal)
         savePosterBtn.titleLabel?.font = .AppleSDGothicB(size: 12)
-        savePosterBtn.layer.cornerRadius = savePosterBtn.frame.height / 2
-        savePosterBtn.addTarget(self, action: #selector(savePoster), for: .touchUpInside)
+        savePosterBtn.layer.cornerRadius = savePosterBtn.frame.height / 2       
         dismissBtn.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
     }
     
@@ -107,14 +114,30 @@ extension PosterSelectVC {
         galleryCV.allowsMultipleSelection = false
         verticalScrollBar.layer.cornerRadius = verticalScrollBar.frame.height
     }
+    
+    private func bindDoneButton() {
+        savePosterBtn.rx.tap
+            .bind(to: preview.crop)
+            .disposed(by: bag)
+    }
+    
+    private func bindOutput() {
+        preview.resultImage
+            .subscribe(onNext: { [weak self] image in
+                guard let self = self else { return }
+                if self.galleryCV.indexPathsForSelectedItems?.count == 0 {
+                    self.popupToast(toastType: .choosePoster)
+                } else {
+                    self.delegate?.selectPoster(with: image ?? UIImage())
+                    self.dismiss(animated: true, completion: nil)
+                }
+            })
+            .disposed(by: bag)
+    }
 }
 
 // MARK: - Custom Methods
 extension PosterSelectVC {
-    @objc func savePoster() {
-        dismiss(animated: true, completion: nil)
-    }
-    
     private func fetchAssets(with album: PHAssetCollection) {
         devicePhotos = PHAsset.fetchAssets(in: album, options: .descendingOptions)
     }
@@ -227,16 +250,12 @@ extension PosterSelectVC: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension PosterSelectVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        savePosterBtn.isUserInteractionEnabled = true
-        savePosterBtn.backgroundColor = .black
         setPreviewImage(indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         guard let cell = collectionView.cellForItem(at: indexPath) as? BorderCVC else { return true }
         if cell.isSelected {
-            savePosterBtn.isUserInteractionEnabled = false
-            savePosterBtn.backgroundColor = .gray1
             collectionView.deselectItem(at: indexPath, animated: true)
             return false
         } else {

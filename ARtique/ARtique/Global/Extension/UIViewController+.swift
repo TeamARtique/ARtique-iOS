@@ -100,7 +100,7 @@ extension UIViewController {
         
         UIView.animate(withDuration: 0.2) {
             toastView.snp.updateConstraints {
-                $0.top.equalToSuperview().offset(106)
+                $0.top.equalToSuperview().offset(toastType.topOffset)
                 $0.leading.equalToSuperview().offset(20)
                 $0.trailing.equalToSuperview().offset(-20)
                 $0.height.equalTo(46)

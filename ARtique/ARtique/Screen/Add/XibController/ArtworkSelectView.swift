@@ -282,6 +282,12 @@ extension ArtworkSelectView {
             self.layoutIfNeeded()
         }, completion: nil)
     }
+    
+    func reloadContentView() {
+        BehaviorRelay(value: 1 / 1)
+            .bind(to: PhotoCropper.shared.ratio)
+            .disposed(by: bag)
+    }
 }
 
 // MARK: - UICollectionViewDataSource

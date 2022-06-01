@@ -28,6 +28,7 @@ class ExhibitionExplainView: UIView {
     let tagMaxSelectionCnt = 3
     let titleMaxCnt = 25
     let textViewMaxCnt = 100
+    var posterBase: UIImage?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -84,6 +85,7 @@ extension ExhibitionExplainView {
     @objc func showPosterSelectVC() {
         guard let baseVC = findViewController() as? AddExhibitionVC,
               let posterSelectVC = UIStoryboard(name: Identifiers.posterSelectSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.posterSelectVC) as? PosterSelectVC else { return }
+        posterSelectVC.delegate = self
         baseVC.present(posterSelectVC, animated: true, completion: nil)
     }
     
@@ -220,6 +222,14 @@ extension ExhibitionExplainView {
     }
 }
 
+// MARK: - SelectPoster Delegate
+extension ExhibitionExplainView: SelectPoster {
+    func selectPoster(with image: UIImage) {
+        posterBase = image
+        posterCV.reloadData()
+    }
+}
+
 // MARK: - UICollectionViewDataSource
 extension ExhibitionExplainView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -244,7 +254,7 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
             roundCell.configureCell(with: CategoryType.allCases[indexPath.row].categoryTitle, fontSize: 14)
             return roundCell
         case posterCV:
-            posterCell.configurePosterCell(image: exhibitionModel.artworks?.first?.image ?? UIImage(),
+            posterCell.configurePosterCell(image: (posterBase ?? exhibitionModel.artworks?.first?.image) ?? UIImage(),
                                              overlay: UIImage(named: "cellTemplate\(indexPath.row)") ?? UIImage(),
                                              borderWidth: 4)
             return posterCell
