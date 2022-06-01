@@ -96,6 +96,21 @@ extension LoginVC {
             }
         }
     }
+    
+    /// ARtiqueTBC로 present 화면전환하는 메서드
+    private func presentToARtiqueTBC() {
+        self.navigator?.instantiateVC(destinationViewControllerType: ARtiqueTBC.self, useStoryboard: false, storyboardName: "", naviType: .present, modalPresentationStyle: .fullScreen) { destination in }
+    }
+    
+    /// SignupVC로 present 화면전환하는 메서드
+    private func preesentToSignupVC() {
+        guard let signupVC = UIStoryboard(name: Identifiers.signupSB, bundle: nil).instantiateViewController(withIdentifier: SignupVC.className) as? SignupVC else { return }
+
+        signupVC.hidesBottomBarWhenPushed = true
+        let navi = UINavigationController(rootViewController: signupVC)
+        navi.modalPresentationStyle = .fullScreen
+        self.present(navi, animated: true)
+    }
 }
 
 // MARK: - Network
@@ -107,12 +122,17 @@ extension LoginVC {
                 if let data = res as? LoginDataModel {
                     self.setUserInfo(userID: data.user.userID,
                                      userEmail: data.user.email,
-                                     nickname: data.user.nickname,
+                                     nickname: "",
                                      accessToken: data.token.accessToken,
                                      refreshToken: data.token.refreshToken)
                     
-                    /// 로그인 성공시 ARTiqueTBC로 화면전환
-                    self.navigator?.instantiateVC(destinationViewControllerType: ARtiqueTBC.self, useStoryboard: false, storyboardName: "", naviType: .present, modalPresentationStyle: .fullScreen) { destination in }
+                    if data.isSignup || UserDefaults.standard.bool(forKey: UserDefaults.Keys.completeSignup) == false {
+                        /// 회원가입시 SignupVC로 화면전환
+                        self.preesentToSignupVC()
+                    } else {
+                        /// 로그인시 ARTiqueTBC로 화면전환
+                        self.presentToARtiqueTBC()
+                    }
                 }
             case .requestErr(let res):
                 if let message = res as? String {
