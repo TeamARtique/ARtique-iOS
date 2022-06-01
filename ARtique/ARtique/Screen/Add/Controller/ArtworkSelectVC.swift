@@ -1,5 +1,5 @@
 //
-//  ArtworkSelectView.swift
+//  ArtworkSelectVC.swift
 //  ARtique
 //
 //  Created by 황윤경 on 2022/03/29.
@@ -13,7 +13,7 @@ import RxCocoa
 import SnapKit
 import RxGesture
 
-class ArtworkSelectView: UIView {
+class ArtworkSelectVC: BaseVC {
     @IBOutlet weak var viewTitle: UILabel!
     @IBOutlet weak var message: UILabel!
     @IBOutlet weak var previewBaseView: UIView!
@@ -36,24 +36,9 @@ class ArtworkSelectView: UIView {
     var indexArr = [Int]()
     var isEdited: Bool = false
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setContentView()
-        layoutView()
-        setNotification()
-        getAlbums()
-        configureViewTitle()
-        configurePreview()
-        configureLoading()
-        configureAlbumListButton()
-        configureCV()
-        addDragGesture()
-        saveCropImage()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setContentView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         layoutView()
         setNotification()
         getAlbums()
@@ -67,22 +52,15 @@ class ArtworkSelectView: UIView {
     }
     
     @IBAction func showAlbumList(_ sender: Any) {
-        NotificationCenter.default.post(name: .whenAlbumListBtnSelected, object: albumList)
+        guard let albumListVC = UIStoryboard(name: Identifiers.albumListTVC, bundle: nil).instantiateViewController(withIdentifier: Identifiers.albumListTVC) as? AlbumListTVC else { return }
+        albumListVC.albumList = albumList
+        
+        present(albumListVC, animated: true)
     }
 }
 
 // MARK: - Configure
-extension ArtworkSelectView {
-    private func setContentView() {
-        guard let view = loadXibView(with: Identifiers.artworkSelectView) else { return }
-        view.backgroundColor = .clear
-        self.addSubview(view)
-        
-        view.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-    }
-    
+extension ArtworkSelectVC {
     private func layoutView() {
         previewBaseView.snp.makeConstraints {
             $0.height.equalTo(previewBaseView.snp.width).offset(89 - 40)
@@ -141,7 +119,7 @@ extension ArtworkSelectView {
 }
 
 // MARK: - Custom Methods
-extension ArtworkSelectView {
+extension ArtworkSelectVC {
     private func fetchAssets(with album: PHAssetCollection) {
         devicePhotos = PHAsset.fetchAssets(in: album, options: .descendingOptions)
     }
@@ -266,7 +244,7 @@ extension ArtworkSelectView {
     }
     
     @objc func galleryVerticalScroll(sender: UIPanGestureRecognizer) {
-        let dragPosition = sender.translation(in: self)
+        let dragPosition = sender.translation(in: self.view)
         if dragPosition.y < 0 {
             previewStatus(isHidden: true)
         } else {
@@ -279,7 +257,7 @@ extension ArtworkSelectView {
         
         UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(), animations: {
             self.topConstraint.constant = constant
-            self.layoutIfNeeded()
+            self.view.layoutIfNeeded()
         }, completion: nil)
     }
     
@@ -291,7 +269,7 @@ extension ArtworkSelectView {
 }
 
 // MARK: - Protocol
-extension ArtworkSelectView: ReorderArtwork {
+extension ArtworkSelectVC: ReorderArtwork {
     func reorderArtwork(sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
         let index = indexArr.remove(at: sourceIndexPath.row)
         indexArr.insert(index, at: destinationIndexPath.row)
@@ -307,7 +285,7 @@ extension ArtworkSelectView: ReorderArtwork {
 }
 
 // MARK: - UICollectionViewDataSource
-extension ArtworkSelectView: UICollectionViewDataSource {
+extension ArtworkSelectVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         devicePhotos.count
     }
@@ -333,7 +311,7 @@ extension ArtworkSelectView: UICollectionViewDataSource {
 }
 
 //MARK: UICollectionViewDelegate
-extension ArtworkSelectView: UICollectionViewDelegate {
+extension ArtworkSelectVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? GalleryCVC,
               let selectedIndex = cell.selectedIndex.text,
@@ -385,7 +363,7 @@ extension ArtworkSelectView: UICollectionViewDelegate {
 }
 
 //MARK: UICollectionViewDelegateFlowLayout
-extension ArtworkSelectView: UICollectionViewDelegateFlowLayout {
+extension ArtworkSelectVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width/3.2,
                       height: collectionView.frame.width/3.2)
@@ -393,7 +371,7 @@ extension ArtworkSelectView: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - UIScrollViewDelegate
-extension ArtworkSelectView: UIScrollViewDelegate {
+extension ArtworkSelectVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.panGestureRecognizer.velocity(in: scrollView).y < -3000 {
             previewStatus(isHidden: true)

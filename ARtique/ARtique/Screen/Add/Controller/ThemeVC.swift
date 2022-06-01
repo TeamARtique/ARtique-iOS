@@ -1,5 +1,5 @@
 //
-//  ThemeView.swift
+//  ThemeVC.swift
 //  ARtique
 //
 //  Created by 황윤경 on 2022/03/16.
@@ -8,36 +8,20 @@
 import UIKit
 import SnapKit
 
-class ThemeView: UIView {
+class ThemeVC: UIViewController {
     @IBOutlet weak var cntCV: UICollectionView!
     @IBOutlet weak var themeCV: UICollectionView!
     let exhibitionModel = NewExhibition.shared
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setContentView()
-        configureCV()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setContentView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         configureCV()
     }
 }
 
 // MARK: - Configure
-extension ThemeView {
-    private func setContentView() {
-        guard let view = loadXibView(with: Identifiers.themeView) else { return }
-        view.backgroundColor = .clear
-        self.addSubview(view)
-        
-        view.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-    }
-    
+extension ThemeVC {
     private func configureCV() {
         cntCV.dataSource = self
         cntCV.delegate = self
@@ -52,7 +36,7 @@ extension ThemeView {
 }
 
 // MARK: - Custom Methods
-extension ThemeView {
+extension ThemeVC {
     func setGalleryCount(_ index: Int) -> Int {
         switch index {
         case 0:
@@ -68,7 +52,7 @@ extension ThemeView {
 }
 
 // MARK: - UICollectionViewDataSource
-extension ThemeView: UICollectionViewDataSource {
+extension ThemeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case cntCV:
@@ -99,7 +83,7 @@ extension ThemeView: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension ThemeView: UICollectionViewDelegateFlowLayout {
+extension ThemeVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         20
     }
@@ -126,7 +110,7 @@ extension ThemeView: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension ThemeView: UICollectionViewDelegate {
+extension ThemeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case cntCV:

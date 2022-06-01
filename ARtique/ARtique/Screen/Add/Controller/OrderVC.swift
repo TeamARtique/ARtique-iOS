@@ -1,5 +1,5 @@
 //
-//  OrderView.swift
+//  OrderVC.swift
 //  ARtique
 //
 //  Created by 황윤경 on 2022/03/22.
@@ -8,20 +8,14 @@
 import UIKit
 import SnapKit
 
-class OrderView: UIView {
+class OrderVC: UIViewController {
     @IBOutlet weak var selectedPhotoCV: UICollectionView!
     let exhibitionModel = NewExhibition.shared
     var delegate: ReorderArtwork?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setContentView()
-        configureCV()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setContentView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         configureCV()
     }
 }
@@ -32,17 +26,7 @@ protocol ReorderArtwork {
 }
 
 // MARK: - Configure
-extension OrderView {
-    private func setContentView() {
-        guard let view = loadXibView(with: Identifiers.orderView) else { return }
-        view.backgroundColor = .clear
-        self.addSubview(view)
-        
-        view.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-    }
-    
+extension OrderVC {
     private func configureCV() {
         selectedPhotoCV.register(GalleryCVC.self, forCellWithReuseIdentifier: Identifiers.galleryCVC)
         selectedPhotoCV.dataSource = self
@@ -60,7 +44,7 @@ extension OrderView {
 }
 
 // MARK: - Custom Methods
-extension OrderView {
+extension OrderVC {
     private func reorderItems(coordinator : UICollectionViewDropCoordinator, destinationIndexPath : IndexPath, collectionView : UICollectionView) {
         if let item = coordinator.items.first, let sourceIndexPath = item.sourceIndexPath {
             collectionView.performBatchUpdates({
@@ -80,7 +64,7 @@ extension OrderView {
 }
 
 // MARK: - UICollectionViewDataSource
-extension OrderView: UICollectionViewDataSource {
+extension OrderVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         exhibitionModel.artworks?.count ?? 0
     }
@@ -94,7 +78,7 @@ extension OrderView: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension OrderView: UICollectionViewDelegateFlowLayout {
+extension OrderVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         7
     }
@@ -106,7 +90,7 @@ extension OrderView: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - UICollectionViewDelegate
-extension OrderView: UICollectionViewDelegate {
+extension OrderVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
         true
     }
@@ -117,7 +101,7 @@ extension OrderView: UICollectionViewDelegate {
 }
 
 // MARK: - UICollectionViewDragDelegate, UICollectionViewDropDelegate
-extension OrderView: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
+extension OrderVC: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let nsItemProvider = NSItemProvider(object: "" as NSString)
         let dragItem = UIDragItem(itemProvider: nsItemProvider)

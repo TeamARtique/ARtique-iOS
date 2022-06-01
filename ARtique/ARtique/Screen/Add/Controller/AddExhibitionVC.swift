@@ -18,11 +18,11 @@ class AddExhibitionVC: BaseVC {
     @IBOutlet weak var contentSV: UIScrollView!
   
     let exhibitionModel = NewExhibition.shared
-    let themeView = ThemeView()
-    let artworkSelectView = ArtworkSelectView()
-    let orderView = OrderView()
-    let postExplainView = PostExplainView()
-    let exhibitionExplainView = ExhibitionExplainView()
+    let themeView = UIStoryboard(name: ThemeVC.className, bundle: nil).instantiateViewController(withIdentifier: ThemeVC.className) as! ThemeVC
+    let artworkSelectView = UIStoryboard(name: ArtworkSelectVC.className, bundle: nil).instantiateViewController(withIdentifier: ArtworkSelectVC.className) as! ArtworkSelectVC
+    let orderView = UIStoryboard(name: OrderVC.className, bundle: nil).instantiateViewController(withIdentifier: OrderVC.className) as! OrderVC
+    let postExplainView = UIStoryboard(name: PostExplainVC.className, bundle: nil).instantiateViewController(withIdentifier: PostExplainVC.className) as! PostExplainVC
+    let exhibitionExplainView = UIStoryboard(name: ExhibitionExplainVC.className, bundle: nil).instantiateViewController(withIdentifier: ExhibitionExplainVC.className) as! ExhibitionExplainVC
     let bag = DisposeBag()
     let postArtworkGroup = DispatchGroup()
     
@@ -35,7 +35,6 @@ class AddExhibitionVC: BaseVC {
         configureContentSV()
         configureStackView()
         hideKeyboard()
-        setNotification()
     }
 }
 
@@ -111,11 +110,11 @@ extension AddExhibitionVC {
     private func configureStackView() {
         orderView.delegate = artworkSelectView
         
-        let registerProcessViews = [themeView,
-                                    artworkSelectView,
-                                    orderView,
-                                    postExplainView,
-                                    exhibitionExplainView]
+        let registerProcessViews = [themeView.view!,
+                                    artworkSelectView.view!,
+                                    orderView.view!,
+                                    postExplainView.view!,
+                                    exhibitionExplainView.view!]
         
         let stackView = UIStackView(arrangedSubviews: registerProcessViews)
         
@@ -139,10 +138,6 @@ extension AddExhibitionVC {
 
 // MARK: - Custom Methods
 extension AddExhibitionVC {
-    private func setNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(presentAlbumList), name: .whenAlbumListBtnSelected, object: nil)
-    }
-    
     private func setProgress(_ page: Int) {
         UIView.animate(withDuration: 0.3) {
             self.progress.constant = CGFloat(page) * self.progressIndicator.frame.width
@@ -176,13 +171,6 @@ extension AddExhibitionVC {
         default:
             break
         }
-    }
-    
-    @objc func presentAlbumList(_ notification: Notification) {
-        let albumListVC = UIStoryboard(name: Identifiers.albumListTVC, bundle: nil).instantiateViewController(withIdentifier: Identifiers.albumListTVC) as! AlbumListTVC
-        albumListVC.albumList = notification.object as! [PHAssetCollection]
-        
-        self.present(albumListVC, animated: true, completion: nil)
     }
     
     @objc func dismissAlert() {

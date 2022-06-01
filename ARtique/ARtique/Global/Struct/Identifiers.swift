@@ -65,11 +65,6 @@ struct Identifiers {
     static let exhibitionCVC = "ExhibitionCVC"
     
     //MARK: - View
-    static let themeView = "ThemeView"
-    static let orderView = "OrderView"
-    static let postExplainView = "PostExplainView"
-    static let exhibitionExplainView = "ExhibitionExplainView"
-    static let artworkSelectView = "ArtworkSelectView"
     static let posterTheme = "PosterTheme"
     static let toastView = "ToastView"
     static let artistProfileHeaderView = "ArtistProfileHeaderView"

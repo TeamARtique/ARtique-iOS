@@ -1,5 +1,5 @@
 //
-//  ExhibitionExplainView.swift
+//  ExhibitionExplainVC.swift
 //  ARtique
 //
 //  Created by 황윤경 on 2022/03/25.
@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class ExhibitionExplainView: UIView {
+class ExhibitionExplainVC: UIViewController {
     @IBOutlet weak var baseSV: UIScrollView!
     @IBOutlet weak var titleTextCnt: UILabel!
     @IBOutlet weak var titleTextField: UITextField!
@@ -30,17 +30,9 @@ class ExhibitionExplainView: UIView {
     let textViewMaxCnt = 100
     var posterBase: UIImage?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setContentView()
-        configureView()
-        bindUI()
-        bindNotificationCenter()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setContentView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         configureView()
         bindUI()
         bindNotificationCenter()
@@ -48,17 +40,7 @@ class ExhibitionExplainView: UIView {
 }
 
 // MARK: - Configure
-extension ExhibitionExplainView {
-    private func setContentView() {
-        guard let view = loadXibView(with: Identifiers.exhibitionExplainView) else { return }
-        view.backgroundColor = .clear
-        self.addSubview(view)
-        
-        view.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-    }
-    
+extension ExhibitionExplainVC {
     private func configureView() {
         baseSV.showsVerticalScrollIndicator = false
         
@@ -83,10 +65,9 @@ extension ExhibitionExplainView {
     }
     
     @objc func showPosterSelectVC() {
-        guard let baseVC = findViewController() as? AddExhibitionVC,
-              let posterSelectVC = UIStoryboard(name: Identifiers.posterSelectSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.posterSelectVC) as? PosterSelectVC else { return }
+        guard let posterSelectVC = UIStoryboard(name: Identifiers.posterSelectSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.posterSelectVC) as? PosterSelectVC else { return }
         posterSelectVC.delegate = self
-        baseVC.present(posterSelectVC, animated: true, completion: nil)
+        present(posterSelectVC, animated: true, completion: nil)
     }
     
     private func configureCV() {
@@ -149,7 +130,7 @@ extension ExhibitionExplainView {
 }
 
 // MARK: - Custom Method
-extension ExhibitionExplainView {
+extension ExhibitionExplainVC {
     private func didSelectItem(at collectionView: UICollectionView) {
         collectionView.rx.itemSelected
             .withUnretained(self)
@@ -192,14 +173,13 @@ extension ExhibitionExplainView {
         NotificationCenter.default.keyboardWillChangeFrame()
             .withUnretained(self)
             .subscribe(onNext: { owner, info in
-                if self.exhibitionExplainTextView.isFirstResponder,
-                   let baseVC = self.findViewController() as? AddExhibitionVC {
+                if self.exhibitionExplainTextView.isFirstResponder {
                     UIView.animate(withDuration: info.duration) {
                         self.baseSV.snp.remakeConstraints {
-                            $0.top.equalTo(baseVC.view.safeAreaLayoutGuide.snp.top).offset(16)
-                            $0.bottom.equalTo(baseVC.view.snp.bottom).offset(-info.height)
+                            $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(16)
+                            $0.bottom.equalToSuperview().offset(-info.height)
                         }
-                        self.layoutIfNeeded()
+                        self.view.layoutIfNeeded()
                     }
                     self.baseSV.scrollToOffset(offset: info.height, animated: true)
                 }
@@ -212,10 +192,11 @@ extension ExhibitionExplainView {
                 if self.exhibitionExplainTextView.isFirstResponder {
                     UIView.animate(withDuration: info.duration) {
                         self.baseSV.snp.remakeConstraints {
-                            $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+                            $0.bottom.equalToSuperview()
                         }
-                        self.layoutIfNeeded()
+                        self.view.layoutIfNeeded()
                     }
+                    self.baseSV.scrollToBottom(animated: true)
                 }
             })
             .disposed(by: bag)
@@ -223,7 +204,7 @@ extension ExhibitionExplainView {
 }
 
 // MARK: - SelectPoster Delegate
-extension ExhibitionExplainView: SelectPoster {
+extension ExhibitionExplainVC: SelectPoster {
     func selectPoster(with image: UIImage) {
         posterBase = image
         posterCV.reloadData()
@@ -231,7 +212,7 @@ extension ExhibitionExplainView: SelectPoster {
 }
 
 // MARK: - UICollectionViewDataSource
-extension ExhibitionExplainView: UICollectionViewDataSource {
+extension ExhibitionExplainVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case categoryCV:
@@ -266,7 +247,7 @@ extension ExhibitionExplainView: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension ExhibitionExplainView: UICollectionViewDelegateFlowLayout {
+extension ExhibitionExplainVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {
         case categoryCV:
@@ -299,7 +280,7 @@ extension ExhibitionExplainView: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - UICollectionViewDelegate
-extension ExhibitionExplainView: UICollectionViewDelegate {
+extension ExhibitionExplainVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         if collectionView == tagCV
             && tagCV.indexPathsForSelectedItems!.count >= tagMaxSelectionCnt {
@@ -311,7 +292,7 @@ extension ExhibitionExplainView: UICollectionViewDelegate {
 }
 
 // MARK: - UITextViewDelegate
-extension ExhibitionExplainView: UITextViewDelegate {
+extension ExhibitionExplainVC: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         guard textView.textColor == .gray2 else { return }
         textView.textColor = .label
@@ -338,7 +319,7 @@ extension ExhibitionExplainView: UITextViewDelegate {
 }
 
 // MARK: - UITextFieldDelegate
-extension ExhibitionExplainView: UITextFieldDelegate {
+extension ExhibitionExplainVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.becomeFirstResponder()
         return true
