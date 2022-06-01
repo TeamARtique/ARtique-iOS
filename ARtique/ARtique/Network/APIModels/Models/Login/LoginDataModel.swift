@@ -10,16 +10,17 @@ import Foundation
 // MARK: - LoginDataModel
 struct LoginDataModel: Codable {
     let user: LoginUser
+    let isSignup: Bool
     let token: Token
 }
 
 // MARK: - LoginUser
 struct LoginUser: Codable {
     let userID: Int
-    let email, nickname: String
+    let email: String
     
     enum CodingKeys: String, CodingKey {
         case userID = "userId"
-        case email, nickname
+        case email
     }
 }
