@@ -22,6 +22,7 @@ struct Identifiers {
     static let noneExhibitionSB = "NoneExhibition"
     static let alertSB = "Alert"
     static let artistProfileSB = "ArtistProfile"
+    static let signupSB = "Signup"
     
     //MARK: - Controller
     static let artiqueTBC = "ARtiqueTBC"
