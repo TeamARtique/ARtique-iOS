@@ -157,7 +157,11 @@ extension AddExhibitionVC {
         case 1:
             artworkSelectView.reloadContentView()
             artworkSelectView.configureViewTitle()
-            artworkSelectView.setPreviewImage([0,0])
+            let index
+            = artworkSelectView.selectedImages.count != 0
+            ? artworkSelectView.indexArr[artworkSelectView.selectedImages.count - 1]
+            : 0
+            artworkSelectView.setPreviewImage([0, index])
         case 2:
             orderView.selectedPhotoCV.reloadData()
             orderView.selectedPhotoCV.scrollToItem(at: [0,0], at: .top, animated: false)

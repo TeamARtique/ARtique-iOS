@@ -48,7 +48,8 @@ class ArtworkSelectVC: BaseVC {
         configureAlbumListButton()
         configureCV()
         addDragGesture()
-        saveCropImage()
+        bindArtworkEdit()
+        bindOutput()
     }
     
     @IBAction func showAlbumList(_ sender: Any) {
@@ -145,6 +146,8 @@ extension ArtworkSelectVC {
         }
     }
     
+    /// galleryCV에서 선택된  indexPath를 받아 해당 원본 이미지를 preview로 지정해주는 함수,
+    /// preview 로딩 완료 시 preview.crop 이벤트 발생
     func setPreviewImage(_ indexPath: IndexPath) {
         let width = devicePhotos.object(at: indexPath.row).pixelWidth
         let height = devicePhotos.object(at: indexPath.row).pixelHeight
@@ -160,17 +163,19 @@ extension ArtworkSelectVC {
                 let isDegraded = (info?[PHImageResultIsDegradedKey] as? Bool) ?? false
                 if image != nil {
                     DispatchQueue.main.async {
+                        isDegraded ? self.spiner.startAnimating() : self.spiner.stopAnimating()
                         self.preview.imageView.image = image
                         self.preview.scrollView.zoomScale = self.preview.scrollView.minimumZoomScale
                         self.preview.updateZoomScale()
                         self.selectedIndex = indexPath
+                        
+                        // preview 로딩 완료 & 처음 세팅되는 이미지가 아닐때 preview.crop 이벤트 발생
                         guard let cell = self.galleryCV.cellForItem(at: indexPath) as? GalleryCVC else { return }
-                        isDegraded ? self.spiner.startAnimating() : self.spiner.stopAnimating()
-                        if self.spiner.isAnimating { cell.selectedIndex.text = "" }
                         if !isDegraded && (self.galleryCV.indexPathsForSelectedItems?.count ?? 0) != 0
                             && !self.spiner.isAnimating && cell.isSelected {
                             self.preview.crop.onNext(())
                             self.isEdited = false
+                            self.preview.crop.onNext(())
                         }
                     }
                 }
@@ -178,8 +183,10 @@ extension ArtworkSelectVC {
         }
     }
     
-    private func saveCropImage() {
+    /// 선택된 작품을 수정했을때 preview.crop 이벤트를 발생시키도록 bind
+    private func bindArtworkEdit() {
         preview.scrollView.rx.didEndDecelerating
+            .withUnretained(self)
             .map { _ in
                 self.isEdited = true
             }
@@ -188,18 +195,22 @@ extension ArtworkSelectVC {
         
         preview.rx.pinchGesture()
             .when(.ended)
+            .withUnretained(self)
             .map { _ in
                 self.isEdited = true
             }
             .bind(to: preview.crop)
             .disposed(by: bag)
-        
+    }
+    
+    /// preview.crop 이벤트 발생 시 처리되는 부분
+    private func bindOutput() {
         preview.resultImage
             .subscribe(onNext: { [weak self] image in
                 guard let self = self,
                       let selectedIndex = self.selectedIndex,
                       let cell = self.galleryCV.cellForItem(at: selectedIndex) as? GalleryCVC else { return }
-                if self.indexArr.contains(selectedIndex.row) { return }
+                if self.indexArr.contains(selectedIndex.row) && !self.isEdited { return }
                 if self.isEdited {
                     if self.selectedImages.isEmpty {
                         self.galleryCV.selectItem(at: selectedIndex, animated: true, scrollPosition: .top)
@@ -332,9 +343,9 @@ extension ArtworkSelectVC: UICollectionViewDelegate {
         
         collectionView.indexPathsForSelectedItems?.forEach {
             guard let restCell = collectionView.cellForItem(at: $0) as? GalleryCVC,
-                  let index = restCell.selectedIndex.text,
-                  let cellIndex = cell.selectedIndex.text else { return }
-            if Int(index)! > Int(cellIndex)! {
+                  let index = Int(restCell.selectedIndex.text ?? ""),
+                  let cellIndex = Int(cell.selectedIndex.text ?? "") else { return }
+            if index > cellIndex {
                 restCell.selectedIndex.text = "\(Int(restCell.selectedIndex.text!)! - 1)"
             }
         }
