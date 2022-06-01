@@ -290,6 +290,22 @@ extension ArtworkSelectView {
     }
 }
 
+// MARK: - Protocol
+extension ArtworkSelectView: ReorderArtwork {
+    func reorderArtwork(sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
+        let index = indexArr.remove(at: sourceIndexPath.row)
+        indexArr.insert(index, at: destinationIndexPath.row)
+        
+        let image = selectedImages.remove(at: sourceIndexPath.row)
+        selectedImages.insert(image, at: destinationIndexPath.row)
+        
+        galleryCV.indexPathsForSelectedItems?.forEach {
+            guard let cell = galleryCV.cellForItem(at: $0) as? GalleryCVC else { return }
+            cell.setSelectedIndex((indexArr.firstIndex(of: $0.row) ?? 0) + 1)
+        }
+    }
+}
+
 // MARK: - UICollectionViewDataSource
 extension ArtworkSelectView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

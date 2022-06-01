@@ -11,6 +11,7 @@ import SnapKit
 class OrderView: UIView {
     @IBOutlet weak var selectedPhotoCV: UICollectionView!
     let exhibitionModel = NewExhibition.shared
+    var delegate: ReorderArtwork?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,6 +24,11 @@ class OrderView: UIView {
         setContentView()
         configureCV()
     }
+}
+
+// MARK: - Protocol
+protocol ReorderArtwork {
+    func reorderArtwork(sourceIndexPath: IndexPath, destinationIndexPath: IndexPath)
 }
 
 // MARK: - Configure
@@ -64,6 +70,7 @@ extension OrderView {
                 collectionView.deleteItems(at: [sourceIndexPath])
                 collectionView.insertItems(at: [destinationIndexPath])
                 
+                delegate?.reorderArtwork(sourceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath)
             }, completion: { _ in
                 self.selectedPhotoCV.reloadItems(at: self.selectedPhotoCV.indexPathsForVisibleItems)
             })
