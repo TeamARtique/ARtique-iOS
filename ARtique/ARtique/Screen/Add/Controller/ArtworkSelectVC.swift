@@ -23,6 +23,7 @@ class ArtworkSelectVC: BaseVC {
     @IBOutlet weak var albumListButton: UIButton!
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     var preview = PhotoCropperView()
+    var previewBorder = UIView()
     private var spiner = UIActivityIndicatorView()
     
     let imageManager = PHCachingImageManager()
@@ -66,12 +67,21 @@ extension ArtworkSelectVC {
         previewBaseView.snp.makeConstraints {
             $0.height.equalTo(previewBaseView.snp.width).offset(89 - 40)
         }
-        previewBaseView.addSubview(preview)
-        preview.snp.makeConstraints {
+        
+        previewBaseView.addSubview(previewBorder)
+        previewBorder.snp.makeConstraints {
             $0.top.equalToSuperview().offset(89)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
             $0.bottom.equalToSuperview()
+        }
+        
+        previewBaseView.addSubview(preview)
+        preview.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(94)
+            $0.leading.equalToSuperview().offset(25)
+            $0.trailing.equalToSuperview().offset(-25)
+            $0.height.equalTo(preview.snp.width)
         }
         
         preview.addSubview(spiner)
@@ -87,8 +97,9 @@ extension ArtworkSelectVC {
     private func configurePreview() {
         preview.scrollView.alwaysBounceVertical = true
         preview.scrollView.alwaysBounceHorizontal = true
-        preview.layer.borderColor = UIColor.black.cgColor
-        preview.layer.borderWidth = 7
+        preview.gridView.layer.borderWidth = 0
+        previewBorder.layer.borderColor = UIColor.black.cgColor
+        previewBorder.layer.borderWidth = 5
         setPreviewImage([0,0])
     }
     
@@ -300,6 +311,15 @@ extension ArtworkSelectVC {
             .bind(to: PhotoCropper.shared.ratio)
             .disposed(by: bag)
     }
+    
+    private func focusEditCell(collectionView: UICollectionView, indexPath: IndexPath) {
+        guard let selectingCell = collectionView.cellForItem(at: indexPath) as? GalleryCVC,
+                let otherCell = collectionView.visibleCells as? [GalleryCVC] else { return }
+        otherCell.forEach {
+            $0.setSelectedOverlay(isEditing: false)
+        }
+        selectingCell.setSelectedOverlay(isEditing: true)
+    }
 }
 
 // MARK: - Protocol
@@ -382,7 +402,7 @@ extension ArtworkSelectVC: UICollectionViewDelegate {
         } else {
             isEdited = false
             setPreviewImage(indexPath)
-            previewStatus(isHidden: self.topConstraint.constant == 0 ? false : true)
+            focusEditCell(collectionView: collectionView, indexPath: indexPath)
             return true
         }
     }
@@ -396,6 +416,7 @@ extension ArtworkSelectVC: UICollectionViewDelegate {
         } else {
             isEdited = true
             setPreviewImage(indexPath)
+            focusEditCell(collectionView: collectionView, indexPath: indexPath)
             return false
         }
     }

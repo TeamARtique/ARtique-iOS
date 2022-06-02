@@ -39,7 +39,7 @@ class BorderCVC: UICollectionViewCell {
     }
     
     override var isSelected: Bool {
-        didSet{
+        didSet {
             if isSelected {
                 imageView.layer.borderColor = UIColor.black.cgColor
                 posterOverlay.layer.borderColor = UIColor.black.cgColor
@@ -85,5 +85,10 @@ class BorderCVC: UICollectionViewCell {
         posterOverlay.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    func setSelectedOverlay(isEditing: Bool) {
+        selectedOverlay.isHidden = !isEditing
+        selectedOverlay.layer.opacity = 0.75
     }
 }
