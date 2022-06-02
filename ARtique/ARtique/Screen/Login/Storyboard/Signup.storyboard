@@ -65,6 +65,9 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                <connections>
+                                                    <action selector="nicknameTextFieldDidChanged:" destination="5fv-R9-yfd" eventType="editingChanged" id="QUD-xT-ATs"/>
+                                                </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="소개" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4m-kk-Wsc">
                                                 <rect key="frame" x="20" y="313.5" width="30" height="23"/>
@@ -126,6 +129,12 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임은 필수 작성 항목입니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4R-vR-TTT">
+                                                <rect key="frame" x="20" y="278.5" width="135" height="14"/>
+                                                <fontDescription key="fontDescription" name="AppleSDGothicNeoL00" family="AppleSDGothicNeoL00" pointSize="11"/>
+                                                <color key="textColor" systemColor="systemRedColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -157,6 +166,8 @@
                                             <constraint firstItem="RIo-yF-A48" firstAttribute="top" secondItem="0cY-AK-Dii" secondAttribute="bottom" constant="4" id="s2S-A8-Flp"/>
                                             <constraint firstItem="CBx-Wq-PwK" firstAttribute="leading" secondItem="x4m-kk-Wsc" secondAttribute="leading" id="vSZ-VE-xgI"/>
                                             <constraint firstItem="OVB-VM-plv" firstAttribute="top" secondItem="BLw-r2-IDR" secondAttribute="bottom" constant="13" id="wM5-Ef-wO5"/>
+                                            <constraint firstItem="N4R-vR-TTT" firstAttribute="top" secondItem="HMp-Xm-HEi" secondAttribute="bottom" constant="5" id="xeK-bO-Pvr"/>
+                                            <constraint firstItem="N4R-vR-TTT" firstAttribute="leading" secondItem="0cY-AK-Dii" secondAttribute="leading" id="zI5-kO-PtN"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -176,6 +187,7 @@
                     </view>
                     <connections>
                         <outlet property="baseSV" destination="mGb-bI-pBF" id="qpH-RI-cHv"/>
+                        <outlet property="essentialGuideLabel" destination="N4R-vR-TTT" id="z1F-26-KEr"/>
                         <outlet property="explanationCnt" destination="HnL-CS-OZC" id="uyJ-cq-2Bw"/>
                         <outlet property="explanationTextView" destination="HIC-RB-Gpq" id="ROh-tb-ImK"/>
                         <outlet property="nicknameTextField" destination="HMp-Xm-HEi" id="jWE-Nx-8Zc"/>
@@ -195,6 +207,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

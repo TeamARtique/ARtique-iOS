@@ -15,12 +15,21 @@ import Kingfisher
 class SignupVC: BaseVC {
     
     // MARK: IBOutlet
-    @IBOutlet weak var baseSV: UIScrollView!
+    @IBOutlet weak var baseSV: UIScrollView! {
+        didSet {
+            baseSV.isScrollEnabled = false
+        }
+    }
     @IBOutlet weak var profileImg: UIButton!
     @IBOutlet weak var nicknameTextField: UITextField!
     @IBOutlet weak var explanationTextView: UITextView!
     @IBOutlet weak var explanationCnt: UILabel!
     @IBOutlet weak var snsTextField: UITextField!
+    @IBOutlet weak var essentialGuideLabel: UILabel! {
+        didSet {
+            essentialGuideLabel.isHidden = true
+        }
+    }
     
     // MARK: Variables
     var imagePicker: UIImagePickerController!
@@ -36,7 +45,6 @@ class SignupVC: BaseVC {
         configureNaviBar()
         configureSV()
         bindUserData()
-        bindUI()
         bindNotificationCenter()
         hideKeyboard()
     }
@@ -46,6 +54,14 @@ class SignupVC: BaseVC {
     }
     
     // MARK: IBAction
+    @IBAction func nicknameTextFieldDidChanged(_ sender: UITextField) {
+        if sender.text?.isEmpty == true {
+            makeErrorUIInNicknameTextField()
+        } else {
+            makeDefaultUIInNicknameTextField()
+        }
+    }
+    
     @IBAction func setProfileImage(_ sender: Any) {
         switch PHPhotoLibrary.authorizationStatus() {
         case .authorized:
@@ -103,22 +119,14 @@ extension SignupVC {
         snsTextField.delegate = self
     }
     
-    private func bindUI() {
-        nicknameTextField.rx.text.orEmpty
-            .distinctUntilChanged()
-            .subscribe(onNext: {[weak self] text in
-                guard let self = self else { return }
-                self.navigationItem.rightBarButtonItem?.customView?.backgroundColor = text.isEmpty ? .gray1 : .black
-                self.navigationItem.rightBarButtonItem?.isEnabled = text.isEmpty ? false : true
-            })
-            .disposed(by: bag)
-        
-        explanationTextView.rx.text.orEmpty
-            .withUnretained(self)
-            .subscribe(onNext: { owner, explain in
-                owner.setTextViewMaxCnt(explain.count)
-            })
-            .disposed(by: bag)
+    private func makeErrorUIInNicknameTextField() {
+        nicknameTextField.layer.borderColor = UIColor.red.cgColor
+        essentialGuideLabel.isHidden = false
+    }
+    
+    private func makeDefaultUIInNicknameTextField() {
+        nicknameTextField.layer.borderColor = UIColor.gray4.cgColor
+        essentialGuideLabel.isHidden = true
     }
     
     private func bindNotificationCenter() {
@@ -164,12 +172,19 @@ extension SignupVC {
 // MARK: - Custom Methods
 extension SignupVC {
     @objc func bindRightBarButton() {
+        if nicknameTextField.text?.isEmpty == true {
+            makeVibrate()
+            nicknameTextField.layer.borderColor = UIColor.red.cgColor
+            essentialGuideLabel.isHidden = false
+        } else {
+            let artist = ArtistModel(nickname: nicknameTextField.text ?? "",
+                                     profileImage: profileImg.backgroundImage(for: .normal) ?? UIImage(),
+                                     introduction: explanationTextView.textColor == .label ? explanationTextView.text : "",
+                                     website: snsTextField.text ?? "")
+            requestSignup(artist: artist)
+        }
+        
         dismissKeyboard()
-        let artist = ArtistModel(nickname: nicknameTextField.text ?? "",
-                                 profileImage: profileImg.backgroundImage(for: .normal) ?? UIImage(),
-                                 introduction: explanationTextView.textColor == .label ? explanationTextView.text : "",
-                                 website: snsTextField.text ?? "")
-        requestSignup(artist: artist)
     }
     
     private func openGallery() {
@@ -199,6 +214,7 @@ extension SignupVC {
     /// SignupVC가 사용자에게 보여지는 첫 뷰가 되어야 할 때 회원가입을 마저 완료해달라는 알럿을 띄우는 메서드
     private func presentAlertWhenFirstView() {
         if isFirstView == true {
+            Vibration.warning.vibrate()
             popupAlertWithOneBtn(targetView: self,
                                  alertType: .signupProgress,
                                  image: nil,
@@ -221,6 +237,8 @@ extension SignupVC {
                 if let data = data as? ArtistProfileModel {
                     UserDefaults.standard.set(data.user.nickname, forKey: UserDefaults.Keys.nickname)
                     UserDefaults.standard.set(true, forKey: UserDefaults.Keys.completeSignup)
+                    
+                    Vibration.success.vibrate()
                     self.popupAlertWithOneBtn(targetView: self,
                                               alertType: .completeSignup,
                                               image: nil,
@@ -285,6 +303,7 @@ extension SignupVC: UITextViewDelegate {
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension SignupVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == nicknameTextField {
