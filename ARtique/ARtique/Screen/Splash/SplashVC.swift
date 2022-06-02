@@ -49,6 +49,12 @@ extension SplashVC {
             let ad = UIApplication.shared.delegate as! AppDelegate
             ad.window = window
             window.makeKeyAndVisible()
+            
+            if UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) == nil {
+                guard let onboarding = UIStoryboard(name: Identifiers.onboardingSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.onboardingVC) as? OnboardingVC else { return }
+                onboarding.modalPresentationStyle = .fullScreen
+                window.rootViewController?.present(onboarding, animated: true, completion: nil)
+            }
         }
     }
 }

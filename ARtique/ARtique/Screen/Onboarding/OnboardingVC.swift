@@ -163,13 +163,7 @@ extension OnboardingVC {
     }
     
     @objc func skipOnboarding() {
-        let loginVC = LoginVC()
-        loginVC.modalPresentationStyle = .fullScreen
-        
-        self.view.window?.rootViewController?.dismiss(animated: true) {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.window?.rootViewController?.present(loginVC, animated: true, completion: nil)
-        }
+        dismiss(animated: true, completion: nil)
     }
 }
 
