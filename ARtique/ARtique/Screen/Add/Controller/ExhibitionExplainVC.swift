@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class ExhibitionExplainVC: UIViewController {
+class ExhibitionExplainVC: BaseVC {
     @IBOutlet weak var baseSV: UIScrollView!
     @IBOutlet weak var titleTextCnt: UILabel!
     @IBOutlet weak var titleTextField: UITextField!
@@ -22,6 +22,8 @@ class ExhibitionExplainVC: UIViewController {
     @IBOutlet weak var tagCV: UICollectionView!
     @IBOutlet weak var isPublic: UISwitch!
     
+    var popupToastDelegate: EditExhibitionDelegate?
+    var exhibitionData: ExhibitionModel?
     let bag = DisposeBag()
     let exhibitionModel = NewExhibition.shared
     let exhibitionExplainPlaceholder = "전시회에 대한 전체 설명을 입력하세요"
@@ -36,11 +38,42 @@ class ExhibitionExplainVC: UIViewController {
         configureView()
         bindUI()
         bindNotificationCenter()
+        
+        // 전시 수정 시 기존 데이터 세팅
+        configureContent()
+        hideKeyboard()
     }
 }
 
 // MARK: - Configure
 extension ExhibitionExplainVC {
+    func configureNaviBar(navigationController: UINavigationController) {
+        navigationController.additionalSafeAreaInsets.top = 8
+        navigationController.navigationBar.tintColor = .black
+        navigationItem.title = "전시 수정"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBtn"),
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(didTapBackBtn))
+        
+        navigationItem.rightBarButtonItem = navigationController.roundFilledBarBtn(title: "완료",
+                                                                                    target: self,
+                                                                                    action: #selector(didTapEditDoneBtn))
+    }
+    
+    private func configureContent() {
+        guard let exhibitionData = exhibitionData else { return }
+        titleTextField.text = exhibitionData.title
+        setTitleMaxCnt(exhibitionData.title?.count ?? 0)
+        // TODO: - 서버에 포스터 원본 이미지 추가 후 변수명 변경
+//        let poster = try? Data(contentsOf: URL(string: exhibitionData.변수명 ?? "")!)
+//        posterBase = (poster != nil) ? UIImage(data: poster!) : UIImage(named: "DefaultPoster")
+        exhibitionExplainTextView.text = exhibitionData.description
+        exhibitionExplainTextView.textColor = .label
+        setTextViewMaxCnt(exhibitionData.description?.count ?? 0)
+        isPublic.isOn = exhibitionData.isPublic ?? true
+    }
+    
     private func configureView() {
         baseSV.showsVerticalScrollIndicator = false
         
@@ -201,6 +234,49 @@ extension ExhibitionExplainVC {
             })
             .disposed(by: bag)
     }
+    
+    @objc func didTapEditDoneBtn() {
+        if titleTextField.text == ""
+            || exhibitionExplainTextView.textColor == .gray2
+            || tagCV.indexPathsForSelectedItems?.count == 0
+            || categoryCV.indexPathsForSelectedItems?.count == 0 {
+            popupToast(toastType: .chooseAll)
+        } else {
+            let editedExhibition = EditedExhibitionData(title: titleTextField.text!,
+                                                        posterImage: exhibitionModel.posterImage ?? UIImage(),
+                                                        description: exhibitionExplainTextView.text,
+                                                        tag: selectedTags(),
+                                                        category: (categoryCV.indexPathsForSelectedItems?.first?.row ?? 0) + 1,
+                                                        isPublic: isPublic.isOn)
+            guard let exhibitionID = exhibitionData?.exhibitionId else { return }
+            putEditExhibition(exhibitionID: exhibitionID, exhibitionData: editedExhibition)
+        }
+    }
+    
+    @objc func didTapBackBtn() {
+        if titleTextField.text != exhibitionData?.title
+            || exhibitionExplainTextView.text != exhibitionData?.description
+            || selectedTags() != exhibitionData?.tag
+            || categoryCV.indexPathsForSelectedItems?.first?.row != exhibitionData?.category {
+            popupAlert(targetView: self,
+                       alertType: .cancelEdit,
+                       image: nil,
+                       leftBtnAction: #selector(editCancel),
+                       rightBtnAction: #selector(dismissAlert))
+        } else {
+            popVC()
+        }
+    }
+    
+    @objc func dismissAlert() {
+        dismiss(animated: false, completion: nil)
+    }
+    
+    @objc func editCancel() {
+        dismiss(animated: false) {
+            self.popVC()
+        }
+    }
 }
 
 // MARK: - SelectPoster Delegate
@@ -208,6 +284,26 @@ extension ExhibitionExplainVC: SelectPoster {
     func selectPoster(with image: UIImage) {
         posterBase = image
         posterCV.reloadData()
+    }
+}
+
+protocol EditExhibitionDelegate {
+    func popupEditedToast()
+}
+
+// MARK: - Network
+extension ExhibitionExplainVC {
+    private func putEditExhibition(exhibitionID: Int, exhibitionData: EditedExhibitionData) {
+        ExhibitionDetailAPI.shared.editExhibition(exhibitionID: exhibitionID, exhibitionData: exhibitionData) { [weak self] networkResult in
+            guard let self = self else { return }
+            switch networkResult {
+            case .success:
+                self.popupToastDelegate?.popupEditedToast()
+                self.popVC()
+            default:
+                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
     }
 }
 
@@ -229,7 +325,15 @@ extension ExhibitionExplainVC: UICollectionViewDataSource {
               let posterCell = posterCV.dequeueReusableCell(withReuseIdentifier: Identifiers.borderCVC, for: indexPath) as? BorderCVC,
               let tagCell = tagCV.dequeueReusableCell(withReuseIdentifier: Identifiers.roundCVC, for: indexPath) as? RoundCVC
         else { return UICollectionViewCell() }
-                
+        
+        // 전시 수정 시 select cell 지정
+        if let exhibitionData = exhibitionData {
+            categoryCV.selectItem(at: [0, exhibitionData.category!], animated: false, scrollPosition: .left)
+            exhibitionData.tag?.forEach {
+                tagCV.selectItem(at: [0, $0], animated: false, scrollPosition: .top)
+            }
+        }
+        
         switch collectionView {
         case categoryCV:
             roundCell.configureCell(with: CategoryType.allCases[indexPath.row].categoryTitle, fontSize: 14)
