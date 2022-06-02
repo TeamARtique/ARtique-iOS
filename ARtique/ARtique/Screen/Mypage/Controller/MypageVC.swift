@@ -73,7 +73,7 @@ extension MypageVC {
         
         navigationItem.title = "마이페이지"
         
-        let rightBarBtn = UIBarButtonItem(image: UIImage(named: "Alarm"),
+        let rightBarBtn = UIBarButtonItem(image: UIImage(named: "Setting"),
                                           style: .plain,
                                           target: self,
                                           action: #selector(didTapRightNaviBtn))
@@ -140,8 +140,9 @@ extension MypageVC {
 // MARK: - Custom Methods
 extension MypageVC {
     @objc func didTapRightNaviBtn() {
-        // TODO: - Alarm View 구현
-        print("Alarm View")
+        let settingVC = SettingVC()
+        settingVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(settingVC, animated: true)
     }
     
     private func showExhibitionListVC(title: String, data: [ExhibitionModel]) {
