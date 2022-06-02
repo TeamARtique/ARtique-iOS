@@ -40,11 +40,11 @@ class PosterSelectVC: BaseVC {
         configureAlbumListButton()
         configureCV()
         addDragGesture()
-        setNotification()
     }
     
     @IBAction func showAlbumList(_ sender: Any) {
         let albumListVC = UIStoryboard(name: Identifiers.albumListTVC, bundle: nil).instantiateViewController(withIdentifier: Identifiers.albumListTVC) as! AlbumListTVC
+        albumListVC.delegate = self
         albumListVC.albumList = albumList
         
         self.present(albumListVC, animated: true, completion: nil)
@@ -210,14 +210,13 @@ extension PosterSelectVC {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
-    
-    private func setNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(changeAlbum), name: .whenAlbumChanged, object: nil)
-    }
-    
-    @objc func changeAlbum(_ notification: Notification) {
+}
+
+// MARK: - Protocol
+extension PosterSelectVC: AlbumChangeDelegate {
+    func changeAlbum(albumNum: Int) {
         if !albumList.isEmpty {
-            let collection = albumList[notification.object as! Int]
+            let collection = albumList[albumNum]
             fetchAssets(with: collection)
             albumListButton.setTitle(collection.localizedTitle ?? "", for: .normal)
             galleryCV.reloadData()

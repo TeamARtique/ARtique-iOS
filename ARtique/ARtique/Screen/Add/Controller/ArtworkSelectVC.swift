@@ -42,7 +42,6 @@ class ArtworkSelectVC: BaseVC {
         super.viewDidLoad()
         
         layoutView()
-        setNotification()
         getAlbums()
         configureViewTitle()
         configurePreview()
@@ -56,6 +55,7 @@ class ArtworkSelectVC: BaseVC {
     
     @IBAction func showAlbumList(_ sender: Any) {
         guard let albumListVC = UIStoryboard(name: Identifiers.albumListTVC, bundle: nil).instantiateViewController(withIdentifier: Identifiers.albumListTVC) as? AlbumListTVC else { return }
+        albumListVC.delegate = self
         albumListVC.albumList = albumList
         
         present(albumListVC, animated: true)
@@ -270,25 +270,6 @@ extension ArtworkSelectVC {
         galleryBaseView.addGestureRecognizer(galleryVerticalScrollGesture)
     }
     
-    private func setNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(changeAlbum), name: .whenAlbumChanged, object: nil)
-    }
-    
-    @objc func changeAlbum(_ notification: Notification) {
-        if !albumList.isEmpty {
-            let collection = albumList[notification.object as! Int]
-            fetchAssets(with: collection)
-            albumListButton.setTitle(collection.localizedTitle ?? "", for: .normal)
-            selectedImages.removeAll()
-            indexArr.removeAll()
-            configureViewTitle()
-            galleryCV.indexPathsForSelectedItems?.forEach({ galleryCV.deselectItem(at: $0, animated: false) })
-            galleryCV.reloadData()
-            galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
-            setPreviewImage([0,0])
-        }
-    }
-    
     @objc func galleryVerticalScroll(sender: UIPanGestureRecognizer) {
         let dragPosition = sender.translation(in: self.view)
         if dragPosition.y < 0 {
@@ -335,6 +316,23 @@ extension ArtworkSelectVC: ReorderArtwork {
         galleryCV.indexPathsForSelectedItems?.forEach {
             guard let cell = galleryCV.cellForItem(at: $0) as? GalleryCVC else { return }
             cell.setSelectedIndex((indexArr.firstIndex(of: $0.row) ?? 0) + 1)
+        }
+    }
+}
+
+extension ArtworkSelectVC: AlbumChangeDelegate {
+    func changeAlbum(albumNum: Int) {
+        if !albumList.isEmpty {
+            let collection = albumList[albumNum]
+            fetchAssets(with: collection)
+            albumListButton.setTitle(collection.localizedTitle ?? "", for: .normal)
+            selectedImages.removeAll()
+            indexArr.removeAll()
+            configureViewTitle()
+            galleryCV.indexPathsForSelectedItems?.forEach({ galleryCV.deselectItem(at: $0, animated: false) })
+            galleryCV.reloadData()
+            galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
+            setPreviewImage([0,0])
         }
     }
 }
