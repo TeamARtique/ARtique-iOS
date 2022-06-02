@@ -10,11 +10,16 @@ import Photos
 
 class ARtiqueTBC: UITabBarController {
     
+    // MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         
         delegate = self
         setTabBar()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        presentSignUpVC()
     }
     
     //MARK: - Custom Method
@@ -27,7 +32,6 @@ class ARtiqueTBC: UITabBarController {
     
     /// setTabBar - 탭바 Setting
     func setTabBar() {
-        
         let homeTab = makeTabVC(vcType: .home, tabBarTitle: "", tabBarImage: "untab_home", tabBarSelectedImage: "tab_home")
         let addTab = makeTabVC(vcType: nil, tabBarTitle: "", tabBarImage: "Add_Default", tabBarSelectedImage: "Add_Default")
         let mypageTab = makeTabVC(vcType: .mypage, tabBarTitle: "", tabBarImage: "My_UnSelected", tabBarSelectedImage: "My_Selected")
@@ -45,7 +49,7 @@ class ARtiqueTBC: UITabBarController {
         tabBar.layer.shadowRadius = 2
         tabBar.layer.shadowColor = UIColor.black.cgColor
         tabBar.layer.shadowOpacity = 0.3
-
+        
         tabBar.backgroundColor = .white
         tabBar.isTranslucent = false
         
@@ -72,9 +76,26 @@ class ARtiqueTBC: UITabBarController {
         
         self.present(alert, animated: true, completion: nil)
     }
+    
+    /// 회원가입 추가 절차가 마무리되지 않았을 때 회원가입 VC를 띄우는 함수
+    private func presentSignUpVC() {
+        if UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) == "" {
+            guard let signupVC = UIStoryboard(name: Identifiers.signupSB, bundle: nil).instantiateViewController(withIdentifier: SignupVC.className) as? SignupVC else { return }
+            
+            signupVC.hidesBottomBarWhenPushed = true
+            signupVC.isFirstView = true
+            
+            let navi = UINavigationController(rootViewController: signupVC)
+            navi.modalPresentationStyle = .fullScreen
+            self.present(navi, animated: true)
+        }
+    }
 }
 
+// MARK: - UITabBarControllerDelegate
 extension ARtiqueTBC: UITabBarControllerDelegate {
+    
+    /// shouldSelect
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         let addVC = viewControllers![1]
         

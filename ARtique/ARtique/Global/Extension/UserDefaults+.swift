@@ -12,5 +12,6 @@ extension UserDefaults {
         static var userEmail = "userEmail"
         static var nickname = "nickname"
         static var refreshToken = "refreshToken"
+        static var completeSignup = "completeSignup"
     }
 }

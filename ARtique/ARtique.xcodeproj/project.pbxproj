@@ -170,8 +170,11 @@
 		331EEB092834C45200A726AF /* TicketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331EEB082834C45200A726AF /* TicketService.swift */; };
 		331EEB0C2834C5D400A726AF /* CreateTicketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331EEB0B2834C5D400A726AF /* CreateTicketModel.swift */; };
 		331EEB0E2834C61300A726AF /* TicketListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331EEB0D2834C61300A726AF /* TicketListModel.swift */; };
+		3330E48E2846791400896138 /* Signup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3330E48D2846791400896138 /* Signup.storyboard */; };
+		3330E4902846793400896138 /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3330E48F2846793400896138 /* SignupVC.swift */; };
 		334E737127FB66B5001BAF25 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E737027FB66B5001BAF25 /* LoginVC.swift */; };
 		3358C55F2837985800A46D61 /* TicketBookDimmedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358C55E2837985800A46D61 /* TicketBookDimmedVC.swift */; };
+		33644D32284894C60029FF77 /* Vibrate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33644D31284894C60029FF77 /* Vibrate.swift */; };
 		3366F4572834453E0020C468 /* TicketCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3366F4562834453E0020C468 /* TicketCVC.swift */; };
 		3366F4592834455C0020C468 /* TicketHeaderCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3366F4582834455C0020C468 /* TicketHeaderCVC.swift */; };
 		3366F45B2834464E0020C468 /* KoPubWorld Batang Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3366F45A2834464E0020C468 /* KoPubWorld Batang Medium.ttf */; };
@@ -355,9 +358,12 @@
 		331EEB082834C45200A726AF /* TicketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketService.swift; sourceTree = "<group>"; };
 		331EEB0B2834C5D400A726AF /* CreateTicketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTicketModel.swift; sourceTree = "<group>"; };
 		331EEB0D2834C61300A726AF /* TicketListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketListModel.swift; sourceTree = "<group>"; };
+		3330E48D2846791400896138 /* Signup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Signup.storyboard; sourceTree = "<group>"; };
+		3330E48F2846793400896138 /* SignupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
 		334E737027FB66B5001BAF25 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		3350596D27E5CC8C0088B708 /* GalleryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryType.swift; sourceTree = "<group>"; };
 		3358C55E2837985800A46D61 /* TicketBookDimmedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDimmedVC.swift; sourceTree = "<group>"; };
+		33644D31284894C60029FF77 /* Vibrate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibrate.swift; sourceTree = "<group>"; };
 		3366F4562834453E0020C468 /* TicketCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketCVC.swift; sourceTree = "<group>"; };
 		3366F4582834455C0020C468 /* TicketHeaderCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketHeaderCVC.swift; sourceTree = "<group>"; };
 		3366F45A2834464E0020C468 /* KoPubWorld Batang Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoPubWorld Batang Medium.ttf"; sourceTree = "<group>"; };
@@ -435,6 +441,7 @@
 				23560FFB2832B67F00176D66 /* ExhibitionSortType.swift */,
 				236128992832196D0097896B /* PosterType.swift */,
 				23A1B2CA2836A6150089B63E /* ToastType.swift */,
+				33644D31284894C60029FF77 /* Vibrate.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -1011,9 +1018,18 @@
 			path = Ticket;
 			sourceTree = "<group>";
 		};
+		3330E48C2846790400896138 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				3330E48D2846791400896138 /* Signup.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
 		334E736E27FB6675001BAF25 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				3330E48C2846790400896138 /* Storyboard */,
 				334E736F27FB668B001BAF25 /* Controller */,
 			);
 			path = Login;
@@ -1023,6 +1039,7 @@
 			isa = PBXGroup;
 			children = (
 				334E737027FB66B5001BAF25 /* LoginVC.swift */,
+				3330E48F2846793400896138 /* SignupVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1205,6 +1222,7 @@
 				2395FBA227563A9700D3DB77 /* Detail.storyboard in Resources */,
 				2383787D280AFBBC002088E6 /* Search.storyboard in Resources */,
 				235650DE27FA031F0082E048 /* AlbumListTVC.storyboard in Resources */,
+				3330E48E2846791400896138 /* Signup.storyboard in Resources */,
 				23B52A7927E0A54D00D6C339 /* AddExhibition.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1291,6 +1309,7 @@
 				331C8E3E283CE52800764BB9 /* Bookmarked.swift in Sources */,
 				3366F4592834455C0020C468 /* TicketHeaderCVC.swift in Sources */,
 				3305F7512754DF3E00E6E08E /* UIColor+Additions.swift in Sources */,
+				3330E4902846793400896138 /* SignupVC.swift in Sources */,
 				33083C24281981010038886B /* AuthService.swift in Sources */,
 				23E734EE27E99CC8000315E6 /* OrderView.swift in Sources */,
 				23A1B2C828367FA00089B63E /* ToastView.swift in Sources */,
@@ -1308,6 +1327,7 @@
 				230883832804163100620BC1 /* ProfileEditVC.swift in Sources */,
 				23DD9E71283CF1330041928D /* MypageService.swift in Sources */,
 				237B436E275CEE1E00B7FA3F /* HomeHorizontalCVC.swift in Sources */,
+				33644D32284894C60029FF77 /* Vibrate.swift in Sources */,
 				235650D927F9FC870082E048 /* AlbumTVC.swift in Sources */,
 				235610002832B9A900176D66 /* ExhibitionService.swift in Sources */,
 				23F88CDA284418DF006AD868 /* ArtistProfileHeaderView.swift in Sources */,

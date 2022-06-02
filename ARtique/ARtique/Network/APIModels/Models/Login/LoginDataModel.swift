@@ -10,6 +10,7 @@ import Foundation
 // MARK: - LoginDataModel
 struct LoginDataModel: Codable {
     let user: LoginUser
+    let isSignup: Bool
     let token: Token
 }
 
