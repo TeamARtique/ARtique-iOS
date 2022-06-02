@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class ExhibitionExplainVC: UIViewController {
+class ExhibitionExplainVC: BaseVC {
     @IBOutlet weak var baseSV: UIScrollView!
     @IBOutlet weak var titleTextCnt: UILabel!
     @IBOutlet weak var titleTextField: UITextField!
@@ -22,6 +22,7 @@ class ExhibitionExplainVC: UIViewController {
     @IBOutlet weak var tagCV: UICollectionView!
     @IBOutlet weak var isPublic: UISwitch!
     
+    var exhibitionData: ExhibitionModel?
     let bag = DisposeBag()
     let exhibitionModel = NewExhibition.shared
     let exhibitionExplainPlaceholder = "전시회에 대한 전체 설명을 입력하세요"
@@ -36,11 +37,40 @@ class ExhibitionExplainVC: UIViewController {
         configureView()
         bindUI()
         bindNotificationCenter()
+        // 전시 수정 - configure
+        configureContent()
     }
 }
 
 // MARK: - Configure
 extension ExhibitionExplainVC {
+    func configureNaviBar(navigationController: UINavigationController) {
+        navigationController.additionalSafeAreaInsets.top = 8
+        navigationController.navigationBar.tintColor = .black
+        navigationItem.title = "전시 수정"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBtn"),
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(popVC))
+        
+        navigationItem.rightBarButtonItem = navigationController.roundFilledBarBtn(title: "완료",
+                                                                                    target: self,
+                                                                                    action: #selector(popVC))
+    }
+    
+    private func configureContent() {
+        guard let exhibitionData = exhibitionData else { return }
+        titleTextField.text = exhibitionData.title
+        setTitleMaxCnt(exhibitionData.title?.count ?? 0)
+        // TODO: - 서버에 포스터 원본 이미지 추가 후 변수명 변경
+//        let poster = try? Data(contentsOf: URL(string: exhibitionData.변수명 ?? "")!)
+//        posterBase = (poster != nil) ? UIImage(data: poster!) : UIImage(named: "DefaultPoster")
+        exhibitionExplainTextView.text = exhibitionData.description
+        exhibitionExplainTextView.textColor = .label
+        setTextViewMaxCnt(exhibitionData.description?.count ?? 0)
+        isPublic.isOn = exhibitionData.isPublic ?? true
+    }
+    
     private func configureView() {
         baseSV.showsVerticalScrollIndicator = false
         
@@ -229,7 +259,15 @@ extension ExhibitionExplainVC: UICollectionViewDataSource {
               let posterCell = posterCV.dequeueReusableCell(withReuseIdentifier: Identifiers.borderCVC, for: indexPath) as? BorderCVC,
               let tagCell = tagCV.dequeueReusableCell(withReuseIdentifier: Identifiers.roundCVC, for: indexPath) as? RoundCVC
         else { return UICollectionViewCell() }
-                
+        
+        // 전시 수정 시 select cell 지정
+        if let exhibitionData = exhibitionData {
+            categoryCV.selectItem(at: [0, exhibitionData.category!], animated: false, scrollPosition: .left)
+            exhibitionData.tag?.forEach {
+                tagCV.selectItem(at: [0, $0], animated: false, scrollPosition: .top)
+            }
+        }
+        
         switch collectionView {
         case categoryCV:
             roundCell.configureCell(with: CategoryType.allCases[indexPath.row].categoryTitle, fontSize: 14)

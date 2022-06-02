@@ -133,8 +133,10 @@ extension DetailVC {
         let edit = UIAction(title: "수정",
                             image: UIImage(named: "Edit"),
                             handler: { _ in
-            // TODO: - 전시 수정
-            print("수정")
+            guard let editVC = UIStoryboard(name: ExhibitionExplainVC.className, bundle: nil).instantiateViewController(withIdentifier: ExhibitionExplainVC.className) as? ExhibitionExplainVC else { return }
+            editVC.configureNaviBar(navigationController: self.navigationController!)
+            editVC.exhibitionData = self.exhibitionData?.exhibition
+            self.navigationController?.pushViewController(editVC, animated: true)
         })
         let delete = UIAction(title: "삭제",
                               image: UIImage(named: "Delete"),
