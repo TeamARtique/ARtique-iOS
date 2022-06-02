@@ -49,4 +49,20 @@ extension TicketAPI {
             }
         }
     }
+    
+    /// [GET] 티켓북 삭제 요청
+    func requestDeleteTicketbook(exhibitionID: Int, completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        provider.request(.deleteTicketbook(exhibitionID: exhibitionID)) { result in
+            switch result {
+            case .success(let response):
+                let statusCode = response.statusCode
+                let data = response.data
+                
+                completion(self.judgeStatus(type: String.self, by: statusCode, data))
+                
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }
