@@ -102,7 +102,7 @@ extension ArtworkExplainCVC {
         NotificationCenter.default.keyboardWillChangeFrame()
             .withUnretained(self)
             .subscribe(onNext: { owner, info in
-                if let baseVC = self.findViewController() as? AddExhibitionVC {
+                if let baseVC = self.findViewController() as? PostExplainVC {
                     UIView.animate(withDuration: info.duration) {
                         self.scrollView.snp.remakeConstraints {
                             $0.top.equalTo(baseVC.view.safeAreaLayoutGuide.snp.top).offset(16)

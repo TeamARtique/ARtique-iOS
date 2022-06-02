@@ -11,6 +11,7 @@ import Photos
 class AlbumListTVC: UIViewController {
     @IBOutlet weak var albumListTV: UITableView!
     var albumList = [PHAssetCollection]()
+    var changeAlbumDelegate: AlbumChangeDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +21,11 @@ class AlbumListTVC: UIViewController {
     @IBAction func dismissAlbumList(_ sender: Any) {
         dismiss(animated: true)
     }
+}
+
+// MARK: - Protocol
+protocol AlbumChangeDelegate {
+    func changeAlbum(albumNum: Int)
 }
 
 // MARK: - Custom Methods
@@ -45,7 +51,7 @@ extension AlbumListTVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        NotificationCenter.default.post(name: .whenAlbumChanged, object: indexPath.row)
+        changeAlbumDelegate?.changeAlbum(albumNum: indexPath.row)
         dismiss(animated: true)
     }
 }

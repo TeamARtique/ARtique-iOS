@@ -15,6 +15,7 @@ import Kingfisher
 class ProfileEditVC: BaseVC {
     @IBOutlet weak var baseSV: UIScrollView!
     @IBOutlet weak var profileImg: UIButton!
+    @IBOutlet weak var profileImgLabel: UILabel!
     @IBOutlet weak var nicknameTextField: UITextField!
     @IBOutlet weak var explanationTextView: UITextView!
     @IBOutlet weak var explanationCnt: UILabel!
@@ -34,26 +35,6 @@ class ProfileEditVC: BaseVC {
         bindUI()
         bindNotificationCenter()
         hideKeyboard()
-    }
-    
-    @IBAction func setProfileImage(_ sender: Any) {
-        switch PHPhotoLibrary.authorizationStatus() {
-        case .authorized:
-            openGallery()
-        case .notDetermined:
-            PHPhotoLibrary.requestAuthorization(for: .readWrite) { (status) in }
-        default:
-            let accessConfirmVC = UIAlertController(title: "권한 필요", message: "갤러리 접근 권한이 없습니다. 설정 화면에서 설정해주세요.", preferredStyle: .alert)
-            let goSettings = UIAlertAction(title: "설정으로 이동", style: .default) { (action) in
-                if let appSettings = URL(string: UIApplication.openSettingsURLString) {
-                    UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
-                }
-            }
-            let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-            accessConfirmVC.addAction(goSettings)
-            accessConfirmVC.addAction(cancel)
-            self.present(accessConfirmVC, animated: true, completion: nil)
-        }
     }
 }
 
@@ -82,6 +63,10 @@ extension ProfileEditVC {
     private func configureContentView() {
         profileImg.layer.cornerRadius = profileImg.frame.height / 2
         profileImg.layer.masksToBounds = true
+        profileImg.addTarget(self, action: #selector(setProfileImage), for: .touchUpInside)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(setProfileImage))
+        profileImgLabel.isUserInteractionEnabled = true
+        profileImgLabel.addGestureRecognizer(tapGesture)
         nicknameTextField.setRoundTextField(with: "ARTI")
         nicknameTextField.delegate = self
         explanationTextView.setRoundTextView()
@@ -171,6 +156,26 @@ extension ProfileEditVC {
     private func setTextViewMaxCnt(_ cnt: Int) {
         if explanationTextView.textColor != .gray2 {
             explanationCnt.text = "(\(cnt)/\(textViewMaxCnt))"
+        }
+    }
+    
+    @objc func setProfileImage() {
+        switch PHPhotoLibrary.authorizationStatus() {
+        case .authorized:
+            openGallery()
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { (status) in }
+        default:
+            let accessConfirmVC = UIAlertController(title: "권한 필요", message: "갤러리 접근 권한이 없습니다. 설정 화면에서 설정해주세요.", preferredStyle: .alert)
+            let goSettings = UIAlertAction(title: "설정으로 이동", style: .default) { (action) in
+                if let appSettings = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
+                }
+            }
+            let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+            accessConfirmVC.addAction(goSettings)
+            accessConfirmVC.addAction(cancel)
+            self.present(accessConfirmVC, animated: true, completion: nil)
         }
     }
 }

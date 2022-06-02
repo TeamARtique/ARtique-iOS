@@ -12,8 +12,9 @@ import Then
 class GalleryCVC: BorderCVC {
     private var indexBase = UIView()
         .then {
-            $0.backgroundColor = .gray4
             $0.layer.cornerRadius = 8
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.white.cgColor
         }
     
     var selectedIndex = UILabel()
@@ -34,17 +35,19 @@ class GalleryCVC: BorderCVC {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        indexBase.isHidden = true
-        selectedIndex.text = ""
+        indexBase.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
+        selectedIndex.textColor = .clear
     }
     
     override var isSelected: Bool {
         didSet{
             if isSelected {
-                indexBase.isHidden = false
+                indexBase.backgroundColor = .gray4
+                selectedIndex.textColor = .white
             }
             else {
-                indexBase.isHidden = true
+                indexBase.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
+                selectedIndex.textColor = .clear
             }
         }
     }
@@ -66,7 +69,7 @@ extension GalleryCVC {
             $0.center.equalToSuperview()
         }
         
-        indexBase.isHidden = true
+        indexBase.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
     }
 
     func configureCell(with artwork: UIImage) {
@@ -74,7 +77,8 @@ extension GalleryCVC {
     }
     
     func setSelectedIndex(_ index: Int) {
-        indexBase.isHidden = false
+        indexBase.backgroundColor = .gray4
+        selectedIndex.textColor = .white
         selectedIndex.text = "\(index)"
     }
 }
