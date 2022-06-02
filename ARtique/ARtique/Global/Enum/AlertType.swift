@@ -16,12 +16,13 @@ enum AlertType: CaseIterable {
     case deleteExhibition
     case signupProgress
     case completeSignup
+    case deleteTicketbook
 }
 
 extension AlertType {
     var alertImage: UIImage {
         switch self {
-        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .signupProgress:
+        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .signupProgress, .deleteTicketbook:
             return UIImage(named: "WarningAlert") ?? UIImage()
         case .registerExhibition, .seeTicketbook, .completeSignup:
             return UIImage(named: "ConfirmAlert") ?? UIImage()
@@ -66,6 +67,11 @@ extension AlertType {
             let attributedStr = NSMutableAttributedString(string: text)
             attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "Arti가 되신 것을 환영"))
             return attributedStr
+        case .deleteTicketbook:
+            let text = "전시 티켓을\n정말 삭제하시겠습니까?"
+            let attributedStr = NSMutableAttributedString(string: text)
+            attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "삭제"))
+            return attributedStr
         }
     }
     
@@ -77,7 +83,7 @@ extension AlertType {
             return "이전 단계"
         case .registerExhibition:
             return "취소"
-        case .deleteExhibition:
+        case .deleteExhibition, .deleteTicketbook:
             return "삭제하기"
         case .signupProgress, .completeSignup:
             return ""
@@ -92,7 +98,7 @@ extension AlertType {
             return "등록하기"
         case .seeTicketbook:
             return "확인하기"
-        case .deleteExhibition:
+        case .deleteExhibition, .deleteTicketbook:
             return "유지하기"
         case .signupProgress:
             return "확인"
@@ -105,7 +111,7 @@ extension AlertType {
         switch self {
         case .removeAllExhibition, .removeAllPhotos, .deleteExhibition:
             return "left"
-        case .registerExhibition, .seeTicketbook, .signupProgress, .completeSignup:
+        case .registerExhibition, .seeTicketbook, .signupProgress, .completeSignup, .deleteTicketbook:
             return "right"
         }
     }
