@@ -26,7 +26,8 @@ class TicketBookVC: BaseVC {
     // MARK: Variables
     private var ticketData: [TicketListModel] = []
     var naviType: NaviType?
-    var isDeleteMode: Bool = false
+    private var isDeleteMode: Bool = false
+    private var deleteIndex: Int?
     
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -36,7 +37,6 @@ class TicketBookVC: BaseVC {
         setOptionalData()
         configureUI()
         getTicketbookList()
-        navigationController?.additionalSafeAreaInsets.top = 8
         NotificationCenter.default.addObserver(self, selector: #selector(shareToInstagramStory(_:)), name: .whenTicketShareBtnDidTap, object: nil)
     }
 }
@@ -46,12 +46,20 @@ extension TicketBookVC {
     
     /// 네비게이션 바를 구성하는 메서드
     private func configureNaviBar(naviType: NaviType) {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.layer.backgroundColor = UIColor.white.cgColor
         navigationController?.navigationBar.tintColor = .black
         navigationItem.title = "티켓북"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_delete"),
-                                                            style: .plain,
-                                                            target: self,
-                                                            action: #selector(didTapTrashBtn))
+        if isDeleteMode {
+            navigationItem.rightBarButtonItem = navigationController?.roundFilledBarBtn(title: "완료",
+                                                                                        target: self,
+                                                                                        action: #selector(didTapTrashBtn))
+        } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_delete"),
+                                                                style: .plain,
+                                                                target: self,
+                                                                action: #selector(didTapTrashBtn))
+        }
         
         switch naviType {
         case .push:
@@ -73,7 +81,6 @@ extension TicketBookVC {
     /// 전체 UI를 구성하는 메서드
     private func configureUI() {
         view.addSubview(ticketCV)
-        
         ticketCV.snp.makeConstraints {
             $0.top.equalTo(view.snp.top)
             $0.leading.trailing.bottom.equalToSuperview()
@@ -99,9 +106,9 @@ extension TicketBookVC {
     /// 티켓북 삭제 버튼을 클릭했을 때 실행되는 메서드
     @objc
     private func didTapTrashBtn() {
-        print("삭제 버튼 클릭")
+        Vibration.light.vibrate()
         isDeleteMode = !isDeleteMode
-        navigationItem.rightBarButtonItem?.image = UIImage(named: isDeleteMode ? "BackBtn" : "btn_delete")
+        configureNaviBar(naviType: .push)
         ticketCV.reloadData()
     }
     
@@ -148,6 +155,19 @@ extension TicketBookVC {
             configureNaviBar(naviType: navi)
         }
     }
+    
+    @objc func dismissAlert() {
+        dismiss(animated: false, completion: nil)
+    }
+    
+    @objc
+    private func removeTicketbook() {
+        dismiss(animated: false) {
+            Vibration.warning.vibrate()
+            guard let row = self.deleteIndex else { return }
+            self.deleteTicketBook(exhibitionID: self.ticketData[row].exhibitionID)
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -177,14 +197,21 @@ extension TicketBookVC: UICollectionViewDataSource {
         
         switch indexPath.section {
         case 0:
-            headerCell.isDeleteMode = isDeleteMode ? true : false
+            headerCell.setUpCellbyMode(isDeleteMode: isDeleteMode)
             headerCell.setData(model: ticketData)
             return headerCell
         case 1:
             ticketCell.setUpDeleteBtnbyMode(isDeleteMode: isDeleteMode)
-            ticketCell.tapDeleteBtnAction = { [weak self] in
-                print("티켓 삭제, index: ", indexPath.row, "title", self?.ticketData[indexPath.row].title ?? "")
+            ticketCell.tapDeleteBtnAction = {
+                self.deleteIndex = indexPath.row
+                Vibration.warning.vibrate()
+                self.popupAlertWithTitle(targetView: self,
+                                         alertType: .deleteTicketbook,
+                                         title: "'\(self.ticketData[indexPath.row].title )'",
+                                         leftBtnAction: #selector(self.removeTicketbook),
+                                         rightBtnAction: #selector(self.dismissAlert))
             }
+            
             ticketCell.setData(model: ticketData[indexPath.row])
             return ticketCell
         default:
@@ -221,15 +248,17 @@ extension TicketBookVC: UICollectionViewDelegateFlowLayout {
         //✅ Cell 클릭시 dimmedVC로 화면전환 -> 배경이 흐릿해지는 기능 구현
         //✅ Cell에서 눌린 티켓을 dimmedVC에서도 동일한 위치에 그려낼 수 있도록 Cell 클릭 시 해당하는 티켓의 frame을 넘겨줌
         if indexPath.section != 0 {
-            let dimmedVC = TicketBookDimmedVC()
-            dimmedVC.selectedIndex = indexPath.row
-            dimmedVC.ticketFrame = self.ticketCV.convert(collectionView.cellForItem(at: indexPath)?.frame ?? CGRect.zero, to: self.view.superview)
-            dimmedVC.ticketImageString = ticketData[indexPath.row].posterImage
-            dimmedVC.exhibitionID = ticketData[indexPath.row].exhibitionID
-            
-            dimmedVC.modalTransitionStyle = .crossDissolve
-            dimmedVC.modalPresentationStyle = .overFullScreen
-            self.present(dimmedVC, animated: false, completion: nil)
+            if isDeleteMode == false {
+                let dimmedVC = TicketBookDimmedVC()
+                dimmedVC.selectedIndex = indexPath.row
+                dimmedVC.ticketFrame = self.ticketCV.convert(collectionView.cellForItem(at: indexPath)?.frame ?? CGRect.zero, to: self.view.superview)
+                dimmedVC.ticketImageString = ticketData[indexPath.row].posterImage
+                dimmedVC.exhibitionID = ticketData[indexPath.row].exhibitionID
+                
+                dimmedVC.modalTransitionStyle = .crossDissolve
+                dimmedVC.modalPresentationStyle = .overFullScreen
+                self.present(dimmedVC, animated: false, completion: nil)
+            }
         }
     }
 }
@@ -247,6 +276,24 @@ extension TicketBookVC {
                     self?.ticketData = data
                     self?.ticketCV.reloadData()
                 }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                }
+            default:
+                self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        })
+    }
+    
+    /// 서버통신을 통해 특정 티켓북을 삭제하는 메서드
+    private func deleteTicketBook(exhibitionID: Int) {
+        TicketAPI.shared.requestDeleteTicketbook(exhibitionID: exhibitionID, completion: { [weak self] networkResult in
+            switch networkResult {
+            case .success(_):
+                //✅ 티켓 삭제 성공시
+                self?.getTicketbookList()
             case .requestErr(let res):
                 if let message = res as? String {
                     print(message)
