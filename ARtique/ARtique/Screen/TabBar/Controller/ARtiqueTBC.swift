@@ -79,7 +79,7 @@ class ARtiqueTBC: UITabBarController {
     
     /// 회원가입 추가 절차가 마무리되지 않았을 때 회원가입 VC를 띄우는 함수
     private func presentSignUpVC() {
-        if UserDefaults.standard.bool(forKey: UserDefaults.Keys.completeSignup) == false {
+        if UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) == "" {
             guard let signupVC = UIStoryboard(name: Identifiers.signupSB, bundle: nil).instantiateViewController(withIdentifier: SignupVC.className) as? SignupVC else { return }
             
             signupVC.hidesBottomBarWhenPushed = true

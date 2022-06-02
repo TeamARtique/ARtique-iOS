@@ -126,7 +126,7 @@ extension LoginVC {
                                      accessToken: data.token.accessToken,
                                      refreshToken: data.token.refreshToken)
                     
-                    if data.isSignup || UserDefaults.standard.bool(forKey: UserDefaults.Keys.completeSignup) == false {
+                    if data.isSignup {
                         /// 회원가입시 SignupVC로 화면전환
                         self.preesentToSignupVC()
                     } else {

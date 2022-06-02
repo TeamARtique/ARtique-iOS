@@ -17,10 +17,10 @@ struct LoginDataModel: Codable {
 // MARK: - LoginUser
 struct LoginUser: Codable {
     let userID: Int
-    let email: String
+    let email, nickname: String
     
     enum CodingKeys: String, CodingKey {
         case userID = "userId"
-        case email
+        case email, nickname
     }
 }
