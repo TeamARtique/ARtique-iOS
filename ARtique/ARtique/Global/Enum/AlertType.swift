@@ -14,14 +14,16 @@ enum AlertType: CaseIterable {
     case registerExhibition
     case seeTicketbook
     case deleteExhibition
+    case signupProgress
+    case completeSignup
 }
 
 extension AlertType {
     var alertImage: UIImage {
         switch self {
-        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition:
+        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .signupProgress:
             return UIImage(named: "WarningAlert") ?? UIImage()
-        case .registerExhibition, .seeTicketbook:
+        case .registerExhibition, .seeTicketbook, .completeSignup:
             return UIImage(named: "ConfirmAlert") ?? UIImage()
         }
     }
@@ -54,6 +56,16 @@ extension AlertType {
             let attributedStr = NSMutableAttributedString(string: text)
             attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "삭제"))
             return attributedStr
+        case .signupProgress:
+            let text = "입력할 가입 정보가 있습니다.\n계속해서 회원가입을 완료해주세요."
+            let attributedStr = NSMutableAttributedString(string: text)
+            attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "회원가입을 완료"))
+            return attributedStr
+        case .completeSignup:
+            let text = "회원가입이 완료되었습니다.\nArti가 되신 것을 환영합니다!"
+            let attributedStr = NSMutableAttributedString(string: text)
+            attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "Arti가 되신 것을 환영"))
+            return attributedStr
         }
     }
     
@@ -67,6 +79,8 @@ extension AlertType {
             return "취소"
         case .deleteExhibition:
             return "삭제하기"
+        case .signupProgress, .completeSignup:
+            return ""
         }
     }
     
@@ -80,6 +94,10 @@ extension AlertType {
             return "확인하기"
         case .deleteExhibition:
             return "유지하기"
+        case .signupProgress:
+            return "확인"
+        case .completeSignup:
+            return "ARtique 시작하기"
         }
     }
     
@@ -87,7 +105,7 @@ extension AlertType {
         switch self {
         case .removeAllExhibition, .removeAllPhotos, .deleteExhibition:
             return "left"
-        case .registerExhibition, .seeTicketbook:
+        case .registerExhibition, .seeTicketbook, .signupProgress, .completeSignup:
             return "right"
         }
     }
