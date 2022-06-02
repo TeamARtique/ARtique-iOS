@@ -18,10 +18,6 @@ class ARtiqueTBC: UITabBarController {
         setTabBar()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        presentSignUpVC()
-    }
-    
     //MARK: - Custom Method
     /// makeTabVC - 탭별 아이템 생성하는 함수
     func makeTabVC(vcType: TypeOfViewController?, tabBarTitle: String, tabBarImage: String, tabBarSelectedImage: String) -> UIViewController {
@@ -75,20 +71,6 @@ class ARtiqueTBC: UITabBarController {
         alert.addAction(confirm)
         
         self.present(alert, animated: true, completion: nil)
-    }
-    
-    /// 회원가입 추가 절차가 마무리되지 않았을 때 회원가입 VC를 띄우는 함수
-    private func presentSignUpVC() {
-        if UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) == "" {
-            guard let signupVC = UIStoryboard(name: Identifiers.signupSB, bundle: nil).instantiateViewController(withIdentifier: SignupVC.className) as? SignupVC else { return }
-            
-            signupVC.hidesBottomBarWhenPushed = true
-            signupVC.isFirstView = true
-            
-            let navi = UINavigationController(rootViewController: signupVC)
-            navi.modalPresentationStyle = .fullScreen
-            self.present(navi, animated: true)
-        }
     }
 }
 
