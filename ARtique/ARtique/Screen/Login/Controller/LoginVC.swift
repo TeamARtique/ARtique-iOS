@@ -122,7 +122,7 @@ extension LoginVC {
                 if let data = res as? LoginDataModel {
                     self.setUserInfo(userID: data.user.userID,
                                      userEmail: data.user.email,
-                                     nickname: "",
+                                     nickname: data.user.nickname,
                                      accessToken: data.token.accessToken,
                                      refreshToken: data.token.refreshToken)
                     
