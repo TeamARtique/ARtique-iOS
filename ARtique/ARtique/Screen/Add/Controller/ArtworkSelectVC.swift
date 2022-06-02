@@ -36,7 +36,7 @@ class ArtworkSelectVC: BaseVC {
     var indexArr = [Int]()
     var selectedImages = [SelectedImage]()
     var isEdited: Bool = false
-    var delegate: ArtworkSelectDelegate?
+    var selectLimitDelegate: ArtworkSelectDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +55,7 @@ class ArtworkSelectVC: BaseVC {
     
     @IBAction func showAlbumList(_ sender: Any) {
         guard let albumListVC = UIStoryboard(name: Identifiers.albumListTVC, bundle: nil).instantiateViewController(withIdentifier: Identifiers.albumListTVC) as? AlbumListTVC else { return }
-        albumListVC.delegate = self
+        albumListVC.changeAlbumDelegate = self
         albumListVC.albumList = albumList
         
         present(albumListVC, animated: true)
@@ -400,7 +400,7 @@ extension ArtworkSelectVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         if selectedImages.count >= exhibitionModel.gallerySize ?? 0 {
-            delegate?.photoLimitToast()
+            selectLimitDelegate?.photoLimitToast()
             return false
         }
         if (spiner.isAnimating && indexPath != selectedIndex)

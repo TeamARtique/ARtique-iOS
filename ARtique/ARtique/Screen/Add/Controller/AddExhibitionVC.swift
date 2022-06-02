@@ -108,8 +108,8 @@ extension AddExhibitionVC {
     }
     
     private func configureStackView() {
-        orderView.delegate = artworkSelectView
-        artworkSelectView.delegate = self
+        orderView.artworkReorderDelegate = artworkSelectView
+        artworkSelectView.selectLimitDelegate = self
         
         let registerProcessViews = [themeView.view!,
                                     artworkSelectView.view!,

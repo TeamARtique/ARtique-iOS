@@ -23,7 +23,7 @@ class PosterSelectVC: BaseVC {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     private var preview = PhotoCropperView()
     private var spiner = UIActivityIndicatorView()
-    var delegate: SelectPoster?
+    var posterSelectDelegate: SelectPoster?
     let imageManager = PHCachingImageManager()
     var devicePhotos: PHFetchResult<PHAsset>!
     var albumList = [PHAssetCollection]()
@@ -44,7 +44,7 @@ class PosterSelectVC: BaseVC {
     
     @IBAction func showAlbumList(_ sender: Any) {
         let albumListVC = UIStoryboard(name: Identifiers.albumListTVC, bundle: nil).instantiateViewController(withIdentifier: Identifiers.albumListTVC) as! AlbumListTVC
-        albumListVC.delegate = self
+        albumListVC.changeAlbumDelegate = self
         albumListVC.albumList = albumList
         
         self.present(albumListVC, animated: true, completion: nil)
@@ -128,7 +128,7 @@ extension PosterSelectVC {
                 if self.galleryCV.indexPathsForSelectedItems?.count == 0 {
                     self.popupToast(toastType: .choosePoster)
                 } else {
-                    self.delegate?.selectPoster(with: image ?? UIImage())
+                    self.posterSelectDelegate?.selectPoster(with: image ?? UIImage())
                     self.dismiss(animated: true, completion: nil)
                 }
             })

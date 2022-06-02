@@ -66,7 +66,7 @@ extension ExhibitionExplainVC {
     
     @objc func showPosterSelectVC() {
         guard let posterSelectVC = UIStoryboard(name: Identifiers.posterSelectSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.posterSelectVC) as? PosterSelectVC else { return }
-        posterSelectVC.delegate = self
+        posterSelectVC.posterSelectDelegate = self
         present(posterSelectVC, animated: true, completion: nil)
     }
     

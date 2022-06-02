@@ -11,7 +11,7 @@ import SnapKit
 class OrderVC: UIViewController {
     @IBOutlet weak var selectedPhotoCV: UICollectionView!
     let exhibitionModel = NewExhibition.shared
-    var delegate: ReorderArtwork?
+    var artworkReorderDelegate: ReorderArtwork?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +54,7 @@ extension OrderVC {
                 collectionView.deleteItems(at: [sourceIndexPath])
                 collectionView.insertItems(at: [destinationIndexPath])
                 
-                delegate?.reorderArtwork(sourceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath)
+                artworkReorderDelegate?.reorderArtwork(sourceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath)
             }, completion: { _ in
                 self.selectedPhotoCV.reloadItems(at: self.selectedPhotoCV.indexPathsForVisibleItems)
             })

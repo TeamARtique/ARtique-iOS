@@ -11,7 +11,7 @@ import Photos
 class AlbumListTVC: UIViewController {
     @IBOutlet weak var albumListTV: UITableView!
     var albumList = [PHAssetCollection]()
-    var delegate: AlbumChangeDelegate?
+    var changeAlbumDelegate: AlbumChangeDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +51,7 @@ extension AlbumListTVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.changeAlbum(albumNum: indexPath.row)
+        changeAlbumDelegate?.changeAlbum(albumNum: indexPath.row)
         dismiss(animated: true)
     }
 }
