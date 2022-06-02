@@ -26,6 +26,7 @@ class TicketBookVC: BaseVC {
     // MARK: Variables
     private var ticketData: [TicketListModel] = []
     var naviType: NaviType?
+    var isDeleteMode: Bool = false
     
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -35,7 +36,7 @@ class TicketBookVC: BaseVC {
         setOptionalData()
         configureUI()
         getTicketbookList()
-        navigationController?.additionalSafeAreaInsets.top = 0
+        navigationController?.additionalSafeAreaInsets.top = 8
         NotificationCenter.default.addObserver(self, selector: #selector(shareToInstagramStory(_:)), name: .whenTicketShareBtnDidTap, object: nil)
     }
 }
@@ -99,6 +100,9 @@ extension TicketBookVC {
     @objc
     private func didTapTrashBtn() {
         print("삭제 버튼 클릭")
+        isDeleteMode = !isDeleteMode
+        navigationItem.rightBarButtonItem?.image = UIImage(named: isDeleteMode ? "BackBtn" : "btn_delete")
+        ticketCV.reloadData()
     }
     
     /// 티켓북 Cell을 이미지로 렌더링하여 인스타그램 스토리로 공유하는 메서드
@@ -173,9 +177,14 @@ extension TicketBookVC: UICollectionViewDataSource {
         
         switch indexPath.section {
         case 0:
+            headerCell.isDeleteMode = isDeleteMode ? true : false
             headerCell.setData(model: ticketData)
             return headerCell
         case 1:
+            ticketCell.setUpDeleteBtnbyMode(isDeleteMode: isDeleteMode)
+            ticketCell.tapDeleteBtnAction = { [weak self] in
+                print("티켓 삭제, index: ", indexPath.row, "title", self?.ticketData[indexPath.row].title ?? "")
+            }
             ticketCell.setData(model: ticketData[indexPath.row])
             return ticketCell
         default:
@@ -209,16 +218,19 @@ extension TicketBookVC: UICollectionViewDelegateFlowLayout {
     
     /// didSelectItemAt
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         //✅ Cell 클릭시 dimmedVC로 화면전환 -> 배경이 흐릿해지는 기능 구현
         //✅ Cell에서 눌린 티켓을 dimmedVC에서도 동일한 위치에 그려낼 수 있도록 Cell 클릭 시 해당하는 티켓의 frame을 넘겨줌
-        let dimmedVC = TicketBookDimmedVC()
-        dimmedVC.selectedIndex = indexPath.row
-        dimmedVC.ticketFrame = collectionView.cellForItem(at: indexPath)?.frame
-        dimmedVC.ticketImageString = ticketData[indexPath.row].posterImage
-        dimmedVC.exhibitionID = ticketData[indexPath.row].exhibitionID
-        dimmedVC.modalPresentationStyle = .overFullScreen
-        self.present(dimmedVC, animated: false, completion: nil)
+        if indexPath.section != 0 {
+            let dimmedVC = TicketBookDimmedVC()
+            dimmedVC.selectedIndex = indexPath.row
+            dimmedVC.ticketFrame = self.ticketCV.convert(collectionView.cellForItem(at: indexPath)?.frame ?? CGRect.zero, to: self.view.superview)
+            dimmedVC.ticketImageString = ticketData[indexPath.row].posterImage
+            dimmedVC.exhibitionID = ticketData[indexPath.row].exhibitionID
+            
+            dimmedVC.modalTransitionStyle = .crossDissolve
+            dimmedVC.modalPresentationStyle = .overFullScreen
+            self.present(dimmedVC, animated: false, completion: nil)
+        }
     }
 }
 

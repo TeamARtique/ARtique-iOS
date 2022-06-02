@@ -66,9 +66,9 @@ extension TicketBookDimmedVC {
         }
         
         ticketView.snp.makeConstraints {
-            $0.top.equalTo(Int(ticketFrame?.minY ?? 0) + 120)
-            $0.leading.equalTo(Int(ticketFrame?.minX ?? 0) + 20)
-            $0.width.equalTo(Int(ticketFrame?.width ?? 0) - 5)
+            $0.top.equalTo(Int(ticketFrame?.minY ?? 0) + 5)
+            $0.leading.equalTo(Int(ticketFrame?.minX ?? 0))
+            $0.width.equalTo(Int(ticketFrame?.width ?? 0) - 4)
             $0.height.equalTo(Int(ticketFrame?.height ?? 0) - 5)
         }
         
