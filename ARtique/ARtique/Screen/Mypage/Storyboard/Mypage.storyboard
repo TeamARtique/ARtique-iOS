@@ -65,13 +65,13 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author explanation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L3a-ZV-P9z">
-                                                <rect key="frame" x="155" y="58.999999999999993" width="96.666666666666686" height="14.666666666666664"/>
+                                                <rect key="frame" x="155" y="58.999999999999993" width="200" height="14.666666666666664"/>
                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeoR00" family="AppleSDGothicNeoR00" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SNS URL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tdm-8x-Jyl">
-                                                <rect key="frame" x="155" y="85.666666666666657" width="44.333333333333343" height="14.666666666666671"/>
+                                                <rect key="frame" x="155" y="85.666666666666657" width="200" height="14.666666666666671"/>
                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeoR00" family="AppleSDGothicNeoR00" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -252,6 +252,7 @@
                                             <constraint firstItem="OZs-IY-53U" firstAttribute="top" secondItem="zvI-7u-RgZ" secondAttribute="bottom" id="Lru-Vd-TuV"/>
                                             <constraint firstItem="yIe-iF-4lH" firstAttribute="centerX" secondItem="JY0-Zu-ljX" secondAttribute="centerX" id="MDx-Da-WUy"/>
                                             <constraint firstItem="L3a-ZV-P9z" firstAttribute="top" secondItem="evU-8D-SZh" secondAttribute="bottom" constant="16" id="Ovb-Mx-iM3"/>
+                                            <constraint firstAttribute="trailing" secondItem="L3a-ZV-P9z" secondAttribute="trailing" constant="20" id="PGC-cq-uEx"/>
                                             <constraint firstItem="BCl-zb-U3q" firstAttribute="leading" secondItem="dMj-JT-LY7" secondAttribute="trailing" id="Rc0-ca-kOB"/>
                                             <constraint firstItem="dMj-JT-LY7" firstAttribute="leading" secondItem="JY0-Zu-ljX" secondAttribute="leading" constant="20" id="RxM-y2-xx4"/>
                                             <constraint firstAttribute="trailing" secondItem="zvI-7u-RgZ" secondAttribute="trailing" constant="20" id="Slf-Jf-bVL"/>
@@ -263,6 +264,7 @@
                                             <constraint firstItem="OZs-IY-53U" firstAttribute="top" secondItem="nqD-Kf-lHJ" secondAttribute="bottom" id="fWB-9F-0rt"/>
                                             <constraint firstItem="l1H-OH-h4p" firstAttribute="leading" secondItem="JY0-Zu-ljX" secondAttribute="leading" constant="20" id="gky-hg-dMu"/>
                                             <constraint firstItem="Tdm-8x-Jyl" firstAttribute="leading" secondItem="l1H-OH-h4p" secondAttribute="trailing" constant="35" id="h7h-b0-JxH"/>
+                                            <constraint firstAttribute="trailing" secondItem="Tdm-8x-Jyl" secondAttribute="trailing" constant="20" id="hcU-aF-Een"/>
                                             <constraint firstAttribute="trailing" secondItem="OZs-IY-53U" secondAttribute="trailing" id="jsV-HW-wn9"/>
                                             <constraint firstItem="BCl-zb-U3q" firstAttribute="top" secondItem="l1H-OH-h4p" secondAttribute="bottom" constant="24.666666666666657" id="lYu-mc-0Dd"/>
                                             <constraint firstItem="nqD-Kf-lHJ" firstAttribute="centerY" secondItem="dMj-JT-LY7" secondAttribute="centerY" id="mjU-sp-tMK"/>
@@ -270,6 +272,7 @@
                                             <constraint firstItem="OZs-IY-53U" firstAttribute="leading" secondItem="JY0-Zu-ljX" secondAttribute="leading" id="uNI-SZ-VmI"/>
                                             <constraint firstItem="dMj-JT-LY7" firstAttribute="top" secondItem="l1H-OH-h4p" secondAttribute="bottom" constant="25" id="w7F-wd-EPE"/>
                                             <constraint firstAttribute="bottom" secondItem="OZs-IY-53U" secondAttribute="bottom" id="y4S-bg-ddy"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZG0-xy-5DE" secondAttribute="trailing" constant="20" id="zJK-V7-aPQ"/>
                                         </constraints>
                                     </view>
                                 </subviews>

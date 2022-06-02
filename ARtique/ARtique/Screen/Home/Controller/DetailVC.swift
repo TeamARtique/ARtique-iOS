@@ -133,8 +133,11 @@ extension DetailVC {
         let edit = UIAction(title: "수정",
                             image: UIImage(named: "Edit"),
                             handler: { _ in
-            // TODO: - 전시 수정
-            print("수정")
+            guard let editVC = UIStoryboard(name: ExhibitionExplainVC.className, bundle: nil).instantiateViewController(withIdentifier: ExhibitionExplainVC.className) as? ExhibitionExplainVC else { return }
+            editVC.configureNaviBar(navigationController: self.navigationController!)
+            editVC.exhibitionData = self.exhibitionData?.exhibition
+            editVC.popupToastDelegate = self
+            self.navigationController?.pushViewController(editVC, animated: true)
         })
         let delete = UIAction(title: "삭제",
                               image: UIImage(named: "Delete"),
@@ -229,6 +232,11 @@ extension DetailVC {
     }
     
     private func configureTagStackView() {
+        tagStackView.arrangedSubviews
+            .forEach({
+                $0.removeFromSuperview()
+            })
+        
         exhibitionData?.exhibition.tag?.forEach { tagId in
             let tag = UIView()
             tag.layer.cornerRadius = 10
@@ -302,6 +310,13 @@ extension DetailVC {
             guard let exhibitionID = self.exhibitionID else { return }
             self.deleteExhibition(exhibitionID: exhibitionID)
         }
+    }
+}
+
+// MARK: - Protocol
+extension DetailVC: EditExhibitionDelegate {
+    func popupEditedToast() {
+        popupToast(toastType: .exhibitionEdited)
     }
 }
 

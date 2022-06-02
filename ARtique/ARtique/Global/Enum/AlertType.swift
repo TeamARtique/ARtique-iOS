@@ -17,12 +17,14 @@ enum AlertType: CaseIterable {
     case signupProgress
     case completeSignup
     case deleteTicketbook
+    case cancelEdit
 }
 
 extension AlertType {
     var alertImage: UIImage {
         switch self {
         case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .signupProgress, .deleteTicketbook:
+        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .signupProgress, .cancelEdit:
             return UIImage(named: "WarningAlert") ?? UIImage()
         case .registerExhibition, .seeTicketbook, .completeSignup:
             return UIImage(named: "ConfirmAlert") ?? UIImage()
@@ -71,13 +73,17 @@ extension AlertType {
             let text = "전시 티켓을\n정말 삭제하시겠습니까?"
             let attributedStr = NSMutableAttributedString(string: text)
             attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "삭제"))
+        case .cancelEdit:
+            let text = "지금까지 수정한 전시 내용이\n모두 삭제됩니다.\n정말 나가시겠습니까?"
+            let attributedStr = NSMutableAttributedString(string: text)
+            attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "모두 삭제"))
             return attributedStr
         }
     }
     
     var leftBtnLabel: String {
         switch self {
-        case .removeAllExhibition, .seeTicketbook:
+        case .removeAllExhibition, .seeTicketbook, .cancelEdit:
             return "나가기"
         case .removeAllPhotos:
             return "이전 단계"
@@ -92,7 +98,7 @@ extension AlertType {
     
     var rightBtnLabel: String {
         switch self {
-        case .removeAllExhibition, .removeAllPhotos:
+        case .removeAllExhibition, .removeAllPhotos, .cancelEdit:
             return "취소"
         case .registerExhibition:
             return "등록하기"
@@ -109,7 +115,7 @@ extension AlertType {
     
     var highlight: String {
         switch self {
-        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition:
+        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .cancelEdit:
             return "left"
         case .registerExhibition, .seeTicketbook, .signupProgress, .completeSignup, .deleteTicketbook:
             return "right"

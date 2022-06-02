@@ -1,5 +1,5 @@
 //
-//  PostExplainView.swift
+//  PostExplainVC.swift
 //  ARtique
 //
 //  Created by 황윤경 on 2022/03/22.
@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class PostExplainView: UIView {
+class PostExplainVC: UIViewController {
     @IBOutlet weak var artworkExplainCV: UICollectionView!
     
     var isKeyboardVisible = false
@@ -18,33 +18,16 @@ class PostExplainView: UIView {
     let cellWidth: CGFloat = 300
     let bag = DisposeBag()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setContentView()
-        configureCV()
-        bindNotificationCenter()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setContentView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         configureCV()
         bindNotificationCenter()
     }
 }
 
 // MARK: - Configure
-extension PostExplainView {
-    private func setContentView() {
-        guard let view = loadXibView(with: Identifiers.postExplainView) else { return }
-        view.backgroundColor = .clear
-        self.addSubview(view)
-        
-        view.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-    }
-    
+extension PostExplainVC {
     private func configureCV() {
         artworkExplainCV.register(UINib(nibName: Identifiers.artworkExplainCVC, bundle: nil), forCellWithReuseIdentifier: Identifiers.artworkExplainCVC)
         artworkExplainCV.dataSource = self
@@ -61,7 +44,7 @@ extension PostExplainView {
     }
 }
 // MARK: - Custom Methods
-extension PostExplainView {
+extension PostExplainVC {
     private func bindNotificationCenter() {
         NotificationCenter.default.addObserver(self, selector: #selector(scrollToFirstResponder), name: .changeFirstResponder, object: nil)
         
@@ -73,7 +56,7 @@ extension PostExplainView {
                     self.artworkExplainCV.snp.updateConstraints {
                         $0.top.equalToSuperview()
                     }
-                    self.layoutIfNeeded()
+                    self.view.layoutIfNeeded()
                 }
             })
             .disposed(by: bag)
@@ -85,7 +68,7 @@ extension PostExplainView {
                     self.artworkExplainCV.snp.updateConstraints {
                         $0.top.equalToSuperview().offset(69)
                     }
-                    self.layoutIfNeeded()
+                    self.view.layoutIfNeeded()
                 }
             })
             .disposed(by: bag)
@@ -98,7 +81,7 @@ extension PostExplainView {
 }
 
 // MARK: - UICollectionViewDataSource
-extension PostExplainView: UICollectionViewDataSource {
+extension PostExplainVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         NewExhibition.shared.artworks?.count ?? 0
     }
@@ -111,7 +94,7 @@ extension PostExplainView: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension PostExplainView: UICollectionViewDelegateFlowLayout {
+extension PostExplainVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 300, height: collectionView.frame.height)
     }
@@ -122,7 +105,7 @@ extension PostExplainView: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - UICollectionViewDelegate
-extension PostExplainView: UICollectionViewDelegate {
+extension PostExplainVC: UICollectionViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let cellWidthIncludeSpacing = cellWidth + 12
         var offset = targetContentOffset.pointee

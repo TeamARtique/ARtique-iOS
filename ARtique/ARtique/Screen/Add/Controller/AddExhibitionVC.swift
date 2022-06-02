@@ -18,11 +18,11 @@ class AddExhibitionVC: BaseVC {
     @IBOutlet weak var contentSV: UIScrollView!
   
     let exhibitionModel = NewExhibition.shared
-    let themeView = ThemeView()
-    let artworkSelectView = ArtworkSelectView()
-    let orderView = OrderView()
-    let postExplainView = PostExplainView()
-    let exhibitionExplainView = ExhibitionExplainView()
+    let themeView = UIStoryboard(name: ThemeVC.className, bundle: nil).instantiateViewController(withIdentifier: ThemeVC.className) as! ThemeVC
+    let artworkSelectView = UIStoryboard(name: ArtworkSelectVC.className, bundle: nil).instantiateViewController(withIdentifier: ArtworkSelectVC.className) as! ArtworkSelectVC
+    let orderView = UIStoryboard(name: OrderVC.className, bundle: nil).instantiateViewController(withIdentifier: OrderVC.className) as! OrderVC
+    let postExplainView = UIStoryboard(name: PostExplainVC.className, bundle: nil).instantiateViewController(withIdentifier: PostExplainVC.className) as! PostExplainVC
+    let exhibitionExplainView = UIStoryboard(name: ExhibitionExplainVC.className, bundle: nil).instantiateViewController(withIdentifier: ExhibitionExplainVC.className) as! ExhibitionExplainVC
     let bag = DisposeBag()
     let postArtworkGroup = DispatchGroup()
     
@@ -35,7 +35,6 @@ class AddExhibitionVC: BaseVC {
         configureContentSV()
         configureStackView()
         hideKeyboard()
-        setNotification()
     }
 }
 
@@ -109,11 +108,14 @@ extension AddExhibitionVC {
     }
     
     private func configureStackView() {
-        let registerProcessViews = [themeView,
-                                    artworkSelectView,
-                                    orderView,
-                                    postExplainView,
-                                    exhibitionExplainView]
+        orderView.artworkReorderDelegate = artworkSelectView
+        artworkSelectView.selectLimitDelegate = self
+        
+        let registerProcessViews = [themeView.view!,
+                                    artworkSelectView.view!,
+                                    orderView.view!,
+                                    postExplainView.view!,
+                                    exhibitionExplainView.view!]
         
         let stackView = UIStackView(arrangedSubviews: registerProcessViews)
         
@@ -137,10 +139,6 @@ extension AddExhibitionVC {
 
 // MARK: - Custom Methods
 extension AddExhibitionVC {
-    private func setNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(presentAlbumList), name: .whenAlbumListBtnSelected, object: nil)
-    }
-    
     private func setProgress(_ page: Int) {
         UIView.animate(withDuration: 0.3) {
             self.progress.constant = CGFloat(page) * self.progressIndicator.frame.width
@@ -158,8 +156,13 @@ extension AddExhibitionVC {
     private func reloadPage(_ page: Int) {
         switch page {
         case 1:
+            artworkSelectView.reloadContentView()
             artworkSelectView.configureViewTitle()
-            artworkSelectView.setPreviewImage([0,0])
+            let index
+            = artworkSelectView.selectedImages.count != 0
+            ? artworkSelectView.indexArr[artworkSelectView.selectedImages.count - 1]
+            : 0
+            artworkSelectView.setPreviewImage([0, index])
         case 2:
             orderView.selectedPhotoCV.reloadData()
             orderView.selectedPhotoCV.scrollToItem(at: [0,0], at: .top, animated: false)
@@ -173,13 +176,6 @@ extension AddExhibitionVC {
         default:
             break
         }
-    }
-    
-    @objc func presentAlbumList(_ notification: Notification) {
-        let albumListVC = UIStoryboard(name: Identifiers.albumListTVC, bundle: nil).instantiateViewController(withIdentifier: Identifiers.albumListTVC) as! AlbumListTVC
-        albumListVC.albumList = notification.object as! [PHAssetCollection]
-        
-        self.present(albumListVC, animated: true, completion: nil)
     }
     
     @objc func dismissAlert() {
@@ -201,7 +197,6 @@ extension AddExhibitionVC {
             artworkSelectView.galleryCV.deselectItem(at: $0, animated: false)
         })
         artworkSelectView.galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
-        NotificationCenter.default.post(name: .whenAlbumChanged, object: 0)
         dismiss(animated: false) {
             self.page -= 1
             self.configurePageView(self.page)
@@ -218,10 +213,11 @@ extension AddExhibitionVC {
         let posterView = UIView()
         view.insertSubview(posterView, at: 0)
         
+        let posterBase = exhibitionExplainView.posterBase ?? exhibitionModel.artworks?.first?.image
         let posterImage = PosterTheme()
         posterImage.translatesAutoresizingMaskIntoConstraints = false
         posterImage.configurePoster(themeId: PosterType.allCases[exhibitionModel.posterTheme ?? 0],
-                                    poster: exhibitionModel.artworks?.first?.image ?? UIImage(named: "DefaultPoster")!,
+                                    poster: posterBase ?? UIImage(named: "DefaultPoster")!,
                                     title: exhibitionModel.title ?? "",
                                     nickname: UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) ?? "ARTI",
                                     date: Date().toString())
@@ -252,6 +248,13 @@ extension AddExhibitionVC {
         NewExhibition.shared.posterTheme = nil
         NewExhibition.shared.tag = nil
         NewExhibition.shared.description = nil
+    }
+}
+
+// MARK: - Protocol
+extension AddExhibitionVC: ArtworkSelectDelegate {
+    func photoLimitToast() {
+        popupToast(toastType: .photoLimit)
     }
 }
 
@@ -342,7 +345,7 @@ extension AddExhibitionVC {
                 configurePageView(page)
                 for i in 0..<artworkSelectView.selectedImages.count {
                     let tmp = ArtworkData()
-                    tmp.image = artworkSelectView.selectedImages[i]
+                    tmp.image = artworkSelectView.selectedImages[i].image
                     tmp.index = i + 1
                     exhibitionModel.artworks?[i] = tmp
                 }

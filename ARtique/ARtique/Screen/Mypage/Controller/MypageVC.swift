@@ -92,7 +92,9 @@ extension MypageVC {
         profileImg.layer.cornerRadius = profileImg.frame.height / 2
         nickname.font = .AppleSDGothicSB(size: 17)
         explanation.font = .AppleSDGothicR(size: 12)
+        explanation.setLineBreakMode()
         snsUrl.font = .AppleSDGothicR(size: 12)
+        snsUrl.setLineBreakMode()
     }
     
     private func configureExhibitionCntBtn() {

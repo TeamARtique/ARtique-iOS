@@ -48,9 +48,6 @@
                                                 <state key="normal" backgroundImage="DefaultProfile">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
-                                                <connections>
-                                                    <action selector="setProfileImage:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Cjy-pY-wLn"/>
-                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GS2-4Q-sfk">
                                                 <rect key="frame" x="20" y="180" width="45" height="23"/>
@@ -107,7 +104,11 @@
                                                 <state key="normal" title="로그아웃"/>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="프로필 이미지 등록" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5p-cS-qcL">
-                                                <rect key="frame" x="146.66666666666666" y="143" width="82" height="14.666666666666657"/>
+                                                <rect key="frame" x="127.66666666666669" y="143" width="120" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="120" id="FnR-aW-zAv"/>
+                                                    <constraint firstAttribute="height" constant="20" id="bUC-rz-Rwa"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeoSB00" family="AppleSDGothicNeoSB00" pointSize="11"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -169,6 +170,7 @@
                         <outlet property="explanationTextView" destination="ibA-BK-QbZ" id="mjc-Qa-cKK"/>
                         <outlet property="nicknameTextField" destination="lsK-cZ-7f3" id="BtB-Ee-FPM"/>
                         <outlet property="profileImg" destination="YpF-fq-22h" id="CB2-OE-bgf"/>
+                        <outlet property="profileImgLabel" destination="e5p-cS-qcL" id="4he-sh-GCb"/>
                         <outlet property="snsTextField" destination="y6Z-fh-k1t" id="bwT-FH-Zwi"/>
                     </connections>
                 </viewController>

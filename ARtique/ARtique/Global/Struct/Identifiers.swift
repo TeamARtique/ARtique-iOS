@@ -15,6 +15,7 @@ struct Identifiers {
     static let searchSB = "Search"
     static let searchResultSB = "SearchResult"
     static let addSB = "AddExhibition"
+    static let posterSelectSB = "PosterSelect"
     static let mypageSB = "Mypage"
     static let profileEditSB = "ProfileEdit"
     static let arGallerySB = "ARGallery"
@@ -34,6 +35,7 @@ struct Identifiers {
     static let searchResultVC = "SearchResultVC"
     static let addExhibitionNC = "AddExhibitionNC"
     static let addExhibitionVC = "AddExhibitionVC"
+    static let posterSelectVC = "PosterSelectVC"
     static let mypageNC = "MypageNC"
     static let mypageVC = "MypageVC"
     static let profileEditVC = "ProfileEditVC"
@@ -64,11 +66,6 @@ struct Identifiers {
     static let exhibitionCVC = "ExhibitionCVC"
     
     //MARK: - View
-    static let themeView = "ThemeView"
-    static let orderView = "OrderView"
-    static let postExplainView = "PostExplainView"
-    static let exhibitionExplainView = "ExhibitionExplainView"
-    static let artworkSelectView = "ArtworkSelectView"
     static let posterTheme = "PosterTheme"
     static let toastView = "ToastView"
     static let artistProfileHeaderView = "ArtistProfileHeaderView"
