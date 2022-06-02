@@ -215,10 +215,11 @@ extension SignupVC {
     private func presentAlertWhenFirstView() {
         if isFirstView == true {
             Vibration.warning.vibrate()
-            popupAlertWithOneBtn(targetView: self,
-                                 alertType: .signupProgress,
-                                 image: nil,
-                                 rightBtnAction: #selector(dismissAlert))
+            popupAlert(targetView: self,
+                       alertType: .signupProgress,
+                       image: nil,
+                       leftBtnAction: nil,
+                       rightBtnAction: #selector(dismissAlert))
         }
     }
     
@@ -239,10 +240,11 @@ extension SignupVC {
                     UserDefaults.standard.set(true, forKey: UserDefaults.Keys.completeSignup)
                     
                     Vibration.success.vibrate()
-                    self.popupAlertWithOneBtn(targetView: self,
-                                              alertType: .completeSignup,
-                                              image: nil,
-                                              rightBtnAction: #selector(self.presentArtiqueTBC))
+                    self.popupAlert(targetView: self,
+                                    alertType: .completeSignup,
+                                    image: nil,
+                                    leftBtnAction: nil,
+                                    rightBtnAction: #selector(self.presentArtiqueTBC))
                 }
             case .requestErr(let res):
                 if let message = res as? String {
