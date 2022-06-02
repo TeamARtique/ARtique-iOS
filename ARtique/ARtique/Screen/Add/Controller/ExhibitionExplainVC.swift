@@ -22,6 +22,7 @@ class ExhibitionExplainVC: BaseVC {
     @IBOutlet weak var tagCV: UICollectionView!
     @IBOutlet weak var isPublic: UISwitch!
     
+    var popupToastDelegate: EditExhibitionDelegate?
     var exhibitionData: ExhibitionModel?
     let bag = DisposeBag()
     let exhibitionModel = NewExhibition.shared
@@ -37,8 +38,10 @@ class ExhibitionExplainVC: BaseVC {
         configureView()
         bindUI()
         bindNotificationCenter()
-        // 전시 수정 - configure
+        
+        // 전시 수정 시 기존 데이터 세팅
         configureContent()
+        hideKeyboard()
     }
 }
 
@@ -51,11 +54,11 @@ extension ExhibitionExplainVC {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBtn"),
                                                            style: .plain,
                                                            target: self,
-                                                           action: #selector(popVC))
+                                                           action: #selector(didTapBackBtn))
         
         navigationItem.rightBarButtonItem = navigationController.roundFilledBarBtn(title: "완료",
                                                                                     target: self,
-                                                                                    action: #selector(popVC))
+                                                                                    action: #selector(didTapEditDoneBtn))
     }
     
     private func configureContent() {
@@ -231,6 +234,49 @@ extension ExhibitionExplainVC {
             })
             .disposed(by: bag)
     }
+    
+    @objc func didTapEditDoneBtn() {
+        if titleTextField.text == ""
+            || exhibitionExplainTextView.textColor == .gray2
+            || tagCV.indexPathsForSelectedItems?.count == 0
+            || categoryCV.indexPathsForSelectedItems?.count == 0 {
+            popupToast(toastType: .chooseAll)
+        } else {
+            let editedExhibition = EditedExhibitionData(title: titleTextField.text!,
+                                                        posterImage: exhibitionModel.posterImage ?? UIImage(),
+                                                        description: exhibitionExplainTextView.text,
+                                                        tag: selectedTags(),
+                                                        category: (categoryCV.indexPathsForSelectedItems?.first?.row ?? 0) + 1,
+                                                        isPublic: isPublic.isOn)
+            guard let exhibitionID = exhibitionData?.exhibitionId else { return }
+            putEditExhibition(exhibitionID: exhibitionID, exhibitionData: editedExhibition)
+        }
+    }
+    
+    @objc func didTapBackBtn() {
+        if titleTextField.text != exhibitionData?.title
+            || exhibitionExplainTextView.text != exhibitionData?.description
+            || selectedTags() != exhibitionData?.tag
+            || categoryCV.indexPathsForSelectedItems?.first?.row != exhibitionData?.category {
+            popupAlert(targetView: self,
+                       alertType: .cancelEdit,
+                       image: nil,
+                       leftBtnAction: #selector(editCancel),
+                       rightBtnAction: #selector(dismissAlert))
+        } else {
+            popVC()
+        }
+    }
+    
+    @objc func dismissAlert() {
+        dismiss(animated: false, completion: nil)
+    }
+    
+    @objc func editCancel() {
+        dismiss(animated: false) {
+            self.popVC()
+        }
+    }
 }
 
 // MARK: - SelectPoster Delegate
@@ -238,6 +284,26 @@ extension ExhibitionExplainVC: SelectPoster {
     func selectPoster(with image: UIImage) {
         posterBase = image
         posterCV.reloadData()
+    }
+}
+
+protocol EditExhibitionDelegate {
+    func popupEditedToast()
+}
+
+// MARK: - Network
+extension ExhibitionExplainVC {
+    private func putEditExhibition(exhibitionID: Int, exhibitionData: EditedExhibitionData) {
+        ExhibitionDetailAPI.shared.editExhibition(exhibitionID: exhibitionID, exhibitionData: exhibitionData) { [weak self] networkResult in
+            guard let self = self else { return }
+            switch networkResult {
+            case .success:
+                self.popupToastDelegate?.popupEditedToast()
+                self.popVC()
+            default:
+                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
     }
 }
 
