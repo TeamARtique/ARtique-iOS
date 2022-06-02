@@ -93,6 +93,18 @@ extension UIViewController {
         present(alert, animated: false, completion: nil)
     }
     
+    /// 확인 버튼 한개만 있는 커스텀 Alert
+    func popupAlertWithOneBtn(targetView: UIViewController, alertType: AlertType, image: UIImage?, rightBtnAction: Selector) {
+        guard let alert = UIStoryboard(name: Identifiers.alertSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.alertVC) as? AlertVC else { return }
+        alert.configureAlert(targetView: targetView,
+                             alertType: alertType,
+                             image: image,
+                             leftBtnAction: nil,
+                             rightBtnAction: rightBtnAction)
+        alert.modalPresentationStyle = .overFullScreen
+        present(alert, animated: false, completion: nil)
+    }
+    
     func popupToast(toastType: ToastType) {
         let toastView = ToastView(frame: CGRect(x: 20, y: -46, width: UIScreen.main.bounds.size.width - 40, height: 46))
         toastView.message.text = toastType.message
