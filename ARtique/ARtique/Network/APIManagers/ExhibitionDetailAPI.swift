@@ -43,4 +43,18 @@ extension ExhibitionDetailAPI {
             }
         }
     }
+    
+    func editExhibition(exhibitionID: Int, exhibitionData: EditedExhibitionData, completion: @escaping(NetworkResult<Any>) -> (Void)) {
+        provider.request(.editExhibition(exhibitionID: exhibitionID, exhibitionData: exhibitionData)) { result in
+            switch result {
+            case .success(let response):
+                let statusCode = response.statusCode
+                let data = response.data
+                
+                completion(self.judgeStatus(type: DetailModel.self, by: statusCode, data))
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
