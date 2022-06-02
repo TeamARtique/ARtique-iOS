@@ -25,6 +25,9 @@ class TicketHeaderCVC: BaseCell {
         $0.backgroundColor = .gray1
     }
     
+    // MARK: Variables
+    var isDeleteMode: Bool = false
+    
     override func setupViews() {
         configureUI()
     }
@@ -59,5 +62,11 @@ extension TicketHeaderCVC {
 extension TicketHeaderCVC {
     func setData(model: [TicketListModel]) {
         titleLabel.text = (UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) ?? "") + "ARTI\n벌써 \(model.count)개의 티켓을 모았어요!"
+    }
+    
+    /// 삭제 모드에 따라 뷰의 opacity를 설정하는 메서드
+    func setUpCellbyMode(isDeleteMode: Bool) {
+        thumbImageView.layer.opacity = isDeleteMode ? 0.5 : 1
+        titleLabel.layer.opacity = isDeleteMode ? 0.5 : 1
     }
 }

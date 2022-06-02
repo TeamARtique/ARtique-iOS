@@ -11,6 +11,7 @@ import Moya
 enum TicketService {
     case createTicketbook(exhibitionID: Int)
     case getTicketbook
+    case deleteTicketbook(exhibitionID: Int)
 }
 
 extension TicketService: TargetType {
@@ -24,6 +25,8 @@ extension TicketService: TargetType {
             return "/ticket/\(exhibitionID)"
         case .getTicketbook:
             return "/ticket"
+        case .deleteTicketbook(let exhibitionID):
+            return "/ticket/delete/\(exhibitionID)"
         }
     }
     
@@ -33,12 +36,14 @@ extension TicketService: TargetType {
             return .post
         case .getTicketbook:
             return .get
+        case .deleteTicketbook:
+            return .delete
         }
     }
     
     var task: Task {
         switch self {
-        case .createTicketbook, .getTicketbook:
+        case .createTicketbook, .getTicketbook, .deleteTicketbook:
             return .requestPlain
         }
     }

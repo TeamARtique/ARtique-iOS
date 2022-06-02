@@ -48,6 +48,7 @@ class HomeVC: TabmanViewController {
         setCategoryPageDataSource()
         setCategoryIndicator()
         setNotification()
+        presentSignUpVC()
     }
     
     @IBAction func showSearchView(_ sender: Any) {
@@ -128,6 +129,20 @@ extension HomeVC {
         self.customNavigationBar.layer.opacity = 1
         self.categoryTBTopAnchor.constant = 68
         self.view.layoutIfNeeded()
+    }
+    
+    /// 회원가입 추가 절차가 마무리되지 않았을 때 회원가입 VC를 띄우는 함수
+    private func presentSignUpVC() {
+        if UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) == "" {
+            guard let signupVC = UIStoryboard(name: Identifiers.signupSB, bundle: nil).instantiateViewController(withIdentifier: SignupVC.className) as? SignupVC else { return }
+            
+            signupVC.hidesBottomBarWhenPushed = true
+            signupVC.isFirstView = true
+            
+            let navi = UINavigationController(rootViewController: signupVC)
+            navi.modalPresentationStyle = .fullScreen
+            self.present(navi, animated: true)
+        }
     }
 }
 

@@ -53,8 +53,13 @@ class TicketCVC: BaseCell {
         $0.isHidden = true
     }
     
+    // MARK: Variables
+    var isDeleteMode: Bool?
+    var tapDeleteBtnAction: (() -> ())?
+    
     override func setupViews() {
         configrueUI()
+        setUpDeleteBtn()
     }
 }
 
@@ -158,5 +163,17 @@ extension TicketCVC {
                 }
             }
         }
+    }
+    
+    /// 셀 삭제 버튼을 눌렀을 때 액션 set 메서드
+    private func setUpDeleteBtn() {
+        deleteBtn.press(vibrate: true, for: .touchUpInside) {
+            self.tapDeleteBtnAction?()
+        }
+    }
+    
+    /// 삭제 모드에 따라 삭제 버튼의 숨김상태를 설정하는 메서드
+    func setUpDeleteBtnbyMode(isDeleteMode: Bool) {
+        deleteBtn.isHidden = isDeleteMode ? false : true
     }
 }
