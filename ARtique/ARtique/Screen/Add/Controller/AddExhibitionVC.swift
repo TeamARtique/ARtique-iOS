@@ -109,6 +109,7 @@ extension AddExhibitionVC {
     
     private func configureStackView() {
         orderView.delegate = artworkSelectView
+        artworkSelectView.delegate = self
         
         let registerProcessViews = [themeView.view!,
                                     artworkSelectView.view!,
@@ -196,7 +197,6 @@ extension AddExhibitionVC {
             artworkSelectView.galleryCV.deselectItem(at: $0, animated: false)
         })
         artworkSelectView.galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
-        NotificationCenter.default.post(name: .whenAlbumChanged, object: 0)
         dismiss(animated: false) {
             self.page -= 1
             self.configurePageView(self.page)
@@ -248,6 +248,13 @@ extension AddExhibitionVC {
         NewExhibition.shared.posterTheme = nil
         NewExhibition.shared.tag = nil
         NewExhibition.shared.description = nil
+    }
+}
+
+// MARK: - Protocol
+extension AddExhibitionVC: ArtworkSelectDelegate {
+    func photoLimitToast() {
+        popupToast(toastType: .photoLimit)
     }
 }
 

@@ -36,6 +36,7 @@ class ArtworkSelectVC: BaseVC {
     var indexArr = [Int]()
     var selectedImages = [SelectedImage]()
     var isEdited: Bool = false
+    var delegate: ArtworkSelectDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -338,6 +339,11 @@ extension ArtworkSelectVC: ReorderArtwork {
     }
 }
 
+// MARK: - Protocol
+protocol ArtworkSelectDelegate {
+    func photoLimitToast()
+}
+
 // MARK: - UICollectionViewDataSource
 extension ArtworkSelectVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -395,8 +401,11 @@ extension ArtworkSelectVC: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if selectedImages.count >= exhibitionModel.gallerySize ?? 0
-            || (spiner.isAnimating && indexPath != selectedIndex)
+        if selectedImages.count >= exhibitionModel.gallerySize ?? 0 {
+            delegate?.photoLimitToast()
+            return false
+        }
+        if (spiner.isAnimating && indexPath != selectedIndex)
             || preview.scrollView.isDecelerating {
             return false
         } else {
