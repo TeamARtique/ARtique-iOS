@@ -39,6 +39,9 @@ class SignupVC: BaseVC {
         bindUI()
         bindNotificationCenter()
         hideKeyboard()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         presentAlertWhenFirstView()
     }
     
@@ -184,7 +187,10 @@ extension SignupVC {
     }
     
     /// ARtiqueTBC로 present 화면전환을 하는 메서드
+    @objc
     private func presentArtiqueTBC() {
+        dismissAlert()
+        
         let tbc = ARtiqueTBC()
         tbc.modalPresentationStyle = .fullScreen
         self.navigationController?.present(tbc, animated: true, completion: nil)
@@ -192,11 +198,16 @@ extension SignupVC {
     
     /// SignupVC가 사용자에게 보여지는 첫 뷰가 되어야 할 때 회원가입을 마저 완료해달라는 알럿을 띄우는 메서드
     private func presentAlertWhenFirstView() {
-        
-        // TODO: 알럿을 커스텀 알럿창으로 변경
         if isFirstView == true {
-            makeAlert(title: "회원가입을 완료해주세요", message: "", okTitle: "확인")
+            popupAlertWithOneBtn(targetView: self,
+                                 alertType: .signupProgress,
+                                 image: nil,
+                                 rightBtnAction: #selector(dismissAlert))
         }
+    }
+    
+    @objc func dismissAlert() {
+        dismiss(animated: false, completion: nil)
     }
 }
 
@@ -210,10 +221,10 @@ extension SignupVC {
                 if let data = data as? ArtistProfileModel {
                     UserDefaults.standard.set(data.user.nickname, forKey: UserDefaults.Keys.nickname)
                     UserDefaults.standard.set(true, forKey: UserDefaults.Keys.completeSignup)
-                    // TODO: 알럿을 커스텀 알럿창으로 변경
-                    self.makeAlert(title: "회원가입 완료", okAction: { _ in
-                        self.presentArtiqueTBC()
-                    }, completion: nil)
+                    self.popupAlertWithOneBtn(targetView: self,
+                                              alertType: .completeSignup,
+                                              image: nil,
+                                              rightBtnAction: #selector(self.presentArtiqueTBC))
                 }
             case .requestErr(let res):
                 if let message = res as? String {
