@@ -23,7 +23,7 @@ class HomeListVC: BaseVC {
         super.viewDidLoad()
         
         // 자동로그인
-        requestRenewalToken(refreshToken: UserDefaults.standard.string(forKey: UserDefaults.Keys.refreshToken) ?? "")
+        requestRenewalToken() { _ in }
         setUpTV()
         setNotification()
     }
@@ -110,6 +110,10 @@ extension HomeListVC {
                 if let message = res as? String {
                     print(message)
                     self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                } else if res is Bool {
+                    self?.requestRenewalToken() { _ in
+                        self?.getExhibitionList(categoryID: categoryID)
+                    }
                 }
             default:
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")

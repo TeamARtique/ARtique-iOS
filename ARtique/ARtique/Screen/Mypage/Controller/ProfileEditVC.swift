@@ -138,11 +138,7 @@ extension ProfileEditVC {
 extension ProfileEditVC {
     @objc func bindRightBarButton() {
         dismissKeyboard()
-        let artist = ArtistModel(nickname: nicknameTextField.text ?? "",
-                                 profileImage: profileImg.backgroundImage(for: .normal) ?? UIImage(),
-                                 introduction: explanationTextView.textColor == .label ? explanationTextView.text : "",
-                                 website: snsTextField.text ?? "")
-        editProfile(artist: artist)
+        setArtistDataAndEditProfile()
     }
     
     private func openGallery() {
@@ -178,6 +174,14 @@ extension ProfileEditVC {
             self.present(accessConfirmVC, animated: true, completion: nil)
         }
     }
+    
+    private func setArtistDataAndEditProfile() {
+        let artist = ArtistModel(nickname: nicknameTextField.text ?? "",
+                                 profileImage: profileImg.backgroundImage(for: .normal) ?? UIImage(),
+                                 introduction: explanationTextView.textColor == .label ? explanationTextView.text : "",
+                                 website: snsTextField.text ?? "")
+        editProfile(artist: artist)
+    }
 }
 
 // MARK: - Network
@@ -195,6 +199,10 @@ extension ProfileEditVC {
                 if let message = res as? String {
                     print(message)
                     self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                } else if res is Bool {
+                    self.requestRenewalToken() { _ in
+                        self.setArtistDataAndEditProfile()
+                    }
                 }
             default:
                 self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")

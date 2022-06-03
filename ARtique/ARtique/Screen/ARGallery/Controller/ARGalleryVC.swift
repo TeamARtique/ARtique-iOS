@@ -293,6 +293,10 @@ extension ARGalleryVC {
                 if let message = res as? String {
                     print(message)
                     self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                } else if res is Bool {
+                    self?.requestRenewalToken() { _ in
+                        self?.getARGalleryInfo(exhibitionID: exhibitionID)
+                    }
                 }
             default:
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
@@ -312,6 +316,10 @@ extension ARGalleryVC {
                 if let message = res as? String {
                     print(message)
                     self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                } else if res is Bool {
+                    self?.requestRenewalToken() { _ in
+                        self?.createTicketBook(exhibitionID: exhibitionID)
+                    }
                 }
             default:
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
@@ -331,6 +339,10 @@ extension ARGalleryVC {
                 if let message = res as? String {
                     print(message)
                     self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                } else if res is Bool {
+                    self?.requestRenewalToken() { _ in
+                        self?.likeExhibition(exhibitionID: exhibitionID)
+                    }
                 }
             default:
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
