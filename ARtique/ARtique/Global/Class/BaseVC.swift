@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 class BaseVC: UIViewController {
     
     // MARK: Properties
     let screenWidth = UIScreen.main.bounds.size.width
     let screenHeight = UIScreen.main.bounds.size.height
+    let storage = Storage.storage()
     var navigator: Navigator?
     
     // MARK: Life Cycles
@@ -85,6 +87,31 @@ extension BaseVC {
             return topPadding ?? height
         } else {
             return height
+        }
+    }
+    
+    /// firebaseStorage에 이미지를 업로드하고, 업로드된 URL String을 escaping closure로 반환하는 메서드
+    func uploadImageToFirebaseStorage(image: UIImage, completion: @escaping (String) -> ()) {
+        var data = Data()
+        data = image.jpegData(compressionQuality: 1.0)!
+        
+        let filePath = "/\(Int.random(in: 1..<1000000000000))"
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/png"
+        
+        DispatchQueue.global().async {
+            self.storage.reference().child(filePath).putData(data, metadata: metaData) { (metaData, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                } else {
+                    self.storage.reference().child(filePath).downloadURL { (url, error) in
+                        if let url = url {
+                            completion(String(describing: url))
+                        }
+                    }
+                }
+            }
         }
     }
 }
