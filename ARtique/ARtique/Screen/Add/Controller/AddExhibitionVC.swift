@@ -245,26 +245,6 @@ extension AddExhibitionVC {
         }
     }
     
-    /// 포스터 이미지를 생성하는 메서드
-    private func makePoster() -> UIImage {
-        let posterView = UIView()
-        view.insertSubview(posterView, at: 0)
-        
-        let posterBase = exhibitionExplainView.posterBase ?? exhibitionModel.artworks?.first?.image
-        let posterImage = PosterTheme()
-        posterImage.translatesAutoresizingMaskIntoConstraints = false
-        posterImage.configurePoster(themeId: PosterType.allCases[exhibitionModel.posterTheme ?? 0],
-                                    poster: posterBase ?? UIImage(named: "DefaultPoster")!,
-                                    title: exhibitionModel.title ?? "",
-                                    nickname: UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) ?? "ARTI",
-                                    date: Date().toString())
-        posterView.insertSubview(posterImage.contentView, at: 0)
-        exhibitionModel.posterImage = posterImage.contentView.transfromToImage() ?? UIImage(named: "DefaultPoster")!
-        posterView.removeFromSuperview()
-        
-        return exhibitionModel.posterImage ?? UIImage()
-    }
-    
     /// 전시 상세뷰로 이동하는 메서드
     private func showDetail(with exhibitionId: Int) {
         guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
@@ -361,9 +341,13 @@ extension AddExhibitionVC {
                 && exhibitionModel.posterTheme != nil
                 && exhibitionModel.description != exhibitionExplainView.exhibitionExplainPlaceholder
                 && exhibitionModel.tag != nil {
+                let posterBase = exhibitionExplainView.posterBase ?? exhibitionModel.artworks?.first?.image
+                exhibitionModel.posterImage = makePoster(posterBase: posterBase ?? UIImage(named: "DefaultPoster")!,
+                                                         posterTheme: exhibitionModel.posterTheme ?? 0,
+                                                         title: exhibitionModel.title ?? "")
                 popupAlert(targetView: self,
                            alertType: .registerExhibition,
-                           image: makePoster(),
+                           image: exhibitionModel.posterImage,
                            leftBtnAction: #selector(dismissAlert),
                            rightBtnAction: #selector(registerExhibition))
             } else {

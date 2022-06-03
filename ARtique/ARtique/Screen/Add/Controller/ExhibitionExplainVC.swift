@@ -31,6 +31,7 @@ class ExhibitionExplainVC: BaseVC {
     let titleMaxCnt = 25
     let textViewMaxCnt = 100
     var posterBase: UIImage?
+    let postPosterGroup = DispatchGroup()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,9 +66,8 @@ extension ExhibitionExplainVC {
         guard let exhibitionData = exhibitionData else { return }
         titleTextField.text = exhibitionData.title
         setTitleMaxCnt(exhibitionData.title?.count ?? 0)
-        // TODO: - 서버에 포스터 원본 이미지 추가 후 변수명 변경
-//        let poster = try? Data(contentsOf: URL(string: exhibitionData.변수명 ?? "")!)
-//        posterBase = (poster != nil) ? UIImage(data: poster!) : UIImage(named: "DefaultPoster")
+        let poster = try? Data(contentsOf: URL(string: exhibitionData.posterOriginalImage ?? "")!)
+        posterBase = (poster != nil) ? UIImage(data: poster!) : UIImage(named: "DefaultPoster")
         exhibitionExplainTextView.text = exhibitionData.description
         exhibitionExplainTextView.textColor = .label
         setTextViewMaxCnt(exhibitionData.description?.count ?? 0)
@@ -242,14 +242,38 @@ extension ExhibitionExplainVC {
             || categoryCV.indexPathsForSelectedItems?.count == 0 {
             popupToast(toastType: .chooseAll)
         } else {
-            let editedExhibition = EditedExhibitionData(title: titleTextField.text!,
-                                                        posterImage: exhibitionModel.posterImage ?? UIImage(),
-                                                        description: exhibitionExplainTextView.text,
-                                                        tag: selectedTags(),
-                                                        category: (categoryCV.indexPathsForSelectedItems?.first?.row ?? 0) + 1,
-                                                        isPublic: isPublic.isOn)
-            guard let exhibitionID = exhibitionData?.exhibitionId else { return }
-            putEditExhibition(exhibitionID: exhibitionID, exhibitionData: editedExhibition)
+            LoadingHUD.show()
+            var posterURL = ""
+            var posterOriginalURL = ""
+            let posterBase = posterBase != nil ? posterBase : UIImage(named: "DefaultPoster")!
+            let poster = makePoster(posterBase: posterBase!,
+                                    posterTheme: posterCV.indexPathsForSelectedItems?.first?.row ?? 0,
+                                    title: titleTextField.text!)
+            
+            postPosterGroup.enter()
+            uploadImageToFirebaseStorage(image: poster) { url in
+                posterURL = url
+                self.postPosterGroup.leave()
+            }
+            
+            postPosterGroup.enter()
+            uploadImageToFirebaseStorage(image: posterBase!) { url in
+                posterOriginalURL = url
+                self.postPosterGroup.leave()
+            }
+            
+            postPosterGroup.notify(queue: .main) {
+                let editedExhibition = EditedExhibitionData(title: self.titleTextField.text!,
+                                                            posterURL: posterURL,
+                                                            posterOriginalURL: posterOriginalURL,
+                                                            posterTheme: self.posterCV.indexPathsForSelectedItems?.first?.row ?? 0,
+                                                            description: self.exhibitionExplainTextView.text,
+                                                            tag: self.selectedTags(),
+                                                            category: (self.categoryCV.indexPathsForSelectedItems?.first?.row ?? 0) + 1,
+                                                            isPublic: self.isPublic.isOn)
+                guard let exhibitionID = self.exhibitionData?.exhibitionId else { return }
+                self.putEditExhibition(exhibitionID: exhibitionID, exhibitionData: editedExhibition)
+            }
         }
     }
     
@@ -298,9 +322,21 @@ extension ExhibitionExplainVC {
             guard let self = self else { return }
             switch networkResult {
             case .success:
+                LoadingHUD.hide()
                 self.popupToastDelegate?.popupEditedToast()
                 self.popVC()
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    LoadingHUD.hide()
+                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                } else if res is Bool {
+                    self.requestRenewalToken() { _ in
+                        self.putEditExhibition(exhibitionID: exhibitionID, exhibitionData: exhibitionData)
+                    }
+                }
             default:
+                LoadingHUD.hide()
                 self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         }
@@ -328,9 +364,10 @@ extension ExhibitionExplainVC: UICollectionViewDataSource {
         
         // 전시 수정 시 select cell 지정
         if let exhibitionData = exhibitionData {
-            categoryCV.selectItem(at: [0, exhibitionData.category!], animated: false, scrollPosition: .left)
+            categoryCV.selectItem(at: [0, exhibitionData.category!], animated: false, scrollPosition: .init())
+            posterCV.selectItem(at: [0, exhibitionData.posterTheme!], animated: false, scrollPosition: .init())
             exhibitionData.tag?.forEach {
-                tagCV.selectItem(at: [0, $0], animated: false, scrollPosition: .top)
+                tagCV.selectItem(at: [0, $0], animated: false, scrollPosition: .init())
             }
         }
         
@@ -391,6 +428,17 @@ extension ExhibitionExplainVC: UICollectionViewDelegate {
             return false
         } else {
             return true
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if exhibitionData == nil { return }
+        if collectionView == tagCV {
+            exhibitionData?.tag = selectedTags()
+        } else if collectionView == posterCV {
+            exhibitionData?.posterTheme = posterCV.indexPathsForSelectedItems?.first?.row
+        } else {
+            exhibitionData?.category = categoryCV.indexPathsForSelectedItems?.first?.row
         }
     }
 }
