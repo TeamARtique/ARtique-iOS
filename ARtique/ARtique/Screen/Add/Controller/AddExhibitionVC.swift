@@ -16,7 +16,7 @@ class AddExhibitionVC: BaseVC {
     @IBOutlet weak var progressIndicator: UIView!
     @IBOutlet weak var progress: NSLayoutConstraint!
     @IBOutlet weak var contentSV: UIScrollView!
-  
+    
     let exhibitionModel = NewExhibition.shared
     let themeView = UIStoryboard(name: ThemeVC.className, bundle: nil).instantiateViewController(withIdentifier: ThemeVC.className) as! ThemeVC
     let artworkSelectView = UIStoryboard(name: ArtworkSelectVC.className, bundle: nil).instantiateViewController(withIdentifier: ArtworkSelectVC.className) as! ArtworkSelectVC
@@ -27,6 +27,9 @@ class AddExhibitionVC: BaseVC {
     let postArtworkGroup = DispatchGroup()
     
     var page: Int = 0
+    var artworkImageArray: [String] = []
+    var artworkTitleArray: [String] = []
+    var artworkDescriptionArray: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +96,7 @@ extension AddExhibitionVC {
     private func configureContentSV() {
         contentSV.showsHorizontalScrollIndicator = false
         contentSV.contentSize = CGSize(width: view.frame.width * 5,
-                                        height: 0)
+                                       height: 0)
         contentSV.isScrollEnabled = false
     }
     
@@ -203,12 +206,46 @@ extension AddExhibitionVC {
         }
     }
     
+    /// 전시 등록을 위해 이미지를 스토리지에 저장하고 서버에 전시 등록 요청을 보내는 메서드
     @objc func registerExhibition() {
-        LoadingIndicator.showLoading()
+        LoadingHUD.show()
         self.dismiss(animated: false)
-        postExhibition(exhibitionData: NewExhibition.shared)
+        
+        let gallerySize = NewExhibition.shared.gallerySize ?? 0
+        
+        // 1️⃣ 포스터 이미지 Firebase Storage에 업로드
+        postArtworkGroup.enter()
+        uploadImageToFirebaseStorage(image: NewExhibition.shared.posterImage ?? UIImage()) { url in
+            NewExhibition.shared.posterURL = url
+            self.postArtworkGroup.leave()
+        }
+        
+        // 2️⃣ 포스터 원본이미지 Firebase Storage에 업로드
+        postArtworkGroup.enter()
+        uploadImageToFirebaseStorage(image: (exhibitionExplainView.posterBase ?? exhibitionModel.artworks?.first?.image) ?? UIImage()) { url in
+            NewExhibition.shared.posterOriginalURL = url
+            self.postArtworkGroup.leave()
+        }
+        
+        // 3️⃣ 아트워크 이미지들 차례대로 Firebase Storage에 업로드 && Array들에 값 저장
+        for i in 0...gallerySize - 1 {
+            self.postArtworkGroup.enter()
+            self.uploadImageToFirebaseStorage(image: NewExhibition.shared.artworks?[i].image ?? UIImage()) { [weak self] url in
+                NewExhibition.shared.artworkImages.append(url)
+                NewExhibition.shared.artworkTitles.append(NewExhibition.shared.artworks?[i].title ?? "")
+                NewExhibition.shared.artworkDescriptions.append(NewExhibition.shared.artworks?[i].description ?? "")
+                self?.postArtworkGroup.leave()
+            }
+        }
+        
+        // ⭕️ DispatchGroup(postArtworkGroup)의 모든 큐들이 종료되면
+        postArtworkGroup.notify(queue: .main) {
+            // ✅ 전시 등록 서버 호출
+            self.postRegisterExhibition(exhibitionData: NewExhibition.shared)
+        }
     }
     
+    /// 포스터 이미지를 생성하는 메서드
     private func makePoster() -> UIImage {
         let posterView = UIView()
         view.insertSubview(posterView, at: 0)
@@ -228,6 +265,7 @@ extension AddExhibitionVC {
         return exhibitionModel.posterImage ?? UIImage()
     }
     
+    /// 전시 상세뷰로 이동하는 메서드
     private func showDetail(with exhibitionId: Int) {
         guard let detailVC = UIStoryboard(name: Identifiers.detailSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.detailVC) as? DetailVC else { return }
         
@@ -238,6 +276,7 @@ extension AddExhibitionVC {
         self.present(navi, animated: true)
     }
     
+    /// 전시 등록 프로세스동안 NewExhibition Singleton에 저장된 데이터들을 지우는 메서드
     private func removeAllExhibitionData() {
         NewExhibition.shared.title = nil
         NewExhibition.shared.category = nil
@@ -260,66 +299,30 @@ extension AddExhibitionVC: ArtworkSelectDelegate {
 
 // MARK: - Network
 extension AddExhibitionVC {
-    private func postExhibition(exhibitionData: NewExhibition) {
-        RegisterAPI.shared.postExhibitionData(exhibitionData: exhibitionData) {[weak self] networkResult in
+    
+    /// 서버에 전시 등록 요청을 보내는 메서드
+    private func postRegisterExhibition(exhibitionData: NewExhibition) {
+        RegisterAPI.shared.postRegisterExhibition(exhibitionData: exhibitionData) {[weak self] networkResult in
             guard let self = self else { return }
             switch networkResult {
             case .success(let data):
                 if let data = data as? RegisterModel {
-                    exhibitionData.artworks?.forEach({ artworkData in
-                        self.postArtworkGroup.enter()
-                        self.postArtworks(exhibitionId: data.exhibition.exhibitionId ?? 0,
-                                          artwork: artworkData)
-                    })
-                    
-                    self.postArtworkGroup.notify(queue: .main) {
-                        self.getRegisterStatus(exhibitionID: data.exhibition.exhibitionId ?? 0)
+                    self.removeAllExhibitionData()
+                    self.showDetail(with: data.exhibition?.exhibitionId ?? 0)
+                    LoadingHUD.hide()
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    LoadingHUD.hide()
+                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                } else if res is Bool {
+                    self.requestRenewalToken() { _ in
+                        self.postRegisterExhibition(exhibitionData: NewExhibition.shared)
                     }
                 }
-            case .requestErr(let res):
-                if let message = res as? String {
-                    print(message)
-                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
-                }
             default:
-                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
-            }
-        }
-    }
-    
-    private func postArtworks(exhibitionId: Int, artwork: ArtworkData) {
-        RegisterAPI.shared.postArtworkData(exhibitionID: exhibitionId, artwork: artwork) {[weak self] networkResult in
-            guard let self = self else { return }
-            switch networkResult {
-            case .success(let exhibitionData):
-                if exhibitionData is ArtworkModel {
-                    self.postArtworkGroup.leave()
-                }
-            case .requestErr(let res):
-                if let message = res as? String {
-                    print(message)
-                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
-                }
-            default:
-                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
-            }
-        }
-    }
-    
-    private func getRegisterStatus(exhibitionID: Int) {
-        RegisterAPI.shared.getRegisterStatus(exhibitionID: exhibitionID) { [weak self] networkResult in
-            guard let self = self else { return }
-            switch networkResult {
-            case .success(_):
-                self.removeAllExhibitionData()
-                self.showDetail(with: exhibitionID)
-                LoadingIndicator.hideLoading()
-            case .requestErr(let res):
-                if let message = res as? String {
-                    print(message)
-                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
-                }
-            default:
+                LoadingHUD.hide()
                 self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         }

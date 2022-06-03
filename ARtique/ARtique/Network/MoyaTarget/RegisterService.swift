@@ -9,9 +9,7 @@ import Foundation
 import Moya
 
 enum RegisterService {
-    case postExhibitionData(exhibitionData: NewExhibition)
-    case postArtworkData(exhibitionID: Int, artwork: ArtworkData)
-    case getRegisterStatus(exhibitionID: Int)
+    case registerExhibitionData(exhibitionData: NewExhibition)
 }
 
 extension RegisterService: TargetType {
@@ -21,56 +19,37 @@ extension RegisterService: TargetType {
     
     var path: String {
         switch self {
-        case .postExhibitionData:
-            return "/exhibition"
-        case .postArtworkData(exhibitionID: let exhibitionID, artwork: _):
-            return "/exhibition/artwork/\(exhibitionID)"
-        case .getRegisterStatus(exhibitionID: let exhibitionID):
-            return "/exhibition/create/success/\(exhibitionID)"
+        case .registerExhibitionData:
+            return "/exhibition/new"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .postExhibitionData, .postArtworkData:
+        case .registerExhibitionData:
             return .post
-        case .getRegisterStatus:
-            return .get
         }
     }
     
     var task: Task {
         switch self {
-        case .postExhibitionData(let exhibitionData):
-            var multipartData = [MultipartFormData]()
-            
-            let image = exhibitionData.posterImage?.jpegData(compressionQuality: 1) ?? Data()
-            let imageData = MultipartFormData(provider: .data(image), name: "file", fileName: "image.png", mimeType: "image/png")
-            multipartData.append(imageData)
-            
-            for (key, values) in exhibitionData.exhibitionParam {
-                let formData = MultipartFormData(provider: .data("\(values)".data(using: .utf8)!), name: key)
-                multipartData.append(formData)
-            }
-            
-            return .uploadMultipart(multipartData)
-            
-        case .postArtworkData(exhibitionID: _, artwork: let artwork):
-            var multipartData = [MultipartFormData]()
-            
-            let image = artwork.image?.jpegData(compressionQuality: 1) ?? Data()
-            let imageData = MultipartFormData(provider: .data(image), name: "file", fileName: "image.png", mimeType: "image/png")
-            multipartData.append(imageData)
-            
-            for (key, values) in artwork.artworkParam {
-                let formData = MultipartFormData(provider: .data("\(values)".data(using: .utf8)!), name: key)
-                multipartData.append(formData)
-            }
-            
-            return .uploadMultipart(multipartData)
-            
-        case .getRegisterStatus:
-            return .requestPlain
+        case .registerExhibitionData(let exhibitionData):
+            let body: [String: Any] = [
+                "gallerySize": exhibitionData.gallerySize ?? 0,
+                "galleryTheme": exhibitionData.galleryTheme ?? 0,
+                "title": exhibitionData.title ?? "",
+                "category": exhibitionData.category ?? 0,
+                "posterImage": exhibitionData.posterURL ?? "",
+                "posterOriginalImage": exhibitionData.posterOriginalURL ?? "",
+                "posterTheme": exhibitionData.posterTheme ?? 0,
+                "description": exhibitionData.description ?? "",
+                "tag": exhibitionData.tag ?? [],
+                "isPublic": exhibitionData.isPublic ?? false,
+                "artworkImage": exhibitionData.artworkImages,
+                "artworkTitle": exhibitionData.artworkTitles,
+                "artworkDescription": exhibitionData.artworkDescriptions
+            ]
+            return .requestParameters(parameters: body, encoding: JSONEncoding.prettyPrinted)
         }
     }
     

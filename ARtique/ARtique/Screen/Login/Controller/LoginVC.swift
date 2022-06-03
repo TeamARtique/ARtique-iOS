@@ -116,6 +116,7 @@ extension LoginVC {
 // MARK: - Network
 extension LoginVC {
     private func requestKakaoLogin(refreshToken: String) {
+        LoadingHUD.show()
         AuthAPI.shared.kakaoLoginAPI(refreshToken: refreshToken, completion: { networkResult in
             switch networkResult {
             case .success(let res):
@@ -133,13 +134,16 @@ extension LoginVC {
                         /// 로그인시 ARTiqueTBC로 화면전환
                         self.presentToARtiqueTBC()
                     }
+                    LoadingHUD.hide()
                 }
             case .requestErr(let res):
                 if let message = res as? String {
                     print(message)
+                    LoadingHUD.hide()
                     self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
                 }
             default:
+                LoadingHUD.hide()
                 self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         })
