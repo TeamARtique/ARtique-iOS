@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--OnboardingVC-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="OnboardingVC" id="Y6W-OH-hqX" customClass="OnboardingVC" customModule="ARtique" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mht-TC-TeI">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2s1-nU-xw9">
+                                <rect key="frame" x="25" y="650.66666666666663" width="42" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="42" id="Ff2-Sa-yl3"/>
+                                    <constraint firstAttribute="height" constant="42" id="oBl-xY-X3p"/>
+                                </constraints>
+                            </button>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="i4O-cz-5Gf">
+                                <rect key="frame" x="110" y="659" width="155" height="25"/>
+                                <color key="pageIndicatorTintColor" systemColor="systemGray5Color"/>
+                                <color key="currentPageIndicatorTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </pageControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ked-2k-5zs">
+                                <rect key="frame" x="308" y="650.66666666666663" width="42" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="Bjy-Zr-Gji"/>
+                                    <constraint firstAttribute="width" constant="42" id="Ye0-xX-SJT"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2vS-QY-lq5">
+                                <rect key="frame" x="299" y="59" width="60" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="LeI-W1-Cb0"/>
+                                    <constraint firstAttribute="width" constant="60" id="gsN-AZ-B9x"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="mht-TC-TeI" secondAttribute="bottom" id="1jk-gs-Fny"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="2vS-QY-lq5" secondAttribute="trailing" constant="16" id="9cY-5W-PKL"/>
+                            <constraint firstItem="mht-TC-TeI" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="FV2-hP-s5t"/>
+                            <constraint firstItem="i4O-cz-5Gf" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Mgr-8V-786"/>
+                            <constraint firstItem="2vS-QY-lq5" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="15" id="Nvj-Gj-9P0"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="i4O-cz-5Gf" secondAttribute="bottom" constant="94" id="PM9-j5-L8a"/>
+                            <constraint firstItem="Ked-2k-5zs" firstAttribute="centerY" secondItem="2s1-nU-xw9" secondAttribute="centerY" id="Pze-Fd-ca5"/>
+                            <constraint firstItem="mht-TC-TeI" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="cls-kg-h2K"/>
+                            <constraint firstItem="2s1-nU-xw9" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="25" id="mlz-56-BSg"/>
+                            <constraint firstItem="mht-TC-TeI" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="t8L-HZ-ETq"/>
+                            <constraint firstItem="i4O-cz-5Gf" firstAttribute="centerY" secondItem="2s1-nU-xw9" secondAttribute="centerY" id="vqI-Mh-Eoh"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Ked-2k-5zs" secondAttribute="trailing" constant="25" id="wsp-T7-xkh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="holderView" destination="mht-TC-TeI" id="Spx-jg-0Hw"/>
+                        <outlet property="nextBtnWidth" destination="Ye0-xX-SJT" id="REX-CX-9Y8"/>
+                        <outlet property="nextButton" destination="Ked-2k-5zs" id="rKQ-U5-KQ7"/>
+                        <outlet property="pageController" destination="i4O-cz-5Gf" id="Vnq-sv-uVp"/>
+                        <outlet property="prevButton" destination="2s1-nU-xw9" id="F3T-oG-9SF"/>
+                        <outlet property="skipButton" destination="2vS-QY-lq5" id="uBE-9h-3JD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="106.40394088669952"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
