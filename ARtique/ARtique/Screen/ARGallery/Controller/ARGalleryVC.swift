@@ -219,10 +219,12 @@ extension ARGalleryVC {
     
     /// TicketBookVC로 화면전환하는 메서드
     @objc func goToTicketbookVC() {
-        let ticketbookVC = TicketBookVC()
-        ticketbookVC.naviType = .dismissToRoot
+        guard let ticketBookVC = UIStoryboard(name: Identifiers.ticketBookSB, bundle: nil).instantiateViewController(withIdentifier: TicketBookVC.className) as? TicketBookVC else { return }
+
+        ticketBookVC.hidesBottomBarWhenPushed = true
+        ticketBookVC.naviType = .dismissToRoot
         
-        let navi = UINavigationController(rootViewController: ticketbookVC)
+        let navi = UINavigationController(rootViewController: ticketBookVC)
         navi.modalPresentationStyle = .fullScreen
         
         self.dismiss(animated: false, completion: {

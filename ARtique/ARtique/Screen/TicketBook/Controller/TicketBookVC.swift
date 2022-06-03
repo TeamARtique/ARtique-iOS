@@ -32,9 +32,9 @@ class TicketBookVC: BaseVC {
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNaviBar(naviType: naviType ?? .push)
         setUpDelegate()
         registerCell()
-        setOptionalData()
         configureUI()
         getTicketbookList()
         NotificationCenter.default.addObserver(self, selector: #selector(shareToInstagramStory(_:)), name: .whenTicketShareBtnDidTap, object: nil)
@@ -46,9 +46,9 @@ extension TicketBookVC {
     
     /// 네비게이션 바를 구성하는 메서드
     private func configureNaviBar(naviType: NaviType) {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.layer.backgroundColor = UIColor.white.cgColor
+        navigationController?.additionalSafeAreaInsets.top = 8
         navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.isTranslucent = true
         navigationItem.title = "티켓북"
         if isDeleteMode {
             navigationItem.rightBarButtonItem = navigationController?.roundFilledBarBtn(title: "완료",
@@ -82,7 +82,7 @@ extension TicketBookVC {
     private func configureUI() {
         view.addSubview(ticketCV)
         ticketCV.snp.makeConstraints {
-            $0.top.equalTo(view.snp.top)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }
@@ -146,13 +146,6 @@ extension TicketBookVC {
             } else {
                 makeAlert(title: "알림", message: "인스타그램이 필요합니다", okTitle: "확인")
             }
-        }
-    }
-    
-    private func setOptionalData() {
-        if let navi = naviType {
-            naviType = navi
-            configureNaviBar(naviType: navi)
         }
     }
     
