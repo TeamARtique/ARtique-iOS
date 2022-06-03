@@ -45,6 +45,7 @@ extension BaseVC {
         UserDefaults.standard.set(userEmail, forKey: UserDefaults.Keys.userEmail)
         UserDefaults.standard.set(nickname, forKey: UserDefaults.Keys.nickname)
         UserDefaults.standard.set(refreshToken, forKey: UserDefaults.Keys.refreshToken)
+        UserDefaults.standard.set(false, forKey: UserDefaults.Keys.reconnect)
     }
     
     /// 로그아웃 시 유저의 정보를 삭제하는 메서드
@@ -54,6 +55,7 @@ extension BaseVC {
         UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.nickname)
         UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.refreshToken)
         UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.completeSignup)
+        UserDefaults.standard.set(true, forKey: UserDefaults.Keys.reconnect)
     }
     
     @objc func popVC() {
