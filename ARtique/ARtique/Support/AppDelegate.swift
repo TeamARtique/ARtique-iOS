@@ -8,6 +8,7 @@
 import UIKit
 import KakaoSDKCommon
 import KakaoSDKAuth
+import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.rootViewController = SplashVC()
         self.window = window
         window.makeKeyAndVisible()
+        
+        /// Firebase init
+        FirebaseApp.configure()
         
         return true
     }
