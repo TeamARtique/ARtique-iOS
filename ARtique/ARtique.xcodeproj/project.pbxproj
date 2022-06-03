@@ -18,9 +18,9 @@
 		23144217280C4040007DB53C /* SearchResult.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23144216280C4040007DB53C /* SearchResult.storyboard */; };
 		23144219280C4053007DB53C /* SearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23144218280C4053007DB53C /* SearchResultVC.swift */; };
 		231D2BD32847D9C400DB471F /* SelectedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D2BD22847D9C400DB471F /* SelectedImage.swift */; };
+		231D2BD62849066F00DB471F /* EditedExhibitionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D2BD52849066F00DB471F /* EditedExhibitionData.swift */; };
 		231D2BD9284926E600DB471F /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D2BD8284926E600DB471F /* OnboardingVC.swift */; };
 		231D2BDB2849296300DB471F /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 231D2BDA2849296300DB471F /* Onboarding.storyboard */; };
-		231D2BD62849066F00DB471F /* EditedExhibitionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D2BD52849066F00DB471F /* EditedExhibitionData.swift */; };
 		231EF8512763DCF4008218CC /* PlaneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231EF8502763DCF4008218CC /* PlaneVC.swift */; };
 		232E76D82813F91200E7CF39 /* ExhibitionCntBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232E76D72813F91200E7CF39 /* ExhibitionCntBtn.swift */; };
 		232E76DC281406E700E7CF39 /* NoneExhibition.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 232E76DB281406E700E7CF39 /* NoneExhibition.storyboard */; };
@@ -182,9 +182,6 @@
 		3358C55F2837985800A46D61 /* TicketBookDimmedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358C55E2837985800A46D61 /* TicketBookDimmedVC.swift */; };
 		33644D32284894C60029FF77 /* Vibrate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33644D31284894C60029FF77 /* Vibrate.swift */; };
 		33644D3A28493DD70029FF77 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33644D3928493DD70029FF77 /* GoogleService-Info.plist */; };
-		33644D3D28493E5D0029FF77 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 33644D3C28493E5D0029FF77 /* FirebaseAnalytics */; };
-		33644D3F28493E5D0029FF77 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 33644D3E28493E5D0029FF77 /* FirebaseMessaging */; };
-		33644D4128493E5D0029FF77 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 33644D4028493E5D0029FF77 /* FirebaseStorage */; };
 		33644D47284A3DD50029FF77 /* LoadingHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33644D46284A3DD50029FF77 /* LoadingHUD.swift */; };
 		3366F4572834453E0020C468 /* TicketCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3366F4562834453E0020C468 /* TicketCVC.swift */; };
 		3366F4592834455C0020C468 /* TicketHeaderCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3366F4582834455C0020C468 /* TicketHeaderCVC.swift */; };
@@ -214,9 +211,9 @@
 		23144216280C4040007DB53C /* SearchResult.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchResult.storyboard; sourceTree = "<group>"; };
 		23144218280C4053007DB53C /* SearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultVC.swift; sourceTree = "<group>"; };
 		231D2BD22847D9C400DB471F /* SelectedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedImage.swift; sourceTree = "<group>"; };
+		231D2BD52849066F00DB471F /* EditedExhibitionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditedExhibitionData.swift; sourceTree = "<group>"; };
 		231D2BD8284926E600DB471F /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
 		231D2BDA2849296300DB471F /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
-		231D2BD52849066F00DB471F /* EditedExhibitionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditedExhibitionData.swift; sourceTree = "<group>"; };
 		231EF8502763DCF4008218CC /* PlaneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneVC.swift; sourceTree = "<group>"; };
 		232E76D72813F91200E7CF39 /* ExhibitionCntBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCntBtn.swift; sourceTree = "<group>"; };
 		232E76DB281406E700E7CF39 /* NoneExhibition.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NoneExhibition.storyboard; sourceTree = "<group>"; };
@@ -406,9 +403,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33644D3F28493E5D0029FF77 /* FirebaseMessaging in Frameworks */,
-				33644D4128493E5D0029FF77 /* FirebaseStorage in Frameworks */,
-				33644D3D28493E5D0029FF77 /* FirebaseAnalytics in Frameworks */,
 				91832D0B8CCD458B4D6477F3 /* Pods_ARtique.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,15 +418,6 @@
 			path = Struct;
 			sourceTree = "<group>";
 		};
-		231D2BD7284926D600DB471F /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				231D2BD8284926E600DB471F /* OnboardingVC.swift */,
-				231D2BDA2849296300DB471F /* Onboarding.storyboard */,
-			);
-			path = Onboarding;
-			sourceTree = "<group>";
-		};
 		231D2BD42849061000DB471F /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,6 +425,15 @@
 				231D2BD52849066F00DB471F /* EditedExhibitionData.swift */,
 			);
 			path = Detail;
+			sourceTree = "<group>";
+		};
+		231D2BD7284926D600DB471F /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				231D2BD8284926E600DB471F /* OnboardingVC.swift */,
+				231D2BDA2849296300DB471F /* Onboarding.storyboard */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		232E76D62813F8C700E7CF39 /* Xib */ = {
@@ -1180,9 +1174,6 @@
 			);
 			name = ARtique;
 			packageProductDependencies = (
-				33644D3C28493E5D0029FF77 /* FirebaseAnalytics */,
-				33644D3E28493E5D0029FF77 /* FirebaseMessaging */,
-				33644D4028493E5D0029FF77 /* FirebaseStorage */,
 			);
 			productName = ARtique;
 			productReference = 3305F72D2754DABA00E6E08E /* ARtique.app */;
@@ -1214,7 +1205,6 @@
 			);
 			mainGroup = 3305F7242754DABA00E6E08E;
 			packageReferences = (
-				33644D3B28493E5C0029FF77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 3305F72E2754DABA00E6E08E /* Products */;
 			projectDirPath = "";
@@ -1702,35 +1692,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		33644D3B28493E5C0029FF77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		33644D3C28493E5D0029FF77 /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 33644D3B28493E5C0029FF77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		33644D3E28493E5D0029FF77 /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 33644D3B28493E5C0029FF77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
-		};
-		33644D4028493E5D0029FF77 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 33644D3B28493E5C0029FF77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3305F7252754DABA00E6E08E /* Project object */;
 }
