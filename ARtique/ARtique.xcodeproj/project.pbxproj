@@ -181,6 +181,8 @@
 		334E737127FB66B5001BAF25 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E737027FB66B5001BAF25 /* LoginVC.swift */; };
 		33530C47284A92BB009DF045 /* TicketBook.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33530C46284A92BB009DF045 /* TicketBook.storyboard */; };
 		33530C49284AA42B009DF045 /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 33530C48284AA42A009DF045 /* loading.gif */; };
+		33530C51284ABBDB009DF045 /* EmptyCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33530C50284ABBDB009DF045 /* EmptyCVC.swift */; };
+		33530C53284ABE5C009DF045 /* Adjusted+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33530C52284ABE5C009DF045 /* Adjusted+.swift */; };
 		3358C55F2837985800A46D61 /* TicketBookDimmedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358C55E2837985800A46D61 /* TicketBookDimmedVC.swift */; };
 		33644D32284894C60029FF77 /* Vibrate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33644D31284894C60029FF77 /* Vibrate.swift */; };
 		33644D3A28493DD70029FF77 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33644D3928493DD70029FF77 /* GoogleService-Info.plist */; };
@@ -380,6 +382,8 @@
 		3350596D27E5CC8C0088B708 /* GalleryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryType.swift; sourceTree = "<group>"; };
 		33530C46284A92BB009DF045 /* TicketBook.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TicketBook.storyboard; sourceTree = "<group>"; };
 		33530C48284AA42A009DF045 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
+		33530C50284ABBDB009DF045 /* EmptyCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCVC.swift; sourceTree = "<group>"; };
+		33530C52284ABE5C009DF045 /* Adjusted+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Adjusted+.swift"; sourceTree = "<group>"; };
 		3358C55E2837985800A46D61 /* TicketBookDimmedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDimmedVC.swift; sourceTree = "<group>"; };
 		33644D31284894C60029FF77 /* Vibrate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibrate.swift; sourceTree = "<group>"; };
 		33644D3928493DD70029FF77 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -694,6 +698,7 @@
 				33083C4228199B560038886B /* String+.swift */,
 				33BA558228310C3B00BC1658 /* UIIImage+.swift */,
 				23D4CFC22831839B0012765A /* Date+.swift */,
+				33530C52284ABE5C009DF045 /* Adjusted+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1104,6 +1109,7 @@
 			children = (
 				3366F4562834453E0020C468 /* TicketCVC.swift */,
 				3366F4582834455C0020C468 /* TicketHeaderCVC.swift */,
+				33530C50284ABBDB009DF045 /* EmptyCVC.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1401,6 +1407,7 @@
 				3305F78C2754E31000E6E08E /* ARtiqueTBC.swift in Sources */,
 				23C9AD692801CB2100DFF5A2 /* MypageClassificationTVC.swift in Sources */,
 				331C8E3A283CE2BE00764BB9 /* PublicAPI.swift in Sources */,
+				33530C53284ABE5C009DF045 /* Adjusted+.swift in Sources */,
 				33083C2B281984210038886B /* LoginDataModel.swift in Sources */,
 				2395FBA427563AA500D3DB77 /* DetailVC.swift in Sources */,
 				33083C4328199B560038886B /* String+.swift in Sources */,
@@ -1423,6 +1430,7 @@
 				33A463F3282B017C0049F0AF /* ARGalleryDataModel.swift in Sources */,
 				23071DB727ECF5A100949BA1 /* CategoryType.swift in Sources */,
 				33083C28281983010038886B /* BaseAPI.swift in Sources */,
+				33530C51284ABBDB009DF045 /* EmptyCVC.swift in Sources */,
 				3305F7852754E27300E6E08E /* TypeOfViewController.swift in Sources */,
 				33083C3C28198B0A0038886B /* BaseVC.swift in Sources */,
 				23C9AD662801C8BB00DFF5A2 /* ExhibitionCVC.swift in Sources */,
