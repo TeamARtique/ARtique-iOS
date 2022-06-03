@@ -23,4 +23,11 @@ target 'ARtique' do
   # Kakaotalk
   pod 'KakaoSDKUser', '~> 2.8.6'
   pod 'KakaoSDKAuth', '~> 2.8.6'
+
+  # Firebase
+  pod 'FirebaseAnalytics'
+  pod 'FirebaseStorage'
+  pod 'FirebaseMessaging'
+  pod 'Firebase/Core'
+
 end

@@ -17,10 +17,11 @@ class BaseAPI {
         }
         switch statusCode {
         case 200: return .success(decodeData.data ?? "None-Data")
-        case 400...409: return .requestErr(decodeData)
+        case 400: return .requestErr(decodeData)
+        case 401: return .requestErr(false)
+        case 402...409: return .requestErr(decodeData)
         case 500: return .serverErr
-        default:
-            return .networkFail
+        default: return .networkFail
         }
     }
 }

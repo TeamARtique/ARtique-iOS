@@ -161,6 +161,7 @@ extension MypageVC {
 // MARK: - Network
 extension MypageVC {
     private func getMypageData() {
+        LoadingHUD.show()
         MypageAPI.shared.getMypageData { [weak self] networkResult in
             guard let self = self else { return }
             switch networkResult {
@@ -174,8 +175,20 @@ extension MypageVC {
                     self.configureExhibitionCntBtn()
                     self.setTVHidden(myData: data)
                     self.exhibitionTV.reloadData()
+                    LoadingHUD.hide()
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    LoadingHUD.hide()
+                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                } else if res is Bool {
+                    self.requestRenewalToken() { _ in
+                        self.getMypageData()
+                    }
                 }
             default:
+                LoadingHUD.hide()
                 self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         }

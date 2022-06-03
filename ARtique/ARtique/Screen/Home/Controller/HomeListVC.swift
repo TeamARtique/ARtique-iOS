@@ -21,9 +21,6 @@ class HomeListVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // 자동로그인
-        requestRenewalToken(refreshToken: UserDefaults.standard.string(forKey: UserDefaults.Keys.refreshToken) ?? "")
         setUpTV()
         setNotification()
     }
@@ -94,6 +91,7 @@ extension HomeListVC{
 // MARK: - Network
 extension HomeListVC {
     private func getExhibitionList(categoryID: Int) {
+        LoadingHUD.show()
         HomeAPI.shared.getHomeExhibitionList(categoryID: categoryID) { [weak self] networkResult in
             switch networkResult {
             case .success(let list):
@@ -103,15 +101,22 @@ extension HomeListVC {
                         self.homeListData = list
                         self.reloadWithoutScroll(tableView: self.pageTV)
                         self.bindRefreshController()
+                        LoadingHUD.hide()
                     }
                 }
             case .requestErr(let res):
                 self?.getExhibitionList(categoryID: categoryID)
                 if let message = res as? String {
                     print(message)
+                    LoadingHUD.hide()
                     self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                } else if res is Bool {
+                    self?.requestRenewalToken() { _ in
+                        self?.getExhibitionList(categoryID: categoryID)
+                    }
                 }
             default:
+                LoadingHUD.hide()
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         }

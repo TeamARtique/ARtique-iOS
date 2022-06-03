@@ -268,6 +268,7 @@ extension TicketBookVC {
     
     /// 서버통신을 통해 티켓북 리스트를 받아오는 메서드
     private func getTicketbookList() {
+        LoadingHUD.show()
         TicketAPI.shared.requestTicketbookList(completion: { [weak self] networkResult in
             switch networkResult {
             case .success(let res):
@@ -275,13 +276,20 @@ extension TicketBookVC {
                     //✅ 받아온 데이터로 티켓북 리스트 구성
                     self?.ticketData = data
                     self?.ticketCV.reloadData()
+                    LoadingHUD.hide()
                 }
             case .requestErr(let res):
                 if let message = res as? String {
                     print(message)
+                    LoadingHUD.hide()
                     self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                } else if res is Bool {
+                    self?.requestRenewalToken() { _ in
+                        self?.getTicketbookList()
+                    }
                 }
             default:
+                LoadingHUD.hide()
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         })
@@ -289,17 +297,25 @@ extension TicketBookVC {
     
     /// 서버통신을 통해 특정 티켓북을 삭제하는 메서드
     private func deleteTicketBook(exhibitionID: Int) {
+        LoadingHUD.show()
         TicketAPI.shared.requestDeleteTicketbook(exhibitionID: exhibitionID, completion: { [weak self] networkResult in
             switch networkResult {
             case .success(_):
                 //✅ 티켓 삭제 성공시
                 self?.getTicketbookList()
+                LoadingHUD.hide()
             case .requestErr(let res):
                 if let message = res as? String {
                     print(message)
+                    LoadingHUD.hide()
                     self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                } else if res is Bool {
+                    self?.requestRenewalToken() { _ in
+                        self?.deleteTicketBook(exhibitionID: exhibitionID)
+                    }
                 }
             default:
+                LoadingHUD.hide()
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         })

@@ -182,6 +182,8 @@
 		334E737127FB66B5001BAF25 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E737027FB66B5001BAF25 /* LoginVC.swift */; };
 		3358C55F2837985800A46D61 /* TicketBookDimmedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358C55E2837985800A46D61 /* TicketBookDimmedVC.swift */; };
 		33644D32284894C60029FF77 /* Vibrate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33644D31284894C60029FF77 /* Vibrate.swift */; };
+		33644D3A28493DD70029FF77 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33644D3928493DD70029FF77 /* GoogleService-Info.plist */; };
+		33644D47284A3DD50029FF77 /* LoadingHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33644D46284A3DD50029FF77 /* LoadingHUD.swift */; };
 		3366F4572834453E0020C468 /* TicketCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3366F4562834453E0020C468 /* TicketCVC.swift */; };
 		3366F4592834455C0020C468 /* TicketHeaderCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3366F4582834455C0020C468 /* TicketHeaderCVC.swift */; };
 		3366F45B2834464E0020C468 /* KoPubWorld Batang Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3366F45A2834464E0020C468 /* KoPubWorld Batang Medium.ttf */; };
@@ -378,6 +380,8 @@
 		3350596D27E5CC8C0088B708 /* GalleryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryType.swift; sourceTree = "<group>"; };
 		3358C55E2837985800A46D61 /* TicketBookDimmedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDimmedVC.swift; sourceTree = "<group>"; };
 		33644D31284894C60029FF77 /* Vibrate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibrate.swift; sourceTree = "<group>"; };
+		33644D3928493DD70029FF77 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		33644D46284A3DD50029FF77 /* LoadingHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingHUD.swift; sourceTree = "<group>"; };
 		3366F4562834453E0020C468 /* TicketCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketCVC.swift; sourceTree = "<group>"; };
 		3366F4582834455C0020C468 /* TicketHeaderCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketHeaderCVC.swift; sourceTree = "<group>"; };
 		3366F45A2834464E0020C468 /* KoPubWorld Batang Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoPubWorld Batang Medium.ttf"; sourceTree = "<group>"; };
@@ -602,6 +606,7 @@
 		3305F7442754DB4A00E6E08E /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				33644D3928493DD70029FF77 /* GoogleService-Info.plist */,
 				3305F7A92754E61F00E6E08E /* Info.plist */,
 				3305F7302754DABA00E6E08E /* AppDelegate.swift */,
 				3305F7392754DABD00E6E08E /* Assets.xcassets */,
@@ -644,6 +649,7 @@
 				33083C392819893D0038886B /* TokenInfo.swift */,
 				33083C3D28198B4E0038886B /* CollectionView */,
 				3366F45C283447150020C468 /* UIImageViewWithMask.swift */,
+				33644D46284A3DD50029FF77 /* LoadingHUD.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -1170,6 +1176,8 @@
 			dependencies = (
 			);
 			name = ARtique;
+			packageProductDependencies = (
+			);
 			productName = ARtique;
 			productReference = 3305F72D2754DABA00E6E08E /* ARtique.app */;
 			productType = "com.apple.product-type.application";
@@ -1199,6 +1207,8 @@
 				ko,
 			);
 			mainGroup = 3305F7242754DABA00E6E08E;
+			packageReferences = (
+			);
 			productRefGroup = 3305F72E2754DABA00E6E08E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1255,6 +1265,7 @@
 				231D2BDB2849296300DB471F /* Onboarding.storyboard in Resources */,
 				3330E48E2846791400896138 /* Signup.storyboard in Resources */,
 				23B52A7927E0A54D00D6C339 /* AddExhibition.storyboard in Resources */,
+				33644D3A28493DD70029FF77 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1441,6 +1452,7 @@
 				238BFDD12809523D0018D256 /* ReorderTVC.swift in Sources */,
 				23E5A1392833CE2400DDD328 /* ArtworkData.swift in Sources */,
 				33083C3F28198F430038886B /* Navigator.swift in Sources */,
+				33644D47284A3DD50029FF77 /* LoadingHUD.swift in Sources */,
 				33083C3A2819893D0038886B /* TokenInfo.swift in Sources */,
 				239360FF2843E980009FD193 /* ProfileImageVC.swift in Sources */,
 				231D2BD32847D9C400DB471F /* SelectedImage.swift in Sources */,

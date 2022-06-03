@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 class BaseVC: UIViewController {
     
     // MARK: Properties
     let screenWidth = UIScreen.main.bounds.size.width
     let screenHeight = UIScreen.main.bounds.size.height
+    let storage = Storage.storage()
     var navigator: Navigator?
     
     // MARK: Life Cycles
@@ -45,6 +47,15 @@ extension BaseVC {
         UserDefaults.standard.set(refreshToken, forKey: UserDefaults.Keys.refreshToken)
     }
     
+    /// 로그아웃 시 유저의 정보를 삭제하는 메서드
+    func deleteUserInfo() {
+        UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.userID)
+        UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.userEmail)
+        UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.nickname)
+        UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.refreshToken)
+        UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.completeSignup)
+    }
+    
     @objc func popVC() {
         navigationController?.popViewController(animated: true)
     }
@@ -55,9 +66,13 @@ extension BaseVC {
     
     /// 홈을 rootViewController로 만들어주는 함수
     @objc func homeToRoot() {
-        guard let tabBar = UIStoryboard(name: Identifiers.tabBarSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.artiqueTBC) as? ARtiqueTBC else { return }
-        let ad = UIApplication.shared.delegate as! AppDelegate
-        ad.window?.rootViewController = tabBar
+        self.dismiss(animated: false) {
+            let scenes = UIApplication.shared.connectedScenes
+            let windowScene = scenes.first as? UIWindowScene
+            let window = windowScene?.windows.first(where: { $0.isKeyWindow })
+            
+            window?.rootViewController?.dismiss(animated: true)
+        }
     }
     
     /// 데이터만 reload 되고 tableView가 위로 스크롤 되지 않게 하는 함수
@@ -87,6 +102,31 @@ extension BaseVC {
             return height
         }
     }
+    
+    /// firebaseStorage에 이미지를 업로드하고, 업로드된 URL String을 escaping closure로 반환하는 메서드
+    func uploadImageToFirebaseStorage(image: UIImage, completion: @escaping (String) -> ()) {
+        var data = Data()
+        data = image.jpegData(compressionQuality: 1.0)!
+        
+        let filePath = "/\(Int.random(in: 1..<1000000000000))"
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/png"
+        
+        DispatchQueue.global().async {
+            self.storage.reference().child(filePath).putData(data, metadata: metaData) { (metaData, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                } else {
+                    self.storage.reference().child(filePath).downloadURL { (url, error) in
+                        if let url = url {
+                            completion(String(describing: url))
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Network
@@ -94,23 +134,37 @@ extension BaseVC {
     // TODO: 액세스 토큰 갱신 API 등 다른 VC에서도 호출되는 네트워크 코드를 여기다가 만들어줍니다.
     
     /// 엑세스 토큰 갱신, 자동로그인 요청 메서드
-    func requestRenewalToken(refreshToken: String) {
-        AuthAPI.shared.renewalTokenAPI(refreshToken: refreshToken, completion: { networkResult in
+    func requestRenewalToken(completion: @escaping (Bool) -> (Void)) {
+        AuthAPI.shared.renewalTokenAPI(refreshToken: UserDefaults.standard.string(forKey: UserDefaults.Keys.refreshToken) ?? "", completion: { networkResult in
             switch networkResult {
             case .success(let res):
                 if let data = res as? Token {
                     TokenInfo.shared.accessToken = data.accessToken
+                    completion(true)
                 }
             case .requestErr(let res):
                 if let message = res as? String {
                     print(message)
-                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
-                    self.requestRenewalToken(refreshToken: UserDefaults.standard.string(forKey: UserDefaults.Keys.refreshToken) ?? "")
+                    self.requestRenewalToken() { _ in }
+                } else if res is Bool {
+                    // ⚠️[유효하지 않은 토큰 정보로 인해 statusCode가 401로 반환될 때]
+                    /// ➡️ 리프레시 토큰(30일)이 만료된 경우이므로 보안을 위해 강제 로그아웃 처리
+                    /// ❎ 로그아웃시 저장된 Userdefaults 삭제 후 로그인 창으로 이동
+                    self.logoutAndPresentToLoginVC()
                 }
             default:
                 self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         })
+    }
+    
+    /// 로그아웃을 시키는 메서드
+    func logoutAndPresentToLoginVC() {
+        /// ❎ 로그아웃시 저장된 Userdefaults 삭제 후 로그인 창으로 이동
+        self.deleteUserInfo()
+        let loginVC = LoginVC()
+        loginVC.modalPresentationStyle = .fullScreen
+        self.present(loginVC, animated: true, completion: nil)
     }
 }
 
