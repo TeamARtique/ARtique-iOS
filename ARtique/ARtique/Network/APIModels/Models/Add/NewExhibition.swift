@@ -13,6 +13,8 @@ class NewExhibition {
     
     var title: String?
     var posterImage: UIImage?
+    var posterOriginalURL: String?
+    var posterURL: String?
     var posterTheme: Int?
     var description: String?
     var tag: [Int]?
@@ -21,6 +23,9 @@ class NewExhibition {
     var galleryTheme: Int?
     var isPublic: Bool?
     var artworks: [ArtworkData]?
+    var artworkImages: [String] = []
+    var artworkTitles: [String] = []
+    var artworkDescriptions: [String] = []
     
     private init() { }
 }

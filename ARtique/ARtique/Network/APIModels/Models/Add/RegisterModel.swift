@@ -8,5 +8,6 @@
 import Foundation
 
 struct RegisterModel: Codable {
-    let exhibition: ExhibitionModel
+    let exhibition: ExhibitionModel?
+    let artworks: [ArtworkModel]
 }

@@ -11,6 +11,8 @@ struct ExhibitionModel: Codable {
     var exhibitionId: Int?
     var title: String?
     var posterImage: String?
+    var posterOriginalImage: String?
+    var posterTheme: Int?
     var artist: Artist?
     var like: Like?
     var bookmark: Bookmark?
