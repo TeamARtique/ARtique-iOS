@@ -183,6 +183,7 @@
 		33644D3D28493E5D0029FF77 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 33644D3C28493E5D0029FF77 /* FirebaseAnalytics */; };
 		33644D3F28493E5D0029FF77 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 33644D3E28493E5D0029FF77 /* FirebaseMessaging */; };
 		33644D4128493E5D0029FF77 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 33644D4028493E5D0029FF77 /* FirebaseStorage */; };
+		33644D47284A3DD50029FF77 /* LoadingHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33644D46284A3DD50029FF77 /* LoadingHUD.swift */; };
 		3366F4572834453E0020C468 /* TicketCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3366F4562834453E0020C468 /* TicketCVC.swift */; };
 		3366F4592834455C0020C468 /* TicketHeaderCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3366F4582834455C0020C468 /* TicketHeaderCVC.swift */; };
 		3366F45B2834464E0020C468 /* KoPubWorld Batang Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3366F45A2834464E0020C468 /* KoPubWorld Batang Medium.ttf */; };
@@ -377,6 +378,7 @@
 		3358C55E2837985800A46D61 /* TicketBookDimmedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDimmedVC.swift; sourceTree = "<group>"; };
 		33644D31284894C60029FF77 /* Vibrate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibrate.swift; sourceTree = "<group>"; };
 		33644D3928493DD70029FF77 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		33644D46284A3DD50029FF77 /* LoadingHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingHUD.swift; sourceTree = "<group>"; };
 		3366F4562834453E0020C468 /* TicketCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketCVC.swift; sourceTree = "<group>"; };
 		3366F4582834455C0020C468 /* TicketHeaderCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketHeaderCVC.swift; sourceTree = "<group>"; };
 		3366F45A2834464E0020C468 /* KoPubWorld Batang Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoPubWorld Batang Medium.ttf"; sourceTree = "<group>"; };
@@ -637,6 +639,7 @@
 				33083C392819893D0038886B /* TokenInfo.swift */,
 				33083C3D28198B4E0038886B /* CollectionView */,
 				3366F45C283447150020C468 /* UIImageViewWithMask.swift */,
+				33644D46284A3DD50029FF77 /* LoadingHUD.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -1439,6 +1442,7 @@
 				238BFDD12809523D0018D256 /* ReorderTVC.swift in Sources */,
 				23E5A1392833CE2400DDD328 /* ArtworkData.swift in Sources */,
 				33083C3F28198F430038886B /* Navigator.swift in Sources */,
+				33644D47284A3DD50029FF77 /* LoadingHUD.swift in Sources */,
 				33083C3A2819893D0038886B /* TokenInfo.swift in Sources */,
 				239360FF2843E980009FD193 /* ProfileImageVC.swift in Sources */,
 				231D2BD32847D9C400DB471F /* SelectedImage.swift in Sources */,
