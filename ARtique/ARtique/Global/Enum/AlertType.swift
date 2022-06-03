@@ -23,8 +23,7 @@ enum AlertType: CaseIterable {
 extension AlertType {
     var alertImage: UIImage {
         switch self {
-        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .signupProgress, .deleteTicketbook:
-        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .signupProgress, .cancelEdit:
+        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .signupProgress, .cancelEdit, .deleteTicketbook:
             return UIImage(named: "WarningAlert") ?? UIImage()
         case .registerExhibition, .seeTicketbook, .completeSignup:
             return UIImage(named: "ConfirmAlert") ?? UIImage()
@@ -73,6 +72,7 @@ extension AlertType {
             let text = "전시 티켓을\n정말 삭제하시겠습니까?"
             let attributedStr = NSMutableAttributedString(string: text)
             attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "삭제"))
+            return attributedStr
         case .cancelEdit:
             let text = "지금까지 수정한 전시 내용이\n모두 삭제됩니다.\n정말 나가시겠습니까?"
             let attributedStr = NSMutableAttributedString(string: text)
