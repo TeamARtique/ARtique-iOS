@@ -66,9 +66,9 @@ extension BaseVC {
     
     /// 홈을 rootViewController로 만들어주는 함수
     @objc func homeToRoot() {
-        guard let tabBar = UIStoryboard(name: Identifiers.tabBarSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.artiqueTBC) as? ARtiqueTBC else { return }
-        let ad = UIApplication.shared.delegate as! AppDelegate
-        ad.window?.rootViewController = tabBar
+        self.dismiss(animated: false) {
+            UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
+        }
     }
     
     /// 데이터만 reload 되고 tableView가 위로 스크롤 되지 않게 하는 함수
