@@ -10,7 +10,7 @@ import Lottie
 import Then
 import SnapKit
 
-class SplashVC: UIViewController {
+class SplashVC: BaseVC {
     let splash = AnimationView(name: "splash")
         .then {
             $0.contentMode = .scaleAspectFill
@@ -42,6 +42,7 @@ extension SplashVC {
             
             if UserDefaults.standard.string(forKey: UserDefaults.Keys.refreshToken) != nil {
                 window.rootViewController = ARtiqueTBC()
+                self.requestRenewalToken() { _ in }
             } else {
                 window.rootViewController = LoginVC()
             }
