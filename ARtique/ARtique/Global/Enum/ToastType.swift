@@ -14,6 +14,8 @@ enum ToastType: String {
     case deleteExhibition
     case choosePoster
     case exhibitionEdited
+    case logout
+    case withdrawal
 }
 
 extension ToastType {
@@ -31,12 +33,16 @@ extension ToastType {
             return "변경할 포스터 이미지를 선택해주세요"
         case .exhibitionEdited:
             return "전시 정보가 수정되었습니다."
+        case .logout:
+            return "로그아웃 되었습니다."
+        case .withdrawal:
+            return "회원 탈퇴가 완료되었습니다."
         }
     }
     
     var topOffset: CGFloat {
         switch self {
-        case .choosePoster, .exhibitionEdited:
+        case .choosePoster, .exhibitionEdited, .logout, .withdrawal:
             return 62
         default:
             return 106

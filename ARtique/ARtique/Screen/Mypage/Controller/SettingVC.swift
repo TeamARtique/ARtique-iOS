@@ -38,6 +38,7 @@ class SettingVC: BaseVC {
         configureLayout()
         configureNaviBar()
         configureContentView()
+        bindButtonsAction()
     }
 }
 
@@ -80,5 +81,75 @@ extension SettingVC {
     
     private func configureContentView() {
         view.backgroundColor = .white
+    }
+    
+    private func bindButtonsAction() {
+        logoutBtn.addTarget(self, action: #selector(checkLogout), for: .touchUpInside)
+        withdrawalBtn.addTarget(self, action: #selector(checkWithdrawal), for: .touchUpInside)
+    }
+}
+
+// MARK: - Custom Methods
+extension SettingVC {
+    @objc func checkLogout() {
+        popupAlert(targetView: self,
+                   alertType: .logout,
+                   image: nil,
+                   leftBtnAction: #selector(logout),
+                   rightBtnAction: #selector(dismissAlert))
+    }
+    
+    @objc func checkWithdrawal() {
+        popupAlert(targetView: self,
+                   alertType: .withdrawal,
+                   image: nil,
+                   leftBtnAction: #selector(withdrawal),
+                   rightBtnAction: #selector(dismissAlert))
+    }
+    
+    @objc func logout() {
+        dismiss(animated: false) {
+            self.logoutAndPresentToLoginVC()
+        }
+    }
+    
+    @objc func withdrawal() {
+        dismiss(animated: false) {
+            self.postWithdrawal()
+        }
+    }
+    
+    @objc func dismissAlert() {
+        dismiss(animated: false, completion: nil)
+    }
+}
+
+// MARK: - Network
+extension SettingVC {
+    private func postWithdrawal() {
+        LoadingHUD.show()
+        MypageAPI.shared.postWithdrawal { [weak self] networkResult in
+            guard let self = self else { return }
+            switch networkResult {
+            case .success:
+                LoadingHUD.hide()
+                self.logoutAndPresentToLoginVC()
+                let ad = UIApplication.shared.delegate as! AppDelegate
+                ad.window?.rootViewController?.popupToast(toastType: .withdrawal)
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    LoadingHUD.hide()
+                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                } else if res is Bool {
+                    self.requestRenewalToken() { _ in
+                        self.postWithdrawal()
+                    }
+                }
+            default:
+                LoadingHUD.hide()
+                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
     }
 }

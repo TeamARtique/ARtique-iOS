@@ -18,12 +18,14 @@ enum AlertType: CaseIterable {
     case completeSignup
     case deleteTicketbook
     case cancelEdit
+    case withdrawal
+    case logout
 }
 
 extension AlertType {
     var alertImage: UIImage {
         switch self {
-        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .signupProgress, .deleteTicketbook, .cancelEdit:
+        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .signupProgress, .deleteTicketbook, .cancelEdit, .withdrawal, .logout:
             return UIImage(named: "WarningAlert") ?? UIImage()
         case .registerExhibition, .seeTicketbook, .completeSignup:
             return UIImage(named: "ConfirmAlert") ?? UIImage()
@@ -78,6 +80,15 @@ extension AlertType {
             let attributedStr = NSMutableAttributedString(string: text)
             attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "모두 삭제"))
             return attributedStr
+        case .withdrawal:
+            let text = "회원 탈퇴 시, 모든 정보가 삭제되며\n복구되지 않습니다.\n정말 탈퇴하시겠습니까?"
+            let attributedStr = NSMutableAttributedString(string: text)
+            attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "모든 정보가 삭제"))
+            return attributedStr
+        case .logout:
+            let text = "로그아웃 하시겠습니까?"
+            let attributedStr = NSMutableAttributedString(string: text)
+            return attributedStr
         }
     }
     
@@ -93,12 +104,16 @@ extension AlertType {
             return "삭제하기"
         case .signupProgress, .completeSignup:
             return ""
+        case .withdrawal:
+            return "탈퇴하기"
+        case .logout:
+            return "로그아웃"
         }
     }
     
     var rightBtnLabel: String {
         switch self {
-        case .removeAllExhibition, .removeAllPhotos, .cancelEdit:
+        case .removeAllExhibition, .removeAllPhotos, .cancelEdit, .withdrawal, .logout:
             return "취소"
         case .registerExhibition:
             return "등록하기"
@@ -115,7 +130,7 @@ extension AlertType {
     
     var highlight: String {
         switch self {
-        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .cancelEdit:
+        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .cancelEdit, .withdrawal, .logout:
             return "left"
         case .registerExhibition, .seeTicketbook, .signupProgress, .completeSignup, .deleteTicketbook:
             return "right"

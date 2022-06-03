@@ -404,6 +404,7 @@ extension DetailVC {
     }
     
     private func deleteExhibition(exhibitionID: Int) {
+        LoadingHUD.show()
         ExhibitionDetailAPI.shared.deleteExhibition(exhibitionID: exhibitionID) { [weak self] networkResult in
             switch networkResult {
             case .success(let res):
@@ -417,11 +418,25 @@ extension DetailVC {
                         default:
                             self?.homeToRoot()
                         }
-                        UIApplication.shared.windows.first!.rootViewController?.popupToast(toastType: .deleteExhibition)
+                        LoadingHUD.hide()
+                        let ad = UIApplication.shared.delegate as! AppDelegate
+                        ad.window?.rootViewController?.popupToast(toastType: .deleteExhibition)
+                    }
+                }
+                
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    LoadingHUD.hide()
+                    self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                } else if res is Bool {
+                    self?.requestRenewalToken() { _ in
+                        self?.deleteExhibition(exhibitionID: exhibitionID)
                     }
                 }
                 
             default:
+                LoadingHUD.hide()
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         }
