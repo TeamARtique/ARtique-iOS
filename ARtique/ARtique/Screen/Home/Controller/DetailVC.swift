@@ -323,6 +323,7 @@ extension DetailVC: EditExhibitionDelegate {
 // MARK: - Network
 extension DetailVC {
     private func getExhibitionData(exhibitionID: Int) {
+        LoadingHUD.show()
         ExhibitionDetailAPI.shared.getExhibitionData(exhibitionID: exhibitionID) { [weak self] networkResult in
             switch networkResult {
             case .success(let data):
@@ -330,11 +331,13 @@ extension DetailVC {
                     self?.exhibitionData = data
                     self?.configureNaviData()
                     self?.configureExhibitionData()
+                    LoadingHUD.hide()
                 }
             case .requestErr(let res):
                 self?.getExhibitionData(exhibitionID: exhibitionID)
                 if let message = res as? String {
                     print(message)
+                    LoadingHUD.hide()
                     self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
                 } else if res is Bool {
                     self?.requestRenewalToken() { _ in
@@ -342,21 +345,25 @@ extension DetailVC {
                     }
                 }
             default:
+                LoadingHUD.hide()
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         }
     }
     
     private func likeExhibition(exhibitionID: Int) {
+        LoadingHUD.show()
         PublicAPI.shared.requestLikeExhibition(exhibitionID: exhibitionID, completion: { [weak self] networkResult in
             switch networkResult {
             case .success(let res):
                 if let data = res as? Liked {
                     self?.likeBtn.isSelected = data.isLiked ? true : false
+                    LoadingHUD.hide()
                 }
             case .requestErr(let res):
                 if let message = res as? String {
                     print(message)
+                    LoadingHUD.hide()
                     self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
                 } else if res is Bool {
                     self?.requestRenewalToken() { _ in
@@ -364,21 +371,25 @@ extension DetailVC {
                     }
                 }
             default:
+                LoadingHUD.hide()
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         })
     }
     
     private func bookmarkExhibition(exhibitionID: Int) {
+        LoadingHUD.show()
         PublicAPI.shared.requestBookmarkExhibition(exhibitionID: exhibitionID, completion: { [weak self] networkResult in
             switch networkResult {
             case .success(let res):
                 if let data = res as? Bookmarked {
                     self?.bookMarkBtn.isSelected = data.isBookmarked ? true : false
+                    LoadingHUD.hide()
                 }
             case .requestErr(let res):
                 if let message = res as? String {
                     print(message)
+                    LoadingHUD.hide()
                     self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
                 } else if res is Bool {
                     self?.requestRenewalToken() { _ in
@@ -386,6 +397,7 @@ extension DetailVC {
                     }
                 }
             default:
+                LoadingHUD.hide()
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         })

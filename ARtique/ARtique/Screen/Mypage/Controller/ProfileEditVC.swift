@@ -187,6 +187,7 @@ extension ProfileEditVC {
 // MARK: - Network
 extension ProfileEditVC {
     private func editProfile(artist: ArtistModel) {
+        LoadingHUD.show()
         MypageAPI.shared.editArtistProfile(artist: artist) { [weak self] networkResult in
             guard let self = self else { return }
             switch networkResult {
@@ -194,10 +195,12 @@ extension ProfileEditVC {
                 if let data = data as? ArtistProfileModel {
                     UserDefaults.standard.set(data.user.nickname, forKey: UserDefaults.Keys.nickname)
                     self.navigationController?.popViewController(animated: true)
+                    LoadingHUD.hide()
                 }
             case .requestErr(let res):
                 if let message = res as? String {
                     print(message)
+                    LoadingHUD.hide()
                     self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
                 } else if res is Bool {
                     self.requestRenewalToken() { _ in
@@ -205,6 +208,7 @@ extension ProfileEditVC {
                     }
                 }
             default:
+                LoadingHUD.hide()
                 self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         }

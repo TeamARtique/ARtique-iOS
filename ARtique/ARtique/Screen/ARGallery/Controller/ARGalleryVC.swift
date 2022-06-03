@@ -273,6 +273,7 @@ extension ARGalleryVC {
     
     /// Network 통신을 통해 AR 갤러리 정보를 받아오는 메서드
     private func getARGalleryInfo(exhibitionID: Int) {
+        LoadingHUD.show()
         GalleryAPI.shared.getARGalleryInfo(exhibitionID: exhibitionID, completion: { [weak self] networkResult in
             switch networkResult {
             case .success(let res):
@@ -288,10 +289,12 @@ extension ARGalleryVC {
                     self?.setupTitleText(maxValue: maxValue, artwork: data.artworks)
                     self?.downloadImageByRealData(maxValue: maxValue, artwork: data.artworks, frameIdentifier1: frameIdentifier1, frameIdentifier2: frameIdentifier2)
                     self?.likeBtn.isSelected = data.like.isLiked ? true : false
+                    LoadingHUD.hide()
                 }
             case .requestErr(let res):
                 if let message = res as? String {
                     print(message)
+                    LoadingHUD.hide()
                     self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
                 } else if res is Bool {
                     self?.requestRenewalToken() { _ in
@@ -299,6 +302,7 @@ extension ARGalleryVC {
                     }
                 }
             default:
+                LoadingHUD.hide()
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         })
@@ -306,15 +310,17 @@ extension ARGalleryVC {
     
     /// Network 통신을 통해 티켓북을 생성하는 메서드
     private func createTicketBook(exhibitionID: Int) {
+        LoadingHUD.show()
         TicketAPI.shared.requestCreateTicketbook(exhibitionID: exhibitionID, completion: { [weak self] networkResult in
             switch networkResult {
             case .success(let res):
                 if let data = res as? CreateTicketModel {
-                    print(data.exhibitionID)
+                    LoadingHUD.hide()
                 }
             case .requestErr(let res):
                 if let message = res as? String {
                     print(message)
+                    LoadingHUD.hide()
                     self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
                 } else if res is Bool {
                     self?.requestRenewalToken() { _ in
@@ -322,6 +328,7 @@ extension ARGalleryVC {
                     }
                 }
             default:
+                LoadingHUD.hide()
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         })
@@ -329,15 +336,18 @@ extension ARGalleryVC {
     
     /// Network 통신을 통해 게시글을 좋아요/좋아요 취소하는 메서드
     private func likeExhibition(exhibitionID: Int) {
+        LoadingHUD.show()
         PublicAPI.shared.requestLikeExhibition(exhibitionID: exhibitionID, completion: { [weak self] networkResult in
             switch networkResult {
             case .success(let res):
                 if let data = res as? Liked {
                     self?.likeBtn.isSelected = data.isLiked ? true : false
+                    LoadingHUD.hide()
                 }
             case .requestErr(let res):
                 if let message = res as? String {
                     print(message)
+                    LoadingHUD.hide()
                     self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
                 } else if res is Bool {
                     self?.requestRenewalToken() { _ in
@@ -345,6 +355,7 @@ extension ARGalleryVC {
                     }
                 }
             default:
+                LoadingHUD.hide()
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         })

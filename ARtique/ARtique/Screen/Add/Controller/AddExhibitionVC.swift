@@ -208,7 +208,7 @@ extension AddExhibitionVC {
     
     /// 전시 등록을 위해 이미지를 스토리지에 저장하고 서버에 전시 등록 요청을 보내는 메서드
     @objc func registerExhibition() {
-        LoadingIndicator.showLoading()
+        LoadingHUD.show()
         self.dismiss(animated: false)
         
         let gallerySize = NewExhibition.shared.gallerySize ?? 0
@@ -309,11 +309,13 @@ extension AddExhibitionVC {
                 if let data = data as? RegisterModel {
                     self.removeAllExhibitionData()
                     self.showDetail(with: data.exhibition?.exhibitionId ?? 0)
-                    LoadingIndicator.hideLoading()
+                    LoadingHUD.hide()
+                    print("숨었니?")
                 }
             case .requestErr(let res):
                 if let message = res as? String {
                     print(message)
+                    LoadingHUD.hide()
                     self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
                 } else if res is Bool {
                     self.requestRenewalToken() { _ in
@@ -321,6 +323,7 @@ extension AddExhibitionVC {
                     }
                 }
             default:
+                LoadingHUD.hide()
                 self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         }

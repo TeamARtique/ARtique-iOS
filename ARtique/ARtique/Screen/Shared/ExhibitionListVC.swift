@@ -94,17 +94,20 @@ extension ExhibitionListVC {
 // MARK: - Network
 extension ExhibitionListVC {
     private func getExhibitionList(categoryID: Int, sort: ExhibitionSortType) {
+        LoadingHUD.show()
         HomeAPI.shared.getAllExhibitionList(categoryID: categoryID, sort: sort.rawValue) { [weak self] networkResult in
             switch networkResult {
             case .success(let list):
                 if let list = list as? [ExhibitionModel] {
                     self?.exhibitionData = list
                     self?.exhibitionListCV.reloadData()
+                    LoadingHUD.hide()
                 }
             case .requestErr(let res):
                 self?.getExhibitionList(categoryID: categoryID, sort: sort)
                 if let message = res as? String {
                     print(message)
+                    LoadingHUD.hide()
                     self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
                 } else if res is Bool {
                     self?.requestRenewalToken() { _ in
@@ -112,6 +115,7 @@ extension ExhibitionListVC {
                     }
                 }
             default:
+                LoadingHUD.hide()
                 self?.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         }
