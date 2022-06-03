@@ -106,7 +106,7 @@ extension BaseVC {
     /// firebaseStorage에 이미지를 업로드하고, 업로드된 URL String을 escaping closure로 반환하는 메서드
     func uploadImageToFirebaseStorage(image: UIImage, completion: @escaping (String) -> ()) {
         var data = Data()
-        data = image.jpegData(compressionQuality: 1.0)!
+        data = image.jpegData(compressionQuality: 1.0) ?? Data()
         
         let filePath = "/\(Int.random(in: 1..<1000000000000))"
         let metaData = StorageMetadata()
@@ -126,6 +126,26 @@ extension BaseVC {
                 }
             }
         }
+    }
+    
+    /// 포스터 이미지를 생성하는 메서드
+    func makePoster(posterBase: UIImage, posterTheme: Int, title: String) -> UIImage {
+        let posterView = UIView()
+        view.insertSubview(posterView, at: 0)
+        
+        let posterImage = PosterTheme()
+        posterImage.translatesAutoresizingMaskIntoConstraints = false
+        posterImage.configurePoster(themeId: PosterType.allCases[posterTheme],
+                                    poster: posterBase,
+                                    title: title,
+                                    nickname: UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) ?? "ARTI",
+                                    date: Date().toString())
+        posterView.insertSubview(posterImage.contentView, at: 0)
+        
+        let poster = posterImage.contentView.transfromToImage() ?? UIImage(named: "DefaultPoster")!
+        posterView.removeFromSuperview()
+        
+        return poster
     }
 }
 

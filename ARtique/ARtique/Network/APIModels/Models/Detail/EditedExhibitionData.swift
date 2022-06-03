@@ -10,18 +10,19 @@ import Alamofire
 
 class EditedExhibitionData {
     var title: String
-    var posterImage: UIImage
-//    var posterTheme: Int?
+    var posterURL: String
+    var posterOriginalURL: String
+    var posterTheme: Int
     var description: String
     var tag: [Int]
     var category: Int
     var isPublic: Bool
     
-    init(title: String, posterImage: UIImage, description: String, tag: [Int], category: Int, isPublic: Bool) {
+    init(title: String, posterURL: String, posterOriginalURL: String, posterTheme: Int, description: String, tag: [Int], category: Int, isPublic: Bool) {
         self.title = title
-        self.posterImage = posterImage
-        // TODO: - 서버에 포스터 테마 추가 후 수정
-//        self.posterTheme = exhibitionData.posterTheme ?? 0
+        self.posterURL = posterURL
+        self.posterOriginalURL = posterOriginalURL
+        self.posterTheme = posterTheme
         self.description = description
         self.tag = tag
         self.category = category
@@ -34,6 +35,9 @@ extension EditedExhibitionData {
         return [
             "title": title,
             "category": category,
+            "posterImage": posterURL,
+            "posterOriginalImage": posterOriginalURL,
+            "posterTheme": posterTheme,
             "description": description,
             "tag": tag,
             "isPublic": isPublic

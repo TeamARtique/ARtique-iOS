@@ -43,18 +43,7 @@ extension ExhibitionService: TargetType {
         case .getExhibitionData, .deleteExhibition:
             return .requestPlain
         case .editExhibition(exhibitionID: _, exhibitionData: let exhibitionData):
-            var multipartData = [MultipartFormData]()
-            
-            let image = exhibitionData.posterImage.jpegData(compressionQuality: 1) ?? Data()
-            let imageData = MultipartFormData(provider: .data(image), name: "file", fileName: "image.png", mimeType: "image/png")
-            multipartData.append(imageData)
-            
-            for (key, values) in exhibitionData.editedExhibitionParam {
-                let formData = MultipartFormData(provider: .data("\(values)".data(using: .utf8)!), name: key)
-                multipartData.append(formData)
-            }
-            
-            return .uploadMultipart(multipartData)
+            return .requestParameters(parameters: exhibitionData.editedExhibitionParam, encoding: JSONEncoding.prettyPrinted)
         }
     }
     
