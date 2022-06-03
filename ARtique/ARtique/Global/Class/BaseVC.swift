@@ -47,6 +47,15 @@ extension BaseVC {
         UserDefaults.standard.set(refreshToken, forKey: UserDefaults.Keys.refreshToken)
     }
     
+    /// 로그아웃 시 유저의 정보를 삭제하는 메서드
+    func deleteUserInfo() {
+        UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.userID)
+        UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.userEmail)
+        UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.nickname)
+        UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.refreshToken)
+        UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.completeSignup)
+    }
+    
     @objc func popVC() {
         navigationController?.popViewController(animated: true)
     }
@@ -121,23 +130,37 @@ extension BaseVC {
     // TODO: 액세스 토큰 갱신 API 등 다른 VC에서도 호출되는 네트워크 코드를 여기다가 만들어줍니다.
     
     /// 엑세스 토큰 갱신, 자동로그인 요청 메서드
-    func requestRenewalToken(refreshToken: String) {
-        AuthAPI.shared.renewalTokenAPI(refreshToken: refreshToken, completion: { networkResult in
+    func requestRenewalToken(completion: @escaping (Bool) -> (Void)) {
+        AuthAPI.shared.renewalTokenAPI(refreshToken: UserDefaults.standard.string(forKey: UserDefaults.Keys.refreshToken) ?? "", completion: { networkResult in
             switch networkResult {
             case .success(let res):
                 if let data = res as? Token {
                     TokenInfo.shared.accessToken = data.accessToken
+                    completion(true)
                 }
             case .requestErr(let res):
                 if let message = res as? String {
                     print(message)
-                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
-                    self.requestRenewalToken(refreshToken: UserDefaults.standard.string(forKey: UserDefaults.Keys.refreshToken) ?? "")
+                    self.requestRenewalToken() { _ in }
+                } else if res is Bool {
+                    // ⚠️[유효하지 않은 토큰 정보로 인해 statusCode가 401로 반환될 때]
+                    /// ➡️ 리프레시 토큰(30일)이 만료된 경우이므로 보안을 위해 강제 로그아웃 처리
+                    /// ❎ 로그아웃시 저장된 Userdefaults 삭제 후 로그인 창으로 이동
+                    self.logoutAndPresentToLoginVC()
                 }
             default:
                 self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
             }
         })
+    }
+    
+    /// 로그아웃을 시키는 메서드
+    func logoutAndPresentToLoginVC() {
+        /// ❎ 로그아웃시 저장된 Userdefaults 삭제 후 로그인 창으로 이동
+        self.deleteUserInfo()
+        let loginVC = LoginVC()
+        loginVC.modalPresentationStyle = .fullScreen
+        self.present(loginVC, animated: true, completion: nil)
     }
 }
 
