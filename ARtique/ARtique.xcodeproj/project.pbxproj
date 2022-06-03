@@ -18,6 +18,8 @@
 		23144217280C4040007DB53C /* SearchResult.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23144216280C4040007DB53C /* SearchResult.storyboard */; };
 		23144219280C4053007DB53C /* SearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23144218280C4053007DB53C /* SearchResultVC.swift */; };
 		231D2BD32847D9C400DB471F /* SelectedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D2BD22847D9C400DB471F /* SelectedImage.swift */; };
+		231D2BD9284926E600DB471F /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D2BD8284926E600DB471F /* OnboardingVC.swift */; };
+		231D2BDB2849296300DB471F /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 231D2BDA2849296300DB471F /* Onboarding.storyboard */; };
 		231D2BD62849066F00DB471F /* EditedExhibitionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D2BD52849066F00DB471F /* EditedExhibitionData.swift */; };
 		231EF8512763DCF4008218CC /* PlaneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231EF8502763DCF4008218CC /* PlaneVC.swift */; };
 		232E76D82813F91200E7CF39 /* ExhibitionCntBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232E76D72813F91200E7CF39 /* ExhibitionCntBtn.swift */; };
@@ -212,6 +214,8 @@
 		23144216280C4040007DB53C /* SearchResult.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchResult.storyboard; sourceTree = "<group>"; };
 		23144218280C4053007DB53C /* SearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultVC.swift; sourceTree = "<group>"; };
 		231D2BD22847D9C400DB471F /* SelectedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedImage.swift; sourceTree = "<group>"; };
+		231D2BD8284926E600DB471F /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
+		231D2BDA2849296300DB471F /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		231D2BD52849066F00DB471F /* EditedExhibitionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditedExhibitionData.swift; sourceTree = "<group>"; };
 		231EF8502763DCF4008218CC /* PlaneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneVC.swift; sourceTree = "<group>"; };
 		232E76D72813F91200E7CF39 /* ExhibitionCntBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionCntBtn.swift; sourceTree = "<group>"; };
@@ -420,6 +424,15 @@
 			path = Struct;
 			sourceTree = "<group>";
 		};
+		231D2BD7284926D600DB471F /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				231D2BD8284926E600DB471F /* OnboardingVC.swift */,
+				231D2BDA2849296300DB471F /* Onboarding.storyboard */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		231D2BD42849061000DB471F /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -580,6 +593,7 @@
 			isa = PBXGroup;
 			children = (
 				23DD9E7B283D23F10041928D /* Splash */,
+				231D2BD7284926D600DB471F /* Onboarding */,
 				23C9AD632801C85B00DFF5A2 /* Shared */,
 				334E736E27FB6675001BAF25 /* Login */,
 				3305F76C2754E13400E6E08E /* TabBar */,
@@ -1255,6 +1269,7 @@
 				2395FBA227563A9700D3DB77 /* Detail.storyboard in Resources */,
 				2383787D280AFBBC002088E6 /* Search.storyboard in Resources */,
 				235650DE27FA031F0082E048 /* AlbumListTVC.storyboard in Resources */,
+				231D2BDB2849296300DB471F /* Onboarding.storyboard in Resources */,
 				3330E48E2846791400896138 /* Signup.storyboard in Resources */,
 				23B52A7927E0A54D00D6C339 /* AddExhibition.storyboard in Resources */,
 				33644D3A28493DD70029FF77 /* GoogleService-Info.plist in Resources */,
@@ -1397,6 +1412,7 @@
 				23560FFC2832B67F00176D66 /* ExhibitionSortType.swift in Sources */,
 				23B2E5D62758F9D700FA8CC2 /* HomeListVC.swift in Sources */,
 				3305F7572754DF6500E6E08E /* Notification+Name.swift in Sources */,
+				231D2BD9284926E600DB471F /* OnboardingVC.swift in Sources */,
 				23E734FE27EA1528000315E6 /* PostExplainVC.swift in Sources */,
 				33A463F3282B017C0049F0AF /* ARGalleryDataModel.swift in Sources */,
 				23071DB727ECF5A100949BA1 /* CategoryType.swift in Sources */,

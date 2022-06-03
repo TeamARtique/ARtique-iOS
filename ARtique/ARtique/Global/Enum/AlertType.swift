@@ -23,7 +23,7 @@ enum AlertType: CaseIterable {
 extension AlertType {
     var alertImage: UIImage {
         switch self {
-        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .signupProgress, .cancelEdit, .deleteTicketbook:
+        case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .signupProgress, .deleteTicketbook, .cancelEdit:
             return UIImage(named: "WarningAlert") ?? UIImage()
         case .registerExhibition, .seeTicketbook, .completeSignup:
             return UIImage(named: "ConfirmAlert") ?? UIImage()
