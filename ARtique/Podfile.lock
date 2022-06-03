@@ -11,6 +11,9 @@ PODS:
     - FirebaseAnalytics (~> 9.0.0)
   - Firebase/CoreOnly (9.0.0):
     - FirebaseCore (= 9.0.0)
+  - Firebase/Storage (9.0.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 9.0.0)
   - FirebaseAnalytics (9.0.0):
     - FirebaseAnalytics/AdIdSupport (= 9.0.0)
     - FirebaseCore (~> 9.0)
@@ -68,6 +71,7 @@ PODS:
   - FirebaseStorageInternal (9.0.0):
     - FirebaseCore (~> 9.0)
     - GTMSessionFetcher/Core (~> 1.7)
+  - Gifu (3.3.1)
   - GoogleAppMeasurement (9.0.0):
     - GoogleAppMeasurement/AdIdSupport (= 9.0.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
@@ -159,9 +163,10 @@ PODS:
 DEPENDENCIES:
   - DynamicBottomSheet
   - Firebase/Core
+  - Firebase/Storage
   - FirebaseAnalytics
   - FirebaseMessaging
-  - FirebaseStorage
+  - Gifu
   - KakaoSDKAuth (~> 2.8.6)
   - KakaoSDKUser (~> 2.8.6)
   - Kingfisher (~> 7.0)
@@ -191,6 +196,7 @@ SPEC REPOS:
     - FirebaseMessaging
     - FirebaseStorage
     - FirebaseStorageInternal
+    - Gifu
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
@@ -228,6 +234,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 411a61cde991cbd00b5b11c7a25e0c8f28c44990
   FirebaseStorage: 7b70fce0c7a751017b2f749d161e4f4855f431d9
   FirebaseStorageInternal: 153685c8d9f67ee3007fed0414351c43487983c2
+  Gifu: 416d4e38c4c2fed012f019e0a1d3ffcb58e5b842
   GoogleAppMeasurement: 2c2792d43ebdea0524adbc90cba9139721f3039b
   GoogleDataTransport: 5fffe35792f8b96ec8d6775f5eccd83c998d5a3b
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
@@ -250,6 +257,6 @@ SPEC CHECKSUMS:
   Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: a21cb9ca0def8369e2581ea65a7a91c7b8756459
+PODFILE CHECKSUM: 5d2174865f6b3015da88d4e16d4b51516bf4f706
 
 COCOAPODS: 1.11.2
