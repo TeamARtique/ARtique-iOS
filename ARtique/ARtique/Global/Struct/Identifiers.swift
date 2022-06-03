@@ -25,6 +25,7 @@ struct Identifiers {
     static let alertSB = "Alert"
     static let artistProfileSB = "ArtistProfile"
     static let signupSB = "Signup"
+    static let ticketBookSB = "TicketBook"
     
     //MARK: - Controller
     static let onboardingVC = "OnboardingVC"
