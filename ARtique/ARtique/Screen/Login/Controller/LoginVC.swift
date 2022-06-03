@@ -155,7 +155,6 @@ extension LoginVC {
     private func tmpLogin() {
         appleLoginBtn.press { [weak self] in
             guard let self = self else { return }
-            UserDefaults.standard.set("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTQxODMzNzYsImV4cCI6MTY1Njc3NTM3NiwiaXNzIjoiYXJ0aXF1ZSJ9.oIVYNLd3nYoD934n661_7K16pD74OVwFdBJiUl8KzRc", forKey: UserDefaults.Keys.refreshToken)
             self.navigator?.instantiateVC(destinationViewControllerType: ARtiqueTBC.self, useStoryboard: false, storyboardName: "", naviType: .present, modalPresentationStyle: .fullScreen) { destination in }
         }
     }

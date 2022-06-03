@@ -310,7 +310,6 @@ extension AddExhibitionVC {
                     self.removeAllExhibitionData()
                     self.showDetail(with: data.exhibition?.exhibitionId ?? 0)
                     LoadingHUD.hide()
-                    print("숨었니?")
                 }
             case .requestErr(let res):
                 if let message = res as? String {

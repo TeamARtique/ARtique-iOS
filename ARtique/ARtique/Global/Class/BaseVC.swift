@@ -67,7 +67,11 @@ extension BaseVC {
     /// 홈을 rootViewController로 만들어주는 함수
     @objc func homeToRoot() {
         self.dismiss(animated: false) {
-            UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: false, completion: nil)
+            let scenes = UIApplication.shared.connectedScenes
+            let windowScene = scenes.first as? UIWindowScene
+            let window = windowScene?.windows.first(where: { $0.isKeyWindow })
+            
+            window?.rootViewController?.dismiss(animated: true)
         }
     }
     
