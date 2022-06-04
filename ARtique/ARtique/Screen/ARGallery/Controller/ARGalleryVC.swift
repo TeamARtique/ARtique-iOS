@@ -11,6 +11,14 @@ import SceneKit
 import AVFoundation
 import Kingfisher
 
+struct ARGalleryArtworkModel {
+    var image: String?
+    var title: String?
+    var description: String?
+    var index: Int?
+    var frameIdentifier: String?
+}
+
 class ARGalleryVC: BaseVC {
     
     // MARK: IBOutlets
@@ -30,6 +38,11 @@ class ARGalleryVC: BaseVC {
     var planeRecognizedPosition: SCNVector3?
     var galleryType: GalleyType = .minimum
     var exhibitionID: Int?
+    private var frameIdentifier1: String?
+    private var frameIdentifier2: String?
+    private var artworksData: [Artwork] = []
+    private var arArtworksSavedData: [ARGalleryArtworkModel] = []
+    private var arArtworksSavedData2: [ARGalleryArtworkModel] = []
     
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -72,6 +85,7 @@ class ARGalleryVC: BaseVC {
     }
     
     @IBAction func dismissBtnDidTap(_ sender: UIButton) {
+        Vibration.warning.vibrate()
         popupAlert(targetView: ARGalleryVC(), alertType: .seeTicketbook, image: nil, leftBtnAction: #selector(dismissToRoot), rightBtnAction: #selector(goToTicketbookVC))
     }
     
@@ -203,12 +217,54 @@ extension ARGalleryVC {
             if maxValue == 30 {
                 if i % 2 == 0 {
                     downloadImage(with: artwork[i].image, frameIdentifier: frameIdentifier1, index: i / 2 + 1)
+                    arArtworksSavedData.append(ARGalleryArtworkModel(image: artwork[i].image, title: artwork[i].title, description: artwork[i].description, index: i / 2 + 1, frameIdentifier: frameIdentifier1))
                 } else {
                     downloadImage(with: artwork[i].image, frameIdentifier: frameIdentifier2, index: (i + 1) / 2)
+                    arArtworksSavedData2.append(ARGalleryArtworkModel(image: artwork[i].image, title: artwork[i].title, description: artwork[i].description, index: (i + 1) / 2, frameIdentifier: frameIdentifier2))
                 }
             } else {
                 downloadImage(with: artwork[i].image, frameIdentifier: frameIdentifier1, index: i + 1)
+                arArtworksSavedData.append(ARGalleryArtworkModel(image: artwork[i].image, title: artwork[i].title, description: artwork[i].description, index: i + 1, frameIdentifier: frameIdentifier1))
             }
+        }
+    }
+    
+    func matchNode(maxValue: Int, frameIdentifier: String, node: SCNNode) {
+        let value = maxValue == 30 ? 15 : maxValue
+
+        for i in 1...value {
+            let hitNode = gallerySceneView.scene.rootNode.childNode(withName: frameIdentifier + "\(i)", recursively: true)
+            if hitNode == node {
+                var passTitle = ""
+                var passDesc = ""
+                if frameIdentifier == "downframe" {
+                    passTitle = arArtworksSavedData2[i - 1].title ?? ""
+                    passDesc = arArtworksSavedData2[i - 1].description ?? ""
+                } else {
+                    passTitle = arArtworksSavedData[i - 1].title ?? ""
+                    passDesc = arArtworksSavedData[i - 1].description ?? ""
+                }
+                
+                guard let popupVC = self.storyboard?.instantiateViewController(
+                    withIdentifier: ARDescVC.className
+                ) as? ARDescVC else { return }
+
+                popupVC.modalPresentationStyle = .custom
+                popupVC.transitioningDelegate = self
+                popupVC.titleText = passTitle
+                popupVC.descText = passDesc
+                self.present(popupVC, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first as! UITouch
+        if (touch.view == self.gallerySceneView) {
+            let viewTouchLocation: CGPoint = touch.location(in: gallerySceneView)
+            guard let result = gallerySceneView.hitTest(viewTouchLocation, options: nil).first else { return }
+            matchNode(maxValue: galleryType.rawValue, frameIdentifier: frameIdentifier1 ?? "", node: result.node)
+            galleryType == .maximum ? matchNode(maxValue: galleryType.rawValue, frameIdentifier: frameIdentifier2 ?? "", node: result.node) : nil
         }
     }
     
@@ -282,14 +338,16 @@ extension ARGalleryVC {
                 if let data = res as? ARGalleryDataModel {
                     //✅ 받아온 데이터로 AR Scene 구성
                     self?.galleryType = GalleyType(rawValue: data.gallery.gallerySize) ?? .medium
+                    self?.frameIdentifier1 = self?.galleryType.frameIdentifier1 ?? ""
+                    self?.frameIdentifier2 = self?.galleryType.frameIdentifier2 ?? ""
+                    self?.artworksData = data.artworks
                     let maxValue = data.gallery.gallerySize
-                    let frameIdentifier1: String = self?.galleryType.frameIdentifier1 ?? ""
-                    let frameIdentifier2: String = self?.galleryType.frameIdentifier2 ?? ""
+                    
                     self?.setBtnImageByTheme(theme: ThemeType(rawValue: data.gallery.galleryTheme) ?? .dark)
                     self?.setupGallerySceneView(type: GalleyType(rawValue: data.gallery.gallerySize) ?? .medium)
-                    self?.setupGalleryTheme(maxValue: maxValue, frameIdentifier1: frameIdentifier1, frameIdentifier2: frameIdentifier2, galleryType: GalleyType(rawValue: data.gallery.gallerySize) ?? .medium, themeType: ThemeType(rawValue: data.gallery.galleryTheme) ?? .dark)
+                    self?.setupGalleryTheme(maxValue: maxValue, frameIdentifier1: self?.frameIdentifier1 ?? "", frameIdentifier2: self?.frameIdentifier2 ?? "", galleryType: GalleyType(rawValue: data.gallery.gallerySize) ?? .medium, themeType: ThemeType(rawValue: data.gallery.galleryTheme) ?? .dark)
                     self?.setupTitleText(maxValue: maxValue, artwork: data.artworks)
-                    self?.downloadImageByRealData(maxValue: maxValue, artwork: data.artworks, frameIdentifier1: frameIdentifier1, frameIdentifier2: frameIdentifier2)
+                    self?.downloadImageByRealData(maxValue: maxValue, artwork: data.artworks, frameIdentifier1: self?.frameIdentifier1 ?? "", frameIdentifier2: self?.frameIdentifier2 ?? "")
                     self?.likeBtn.isSelected = data.like.isLiked ? true : false
                     LoadingHUD.hide()
                 }
@@ -363,3 +421,16 @@ extension ARGalleryVC {
         })
     }
 }
+
+// MARK: - UIViewControllerTransitioningDelegate
+extension ARGalleryVC: UIViewControllerTransitioningDelegate {
+
+    func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?,
+        source: UIViewController
+    ) -> UIPresentationController? {
+        PresentationController(presentedViewController: presented, presenting: presenting)
+    }
+}
+
