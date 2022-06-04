@@ -6,24 +6,56 @@
 //
 
 import UIKit
+import Then
 
-class PresentationController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+class PresentationController: UIPresentationController {
+    let dimView = UIView().then {
+        $0.backgroundColor = .black
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
+        super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
     }
-    */
-
+    
+    override var frameOfPresentedViewInContainerView: CGRect {
+        CGRect(origin: CGPoint(x: 0, y: self.containerView!.frame.height * 0.4),
+               size: CGSize(width: self.containerView!.frame.width, height: self.containerView!.frame.height *
+                            0.6))
+    }
+    
+    override func presentationTransitionWillBegin() {
+        dimView.alpha = 0
+        containerView?.addSubview(dimView)
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { [self] (UIViewControllerTransitionCoordinatorContext) in
+            dimView.alpha = 0.5
+        }, completion: {
+            (UIViewControllerTransitionCoordinatorContext) in
+            
+        })
+    }
+    
+    override func dismissalTransitionWillBegin() {
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { [self] (UIViewControllerTransitionCoordinatorContext) in
+            dimView.alpha = 0
+        }, completion: {
+            (UIViewControllerTransitionCoordinatorContext) in
+            self.dimView.removeFromSuperview()
+        })
+    }
+    
+    override func containerViewWillLayoutSubviews() {
+        super.containerViewWillLayoutSubviews()
+    }
+    
+    override func containerViewDidLayoutSubviews() {
+        super.containerViewDidLayoutSubviews()
+        
+        presentedView?.frame = frameOfPresentedViewInContainerView
+        dimView.frame = containerView!.bounds
+    }
+    
+    @objc func dismissController() {
+        self.presentedViewController.dismiss(animated: true, completion: nil)
+    }
 }
+

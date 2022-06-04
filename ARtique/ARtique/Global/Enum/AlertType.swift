@@ -25,8 +25,10 @@ extension AlertType {
         switch self {
         case .removeAllExhibition, .removeAllPhotos, .deleteExhibition, .signupProgress, .deleteTicketbook, .cancelEdit:
             return UIImage(named: "WarningAlert") ?? UIImage()
-        case .registerExhibition, .seeTicketbook, .completeSignup:
+        case .registerExhibition, .completeSignup:
             return UIImage(named: "ConfirmAlert") ?? UIImage()
+        case .seeTicketbook:
+            return UIImage(named: "ticketAlert") ?? UIImage()
         }
     }
     
@@ -49,9 +51,9 @@ extension AlertType {
             attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "지금 바로 등록"))
             return attributedStr
         case .seeTicketbook:
-            let text = "등록된 티켓북을 확인하시겠습니까?\n티켓북은 홈>티켓 아이콘을 통해서도 \n확인 가능합니다."
+            let text = "티켓이 티켓북에 저장되었습니다.\n티켓북으로 이동하시겠습니까?"
             let attributedStr = NSMutableAttributedString(string: text)
-            attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: "지금 바로 확인"))
+            attributedStr.addAttribute(.font, value: fontSize, range: (text as NSString).range(of: ""))
             return attributedStr
         case .deleteExhibition:
             let text = "전시를\n정말 삭제하시겠습니까?"
