@@ -298,11 +298,11 @@ extension ArtworkSelectVC {
     
     private func focusEditCell(collectionView: UICollectionView, indexPath: IndexPath) {
         guard let selectingCell = collectionView.cellForItem(at: indexPath) as? GalleryCVC,
-                let otherCell = collectionView.visibleCells as? [GalleryCVC] else { return }
+              let otherCell = collectionView.visibleCells as? [GalleryCVC] else { return }
         otherCell.forEach {
-            $0.setSelectedOverlay(isEditing: false)
+            $0.setSelectedOverlay(isHidden: true)
         }
-        selectingCell.setSelectedOverlay(isEditing: true)
+        selectingCell.setSelectedOverlay(isHidden: false)
     }
 }
 
@@ -328,6 +328,7 @@ extension ArtworkSelectVC: AlbumChangeDelegate {
             let collection = albumList[albumNum]
             self.albumNum = albumNum
             fetchAssets(with: collection)
+            selectedIndex = nil
             albumListButton.setTitle(collection.localizedTitle ?? "", for: .normal)
             galleryCV.indexPathsForSelectedItems?.forEach({ galleryCV.deselectItem(at: $0, animated: false) })
             galleryCV.reloadData()
@@ -370,6 +371,7 @@ extension ArtworkSelectVC: UICollectionViewDataSource {
                 cell.setSelectedIndex((self.indexArr.firstIndex(of: [self.albumNum, indexPath.row]) ?? 0) + 1)
                 cell.isSelected = true
                 self.galleryCV.selectItem(at: indexPath, animated: false, scrollPosition: .init())
+                cell.setSelectedOverlay(isHidden: self.selectedIndex == indexPath ? false : true)
             }
         }
         

@@ -37,6 +37,8 @@ class GalleryCVC: BorderCVC {
         super.prepareForReuse()
         indexBase.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
         selectedIndex.textColor = .clear
+        selectedIndex.text = ""
+        setSelectedOverlay(isHidden: true)
     }
     
     override var isSelected: Bool {
