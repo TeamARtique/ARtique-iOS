@@ -75,6 +75,10 @@ extension BaseVC {
         }
     }
     
+    @objc func dismissAlert() {
+        dismiss(animated: false, completion: nil)
+    }
+    
     /// 데이터만 reload 되고 tableView가 위로 스크롤 되지 않게 하는 함수
     func reloadWithoutScroll(tableView: UITableView) {
         let contentOffset = tableView.contentOffset

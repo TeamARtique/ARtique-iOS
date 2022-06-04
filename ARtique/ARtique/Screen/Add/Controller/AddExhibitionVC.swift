@@ -176,10 +176,6 @@ extension AddExhibitionVC {
         }
     }
     
-    @objc func dismissAlert() {
-        dismiss(animated: false, completion: nil)
-    }
-    
     @objc func registerCancel() {
         removeAllExhibitionData()
         dismiss(animated: false) {

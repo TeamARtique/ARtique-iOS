@@ -301,10 +301,6 @@ extension DetailVC {
         self.present(activityVC, animated: true, completion: nil)
     }
     
-    @objc func dismissAlert() {
-        dismiss(animated: false, completion: nil)
-    }
-    
     @objc func removeExhibition() {
         dismiss(animated: false) {
             guard let exhibitionID = self.exhibitionID else { return }

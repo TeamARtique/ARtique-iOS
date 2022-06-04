@@ -292,10 +292,6 @@ extension ExhibitionExplainVC {
         }
     }
     
-    @objc func dismissAlert() {
-        dismiss(animated: false, completion: nil)
-    }
-    
     @objc func editCancel() {
         dismiss(animated: false) {
             self.popVC()

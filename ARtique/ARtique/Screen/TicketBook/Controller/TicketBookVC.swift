@@ -168,10 +168,6 @@ extension TicketBookVC {
         }
     }
     
-    @objc func dismissAlert() {
-        dismiss(animated: false, completion: nil)
-    }
-    
     @objc
     private func removeTicketbook() {
         dismiss(animated: false) {
