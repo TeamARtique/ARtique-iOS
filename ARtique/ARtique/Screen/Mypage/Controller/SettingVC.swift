@@ -110,6 +110,8 @@ extension SettingVC {
     @objc func logout() {
         dismiss(animated: false) {
             self.logoutAndPresentToLoginVC()
+            let ad = UIApplication.shared.delegate as! AppDelegate
+            ad.window?.rootViewController?.popupToast(toastType: .logout)
         }
     }
     
