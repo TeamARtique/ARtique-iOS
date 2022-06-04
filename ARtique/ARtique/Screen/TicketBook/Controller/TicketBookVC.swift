@@ -37,6 +37,7 @@ class TicketBookVC: BaseVC {
     var naviType: NaviType?
     private var isDeleteMode: Bool = false
     private var deleteIndex: Int?
+    private var selectedIndexPath: IndexPath?
     
     // MARK: - Life Cycles
     override func viewDidLoad() {
@@ -126,7 +127,7 @@ extension TicketBookVC {
     private func didTapTrashBtn() {
         Vibration.light.vibrate()
         isDeleteMode = !isDeleteMode
-        configureNaviBar(naviType: .push)
+        configureNaviBar(naviType: naviType ?? .push)
         ticketCV.reloadData()
     }
     
@@ -193,11 +194,39 @@ extension TicketBookVC {
             }
         }
     }
+    
+    /// TicketBookDimmedVC present 화면전환 메서드
+    private func presentDimmedVC(indexPath: IndexPath) {
+        let dimmedVC = TicketBookDimmedVC()
+        dimmedVC.selectedIndex = indexPath.row
+        dimmedVC.ticketFrame = self.ticketCV.convert(ticketCV.cellForItem(at: indexPath)?.frame ?? CGRect.zero, to: self.view.superview)
+        dimmedVC.ticketImageString = ticketData[indexPath.row].posterImage
+        dimmedVC.exhibitionID = ticketData[indexPath.row].exhibitionID
+        
+        /// 티켓 수가 6 이상일 때 최하단에 있는 티켓들은 레이아웃을 다르게 present하기 위해 분기처리
+        if ticketData.count > 6 {
+            var divideNumber: Int?
+        
+            if ticketData.count % 3 == 0 {
+                divideNumber = ticketData.count / 3 - 1
+            } else {
+                divideNumber = ticketData.count / 3
+            }
+            
+            if indexPath.row / 3 == divideNumber {
+                dimmedVC.isLocatedInBottom = true
+            }
+        }
+        
+        dimmedVC.modalTransitionStyle = .crossDissolve
+        dimmedVC.modalPresentationStyle = .overFullScreen
+        self.present(dimmedVC, animated: false, completion: nil)
+    }
 }
 
 // MARK: - UICollectionViewDataSource
 extension TicketBookVC: UICollectionViewDataSource {
-    
+
     /// numberOfSections
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
@@ -285,15 +314,13 @@ extension TicketBookVC: UICollectionViewDelegateFlowLayout {
         //✅ Cell에서 눌린 티켓을 dimmedVC에서도 동일한 위치에 그려낼 수 있도록 Cell 클릭 시 해당하는 티켓의 frame을 넘겨줌
         if indexPath.section != 0 && !ticketData.isEmpty {
             if isDeleteMode == false {
-                let dimmedVC = TicketBookDimmedVC()
-                dimmedVC.selectedIndex = indexPath.row
-                dimmedVC.ticketFrame = self.ticketCV.convert(collectionView.cellForItem(at: indexPath)?.frame ?? CGRect.zero, to: self.view.superview)
-                dimmedVC.ticketImageString = ticketData[indexPath.row].posterImage
-                dimmedVC.exhibitionID = ticketData[indexPath.row].exhibitionID
-                
-                dimmedVC.modalTransitionStyle = .crossDissolve
-                dimmedVC.modalPresentationStyle = .overFullScreen
-                self.present(dimmedVC, animated: false, completion: nil)
+                Vibration.medium.vibrate()
+                selectedIndexPath = indexPath
+                UIView.animate(withDuration: 0.2, animations: { [weak self] in
+                    self?.ticketCV.scrollToItem(at: indexPath, at: [.centeredHorizontally,.centeredVertically], animated: false)
+                }, completion: { [weak self] _ in
+                    self?.presentDimmedVC(indexPath: self?.selectedIndexPath ?? [0,0])
+                })
             }
         }
     }

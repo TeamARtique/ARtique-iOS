@@ -37,11 +37,14 @@ class TicketBookDimmedVC: UIViewController {
         $0.setImage(UIImage(named: "btn_alert_share"), for: .normal)
     }
     
+    private let bottomView = UIView()
+    
     // MARK: Variables
     var ticketFrame: CGRect?
     var selectedIndex: Int?
     var ticketImageString: String?
     var exhibitionID: Int?
+    var isLocatedInBottom: Bool?
     
     // MARK: Life Cycles
     override func viewDidLoad() {
@@ -60,6 +63,7 @@ extension TicketBookDimmedVC {
         view.addSubviews([dimmedView, ticketView, optionStackView])
         optionStackView.addArrangedSubview(showBtn)
         optionStackView.addArrangedSubview(shareBtn)
+        optionStackView.addArrangedSubview(bottomView)
         
         dimmedView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
@@ -72,9 +76,20 @@ extension TicketBookDimmedVC {
             $0.height.equalTo(Int(ticketFrame?.height ?? 0) - 5)
         }
         
-        optionStackView.snp.makeConstraints {
-            $0.top.equalTo(ticketView.snp.bottom).offset(10)
-            $0.centerX.equalTo(ticketView)
+        bottomView.snp.makeConstraints {
+            $0.height.equalTo(10)
+        }
+        
+        if isLocatedInBottom == true {
+            optionStackView.snp.makeConstraints {
+                $0.bottom.equalTo(ticketView.snp.top)
+                $0.centerX.equalTo(ticketView)
+            }
+        } else {
+            optionStackView.snp.makeConstraints {
+                $0.top.equalTo(ticketView.snp.bottom).offset(10)
+                $0.centerX.equalTo(ticketView)
+            }
         }
         
         self.view.backgroundColor = .clear
@@ -128,11 +143,6 @@ extension TicketBookDimmedVC {
     
     /// touch 이벤트가 발생되면 실행되는 메서드
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        var touch: UITouch? = touches.first
-        // TODO: 티켓북 뷰가 아니고, 옵션들 stackView가 아닐 경우 처리
-        //        if touch?.view != self.yourView {
-        //            self.yourView.isHidden = true
-        //        }
         self.dismiss(animated: false)
     }
     
