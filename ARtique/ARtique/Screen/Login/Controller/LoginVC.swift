@@ -154,8 +154,12 @@ extension LoginVC {
 extension LoginVC {
     private func tmpLogin() {
         appleLoginBtn.press { [weak self] in
-            guard let self = self else { return }
-            self.navigator?.instantiateVC(destinationViewControllerType: ARtiqueTBC.self, useStoryboard: false, storyboardName: "", naviType: .present, modalPresentationStyle: .fullScreen) { destination in }
+            self?.makeAlert(title: "🛠 카카오톡 로그인 서비스를 이용해주세요 🛠")
+            
+            /// 📱 시뮬레이터 테스트 할 때마다 주석 해제 후 사용
+            /// 시뮬레이터 테스트를 위한 임시 로그인
+//            guard let self = self else { return }
+//            self.navigator?.instantiateVC(destinationViewControllerType: ARtiqueTBC.self, useStoryboard: false, storyboardName: "", naviType: .present, modalPresentationStyle: .fullScreen) { destination in }
         }
     }
 }
