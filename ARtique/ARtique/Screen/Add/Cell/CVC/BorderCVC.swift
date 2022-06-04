@@ -87,8 +87,8 @@ class BorderCVC: UICollectionViewCell {
         }
     }
     
-    func setSelectedOverlay(isEditing: Bool) {
-        selectedOverlay.isHidden = !isEditing
+    func setSelectedOverlay(isHidden: Bool) {
+        selectedOverlay.isHidden = isHidden
         selectedOverlay.layer.opacity = 0.75
     }
 }

@@ -33,7 +33,8 @@ class ArtworkSelectVC: BaseVC {
     let bag = DisposeBag()
     let exhibitionModel = NewExhibition.shared
     var selectedIndex: IndexPath?
-    var indexArr = [Int]()
+    var indexArr = [[Int]]()
+    var albumNum = 0
     var selectedImages = [SelectedImage]()
     var isEdited: Bool = false
     var selectLimitDelegate: ArtworkSelectDelegate?
@@ -92,7 +93,7 @@ extension ArtworkSelectVC {
     }
     
     func configureViewTitle() {
-        viewTitle.text = "사진선택 (\(galleryCV.indexPathsForSelectedItems?.count ?? 0)/\(exhibitionModel.gallerySize ?? 0))"
+        viewTitle.text = "사진선택 (\(selectedImages.count)/\(exhibitionModel.gallerySize ?? 0))"
     }
     
     private func configurePreview() {
@@ -155,6 +156,7 @@ extension ArtworkSelectVC {
             devicePhotos = PHAsset.fetchAssets(with: .descendingOptions)
         } else {
             fetchAssets(with: albumList[0])
+            albumNum = 0
         }
     }
     
@@ -178,7 +180,7 @@ extension ArtworkSelectVC {
                         isDegraded ? self.spiner.startAnimating() : self.spiner.stopAnimating()
                         self.preview.imageView.image = image
                         
-                        if let index = self.indexArr.firstIndex(of: indexPath.row) {
+                        if let index = self.indexArr.firstIndex(of: [self.albumNum, indexPath.row]) {
                             self.preview.scrollView.zoomScale = self.selectedImages[index].zoomScale
                             self.preview.scrollView.contentOffset = self.selectedImages[index].scrollOffset
                         } else {
@@ -236,15 +238,15 @@ extension ArtworkSelectVC {
                 guard let self = self,
                       let selectedIndex = self.selectedIndex,
                       let cell = self.galleryCV.cellForItem(at: selectedIndex) as? GalleryCVC else { return }
-                if self.indexArr.contains(selectedIndex.row) && !self.isEdited { return }
+                if self.indexArr.contains([self.albumNum, selectedIndex.row]) && !self.isEdited { return }
                 if self.isEdited {
-                    if self.selectedImages.isEmpty {
+                    if self.galleryCV.indexPathsForSelectedItems?.count == 0 {
                         self.galleryCV.selectItem(at: selectedIndex, animated: true, scrollPosition: .top)
-                        cell.setSelectedIndex(1)
+                        cell.setSelectedIndex(self.selectedImages.count + 1)
                     } else {
-                        let index = self.indexArr.firstIndex(of: selectedIndex.row)
+                        let index = self.indexArr.firstIndex(of: [self.albumNum, selectedIndex.row])
                         self.indexArr.remove(at: index!)
-                        self.indexArr.insert(selectedIndex.row, at: index!)
+                        self.indexArr.insert([self.albumNum, selectedIndex.row], at: index!)
                         self.selectedImages.remove(at: index!)
                         self.selectedImages.insert(SelectedImage(image: image ?? UIImage(),
                                                                  zoomScale: self.preview.scrollView.zoomScale,
@@ -256,11 +258,11 @@ extension ArtworkSelectVC {
                     cell.setSelectedIndex(self.selectedImages.count + 1)
                 }
                 if self.selectedImages.count >= self.exhibitionModel.gallerySize ?? 0 { return }
-                self.configureViewTitle()
-                self.indexArr.append((selectedIndex).row)
+                self.indexArr.append([self.albumNum, selectedIndex.row])
                 self.selectedImages.append(SelectedImage(image: image ?? UIImage(),
                                                          zoomScale: self.preview.scrollView.zoomScale,
                                                          scrollOffset: self.preview.scrollView.contentOffset))
+                self.configureViewTitle()
             })
             .disposed(by: bag)
     }
@@ -296,11 +298,11 @@ extension ArtworkSelectVC {
     
     private func focusEditCell(collectionView: UICollectionView, indexPath: IndexPath) {
         guard let selectingCell = collectionView.cellForItem(at: indexPath) as? GalleryCVC,
-                let otherCell = collectionView.visibleCells as? [GalleryCVC] else { return }
+              let otherCell = collectionView.visibleCells as? [GalleryCVC] else { return }
         otherCell.forEach {
-            $0.setSelectedOverlay(isEditing: false)
+            $0.setSelectedOverlay(isHidden: true)
         }
-        selectingCell.setSelectedOverlay(isEditing: true)
+        selectingCell.setSelectedOverlay(isHidden: false)
     }
 }
 
@@ -315,7 +317,7 @@ extension ArtworkSelectVC: ReorderArtwork {
         
         galleryCV.indexPathsForSelectedItems?.forEach {
             guard let cell = galleryCV.cellForItem(at: $0) as? GalleryCVC else { return }
-            cell.setSelectedIndex((indexArr.firstIndex(of: $0.row) ?? 0) + 1)
+            cell.setSelectedIndex((indexArr.firstIndex(of: [albumNum, $0.row]) ?? 0) + 1)
         }
     }
 }
@@ -324,11 +326,10 @@ extension ArtworkSelectVC: AlbumChangeDelegate {
     func changeAlbum(albumNum: Int) {
         if !albumList.isEmpty {
             let collection = albumList[albumNum]
+            self.albumNum = albumNum
             fetchAssets(with: collection)
+            selectedIndex = nil
             albumListButton.setTitle(collection.localizedTitle ?? "", for: .normal)
-            selectedImages.removeAll()
-            indexArr.removeAll()
-            configureViewTitle()
             galleryCV.indexPathsForSelectedItems?.forEach({ galleryCV.deselectItem(at: $0, animated: false) })
             galleryCV.reloadData()
             galleryCV.scrollToItem(at: [0,0], at: .top, animated: false)
@@ -357,10 +358,20 @@ extension ArtworkSelectVC: UICollectionViewDataSource {
                                      options: nil) { [weak self] (image, _) in
             guard let self = self else { return }
             cell.configureCell(with: image ?? UIImage())
+            cell.isSelected = false
             
-            guard let items = collectionView.indexPathsForSelectedItems else { return }
-            if items.contains(indexPath) {
-                cell.setSelectedIndex((self.indexArr.firstIndex(of: indexPath.row) ?? 0) + 1)
+            var selectedIndex = [Int]()
+            self.indexArr.forEach {
+                if $0[0] == self.albumNum {
+                    selectedIndex.append($0[1])
+                }
+            }
+            
+            if selectedIndex.contains(indexPath.row) {
+                cell.setSelectedIndex((self.indexArr.firstIndex(of: [self.albumNum, indexPath.row]) ?? 0) + 1)
+                cell.isSelected = true
+                self.galleryCV.selectItem(at: indexPath, animated: false, scrollPosition: .init())
+                cell.setSelectedOverlay(isHidden: self.selectedIndex == indexPath ? false : true)
             }
         }
         
@@ -378,7 +389,7 @@ extension ArtworkSelectVC: UICollectionViewDelegate {
                   return
               }
         
-        if !indexArr.contains(indexPath.row) && spiner.isAnimating {
+        if !indexArr.contains([albumNum, indexPath.row]) && spiner.isAnimating {
             spiner.stopAnimating()
             return
         }
