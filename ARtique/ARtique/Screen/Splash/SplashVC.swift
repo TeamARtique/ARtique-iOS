@@ -51,7 +51,7 @@ extension SplashVC {
             ad.window = window
             window.makeKeyAndVisible()
             
-            if UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) == nil {
+            if UserDefaults.standard.string(forKey: UserDefaults.Keys.completeOnboarding) == nil {
                 guard let onboarding = UIStoryboard(name: Identifiers.onboardingSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.onboardingVC) as? OnboardingVC else { return }
                 onboarding.modalPresentationStyle = .fullScreen
                 window.rootViewController?.present(onboarding, animated: true, completion: nil)
