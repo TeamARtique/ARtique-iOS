@@ -93,6 +93,18 @@ extension UIViewController {
         present(alert, animated: false, completion: nil)
     }
     
+    /// 계속 관람하기 버튼 추가 가능한 전시 티켓북 확인용 Alert
+    func popupAlertWithBtn(targetView: UIViewController, alertType: AlertType, leftBtnAction: Selector?, rightBtnAction: Selector, keepWatchBtnAction: Selector) {
+        guard let alert = UIStoryboard(name: Identifiers.alertSB, bundle: nil).instantiateViewController(withIdentifier: Identifiers.alertVC) as? AlertVC else { return }
+        alert.configureAlertWithBtn(targetView: targetView,
+                                    alertType: alertType,
+                                    leftBtnAction: leftBtnAction,
+                                    rightBtnAction: rightBtnAction,
+                                    keepWatchBtnAction: keepWatchBtnAction)
+        alert.modalPresentationStyle = .overFullScreen
+        present(alert, animated: false, completion: nil)
+    }
+    
     func popupToast(toastType: ToastType) {
         let toastView = ToastView(frame: CGRect(x: 20, y: -46, width: UIScreen.main.bounds.size.width - 40, height: 46))
         toastView.message.text = toastType.message
