@@ -157,7 +157,7 @@ extension LoginVC {
             
             /// 시뮬레이터 테스트를 위한 임시 로그인
             guard let self = self else { return }
-            UserDefaults.standard.set("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTQzMjIyNjEsImV4cCI6MTY1NjkxNDI2MSwiaXNzIjoiYXJ0aXF1ZSJ9.9Wdk-_nT18sJK5DRBS86VacX1y1oQYp83kTg3zPYSBk", forKey: UserDefaults.Keys.refreshToken)
+            UserDefaults.standard.set("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTQzNjY3NzcsImV4cCI6MTY1Njk1ODc3NywiaXNzIjoiYXJ0aXF1ZSJ9.0y6cosJ6RtozAx7Dbcj6uIjT81rkPqzkgT9yDCkeQP4", forKey: UserDefaults.Keys.refreshToken)
             self.requestRenewalToken() { _ in }
             self.navigator?.instantiateVC(destinationViewControllerType: ARtiqueTBC.self, useStoryboard: false, storyboardName: "", naviType: .present, modalPresentationStyle: .fullScreen) { destination in }
         }
