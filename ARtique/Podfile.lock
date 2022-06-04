@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.5.0)
+  - Alamofire (5.6.1)
   - DynamicBottomSheet (1.0.2):
     - RxCocoa (~> 6.0)
     - RxGesture (~> 4.0)
@@ -156,7 +156,7 @@ PODS:
     - RxSwift (= 6.1.0)
   - RxSwift (6.1.0)
   - SnapKit (5.0.1)
-  - Tabman (2.11.1):
+  - Tabman (2.12.0):
     - Pageboy (~> 3.6.0)
   - Then (2.7.0)
 
@@ -220,7 +220,7 @@ SPEC REPOS:
     - Then
 
 SPEC CHECKSUMS:
-  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
+  Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
   DynamicBottomSheet: b11ead81bf8ee494b26cbd16ff2312313e90d9e3
   Firebase: a876fadc5ea653a377693376fd4f885c62704512
   FirebaseAnalytics: ea4f6f4b604a20b4de4d3c7f7a2cb51d9a989040
@@ -254,7 +254,7 @@ SPEC CHECKSUMS:
   RxRelay: 483e1a19fad961b41f0b0c0bee506f46c1ae14fe
   RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
+  Tabman: 447a50447ed2869c39ab3b1a779327e43e067c4e
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
 PODFILE CHECKSUM: 5d2174865f6b3015da88d4e16d4b51516bf4f706
