@@ -85,8 +85,8 @@ class ARGalleryVC: BaseVC {
     }
     
     @IBAction func dismissBtnDidTap(_ sender: UIButton) {
-        Vibration.warning.vibrate()
-        popupAlert(targetView: ARGalleryVC(), alertType: .seeTicketbook, image: nil, leftBtnAction: #selector(dismissToRoot), rightBtnAction: #selector(goToTicketbookVC))
+        Vibration.success.vibrate()
+        popupAlertWithBtn(targetView: ARGalleryVC(), alertType: .seeTicketbook, leftBtnAction: #selector(dismissToRoot), rightBtnAction: #selector(goToTicketbookVC), keepWatchBtnAction: #selector(dismissAlert))
     }
     
     @IBAction func likeBtnDidTap(_ sender: UIButton) {

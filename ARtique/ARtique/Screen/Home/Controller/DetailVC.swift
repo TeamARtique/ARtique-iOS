@@ -142,6 +142,7 @@ extension DetailVC {
         let delete = UIAction(title: "삭제",
                               image: UIImage(named: "Delete"),
                               handler: { _ in
+            Vibration.medium.vibrate()
             self.popupAlertWithTitle(targetView: self,
                                      alertType: .deleteExhibition,
                                      title: "'\(self.exhibitionData?.exhibition.title ?? "")' ",

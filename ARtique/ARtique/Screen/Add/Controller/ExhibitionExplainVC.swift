@@ -282,6 +282,7 @@ extension ExhibitionExplainVC {
             || exhibitionExplainTextView.text != exhibitionData?.description
             || selectedTags() != exhibitionData?.tag
             || categoryCV.indexPathsForSelectedItems?.first?.row != exhibitionData?.category {
+            Vibration.medium.vibrate()
             popupAlert(targetView: self,
                        alertType: .cancelEdit,
                        image: nil,
