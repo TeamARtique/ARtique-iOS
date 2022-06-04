@@ -179,6 +179,10 @@
 		3330E48E2846791400896138 /* Signup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3330E48D2846791400896138 /* Signup.storyboard */; };
 		3330E4902846793400896138 /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3330E48F2846793400896138 /* SignupVC.swift */; };
 		334E737127FB66B5001BAF25 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E737027FB66B5001BAF25 /* LoginVC.swift */; };
+		33530C47284A92BB009DF045 /* TicketBook.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33530C46284A92BB009DF045 /* TicketBook.storyboard */; };
+		33530C49284AA42B009DF045 /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 33530C48284AA42A009DF045 /* loading.gif */; };
+		33530C51284ABBDB009DF045 /* EmptyCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33530C50284ABBDB009DF045 /* EmptyCVC.swift */; };
+		33530C53284ABE5C009DF045 /* Adjusted+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33530C52284ABE5C009DF045 /* Adjusted+.swift */; };
 		3358C55F2837985800A46D61 /* TicketBookDimmedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358C55E2837985800A46D61 /* TicketBookDimmedVC.swift */; };
 		33644D32284894C60029FF77 /* Vibrate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33644D31284894C60029FF77 /* Vibrate.swift */; };
 		33644D3A28493DD70029FF77 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33644D3928493DD70029FF77 /* GoogleService-Info.plist */; };
@@ -376,6 +380,10 @@
 		3330E48F2846793400896138 /* SignupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
 		334E737027FB66B5001BAF25 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		3350596D27E5CC8C0088B708 /* GalleryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryType.swift; sourceTree = "<group>"; };
+		33530C46284A92BB009DF045 /* TicketBook.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TicketBook.storyboard; sourceTree = "<group>"; };
+		33530C48284AA42A009DF045 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
+		33530C50284ABBDB009DF045 /* EmptyCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCVC.swift; sourceTree = "<group>"; };
+		33530C52284ABE5C009DF045 /* Adjusted+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Adjusted+.swift"; sourceTree = "<group>"; };
 		3358C55E2837985800A46D61 /* TicketBookDimmedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDimmedVC.swift; sourceTree = "<group>"; };
 		33644D31284894C60029FF77 /* Vibrate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibrate.swift; sourceTree = "<group>"; };
 		33644D3928493DD70029FF77 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -608,6 +616,7 @@
 				3305F7A92754E61F00E6E08E /* Info.plist */,
 				3305F7302754DABA00E6E08E /* AppDelegate.swift */,
 				3305F7392754DABD00E6E08E /* Assets.xcassets */,
+				33530C48284AA42A009DF045 /* loading.gif */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -689,6 +698,7 @@
 				33083C4228199B560038886B /* String+.swift */,
 				33BA558228310C3B00BC1658 /* UIIImage+.swift */,
 				23D4CFC22831839B0012765A /* Date+.swift */,
+				33530C52284ABE5C009DF045 /* Adjusted+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1076,9 +1086,18 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		33530C45284A92AD009DF045 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				33530C46284A92BB009DF045 /* TicketBook.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
 		3366F451283444820020C468 /* TicketBook */ = {
 			isa = PBXGroup;
 			children = (
+				33530C45284A92AD009DF045 /* Storyboard */,
 				331EEB03283499E400A726AF /* Controller */,
 				3366F453283444FB0020C468 /* Cell */,
 			);
@@ -1090,6 +1109,7 @@
 			children = (
 				3366F4562834453E0020C468 /* TicketCVC.swift */,
 				3366F4582834455C0020C468 /* TicketHeaderCVC.swift */,
+				33530C50284ABBDB009DF045 /* EmptyCVC.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1223,6 +1243,7 @@
 				239BA0F628476A61002A7839 /* ArtworkSelectVC.storyboard in Resources */,
 				3305F78E2754E34B00E6E08E /* Home.storyboard in Resources */,
 				23B52A9427E1131C00D6C339 /* ThemeCVC.xib in Resources */,
+				33530C47284A92BB009DF045 /* TicketBook.storyboard in Resources */,
 				232E76DC281406E700E7CF39 /* NoneExhibition.storyboard in Resources */,
 				23B52A9027E1013E00D6C339 /* RoundCVC.xib in Resources */,
 				3305F7332754DABA00E6E08E /* art.scnassets in Resources */,
@@ -1259,6 +1280,7 @@
 				2395FBA227563A9700D3DB77 /* Detail.storyboard in Resources */,
 				2383787D280AFBBC002088E6 /* Search.storyboard in Resources */,
 				235650DE27FA031F0082E048 /* AlbumListTVC.storyboard in Resources */,
+				33530C49284AA42B009DF045 /* loading.gif in Resources */,
 				231D2BDB2849296300DB471F /* Onboarding.storyboard in Resources */,
 				3330E48E2846791400896138 /* Signup.storyboard in Resources */,
 				23B52A7927E0A54D00D6C339 /* AddExhibition.storyboard in Resources */,
@@ -1385,6 +1407,7 @@
 				3305F78C2754E31000E6E08E /* ARtiqueTBC.swift in Sources */,
 				23C9AD692801CB2100DFF5A2 /* MypageClassificationTVC.swift in Sources */,
 				331C8E3A283CE2BE00764BB9 /* PublicAPI.swift in Sources */,
+				33530C53284ABE5C009DF045 /* Adjusted+.swift in Sources */,
 				33083C2B281984210038886B /* LoginDataModel.swift in Sources */,
 				2395FBA427563AA500D3DB77 /* DetailVC.swift in Sources */,
 				33083C4328199B560038886B /* String+.swift in Sources */,
@@ -1407,6 +1430,7 @@
 				33A463F3282B017C0049F0AF /* ARGalleryDataModel.swift in Sources */,
 				23071DB727ECF5A100949BA1 /* CategoryType.swift in Sources */,
 				33083C28281983010038886B /* BaseAPI.swift in Sources */,
+				33530C51284ABBDB009DF045 /* EmptyCVC.swift in Sources */,
 				3305F7852754E27300E6E08E /* TypeOfViewController.swift in Sources */,
 				33083C3C28198B0A0038886B /* BaseVC.swift in Sources */,
 				23C9AD662801C8BB00DFF5A2 /* ExhibitionCVC.swift in Sources */,

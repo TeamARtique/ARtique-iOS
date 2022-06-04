@@ -58,10 +58,11 @@ class MypageVC: BaseVC {
     }
     
     @IBAction func showTicketBook(_ sender: Any) {
-        let ticketbookVC = TicketBookVC()
-        ticketbookVC.hidesBottomBarWhenPushed = true
-        ticketbookVC.naviType = .push
-        navigationController?.pushViewController(ticketbookVC, animated: true)
+        guard let ticketBookVC = UIStoryboard(name: Identifiers.ticketBookSB, bundle: nil).instantiateViewController(withIdentifier: TicketBookVC.className) as? TicketBookVC else { return }
+
+        ticketBookVC.hidesBottomBarWhenPushed = true
+        ticketBookVC.naviType = .push
+        navigationController?.pushViewController(ticketBookVC, animated: true)
     }
 }
 

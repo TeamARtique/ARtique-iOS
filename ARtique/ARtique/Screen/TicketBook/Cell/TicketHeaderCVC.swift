@@ -61,7 +61,13 @@ extension TicketHeaderCVC {
 // MARK: - Custom Methods
 extension TicketHeaderCVC {
     func setData(model: [TicketListModel]) {
-        titleLabel.text = (UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) ?? "") + "ARTI\n벌써 \(model.count)개의 티켓을 모았어요!"
+        let labelString = model.isEmpty ? "아직 모아 둔 티켓이 없어요." : "\(model.count)개의 티켓을 모았어요!"
+        
+        let text = (UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) ?? "") + "ARTI\n" + labelString
+        let attributedStr = NSMutableAttributedString(string: text)
+        attributedStr.addAttribute(.font, value: UIFont.AppleSDGothicSB(size: 15), range: (text as NSString).range(of: (UserDefaults.standard.string(forKey: UserDefaults.Keys.nickname) ?? "") + "ARTI"))
+        
+        titleLabel.attributedText = attributedStr
     }
     
     /// 삭제 모드에 따라 뷰의 opacity를 설정하는 메서드
