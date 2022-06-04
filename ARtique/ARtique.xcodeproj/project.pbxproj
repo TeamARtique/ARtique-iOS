@@ -183,6 +183,8 @@
 		33530C49284AA42B009DF045 /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 33530C48284AA42A009DF045 /* loading.gif */; };
 		33530C51284ABBDB009DF045 /* EmptyCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33530C50284ABBDB009DF045 /* EmptyCVC.swift */; };
 		33530C53284ABE5C009DF045 /* Adjusted+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33530C52284ABE5C009DF045 /* Adjusted+.swift */; };
+		33530C55284AF8FB009DF045 /* ARDescVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33530C54284AF8FB009DF045 /* ARDescVC.swift */; };
+		33530C57284AF998009DF045 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33530C56284AF998009DF045 /* PresentationController.swift */; };
 		3358C55F2837985800A46D61 /* TicketBookDimmedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358C55E2837985800A46D61 /* TicketBookDimmedVC.swift */; };
 		33644D32284894C60029FF77 /* Vibrate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33644D31284894C60029FF77 /* Vibrate.swift */; };
 		33644D3A28493DD70029FF77 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33644D3928493DD70029FF77 /* GoogleService-Info.plist */; };
@@ -384,6 +386,8 @@
 		33530C48284AA42A009DF045 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
 		33530C50284ABBDB009DF045 /* EmptyCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCVC.swift; sourceTree = "<group>"; };
 		33530C52284ABE5C009DF045 /* Adjusted+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Adjusted+.swift"; sourceTree = "<group>"; };
+		33530C54284AF8FB009DF045 /* ARDescVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDescVC.swift; sourceTree = "<group>"; };
+		33530C56284AF998009DF045 /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
 		3358C55E2837985800A46D61 /* TicketBookDimmedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBookDimmedVC.swift; sourceTree = "<group>"; };
 		33644D31284894C60029FF77 /* Vibrate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibrate.swift; sourceTree = "<group>"; };
 		33644D3928493DD70029FF77 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1154,6 +1158,8 @@
 				235583FD2767A6C70046C3EE /* FocusSquare */,
 				231EF8502763DCF4008218CC /* PlaneVC.swift */,
 				33AC27892763D27200E0765A /* ARGalleryVC.swift */,
+				33530C54284AF8FB009DF045 /* ARDescVC.swift */,
+				33530C56284AF998009DF045 /* PresentationController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1365,6 +1371,7 @@
 				23D4CFBF2831205B0012765A /* HomeListService.swift in Sources */,
 				334E737127FB66B5001BAF25 /* LoginVC.swift in Sources */,
 				23D4CFC32831839B0012765A /* Date+.swift in Sources */,
+				33530C55284AF8FB009DF045 /* ARDescVC.swift in Sources */,
 				3305F7812754E23F00E6E08E /* UIButton+.swift in Sources */,
 				23D4CFB8283117FE0012765A /* ExhibitionModel.swift in Sources */,
 				331C8E3E283CE52800764BB9 /* Bookmarked.swift in Sources */,
@@ -1466,6 +1473,7 @@
 				23612897283219320097896B /* PosterTheme.swift in Sources */,
 				236FA17C281ED66500E819FE /* AlertType.swift in Sources */,
 				23D4CFC12831218B0012765A /* HomeAPI.swift in Sources */,
+				33530C57284AF998009DF045 /* PresentationController.swift in Sources */,
 				235610022832BAB000176D66 /* ExhibitionDetailAPI.swift in Sources */,
 				23071DBA27ECFBAB00949BA1 /* ExhibitionExplainVC.swift in Sources */,
 				33083C35281985000038886B /* Like.swift in Sources */,
