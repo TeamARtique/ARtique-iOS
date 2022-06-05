@@ -176,10 +176,6 @@ extension AddExhibitionVC {
         }
     }
     
-    @objc func dismissAlert() {
-        dismiss(animated: false, completion: nil)
-    }
-    
     @objc func registerCancel() {
         removeAllExhibitionData()
         dismiss(animated: false) {
@@ -340,6 +336,7 @@ extension AddExhibitionVC {
                 exhibitionModel.posterImage = makePoster(posterBase: posterBase ?? UIImage(named: "DefaultPoster")!,
                                                          posterTheme: exhibitionModel.posterTheme ?? 0,
                                                          title: exhibitionModel.title ?? "")
+                Vibration.error.vibrate()
                 popupAlert(targetView: self,
                            alertType: .registerExhibition,
                            image: exhibitionModel.posterImage,
@@ -360,6 +357,7 @@ extension AddExhibitionVC {
         case 0:
             if exhibitionModel.gallerySize != nil
                 || exhibitionModel.galleryTheme != nil {
+                Vibration.warning.vibrate()
                 popupAlert(targetView: self,
                            alertType: .removeAllExhibition,
                            image: nil,
@@ -370,6 +368,7 @@ extension AddExhibitionVC {
             }
         case 1:
             if !artworkSelectView.selectedImages.isEmpty {
+                Vibration.warning.vibrate()
                 popupAlert(targetView: self,
                            alertType: .removeAllPhotos,
                            image: nil,

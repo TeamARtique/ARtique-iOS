@@ -100,7 +100,7 @@ extension ArtistProfileVC: UICollectionViewDataSource {
             headerView.configureArtistData(artist: artist)
             return headerView
         default:
-            assert(false)
+            return UICollectionReusableView()
         }
     }
 }

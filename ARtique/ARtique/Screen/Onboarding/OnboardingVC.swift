@@ -40,6 +40,7 @@ class OnboardingVC: BaseVC {
         configureScrollView()
         configurePageController()
         configureButtons()
+        UserDefaults.standard.set(true, forKey: UserDefaults.Keys.completeOnboarding)
     }
     
     override func viewDidLayoutSubviews() {

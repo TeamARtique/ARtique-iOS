@@ -28,7 +28,6 @@ target 'ARtique' do
   # Firebase
   pod 'FirebaseAnalytics'
   pod 'Firebase/Storage'
-  pod 'FirebaseMessaging'
   pod 'Firebase/Core'
 
 end
