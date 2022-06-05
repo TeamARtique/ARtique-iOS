@@ -94,13 +94,14 @@ extension HomeHorizontalTVC: UICollectionViewDataSource {
         ? cell.configureCell(exhibitionData?.forArtiExhibition[indexPath.row] ?? ExhibitionModel())
         : cell.configureCell(exhibitionData?.popularExhibition[indexPath.row] ?? ExhibitionModel())
         
-        /// 처음 로드될 때 현재 셀 아니면 사이즈 줄이기  -> scrollViewDidScroll이랑 중복, 수정 요망
-        if indexPath.row != 0 {
+        /// 처음 로드될 때 현재 셀 아니면 사이즈 줄이기
+        if indexPath.row != Int(currentIndex) {
             animateZoomforCellremove(zoomCell: cell)
         }
         return cell
     }
 }
+
 // MARK: UICollectionViewDelegate
 extension HomeHorizontalTVC: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -164,6 +165,7 @@ extension HomeHorizontalTVC: UICollectionViewDelegate{
         }
     }
 }
+
 // MARK: UICollectionViewDelegateFlowLayout
 extension HomeHorizontalTVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
