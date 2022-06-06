@@ -120,10 +120,6 @@ extension SettingVC {
             self.postWithdrawal()
         }
     }
-    
-    @objc func dismissAlert() {
-        dismiss(animated: false, completion: nil)
-    }
 }
 
 // MARK: - Network

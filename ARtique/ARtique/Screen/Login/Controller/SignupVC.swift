@@ -222,10 +222,6 @@ extension SignupVC {
                        rightBtnAction: #selector(dismissAlert))
         }
     }
-    
-    @objc func dismissAlert() {
-        dismiss(animated: false, completion: nil)
-    }
 }
 
 // MARK: - Network

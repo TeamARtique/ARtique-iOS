@@ -57,6 +57,10 @@ class TicketCVC: BaseCell {
     var isDeleteMode: Bool?
     var tapDeleteBtnAction: (() -> ())?
     
+    override func prepareForReuse() {
+        maskedImageView.image = nil
+    }
+    
     override func setupViews() {
         configrueUI()
         setUpDeleteBtn()

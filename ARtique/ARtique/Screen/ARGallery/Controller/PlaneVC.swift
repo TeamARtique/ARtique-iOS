@@ -49,7 +49,7 @@ class PlaneVC: UIViewController {
         resetTracking()
         sceneView.session.delegate = self
         UIApplication.shared.isIdleTimerDisabled = true
-        sceneView.showsStatistics = true
+        sceneView.showsStatistics = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {

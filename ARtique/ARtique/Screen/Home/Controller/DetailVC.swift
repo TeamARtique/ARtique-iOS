@@ -142,6 +142,7 @@ extension DetailVC {
         let delete = UIAction(title: "삭제",
                               image: UIImage(named: "Delete"),
                               handler: { _ in
+            Vibration.medium.vibrate()
             self.popupAlertWithTitle(targetView: self,
                                      alertType: .deleteExhibition,
                                      title: "'\(self.exhibitionData?.exhibition.title ?? "")' ",
@@ -299,10 +300,6 @@ extension DetailVC {
         activityVC.popoverPresentationController?.sourceView = self.view
         
         self.present(activityVC, animated: true, completion: nil)
-    }
-    
-    @objc func dismissAlert() {
-        dismiss(animated: false, completion: nil)
     }
     
     @objc func removeExhibition() {

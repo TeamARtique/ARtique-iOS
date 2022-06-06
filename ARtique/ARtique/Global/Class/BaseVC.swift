@@ -45,7 +45,6 @@ extension BaseVC {
         UserDefaults.standard.set(userEmail, forKey: UserDefaults.Keys.userEmail)
         UserDefaults.standard.set(nickname, forKey: UserDefaults.Keys.nickname)
         UserDefaults.standard.set(refreshToken, forKey: UserDefaults.Keys.refreshToken)
-        UserDefaults.standard.set(false, forKey: UserDefaults.Keys.reconnect)
     }
     
     /// 로그아웃 시 유저의 정보를 삭제하는 메서드
@@ -55,7 +54,6 @@ extension BaseVC {
         UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.nickname)
         UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.refreshToken)
         UserDefaults.standard.set(nil, forKey: UserDefaults.Keys.completeSignup)
-        UserDefaults.standard.set(true, forKey: UserDefaults.Keys.reconnect)
     }
     
     @objc func popVC() {
@@ -75,6 +73,10 @@ extension BaseVC {
             
             window?.rootViewController?.dismiss(animated: true)
         }
+    }
+    
+    @objc func dismissAlert() {
+        dismiss(animated: false, completion: nil)
     }
     
     /// 데이터만 reload 되고 tableView가 위로 스크롤 되지 않게 하는 함수

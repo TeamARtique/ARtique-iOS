@@ -13,6 +13,6 @@ extension UserDefaults {
         static var nickname = "nickname"
         static var refreshToken = "refreshToken"
         static var completeSignup = "completeSignup"
-        static var reconnect = "reconnect"
+        static var completeOnboarding = "completeOnboarding"
     }
 }

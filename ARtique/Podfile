@@ -14,6 +14,7 @@ target 'ARtique' do
   pod 'Moya'
   pod 'Kingfisher', '~> 7.0'
   pod 'lottie-ios'
+  pod 'Gifu'
 
   # Rx
   pod 'RxSwift', '< 6.2.0'
@@ -27,7 +28,6 @@ target 'ARtique' do
   # Firebase
   pod 'FirebaseAnalytics'
   pod 'Firebase/Storage'
-  pod 'FirebaseMessaging'
   pod 'Firebase/Core'
 
 end

@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="w28-RH-cEq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="w28-RH-cEq">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="AppleSDGothicNeoB.ttf">
+            <string>AppleSDGothicNeoB00</string>
+        </array>
+        <array key="AppleSDGothicNeoL.ttf">
+            <string>AppleSDGothicNeoL00</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--GalleryVC-->
         <scene sceneID="s0d-6b-0kx">
@@ -94,6 +102,97 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="112.5"/>
+        </scene>
+        <!--DescVC-->
+        <scene sceneID="qPi-f8-S0C">
+            <objects>
+                <viewController storyboardIdentifier="ARDescVC" id="ASN-Jj-rOy" customClass="ARDescVC" customModule="ARtique" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Xjz-l2-qx2">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asb-rk-WXL">
+                                <rect key="frame" x="0.0" y="616" width="414" height="280"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z5Q-Ip-m1Y">
+                                        <rect key="frame" x="20" y="203" width="374" height="43"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="43" id="dVg-TX-cug"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeoB00" family="AppleSDGothicNeoB00" pointSize="16"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="계속 관람하기">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="seeARBtnDidTap:" destination="ASN-Jj-rOy" eventType="touchUpInside" id="cC1-QF-G5T"/>
+                                        </connections>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NdQ-MV-7lB">
+                                        <rect key="frame" x="20" y="36" width="374" height="148"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xjc-WP-ckJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="44" id="7Tm-gf-OUT"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="AppleSDGothicNeoB00" family="AppleSDGothicNeoB00" pointSize="18"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DQ3-9Z-ro8">
+                                                <rect key="frame" x="0.0" y="44" width="374" height="1"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="T1J-y0-XX2"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGe-dg-bZX">
+                                                <rect key="frame" x="0.0" y="45" width="374" height="103"/>
+                                                <fontDescription key="fontDescription" name="AppleSDGothicNeoL00" family="AppleSDGothicNeoL00" pointSize="14"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="xjc-WP-ckJ" firstAttribute="top" secondItem="NdQ-MV-7lB" secondAttribute="top" id="aGw-ZC-a7T"/>
+                                            <constraint firstAttribute="trailing" secondItem="xjc-WP-ckJ" secondAttribute="trailing" id="nXp-jH-TWO"/>
+                                            <constraint firstItem="xjc-WP-ckJ" firstAttribute="leading" secondItem="NdQ-MV-7lB" secondAttribute="leading" id="v9r-vF-AtX"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="280" id="3uw-bL-tJ8"/>
+                                    <constraint firstItem="NdQ-MV-7lB" firstAttribute="top" secondItem="asb-rk-WXL" secondAttribute="top" constant="36" id="85j-dn-zld"/>
+                                    <constraint firstAttribute="trailing" secondItem="NdQ-MV-7lB" secondAttribute="trailing" constant="20" id="9l2-cY-Ic2"/>
+                                    <constraint firstAttribute="bottom" secondItem="Z5Q-Ip-m1Y" secondAttribute="bottom" constant="34" id="DrQ-1G-z09"/>
+                                    <constraint firstAttribute="trailing" secondItem="Z5Q-Ip-m1Y" secondAttribute="trailing" constant="20" id="Ho1-He-m3F"/>
+                                    <constraint firstItem="NdQ-MV-7lB" firstAttribute="leading" secondItem="asb-rk-WXL" secondAttribute="leading" constant="20" id="lkN-10-EFP"/>
+                                    <constraint firstItem="Z5Q-Ip-m1Y" firstAttribute="top" secondItem="NdQ-MV-7lB" secondAttribute="bottom" constant="19" id="oJc-0i-hzJ"/>
+                                    <constraint firstItem="Z5Q-Ip-m1Y" firstAttribute="leading" secondItem="asb-rk-WXL" secondAttribute="leading" constant="20" id="px9-am-c2C"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="fa1-uc-eEt"/>
+                        <constraints>
+                            <constraint firstItem="fa1-uc-eEt" firstAttribute="trailing" secondItem="asb-rk-WXL" secondAttribute="trailing" id="4QB-iF-gnu"/>
+                            <constraint firstAttribute="bottom" secondItem="asb-rk-WXL" secondAttribute="bottom" id="BmQ-hL-FcM"/>
+                            <constraint firstItem="asb-rk-WXL" firstAttribute="leading" secondItem="fa1-uc-eEt" secondAttribute="leading" id="ZPp-D5-Ogr"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backView" destination="asb-rk-WXL" id="PZn-1J-Iau"/>
+                        <outlet property="betweenView" destination="DQ3-9Z-ro8" id="v1h-tU-Szf"/>
+                        <outlet property="descLabel" destination="fGe-dg-bZX" id="ACP-rY-e6r"/>
+                        <outlet property="seeARBtn" destination="Z5Q-Ip-m1Y" id="eZE-lu-oiE"/>
+                        <outlet property="titleLabel" destination="xjc-WP-ckJ" id="Tpn-hF-2cf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h3h-ey-pXX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="831.88405797101461" y="122.54464285714285"/>
         </scene>
         <!--PlaneVC-->
         <scene sceneID="byh-7f-cut">
