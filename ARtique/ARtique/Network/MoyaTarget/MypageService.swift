@@ -13,6 +13,8 @@ enum MypageService {
     case editProfile(artist: ArtistModel)
     case getArtistProfile(artistID: Int)
     case postWithdrawal
+    case getMyExhibition
+    case getBookmarkedExhibition
 }
 
 extension MypageService: TargetType {
@@ -30,12 +32,16 @@ extension MypageService: TargetType {
             return "/artist/\(artistID)"
         case .postWithdrawal:
             return "/user/delete"
+        case .getMyExhibition:
+            return "/mypage/exhibition"
+        case .getBookmarkedExhibition:
+            return "/mypage/bookmark"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getMypageData, .getArtistProfile:
+        case .getMypageData, .getArtistProfile, .getMyExhibition, .getBookmarkedExhibition:
             return .get
         case .editProfile:
             return .put
@@ -46,7 +52,7 @@ extension MypageService: TargetType {
     
     var task: Task {
         switch self {
-        case .getMypageData, .getArtistProfile, .postWithdrawal:
+        case .getMypageData, .getArtistProfile, .postWithdrawal, .getMyExhibition, .getBookmarkedExhibition:
             return .requestPlain
         case .editProfile(let artist):
             var multipartData = [MultipartFormData]()

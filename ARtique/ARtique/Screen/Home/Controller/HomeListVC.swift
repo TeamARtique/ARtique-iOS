@@ -28,6 +28,7 @@ class HomeListVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        LoadingHUD.show()
         getExhibitionList(categoryID: categoryType?.categoryId ?? 1)
         configureTopLayout()
     }
@@ -91,7 +92,6 @@ extension HomeListVC{
 // MARK: - Network
 extension HomeListVC {
     private func getExhibitionList(categoryID: Int) {
-        LoadingHUD.show()
         HomeAPI.shared.getHomeExhibitionList(categoryID: categoryID) { [weak self] networkResult in
             switch networkResult {
             case .success(let list):

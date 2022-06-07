@@ -23,6 +23,8 @@ class MypageVC: BaseVC {
     var artistData: ArtistProfile?
     var registerData: [ExhibitionModel]?
     var bookmarkData: [ExhibitionModel]?
+    var registeredCnt: Int?
+    var bookmarkedCnt: Int?
     var ticketCnt: Int?
     
     override func viewDidLoad() {
@@ -100,7 +102,7 @@ extension MypageVC {
     
     private func configureExhibitionCntBtn() {
         registeredExhibitionBtn.title.text = "등록 전시 수"
-        registeredExhibitionBtn.exhibitionCnt.text = "\(registerData?.count ?? 0)"
+        registeredExhibitionBtn.exhibitionCnt.text = "\(registeredCnt ?? 0)"
         
         ticketBtn.title.text = "내 티켓 수"
         ticketBtn.exhibitionCnt.text = "\(ticketCnt ?? 0)"
@@ -171,6 +173,8 @@ extension MypageVC {
                     self.registerData = data.myExhibition
                     self.bookmarkData = data.myBookmarkedData
                     self.ticketCnt = data.user.ticketCount
+                    self.registeredCnt = data.myExhibitionCount
+                    self.bookmarkedCnt = data.myBookmarkCount
                     self.artistData = data.user
                     self.setUserData(artist: data.user)
                     self.configureExhibitionCntBtn()
@@ -186,6 +190,58 @@ extension MypageVC {
                 } else if res is Bool {
                     self.requestRenewalToken() { _ in
                         self.getMypageData()
+                    }
+                }
+            default:
+                LoadingHUD.hide()
+                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
+    }
+    
+    private func getMyExhibition() {
+        MypageAPI.shared.getMyExhibition { [weak self] networkResult in
+            guard let self = self else { return }
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? [ExhibitionModel] {
+                    self.showExhibitionListVC(title: "등록한 전시 \(self.registeredCnt ?? 0)", data: data)
+                    LoadingHUD.hide()
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    LoadingHUD.hide()
+                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                } else if res is Bool {
+                    self.requestRenewalToken() { _ in
+                        self.getMyExhibition()
+                    }
+                }
+            default:
+                LoadingHUD.hide()
+                self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+            }
+        }
+    }
+    
+    private func getBookmarkedExhibition() {
+        MypageAPI.shared.getBookmarkedExhibition { [weak self] networkResult in
+            guard let self = self else { return }
+            switch networkResult {
+            case .success(let data):
+                if let data = data as? [ExhibitionModel] {
+                    self.showExhibitionListVC(title: "북마크한 전시 \(self.bookmarkedCnt ?? 0)", data: data)
+                    LoadingHUD.hide()
+                }
+            case .requestErr(let res):
+                if let message = res as? String {
+                    print(message)
+                    LoadingHUD.hide()
+                    self.makeAlert(title: "네트워크 오류로 인해\n데이터를 불러올 수 없습니다.\n다시 시도해 주세요.")
+                } else if res is Bool {
+                    self.requestRenewalToken() { _ in
+                        self.getBookmarkedExhibition()
                     }
                 }
             default:
@@ -213,15 +269,15 @@ extension MypageVC: UITableViewDataSource {
         switch indexPath.row {
         case 0:
             !(registerData?.isEmpty ?? true)
-            ? titleCell.configureCell("등록한 전시", registerData?.count ?? 0)
-            : titleCell.configureCell("북마크한 전시", bookmarkData?.count ?? 0)
+            ? titleCell.configureCell("등록한 전시", registeredCnt ?? 0)
+            : titleCell.configureCell("북마크한 전시", bookmarkedCnt ?? 0)
             return titleCell
         case 1:
             exhibitionCell.exhibitionData = !(registerData?.isEmpty ?? true)
             ? registerData : bookmarkData
             return exhibitionCell
         case 2:
-            titleCell.configureCell("북마크한 전시", bookmarkData?.count ?? 0)
+            titleCell.configureCell("북마크한 전시", bookmarkedCnt ?? 0)
             return titleCell
         case 3:
             exhibitionCell.exhibitionData = bookmarkData
@@ -239,9 +295,11 @@ extension MypageVC: UITableViewDelegate {
         
         switch cell.exhibitionType.text {
         case "등록한 전시":
-            showExhibitionListVC(title: "등록한 전시 \(registerData?.count ?? 0)", data: registerData ?? [ExhibitionModel]())
+            LoadingHUD.show()
+            getMyExhibition()
         case "북마크한 전시":
-            showExhibitionListVC(title: "북마크한 전시 \(bookmarkData?.count ?? 0)", data: bookmarkData ?? [ExhibitionModel]())
+            LoadingHUD.show()
+            getBookmarkedExhibition()
         default:
             break
         }
