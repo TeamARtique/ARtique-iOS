@@ -186,9 +186,8 @@ extension BaseVC {
     func logoutAndPresentToLoginVC() {
         /// ❎ 로그아웃시 저장된 Userdefaults 삭제 후 로그인 창으로 이동
         self.deleteUserInfo()
-        let loginVC = LoginVC()
-        loginVC.modalPresentationStyle = .fullScreen
-        self.present(loginVC, animated: true, completion: nil)
+        let ad = UIApplication.shared.delegate as! AppDelegate
+        ad.window?.rootViewController = LoginVC()
     }
 }
 

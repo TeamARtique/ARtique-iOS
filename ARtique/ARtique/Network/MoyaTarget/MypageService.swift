@@ -12,6 +12,7 @@ enum MypageService {
     case getMypageData
     case editProfile(artist: ArtistModel)
     case getArtistProfile(artistID: Int)
+    case postWithdrawal
     case getMyExhibition
     case getBookmarkedExhibition
 }
@@ -29,6 +30,8 @@ extension MypageService: TargetType {
             return "/mypage/profile"
         case .getArtistProfile(let artistID):
             return "/artist/\(artistID)"
+        case .postWithdrawal:
+            return "/user/delete"
         case .getMyExhibition:
             return "/mypage/exhibition"
         case .getBookmarkedExhibition:
@@ -42,12 +45,14 @@ extension MypageService: TargetType {
             return .get
         case .editProfile:
             return .put
+        case .postWithdrawal:
+            return .post
         }
     }
     
     var task: Task {
         switch self {
-        case .getMypageData, .getArtistProfile, .getMyExhibition, .getBookmarkedExhibition:
+        case .getMypageData, .getArtistProfile, .postWithdrawal, .getMyExhibition, .getBookmarkedExhibition:
             return .requestPlain
         case .editProfile(let artist):
             var multipartData = [MultipartFormData]()

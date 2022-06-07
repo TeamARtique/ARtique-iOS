@@ -58,6 +58,20 @@ extension MypageAPI {
         }
     }
     
+    func postWithdrawal(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        provider.request(.postWithdrawal) { result in
+            switch result {
+            case .success(let response):
+                let statusCode = response.statusCode
+                let data = response.data
+                
+                completion(self.judgeStatus(type: String.self, by: statusCode, data))
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+                
     func getMyExhibition(completion: @escaping (NetworkResult<Any>) -> (Void)) {
         provider.request(.getMyExhibition) { result in
             switch result {
