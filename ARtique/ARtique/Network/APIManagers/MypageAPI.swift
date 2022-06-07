@@ -57,4 +57,32 @@ extension MypageAPI {
             }
         }
     }
+    
+    func getMyExhibition(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        provider.request(.getMyExhibition) { result in
+            switch result {
+            case .success(let response):
+                let statusCode = response.statusCode
+                let data = response.data
+                
+                completion(self.judgeStatus(type: [ExhibitionModel].self, by: statusCode, data))
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func getBookmarkedExhibition(completion: @escaping (NetworkResult<Any>) -> (Void)) {
+        provider.request(.getBookmarkedExhibition) { result in
+            switch result {
+            case .success(let response):
+                let statusCode = response.statusCode
+                let data = response.data
+                
+                completion(self.judgeStatus(type: [ExhibitionModel].self, by: statusCode, data))
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+    }
 }

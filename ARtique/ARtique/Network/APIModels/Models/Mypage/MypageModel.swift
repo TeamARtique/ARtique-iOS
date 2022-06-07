@@ -9,6 +9,8 @@ import Foundation
 
 struct MypageModel: Codable {
     let user: ArtistProfile
+    let myExhibitionCount: Int
     let myExhibition: [ExhibitionModel]
+    let myBookmarkCount: Int
     let myBookmarkedData : [ExhibitionModel]
 }
